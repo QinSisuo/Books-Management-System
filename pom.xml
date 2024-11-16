@@ -113,7 +113,7 @@
 
     <build>
         <plugins>
-            <!-- jettyæ’ä»¶ -->
+            <!-- jetty²å¼þ -->
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
