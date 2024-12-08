@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD MyBatis Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
-    <!-- 配置全局设置 -->
+    <!-- 全局配置 -->
     <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 开启驼峰命名法映射 -->
-        <setting name="cacheEnabled" value="true"/> <!-- 启用二级缓存 -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
 
-    <!-- 配置 MyBatis 映射文件的位置 -->
+    <!-- Mapper 文件注册 -->
     <mappers>
-
-            <package name="com.book.dao/*"/>
-        <!--        <mapper resource="dao/*"/>-->
-<!--&lt;!&ndash;        <mapper resource="com/book/dao/LendDao.xml"/>&ndash;&gt;-->
-<!--        &lt;!&ndash; 其他 DAO 的映射文件 &ndash;&gt;-->
+        <mapper resource="dao/AdminDao.xml" />
+        <mapper resource="dao/BookDao.xml" />
+        <mapper resource="dao/LendDao.xml" />
+        <mapper resource="dao/ReaderCardDao.xml" />
+        <mapper resource="dao/ReaderInfoDao.xml" />
     </mappers>
-
 </configuration>
