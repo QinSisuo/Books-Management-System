@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class ReaderController {
@@ -41,7 +42,7 @@ public class ReaderController {
 
     @RequestMapping("allreaders.html")
     public ModelAndView allBooks(){
-        ArrayList<ReaderInfo> readers=readerInfoService.readerInfos();
+        List<ReaderInfo> readers=readerInfoService.readerInfos();
         ModelAndView modelAndView=new ModelAndView("admin_readers");
         modelAndView.addObject("readers",readers);
         return modelAndView;
@@ -207,7 +208,7 @@ public class ReaderController {
         readerInfo.setSex(sex);
         boolean succ=readerInfoService.addReaderInfo(readerInfo);
         boolean succc=readerCardService.addReaderCard(readerInfo);
-        ArrayList<ReaderInfo> readers=readerInfoService.readerInfos();
+        List<ReaderInfo> readers=readerInfoService.readerInfos();
         if (succ&&succc){
             redirectAttributes.addFlashAttribute("succ", "添加读者信息成功！");
             return "redirect:/allreaders.html";

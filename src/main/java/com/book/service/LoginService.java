@@ -10,21 +10,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService {
-
-    private ReaderCardDao readerCardDao;
-    private ReaderInfoDao readerInfoDao;
-    private AdminDao adminDao;
     @Autowired
+    private ReaderCardDao readerCardDao;
+    @Autowired
+    private ReaderInfoDao readerInfoDao;
+    @Autowired
+    private AdminDao adminDao;
+//    @Autowired
     public void setReaderCardDao(ReaderCardDao readerCardDao) {
         this.readerCardDao = readerCardDao;
     }
 
-    @Autowired
+//    @Autowired
     public void setReaderInfoDao(ReaderInfoDao readerInfoDao) {
         this.readerInfoDao = readerInfoDao;
     }
 
-    @Autowired
+//    @Autowired
     public void setAdminDao(AdminDao adminDao) {
         this.adminDao = adminDao;
     }

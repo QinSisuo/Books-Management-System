@@ -9,39 +9,47 @@ import java.util.ArrayList;
 
 @Service
 public class BookService {
-    private BookDao bookDao;
 
     @Autowired
+    private BookDao bookDao;
+
+
     public void setBookDao(BookDao bookDao) {
         this.bookDao = bookDao;
     }
 
-    public ArrayList<Book> queryBook(String searchWord){
-        return  bookDao.queryBook(searchWord);
+    // 根据搜索词查询匹配的图书
+    public ArrayList<Book> queryBook(String searchWord) {
+        return bookDao.queryBook(searchWord);
     }
 
-    public ArrayList<Book> getAllBooks(){
+    // 获取所有图书
+    public ArrayList<Book> getAllBooks() {
         return bookDao.getAllBooks();
     }
 
-    public int deleteBook(long bookId){
-        return bookDao.deleteBook(bookId);
+    // 删除图书
+    public boolean deleteBook(long bookId) {
+        return bookDao.deleteBook(bookId) > 0;  // 如果删除成功，返回 true
     }
 
-    public boolean matchBook(String searchWord){
-        return bookDao.matchBook(searchWord)>0;
+    // 查询是否有匹配的图书（匹配图书的个数大于 0）
+    public boolean matchBook(String searchWord) {
+        return bookDao.matchBook(searchWord) > 0;
     }
 
-    public boolean addBook(Book book){
-        return bookDao.addBook(book)>0;
+    // 添加图书
+    public boolean addBook(Book book) {
+        return bookDao.addBook(book) > 0;
     }
 
-    public Book getBook(Long bookId){
-        Book book=bookDao.getBook(bookId);
-        return book;
-    }
-    public boolean editBook(Book book){
-        return bookDao.editBook(book)>0;
+    // 根据书号获取图书
+    public Book getBook(Long bookId) {
+        return bookDao.getBook(bookId);
     }
 
+    // 更新图书信息
+    public boolean editBook(Book book) {
+        return bookDao.editBook(book) > 0;
+    }
 }

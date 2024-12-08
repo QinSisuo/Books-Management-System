@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.jws.WebParam;
+//import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
@@ -64,9 +64,9 @@ public class BookController {
     @RequestMapping("/deletebook.html")
     public String deleteBook(HttpServletRequest request,RedirectAttributes redirectAttributes){
         long bookId=Integer.parseInt(request.getParameter("bookId"));
-        int res=bookService.deleteBook(bookId);
+        boolean res=bookService.deleteBook(bookId);
 
-        if (res==1){
+        if (res){
             redirectAttributes.addFlashAttribute("succ", "图书删除成功！");
             return "redirect:/allbooks.html";
         }else {

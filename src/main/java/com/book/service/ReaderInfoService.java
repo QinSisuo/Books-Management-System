@@ -5,31 +5,40 @@ import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReaderInfoService {
-
-    private ReaderInfoDao readerInfoDao;
     @Autowired
+    private ReaderInfoDao readerInfoDao;
+
+//    @Autowired
     public void setReaderInfoDao(ReaderInfoDao readerInfoDao) {
         this.readerInfoDao = readerInfoDao;
     }
-    public ArrayList<ReaderInfo> readerInfos(){
+
+    // 获取所有读者信息
+    public List<ReaderInfo> readerInfos() {
         return readerInfoDao.getAllReaderInfo();
     }
 
-    public boolean deleteReaderInfo(int readerId){
-        return readerInfoDao.deleteReaderInfo(readerId)>0;
+    // 删除读者信息
+    public boolean deleteReaderInfo(int readerId) {
+        return readerInfoDao.deleteReaderInfo(readerId) > 0;
     }
 
-    public ReaderInfo getReaderInfo(int readerId){
+    // 根据 readerId 获取读者信息
+    public ReaderInfo getReaderInfo(int readerId) {
         return readerInfoDao.findReaderInfoByReaderId(readerId);
     }
-    public boolean editReaderInfo(ReaderInfo readerInfo){
-        return readerInfoDao.editReaderInfo(readerInfo)>0;
+
+    // 编辑读者信息
+    public boolean editReaderInfo(ReaderInfo readerInfo) {
+        return readerInfoDao.editReaderInfo(readerInfo) > 0;
     }
-    public boolean addReaderInfo(ReaderInfo readerInfo){
-        return  readerInfoDao.addReaderInfo(readerInfo)>0;
+
+    // 添加读者信息
+    public boolean addReaderInfo(ReaderInfo readerInfo) {
+        return readerInfoDao.addReaderInfo(readerInfo) > 0;
     }
 }
