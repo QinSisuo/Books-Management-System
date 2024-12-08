@@ -55,11 +55,10 @@ public class ReaderController {
 
         if(success){
             redirectAttributes.addFlashAttribute("succ", "删除成功！");
-            return "redirect:/allreaders.html";
         }else {
             redirectAttributes.addFlashAttribute("error", "删除失败！");
-            return "redirect:/allreaders.html";
         }
+        return "redirect:/allreaders.html";
 
     }
     @RequestMapping("/reader_info.html")
@@ -285,11 +284,10 @@ public class ReaderController {
                 ReaderCard readerCardNew = loginService.findReaderCardByUserId(readerCard.getReaderId());
                 request.getSession().setAttribute("readercard", readerCardNew);
                 redirectAttributes.addFlashAttribute("succ", "信息修改成功！");
-                return "redirect:/reader_info.html";
             }else {
                 redirectAttributes.addFlashAttribute("error", "信息修改失败！");
-                return "redirect:/reader_info.html";
             }
+            return "redirect:/reader_info.html";
         }
 
 

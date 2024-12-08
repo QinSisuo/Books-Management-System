@@ -45,12 +45,11 @@ public class BookController {
         if (exist){
             ArrayList<Book> books = bookService.queryBook(searchWord);
             redirectAttributes.addFlashAttribute("books", books);
-            return "redirect:/reader_querybook.html";
         }
         else{
             redirectAttributes.addFlashAttribute("error", "没有匹配的图书！");
-            return "redirect:/reader_querybook.html";
         }
+        return "redirect:/reader_querybook.html";
 
     }
 
@@ -68,11 +67,10 @@ public class BookController {
 
         if (res){
             redirectAttributes.addFlashAttribute("succ", "图书删除成功！");
-            return "redirect:/allbooks.html";
         }else {
             redirectAttributes.addFlashAttribute("error", "图书删除失败！");
-            return "redirect:/allbooks.html";
         }
+        return "redirect:/allbooks.html";
     }
 
     @RequestMapping("/book_add.html")
@@ -103,12 +101,11 @@ public class BookController {
         ArrayList<Book> books=bookService.getAllBooks();
         if (succ){
             redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
-            return "redirect:/allbooks.html";
         }
         else {
             redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
-            return "redirect:/allbooks.html";
         }
+        return "redirect:/allbooks.html";
     }
 
     @RequestMapping("/updatebook.html")
@@ -141,12 +138,11 @@ public class BookController {
         boolean succ=bookService.editBook(book);
         if (succ){
             redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
-            return "redirect:/allbooks.html";
         }
         else {
             redirectAttributes.addFlashAttribute("error", "图书修改失败！");
-            return "redirect:/allbooks.html";
         }
+        return "redirect:/allbooks.html";
     }
 
 

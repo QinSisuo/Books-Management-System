@@ -39,13 +39,8 @@ public class LendController {
     public String bookLendDo(HttpServletRequest request,RedirectAttributes redirectAttributes,int readerId){
         long bookId=Integer.parseInt(request.getParameter("id"));
         boolean lendsucc=lendService.bookLend(bookId,readerId);
-        if (lendsucc){
-            redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
-            return "redirect:/allbooks.html";
-        }else {
-            redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
-            return "redirect:/allbooks.html";
-        }
+        redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
+        return "redirect:/allbooks.html";
 
 
     }
@@ -56,12 +51,11 @@ public class LendController {
         boolean retSucc=lendService.bookReturn(bookId);
         if (retSucc){
             redirectAttributes.addFlashAttribute("succ", "图书归还成功！");
-            return "redirect:/allbooks.html";
         }
         else {
             redirectAttributes.addFlashAttribute("error", "图书归还失败！");
-            return "redirect:/allbooks.html";
         }
+        return "redirect:/allbooks.html";
     }
 
 

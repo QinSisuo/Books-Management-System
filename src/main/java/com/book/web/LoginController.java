@@ -2,11 +2,9 @@ package com.book.web;
 
 import com.book.domain.Admin;
 import com.book.domain.ReaderCard;
-import com.book.domain.ReaderInfo;
 import com.book.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,8 +48,8 @@ public class LoginController {
         String passwd = request.getParameter("passwd");
                 boolean isReader = loginService.hasMatchReader(id, passwd);
                 boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
-        HashMap<String, String> res = new HashMap<String, String>();
-                if (isAdmin==false&&isReader==false) {
+        HashMap<String, String> res = new HashMap<>();
+                if (!isAdmin && !isReader) {
                     res.put("stateCode", "0");
                     res.put("msg","账号或密码错误！");
                 } else if(isAdmin){
@@ -68,7 +66,7 @@ public class LoginController {
                     res.put("msg","读者登陆成功！");
                 }
         return res;
-    };
+    }
     @RequestMapping("/admin_main.html")
     public ModelAndView toAdminMain(HttpServletResponse response) {
 
@@ -102,23 +100,19 @@ public class LoginController {
             if (succ){
 
                 redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
-                return "redirect:/admin_repasswd.html";
             }
             else {
                 redirectAttributes.addFlashAttribute("error", "密码修改失败！");
-                return "redirect:/admin_repasswd.html";
             }
         }else {
             redirectAttributes.addFlashAttribute("error", "旧密码错误！");
-            return "redirect:/admin_repasswd.html";
         }
-    };
+        return "redirect:/admin_repasswd.html";
+    }
 
     //配置404页面
      @RequestMapping("*")
      public String notFind(){
      return "404";
        }
-
-
 }

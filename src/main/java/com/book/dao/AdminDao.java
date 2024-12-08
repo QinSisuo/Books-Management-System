@@ -11,7 +11,8 @@ public interface AdminDao {
     // 更新管理员密码
     int rePassword(@Param("adminId") int adminId, @Param("newPasswd") String newPasswd);
 
-    // 根据 adminId 获取密码
-    @Select("SELECT password FROM admin WHERE admin_id = #{id}")
+    // 根据 adminId 获取密码（使用 XML 定义，无需注解）
     String getPasswd(int id);
 }
+
+
