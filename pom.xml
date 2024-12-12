@@ -100,11 +100,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- TestNG 测试框架 -->
+        <!-- 使用 JUnit 替代 TestNG -->
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version> <!-- 使用 JUnit 5 最新版本 -->
             <scope>test</scope>
         </dependency>
         <dependency>

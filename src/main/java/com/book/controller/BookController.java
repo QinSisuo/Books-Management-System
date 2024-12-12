@@ -8,65 +8,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-//import javax.jws.WebParam;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
 public class BookController {
-    private BookService bookService;
+
+    private final BookService bookService;
 
     @Autowired
-    public void setBookService(BookService bookService) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
     @RequestMapping("/querybook.html")
-    public ModelAndView queryBookDo(HttpServletRequest request,String searchWord){
-        boolean exist=bookService.matchBook(searchWord);
-        if (exist){
+    public ModelAndView queryBook(String searchWord) {
+        if (bookService.matchBook(searchWord)) {
             ArrayList<Book> books = bookService.queryBook(searchWord);
-            ModelAndView modelAndView = new ModelAndView("admin_books");
-            modelAndView.addObject("books",books);
-            return modelAndView;
+            return buildModelAndView("admin_books").addObject("books", books);
         }
-        else{
-            return new ModelAndView("admin_books","error","没有匹配的图书");
-        }
+        return buildModelAndView("admin_books").addObject("error", "没有匹配的图书");
     }
-    @RequestMapping("/reader_querybook.html")
-    public ModelAndView readerQueryBook(){
-       return new ModelAndView("reader_book_query");
 
+    @RequestMapping("/reader_querybook.html")
+    public ModelAndView readerQueryBook() {
+        return new ModelAndView("reader_book_query");
     }
+
     @RequestMapping("/reader_querybook_do.html")
-    public String readerQueryBookDo(HttpServletRequest request,String searchWord,RedirectAttributes redirectAttributes){
-        boolean exist=bookService.matchBook(searchWord);
-        if (exist){
-            ArrayList<Book> books = bookService.queryBook(searchWord);
-            redirectAttributes.addFlashAttribute("books", books);
-        }
-        else{
+    public String readerQueryBookDo(String searchWord, RedirectAttributes redirectAttributes) {
+        if (bookService.matchBook(searchWord)) {
+            redirectAttributes.addFlashAttribute("books", bookService.queryBook(searchWord));
+        } else {
             redirectAttributes.addFlashAttribute("error", "没有匹配的图书！");
         }
         return "redirect:/reader_querybook.html";
-
     }
 
     @RequestMapping("/allbooks.html")
-    public ModelAndView allBook(){
-        ArrayList<Book> books=bookService.getAllBooks();
-        ModelAndView modelAndView=new ModelAndView("admin_books");
-        modelAndView.addObject("books",books);
-        return modelAndView;
+    public ModelAndView allBooks() {
+        ArrayList<Book> books = bookService.getAllBooks();
+        return buildModelAndView("admin_books").addObject("books", books);
     }
 
     @RequestMapping("/deletebook.html")
-    public String deleteBook(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String deleteBook(long bookId, RedirectAttributes redirectAttributes) {
         try {
-            long bookId = Long.parseLong(request.getParameter("bookId"));
-            boolean res = bookService.deleteBook(bookId);
-            redirectAttributes.addFlashAttribute("succ", res ? "图书删除成功！" : "图书删除失败！");
+            boolean result = bookService.deleteBook(bookId);
+            redirectAttributes.addFlashAttribute("succ", result ? "图书删除成功！" : "图书删除失败！");
         } catch (NumberFormatException e) {
             redirectAttributes.addFlashAttribute("error", "非法的图书 ID！");
         }
@@ -74,98 +62,64 @@ public class BookController {
     }
 
     @RequestMapping("/book_add.html")
-    public ModelAndView addBook(HttpServletRequest request){
-
-            return new ModelAndView("admin_book_add");
-
+    public ModelAndView addBook() {
+        return new ModelAndView("admin_book_add");
     }
 
     @RequestMapping("/book_add_do.html")
-    public String addBookDo(BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes){
-        Book book=new Book();
-        book.setBookId(0);
-        book.setPrice(bookAddCommand.getPrice());
-        book.setState(bookAddCommand.getState());
-        book.setPublish(bookAddCommand.getPublish());
-        book.setPubdate(bookAddCommand.getPubdate());
-        book.setName(bookAddCommand.getName());
-        book.setIsbn(bookAddCommand.getIsbn());
-        book.setClassId(bookAddCommand.getClassId());
-        book.setAuthor(bookAddCommand.getAuthor());
-        book.setIntroduction(bookAddCommand.getIntroduction());
-        book.setPressmark(bookAddCommand.getPressmark());
-        book.setLanguage(bookAddCommand.getLanguage());
-
-
-        boolean succ=bookService.addBook(book);
-        ArrayList<Book> books=bookService.getAllBooks();
-        if (succ){
-            redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
-        }
-        else {
-            redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
-        }
+    public String addBookDo(BookAddCommand bookAddCommand, RedirectAttributes redirectAttributes) {
+        Book book = buildBookFromCommand(bookAddCommand, 0); // bookId = 0 for new books
+        boolean success = bookService.addBook(book);
+        redirectAttributes.addFlashAttribute("succ", success ? "图书添加成功！" : "图书添加失败！");
         return "redirect:/allbooks.html";
     }
 
     @RequestMapping("/updatebook.html")
-    public ModelAndView bookEdit(HttpServletRequest request){
-        long bookId=Integer.parseInt(request.getParameter("bookId"));
-        Book book=bookService.getBook(bookId);
-        ModelAndView modelAndView=new ModelAndView("admin_book_edit");
-        modelAndView.addObject("detail",book);
-        return modelAndView;
+    public ModelAndView bookEdit(long bookId) {
+        Book book = bookService.getBook(bookId);
+        return buildModelAndView("admin_book_edit").addObject("detail", book);
     }
 
     @RequestMapping("/book_edit_do.html")
-    public String bookEditDo(HttpServletRequest request,BookAddCommand bookAddCommand,RedirectAttributes redirectAttributes){
-        long bookId=Integer.parseInt( request.getParameter("id"));
-        Book book=new Book();
-        book.setBookId(bookId);
-        book.setPrice(bookAddCommand.getPrice());
-        book.setState(bookAddCommand.getState());
-        book.setPublish(bookAddCommand.getPublish());
-        book.setPubdate(bookAddCommand.getPubdate());
-        book.setName(bookAddCommand.getName());
-        book.setIsbn(bookAddCommand.getIsbn());
-        book.setClassId(bookAddCommand.getClassId());
-        book.setAuthor(bookAddCommand.getAuthor());
-        book.setIntroduction(bookAddCommand.getIntroduction());
-        book.setPressmark(bookAddCommand.getPressmark());
-        book.setLanguage(bookAddCommand.getLanguage());
-
-
-        boolean succ=bookService.editBook(book);
-        if (succ){
-            redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
-        }
-        else {
-            redirectAttributes.addFlashAttribute("error", "图书修改失败！");
-        }
+    public String bookEditDo(long id, BookAddCommand bookAddCommand, RedirectAttributes redirectAttributes) {
+        Book book = buildBookFromCommand(bookAddCommand, id);
+        boolean success = bookService.editBook(book);
+        redirectAttributes.addFlashAttribute(success ? "succ" : "error", success ? "图书修改成功！" : "图书修改失败！");
         return "redirect:/allbooks.html";
     }
 
-
     @RequestMapping("/bookdetail.html")
-    public ModelAndView bookDetail(HttpServletRequest request){
-        long bookId=Integer.parseInt(request.getParameter("bookId"));
-        Book book=bookService.getBook(bookId);
-        ModelAndView modelAndView=new ModelAndView("admin_book_detail");
-        modelAndView.addObject("detail",book);
-        return modelAndView;
+    public ModelAndView bookDetail(long bookId) {
+        Book book = bookService.getBook(bookId);
+        return buildModelAndView("admin_book_detail").addObject("detail", book);
     }
-
-
 
     @RequestMapping("/readerbookdetail.html")
-    public ModelAndView readerBookDetail(HttpServletRequest request){
-        long bookId=Integer.parseInt(request.getParameter("bookId"));
-        Book book=bookService.getBook(bookId);
-        ModelAndView modelAndView=new ModelAndView("reader_book_detail");
-        modelAndView.addObject("detail",book);
-        return modelAndView;
+    public ModelAndView readerBookDetail(long bookId) {
+        Book book = bookService.getBook(bookId);
+        return buildModelAndView("reader_book_detail").addObject("detail", book);
     }
 
+    // 辅助方法：构建ModelAndView对象
+    private ModelAndView buildModelAndView(String viewName) {
+        return new ModelAndView(viewName);
+    }
 
-
+    // 辅助方法：从BookAddCommand构建Book对象
+    private Book buildBookFromCommand(BookAddCommand command, long bookId) {
+        Book book = new Book();
+        book.setBookId(bookId);
+        book.setPrice(command.getPrice());
+        book.setState(command.getState());
+        book.setPublish(command.getPublish());
+        book.setPubdate(command.getPubdate());
+        book.setName(command.getName());
+        book.setIsbn(command.getIsbn());
+        book.setClassId(command.getClassId());
+        book.setAuthor(command.getAuthor());
+        book.setIntroduction(command.getIntroduction());
+        book.setPressmark(command.getPressmark());
+        book.setLanguage(command.getLanguage());
+        return book;
+    }
 }
