@@ -103,11 +103,10 @@ public class ReaderController {
             boolean succ=readerInfoService.editReaderInfo(readerInfo);
             if(succo&&succ){
                 redirectAttributes.addFlashAttribute("succ", "读者信息修改成功！");
-                return "redirect:/allreaders.html";
             }else {
                 redirectAttributes.addFlashAttribute("error", "读者信息修改失败！");
-                return "redirect:/allreaders.html";
             }
+            return "redirect:/allreaders.html";
         }
         else {
             System.out.println("部分修改");

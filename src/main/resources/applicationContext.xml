@@ -23,10 +23,11 @@
     </bean>
 
     <!-- 配置 SqlSessionFactory -->
+    <!--    classpath: 表示路径是相对于 src/main/resources 目录的。-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath:com/book/dao/*.xml"/>
+        <property name="mapperLocations" value="classpath:dao/*.xml"/>
     </bean>
 
     <!-- 配置 MapperScannerConfigurer -->
