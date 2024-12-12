@@ -1,8 +1,8 @@
 package com.book.service;
 
-import com.book.dao.AdminDao;
-import com.book.dao.ReaderCardDao;
-import com.book.dao.ReaderInfoDao;
+import com.book.mapper.AdminDao;
+import com.book.mapper.ReaderCardDao;
+import com.book.mapper.ReaderInfoDao;
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;

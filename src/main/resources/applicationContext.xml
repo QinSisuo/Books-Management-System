@@ -32,7 +32,7 @@
 
     <!-- 配置 MapperScannerConfigurer -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.book.dao"/>
+        <property name="basePackage" value="com.book.mapper"/>
     </bean>
 
     <!-- 配置事务管理器 -->

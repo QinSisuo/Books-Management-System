@@ -1,4 +1,4 @@
-<mapper namespace="com.book.dao.LendDao">
+<mapper namespace="com.book.mapper.LendDao">
 
     <!-- 归还图书 - 更新 lend_list 的 back_date -->
     <update id="bookReturnOne">

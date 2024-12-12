@@ -3,15 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!-- General settings -->
     <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- Maps 'snake_case' to 'camelCase' -->
     </settings>
 
+    <!-- Mappers configuration -->
     <mappers>
-        <mapper resource="dao/AdminDao.xml" />
-        <mapper resource="dao/BookDao.xml" />
-        <mapper resource="dao/LendDao.xml" />
-        <mapper resource="dao/ReaderCardDao.xml" />
-        <mapper resource="dao/ReaderInfoDao.xml" />
+        <!-- Base directory for DAOs -->
+        <mapper resource="dao/AdminDao.xml"/>
+        <mapper resource="dao/BookDao.xml"/>
+        <mapper resource="dao/LendDao.xml"/>
+        <mapper resource="dao/ReaderCardDao.xml"/>
+        <mapper resource="dao/ReaderInfoDao.xml"/>
     </mappers>
 </configuration>

@@ -14,8 +14,7 @@
     <properties>
         <file.encoding>UTF-8</file.encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.release>8</maven.compiler.release>
         <spring.version>4.3.27.RELEASE</spring.version> <!-- 推荐使用 Spring 4.3.x 的稳定版本 -->
         <mysql.version>5.7.34</mysql.version> <!-- 推荐 MySQL 5.7 -->
         <mysql-connector.version>8.0.29</mysql-connector.version> <!-- 推荐使用 MySQL Connector/J 8.x -->
@@ -23,8 +22,10 @@
         <aspectj.version>1.9.7</aspectj.version> <!-- 更新为更安全的 AspectJ 版本 -->
         <commons-codec.version>1.15</commons-codec.version> <!-- 更新为最新的 commons-codec -->
         <hibernate.validator.version>5.0.2.Final</hibernate.validator.version>
-        <slf4j.version>1.7.36</slf4j.version> <!-- 日志框架的最新版本 -->
-        <testng.version>7.7.1</testng.version> <!-- TestNG 推荐使用最新版本 -->
+        <slf4j.version>1.7.36</slf4j.version>
+        <logback.version>1.2.11</logback.version>
+        <testng.version>7.7.1</testng.version>
+        <jackson.version>2.15.0</jackson.version>
     </properties>
 
     <dependencies>
@@ -35,7 +36,7 @@
             <version>3.5.10</version> <!-- 最新稳定版本 -->
         </dependency>
 
-        <!-- MyBatis Spring 依赖 -->
+        <!-- MyBatis Spring 集成依赖 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
@@ -99,7 +100,6 @@
             <scope>provided</scope>
         </dependency>
 
-
         <!-- TestNG 测试框架 -->
         <dependency>
             <groupId>org.testng</groupId>
@@ -125,27 +125,29 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.13.4</version> <!-- 更新 Jackson 版本 -->
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.13.4</version> <!-- 更新 Jackson 版本 -->
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.4</version> <!-- 更新 Jackson 版本 -->
+            <version>${jackson.version}</version>
         </dependency>
+
+        <!-- SLF4J 日志框架 -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version> <!-- 更新日志依赖 -->
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${logback.version}</version>
         </dependency>
 
     </dependencies>
@@ -157,7 +159,17 @@
             </resource>
         </resources>
         <plugins>
-            <!-- Surefire 插件，用于运行测试 -->
+            <!-- 编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>8</release>
+                </configuration>
+            </plugin>
+
+            <!-- 测试插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -165,6 +177,17 @@
                 <configuration>
                     <parallel>methods</parallel>
                     <threadCount>10</threadCount>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- WAR 打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <warName>book</warName>
                 </configuration>
             </plugin>
         </plugins>

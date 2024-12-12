@@ -1,10 +1,13 @@
 {
-    "name": "Java 8 开发环境",
-    "image": "mcr.microsoft.com/vscode/devcontainers/java:0-8", // 使用 Java 8 的镜像
+    "name": "Java 8 Environment",
+    "image": "mcr.microsoft.com/devcontainers/java:8",
     "settings": {
-        "java.home": "/usr/lib/jvm/java-8-openjdk-amd64" // 设置 Java 8 的路径
+        "java.home": "/usr/lib/jvm/java-8-openjdk"
     },
     "extensions": [
-        "vscjava.vscode-java-pack" // 自动安装 Java 扩展
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-debug"
     ]
 }

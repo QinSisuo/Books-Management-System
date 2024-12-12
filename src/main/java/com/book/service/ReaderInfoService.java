@@ -1,6 +1,6 @@
 package com.book.service;
 
-import com.book.dao.ReaderInfoDao;
+import com.book.mapper.ReaderInfoDao;
 import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

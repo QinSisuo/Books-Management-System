@@ -1,4 +1,4 @@
-package com.book.dao;
+package com.book.mapper;
 
 import com.book.domain.ReaderInfo;
 import org.apache.ibatis.annotations.Param;

@@ -1,4 +1,4 @@
-<mapper namespace="com.book.dao.BookDao">
+<mapper namespace="com.book.mapper.BookDao">
 
     <!-- 查询匹配的图书 -->
     <select id="queryBook" resultType="com.book.domain.Book">

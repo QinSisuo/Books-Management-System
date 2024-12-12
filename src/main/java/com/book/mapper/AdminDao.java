@@ -1,7 +1,6 @@
-package com.book.dao;
+package com.book.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 public interface AdminDao {
 
@@ -14,5 +13,3 @@ public interface AdminDao {
     // 根据 adminId 获取密码（使用 XML 定义，无需注解）
     String getPasswd(int id);
 }
-
-

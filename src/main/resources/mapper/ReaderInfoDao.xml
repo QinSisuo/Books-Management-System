@@ -1,4 +1,4 @@
-<mapper namespace="com.book.dao.ReaderInfoDao">
+<mapper namespace="com.book.mapper.ReaderInfoDao">
 
     <!-- 获取所有读者信息 -->
     <select id="getAllReaderInfo" resultType="com.book.domain.ReaderInfo">

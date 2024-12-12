@@ -1,6 +1,6 @@
 package com.book.service;
 
-import com.book.dao.LendDao;
+import com.book.mapper.LendDao;
 import com.book.domain.Lend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
