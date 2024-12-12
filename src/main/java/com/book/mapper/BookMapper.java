@@ -6,24 +6,17 @@ import java.util.ArrayList;
 
 public interface BookMapper {
 
-    // 根据搜索词查询图书
-    ArrayList<Book> queryBook(String searchWord);
+    ArrayList<Book> queryBook(@Param("searchWord") String searchWord);
 
-    // 获取所有图书
     ArrayList<Book> getAllBooks();
 
-    // 根据书号查询图书
-    Book getBook(@Param("bookId") Long bookId);
+    Book getBook(@Param("bookId") long bookId);
 
-    // 删除图书
     int deleteBook(@Param("bookId") long bookId);
 
-    // 查询匹配的图书数量
-    int matchBook(String searchWord);
+    int matchBook(@Param("searchWord") String searchWord);
 
-    // 添加图书
     int addBook(Book book);
 
-    // 更新图书信息
     int editBook(Book book);
 }

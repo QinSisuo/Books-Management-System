@@ -1,37 +1,39 @@
 <mapper namespace="com.book.mapper.BookMapper">
 
-    <!-- 查询匹配的图书 -->
-    <select id="queryBook" resultType="com.book.domain.Book">
-        SELECT * FROM book_info WHERE book_id LIKE #{searchWord} OR name LIKE #{searchWord}
+    <select id="queryBook" parameterType="String" resultType="com.book.domain.Book">
+        SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state
+        FROM book_info
+        WHERE book_id LIKE CONCAT('%', #{searchWord}, '%')
+        OR name LIKE CONCAT('%', #{searchWord}, '%')
     </select>
 
-    <!-- 获取所有图书 -->
     <select id="getAllBooks" resultType="com.book.domain.Book">
-        SELECT * FROM book_info
+        SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state
+        FROM book_info
     </select>
 
-    <!-- 根据书号查询图书 -->
     <select id="getBook" parameterType="long" resultType="com.book.domain.Book">
-        SELECT * FROM book_info WHERE book_id = #{bookId}
+        SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state
+        FROM book_info
+        WHERE book_id = #{bookId}
     </select>
 
-    <!-- 删除图书 -->
     <delete id="deleteBook" parameterType="long">
         DELETE FROM book_info WHERE book_id = #{bookId}
     </delete>
 
-    <!-- 查询匹配图书的个数 -->
     <select id="matchBook" parameterType="String" resultType="int">
-        SELECT count(*) FROM book_info WHERE book_id LIKE #{searchWord} OR name LIKE #{searchWord}
+        SELECT count(*)
+        FROM book_info
+        WHERE book_id LIKE CONCAT('%', #{searchWord}, '%')
+        OR name LIKE CONCAT('%', #{searchWord}, '%')
     </select>
 
-    <!-- 添加图书 -->
     <insert id="addBook" parameterType="com.book.domain.Book">
         INSERT INTO book_info (name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state)
         VALUES (#{name}, #{author}, #{publish}, #{isbn}, #{introduction}, #{language}, #{price}, #{pubdate}, #{classId}, #{pressmark}, #{state})
     </insert>
 
-    <!-- 更新图书 -->
     <update id="editBook" parameterType="com.book.domain.Book">
         UPDATE book_info
         SET name = #{name}, author = #{author}, publish = #{publish}, isbn = #{isbn},

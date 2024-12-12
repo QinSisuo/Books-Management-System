@@ -114,9 +114,27 @@ public class Book implements Serializable{
     public String getPublish() {
         return publish;
     }
+//
+//    @Override
+//    public String toString() {
+//        return "这本书的信息为"+pressmark+pubdate+bookId+name+author+publish+isbn+introduction+language+price+classId+state;
+//    }
 
     @Override
     public String toString() {
-        return "这本书的信息为"+pressmark+pubdate+bookId+name+author+publish+isbn+introduction+language+price+classId+state;
+        return "Book{" +
+                "bookId=" + bookId +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", publish='" + publish + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", language='" + language + '\'' +
+                ", price=" + price +
+                ", pubdate=" + pubdate +
+                ", classId=" + classId +
+                ", pressmark=" + pressmark +
+                ", state=" + state +
+                '}';
     }
 }

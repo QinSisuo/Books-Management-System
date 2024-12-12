@@ -1,4 +1,4 @@
-package com.book.web;
+package com.book.controller;
 
 import com.book.domain.Admin;
 import com.book.domain.ReaderCard;

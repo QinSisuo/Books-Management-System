@@ -8,13 +8,12 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- Maps 'snake_case' to 'camelCase' -->
     </settings>
 
-    <!-- Mappers configuration -->
+    <!-- Mapper Configurations -->
     <mappers>
-        <!-- Base directory for DAOs -->
-        <mapper resource="dao/AdminDao.xml"/>
-        <mapper resource="dao/BookDao.xml"/>
-        <mapper resource="dao/LendDao.xml"/>
-        <mapper resource="dao/ReaderCardDao.xml"/>
-        <mapper resource="dao/ReaderInfoDao.xml"/>
+        <mapper resource="mapper/AdminMapper.xml"/>
+        <mapper resource="mapper/BookMapper.xml"/>
+        <mapper resource="mapper/LendMapper.xml"/>
+        <mapper resource="mapper/ReaderCardMapper.xml"/>
+        <mapper resource="mapper/ReaderInfoMapper.xml"/>
     </mappers>
 </configuration>

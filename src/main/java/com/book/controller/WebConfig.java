@@ -1,4 +1,4 @@
-package com.book.web;
+package com.book.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

@@ -1,4 +1,4 @@
-package com.book.web;
+package com.book.controller;
 
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
@@ -12,10 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
