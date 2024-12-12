@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Delete;
 import java.util.List;
 
-public interface ReaderInfoDao {
+public interface ReaderInfoMapper {
 
     // 获取所有读者信息
     @Select("SELECT * FROM reader_info")

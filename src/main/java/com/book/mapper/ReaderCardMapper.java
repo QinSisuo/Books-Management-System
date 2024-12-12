@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-public interface ReaderCardDao {
+public interface ReaderCardMapper {
 
     // 根据用户查询匹配的数量
     @Select("SELECT count(*) FROM reader_card WHERE reader_id = #{readerId} AND passwd = #{passwd}")

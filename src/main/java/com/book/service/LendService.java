@@ -1,7 +1,7 @@
 package com.book.service;
 
-import com.book.mapper.LendDao;
 import com.book.domain.Lend;
+import com.book.mapper.LendMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import java.util.Date;
 public class LendService {
 
     @Autowired
-    private LendDao lendDao;
+    private LendMapper lendDao;
 
     //@Autowired
-    public void setLendDao(LendDao lendDao) {
+    public void setLendDao(LendMapper lendDao) {
         this.lendDao = lendDao;
     }
 

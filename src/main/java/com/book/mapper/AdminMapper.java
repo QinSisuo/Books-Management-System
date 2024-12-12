@@ -2,7 +2,7 @@ package com.book.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-public interface AdminDao {
+public interface AdminMapper {
 
     // 获取匹配的管理员记录数
     int getMatchCount(@Param("adminId") int adminId, @Param("password") String password);

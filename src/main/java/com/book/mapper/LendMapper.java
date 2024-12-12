@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface LendDao {
+public interface LendMapper {
 
     // 归还图书 - 更新 lend_list 的 back_date
     int bookReturnOne(@Param("bookId") long bookId, @Param("backDate") String backDate);

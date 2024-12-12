@@ -1,4 +1,4 @@
-<mapper namespace="com.book.mapper.ReaderCardDao">
+<mapper namespace="com.book.mapper.ReaderCardMapper">
 
     <!-- 查询匹配的数量 -->
     <select id="getMatchCount" resultType="int">

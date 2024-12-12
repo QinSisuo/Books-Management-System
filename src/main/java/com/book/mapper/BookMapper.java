@@ -4,7 +4,7 @@ import com.book.domain.Book;
 import org.apache.ibatis.annotations.Param;
 import java.util.ArrayList;
 
-public interface BookDao {
+public interface BookMapper {
 
     // 根据搜索词查询图书
     ArrayList<Book> queryBook(String searchWord);

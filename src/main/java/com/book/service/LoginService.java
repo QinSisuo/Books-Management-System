@@ -1,8 +1,8 @@
 package com.book.service;
 
-import com.book.mapper.AdminDao;
-import com.book.mapper.ReaderCardDao;
-import com.book.mapper.ReaderInfoDao;
+import com.book.mapper.AdminMapper;
+import com.book.mapper.ReaderCardMapper;
+import com.book.mapper.ReaderInfoMapper;
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,46 +11,46 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
     @Autowired
-    private ReaderCardDao readerCardDao;
+    private ReaderCardMapper readerCardMapper;
     @Autowired
-    private ReaderInfoDao readerInfoDao;
+    private ReaderInfoMapper readerInfoMapper;
     @Autowired
-    private AdminDao adminDao;
+    private AdminMapper adminMapper;
 //    @Autowired
-    public void setReaderCardDao(ReaderCardDao readerCardDao) {
-        this.readerCardDao = readerCardDao;
+    public void setReaderCardDao(ReaderCardMapper readerCardMapper) {
+        this.readerCardMapper = readerCardMapper;
     }
 
 //    @Autowired
-    public void setReaderInfoDao(ReaderInfoDao readerInfoDao) {
-        this.readerInfoDao = readerInfoDao;
+    public void setReaderInfoDao(ReaderInfoMapper readerInfoMapper) {
+        this.readerInfoMapper = readerInfoMapper;
     }
 
 //    @Autowired
-    public void setAdminDao(AdminDao adminDao) {
-        this.adminDao = adminDao;
+    public void setAdminDao(AdminMapper adminMapper) {
+        this.adminMapper = adminMapper;
     }
 
     public boolean hasMatchReader(int readerId,String passwd){
-        return  readerCardDao.getMatchCount(readerId, passwd)>0;
+        return  readerCardMapper.getMatchCount(readerId, passwd)>0;
     }
 
     public ReaderCard findReaderCardByUserId(int readerId){
-        return readerCardDao.findReaderByReaderId(readerId);
+        return readerCardMapper.findReaderByReaderId(readerId);
     }
     public ReaderInfo findReaderInfoByReaderId(int readerId){
-        return readerInfoDao.findReaderInfoByReaderId(readerId);
+        return readerInfoMapper.findReaderInfoByReaderId(readerId);
     }
 
     public boolean hasMatchAdmin(int adminId,String password){
-        return adminDao.getMatchCount(adminId,password)==1;
+        return adminMapper.getMatchCount(adminId,password)==1;
     }
 
     public boolean adminRePasswd(int adminId,String newPasswd){
-        return adminDao.rePassword(adminId,newPasswd)>0;
+        return adminMapper.rePassword(adminId,newPasswd)>0;
     }
     public String getAdminPasswd(int id){
-        return adminDao.getPasswd(id);
+        return adminMapper.getPasswd(id);
     }
 
 
