@@ -60,15 +60,15 @@ public class BookController {
         modelAndView.addObject("books",books);
         return modelAndView;
     }
-    @RequestMapping("/deletebook.html")
-    public String deleteBook(HttpServletRequest request,RedirectAttributes redirectAttributes){
-        long bookId=Integer.parseInt(request.getParameter("bookId"));
-        boolean res=bookService.deleteBook(bookId);
 
-        if (res){
-            redirectAttributes.addFlashAttribute("succ", "图书删除成功！");
-        }else {
-            redirectAttributes.addFlashAttribute("error", "图书删除失败！");
+    @RequestMapping("/deletebook.html")
+    public String deleteBook(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        try {
+            long bookId = Long.parseLong(request.getParameter("bookId"));
+            boolean res = bookService.deleteBook(bookId);
+            redirectAttributes.addFlashAttribute("succ", res ? "图书删除成功！" : "图书删除失败！");
+        } catch (NumberFormatException e) {
+            redirectAttributes.addFlashAttribute("error", "非法的图书 ID！");
         }
         return "redirect:/allbooks.html";
     }
