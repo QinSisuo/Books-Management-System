@@ -1,14 +1,13 @@
 package com.book.test;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-class BasicTest {
+public class BasicTest {
     @Test
-    void basicTest() {
+    public void basicTest() {
         int expected = 42;
         int actual = 40 + 2;
-        assertEquals(expected, actual, "Basic math test failed");
+        assertEquals("Basic math test failed", expected, actual);
     }
 }
