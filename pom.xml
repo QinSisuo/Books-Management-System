@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
+    <!--项目依赖文件-->
 
     <!-- 定义全局属性 -->
     <properties>
