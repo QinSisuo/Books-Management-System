@@ -16,17 +16,17 @@ public class LoginService {
     private ReaderInfoMapper readerInfoMapper;
     @Autowired
     private AdminMapper adminMapper;
-//    @Autowired
+    //    @Autowired
     public void setReaderCardDao(ReaderCardMapper readerCardMapper) {
         this.readerCardMapper = readerCardMapper;
     }
 
-//    @Autowired
+    //    @Autowired
     public void setReaderInfoDao(ReaderInfoMapper readerInfoMapper) {
         this.readerInfoMapper = readerInfoMapper;
     }
 
-//    @Autowired
+    //    @Autowired
     public void setAdminDao(AdminMapper adminMapper) {
         this.adminMapper = adminMapper;
     }

@@ -15,9 +15,11 @@
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbcUrl" value="${spring.datasource.url}"/>
-        <property name="username" value="${spring.datasource.username}"/>
-        <property name="password" value="${spring.datasource.password}"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/library?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="0000"/>
+        <property name="maximumPoolSize" value="10"/>
+        <property name="connectionTimeout" value="30000"/>
     </bean>
 
     <!-- 配置 MyBatis -->
@@ -36,5 +38,6 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
     <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

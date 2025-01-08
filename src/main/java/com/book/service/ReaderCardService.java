@@ -10,7 +10,7 @@ public class ReaderCardService {
     @Autowired
     private ReaderCardMapper readerCardMapper;
 
-//    @Autowired
+    //    @Autowired
     public void setReaderCardDao(ReaderCardMapper readerCardMapper) {
         this.readerCardMapper = readerCardMapper;
     }
