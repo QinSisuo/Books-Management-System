@@ -8,6 +8,8 @@ import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+//这包含了验证用户身份的业务逻辑，调用DAO层来检查用户凭证。
 @Service
 public class LoginService {
     @Autowired

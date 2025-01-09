@@ -5,6 +5,11 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+<!--    注册监听器用于在应用关闭时卸载jdbc驱动-->
+    <listener>
+        <listener-class>com.book.JDBCDriverUnloader</listener-class>
+    </listener>
+
     <!-- Spring 配置路径 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>

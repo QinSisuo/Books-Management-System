@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
+//这是处理登录请求的主要控制器，负责接收和处理登录请求。
 //标注为一个Spring mvc的Controller
 @Controller
 public class LoginController {
