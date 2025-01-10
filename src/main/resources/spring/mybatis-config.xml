@@ -7,10 +7,6 @@
     </settings>
 
     <mappers>
-        <mapper resource="mapper/AdminMapper.xml"/>
-        <mapper resource="mapper/BookMapper.xml"/>
-        <mapper resource="mapper/LendMapper.xml"/>
-        <mapper resource="mapper/ReaderCardMapper.xml"/>
-        <mapper resource="mapper/ReaderInfoMapper.xml"/>
+        <package name="com.book.mapper"/>
     </mappers>
 </configuration>

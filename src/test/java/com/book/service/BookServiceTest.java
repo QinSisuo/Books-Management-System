@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertFalse;  // 使用 JUnit 4 的断言
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration(locations = {
         "classpath:spring/spring-context.xml"    // 加载 Spring 核心配置文件
 })

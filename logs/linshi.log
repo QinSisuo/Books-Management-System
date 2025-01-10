@@ -1,370 +1,97 @@
-/Users/LeoLee/Library/Java/JavaVirtualMachines/corretto-1.8.0_432/Contents/Home/bin/java -Dcatalina.home=/Users/LeoLee/dev/tools/apache-tomcat-9.0.97 -Dcatalina.base=/Users/LeoLee/.SmartTomcat/Books-Management-System/book -Djava.io.tmpdir=/Users/LeoLee/.SmartTomcat/Books-Management-System/book/temp -Djava.util.logging.config.file=/Users/LeoLee/.SmartTomcat/Books-Management-System/book/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager "-javaagent:/Applications/IntelliJ IDEA CE.app/Contents/lib/idea_rt.jar=62714:/Applications/IntelliJ IDEA CE.app/Contents/bin" -Dfile.encoding=UTF-8 -classpath /Users/LeoLee/dev/tools/apache-tomcat-9.0.97/bin/bootstrap.jar:/Users/LeoLee/dev/tools/apache-tomcat-9.0.97/bin/tomcat-juli.jar org.apache.catalina.startup.Bootstrap start
-09-Jan-2025 19:39:48.469 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/9.0.97
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Nov 6 2024 19:55:19 UTC
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 9.0.97.0
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Mac OS X
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            15.2
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          aarch64
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /Users/LeoLee/Library/Java/JavaVirtualMachines/corretto-1.8.0_432/Contents/Home/jre
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_432-b06
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Amazon.com Inc.
-09-Jan-2025 19:39:48.471 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /Users/LeoLee/.SmartTomcat/Books-Management-System/book
-09-Jan-2025 19:39:48.472 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /Users/LeoLee/dev/tools/apache-tomcat-9.0.97
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/Users/LeoLee/dev/tools/apache-tomcat-9.0.97
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/Users/LeoLee/.SmartTomcat/Books-Management-System/book
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/Users/LeoLee/.SmartTomcat/Books-Management-System/book/temp
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/Users/LeoLee/.SmartTomcat/Books-Management-System/book/conf/logging.properties
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -javaagent:/Applications/IntelliJ IDEA CE.app/Contents/lib/idea_rt.jar=62714:/Applications/IntelliJ IDEA CE.app/Contents/bin
-09-Jan-2025 19:39:48.475 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dfile.encoding=UTF-8
-09-Jan-2025 19:39:48.476 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The Apache Tomcat Native library which allows using OpenSSL was not found on the java.library.path: [/Users/LeoLee/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
-09-Jan-2025 19:39:48.653 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
-09-Jan-2025 19:39:48.672 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [285] milliseconds
-09-Jan-2025 19:39:48.689 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
-09-Jan-2025 19:39:48.689 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/9.0.97]
-09-Jan-2025 19:39:48.693 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deploying deployment descriptor [/Users/LeoLee/.SmartTomcat/Books-Management-System/book/conf/Catalina/localhost/book.xml]
-09-Jan-2025 19:39:49.523 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2025-01-09 19:39:49 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
-2025-01-09 19:39:49 [main] DEBUG o.s.w.c.s.XmlWebApplicationContext - Refreshing Root WebApplicationContext
-2025-01-09 19:39:49 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/BookService.class]
-2025-01-09 19:39:49 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/LendService.class]
-2025-01-09 19:39:49 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/LoginService.class]
-2025-01-09 19:39:49 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/ReaderCardService.class]
-2025-01-09 19:39:49 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/ReaderInfoService.class]
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 19 bean definitions from class path resource [spring/spring-context.xml]
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.mybatis.spring.mapper.MapperScannerConfigurer#0'
-2025-01-09 19:39:49 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class]
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class]
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class]
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderCardMapper.class]
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class]
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'adminMapper' and 'com.book.mapper.AdminMapper' mapperInterface
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'bookMapper' and 'com.book.mapper.BookMapper' mapperInterface
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'lendMapper' and 'com.book.mapper.LendMapper' mapperInterface
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'readerCardMapper' and 'com.book.mapper.ReaderCardMapper' mapperInterface
-2025-01-09 19:39:49 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'readerInfoMapper' and 'com.book.mapper.ReaderInfoMapper' mapperInterface
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionalEventListenerFactory'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.aop.config.internalAutoProxyCreator'
-2025-01-09 19:39:49 [main] DEBUG o.s.u.c.s.UiApplicationContextUtils - Unable to locate ThemeSource with name 'themeSource': using default [org.springframework.ui.context.support.ResourceBundleThemeSource@4e67e090]
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookService'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookMapper'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'sqlSessionFactory'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'dataSource'
-2025-01-09 19:39:49 [main] DEBUG com.zaxxer.hikari.HikariConfig - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader ParallelWebappClassLoader
-  context: book
-  delegate: false
-----------> Parent Classloader:
-java.net.URLClassLoader@27fa135a
-
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionAdvisor'
-2025-01-09 19:39:49 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0'
-2025-01-09 19:39:50 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [spring/mybatis-config.xml]'
-2025-01-09 19:39:50 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Property 'mapperLocations' was not specified.
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.interceptor.TransactionInterceptor#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'lendService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'lendMapper'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'loginService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'readerCardMapper'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'readerInfoMapper'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'adminMapper'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'readerCardService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'readerInfoService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'transactionManager'
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.liveBeansView.mbeanDomain]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.liveBeansView.mbeanDomain] not found - trying original name [spring.liveBeansView.mbeanDomain]. javax.naming.NameNotFoundException: Name [spring.liveBeansView.mbeanDomain] is not bound in this Context. Unable to find [spring.liveBeansView.mbeanDomain].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.liveBeansView.mbeanDomain]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.liveBeansView.mbeanDomain] threw NamingException with message: Name [spring.liveBeansView.mbeanDomain] is not bound in this Context. Unable to find [spring.liveBeansView.mbeanDomain].. Returning null.
-2025-01-09 19:39:50 [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 569 ms
-2025-01-09 19:39:50 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'rest'
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.profiles.active]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.profiles.active] not found - trying original name [spring.profiles.active]. javax.naming.NameNotFoundException: Name [spring.profiles.active] is not bound in this Context. Unable to find [spring.profiles.active].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.profiles.active]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.profiles.active] threw NamingException with message: Name [spring.profiles.active] is not bound in this Context. Unable to find [spring.profiles.active].. Returning null.
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.profiles.default]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.profiles.default] not found - trying original name [spring.profiles.default]. javax.naming.NameNotFoundException: Name [spring.profiles.default] is not bound in this Context. Unable to find [spring.profiles.default].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.profiles.default]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.profiles.default] threw NamingException with message: Name [spring.profiles.default] is not bound in this Context. Unable to find [spring.profiles.default].. Returning null.
-2025-01-09 19:39:50 [main] DEBUG o.s.w.c.s.XmlWebApplicationContext - Refreshing WebApplicationContext for namespace 'rest-servlet'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 23 bean definitions from ServletContext resource [/WEB-INF/rest-servlet.xml]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.u.c.s.UiApplicationContextUtils - Unable to locate ThemeSource with name 'themeSource': using default [org.springframework.ui.context.support.DelegatingThemeSource@64de9fa4]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcCorsConfigurations'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.handler.MappedInterceptor#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.format.support.FormattingConversionServiceFactoryBean#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcUriComponentsContributor'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings - 'org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping' {}
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'localeResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'themeResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'viewNameTranslator'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'flashMapManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@4645a575
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5eadc347
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.liveBeansView.mbeanDomain]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.liveBeansView.mbeanDomain] not found - trying original name [spring.liveBeansView.mbeanDomain]. javax.naming.NameNotFoundException: Name [spring.liveBeansView.mbeanDomain] is not bound in this Context. Unable to find [spring.liveBeansView.mbeanDomain].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.liveBeansView.mbeanDomain]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.liveBeansView.mbeanDomain] threw NamingException with message: Name [spring.liveBeansView.mbeanDomain] is not bound in this Context. Unable to find [spring.liveBeansView.mbeanDomain].. Returning null.
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-01-09 19:39:50 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 292 ms
-2025-01-09 19:39:50 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'book'
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.profiles.active]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.profiles.active] not found - trying original name [spring.profiles.active]. javax.naming.NameNotFoundException: Name [spring.profiles.active] is not bound in this Context. Unable to find [spring.profiles.active].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.profiles.active]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.profiles.active] threw NamingException with message: Name [spring.profiles.active] is not bound in this Context. Unable to find [spring.profiles.active].. Returning null.
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.profiles.default]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.profiles.default] not found - trying original name [spring.profiles.default]. javax.naming.NameNotFoundException: Name [spring.profiles.default] is not bound in this Context. Unable to find [spring.profiles.default].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.profiles.default]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.profiles.default] threw NamingException with message: Name [spring.profiles.default] is not bound in this Context. Unable to find [spring.profiles.default].. Returning null.
-2025-01-09 19:39:50 [main] DEBUG o.s.w.c.s.XmlWebApplicationContext - Refreshing WebApplicationContext for namespace 'book-servlet'
-2025-01-09 19:39:50 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/BookController.class]
-2025-01-09 19:39:50 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/LendController.class]
-2025-01-09 19:39:50 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/LoginController.class]
-2025-01-09 19:39:50 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/ReaderController.class]
-2025-01-09 19:39:50 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/WebConfig.class]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 35 bean definitions from ServletContext resource [/WEB-INF/book-servlet.xml]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'mvcUrlPathHelper' with a different definition: replacing [Root bean: class [org.springframework.web.util.UrlPathHelper]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=mvcUrlPathHelper; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'mvcPathMatcher' with a different definition: replacing [Root bean: class [org.springframework.util.AntPathMatcher]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=mvcPathMatcher; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'mvcContentNegotiationManager' with a different definition: replacing [Root bean: class [org.springframework.web.accept.ContentNegotiationManagerFactoryBean]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=mvcContentNegotiationManager; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'mvcResourceUrlProvider' with a different definition: replacing [Root bean: class [org.springframework.web.servlet.resource.ResourceUrlProvider]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=mvcResourceUrlProvider; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.c.a.ConfigurationClassBeanDefinitionReader - Skipping bean definition for BeanMethod: org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport.mvcUriComponentsContributor(org.springframework.format.support.FormattingConversionService,org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter): a definition for bean 'mvcUriComponentsContributor' already exists. This top-level bean definition is considered as an override.
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'mvcHandlerMappingIntrospector' with a different definition: replacing [Root bean: class [org.springframework.web.servlet.handler.HandlerMappingIntrospector]; scope=; abstract=false; lazyInit=true; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=true; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=mvcHandlerMappingIntrospector; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'localeResolver' with a different definition: replacing [Root bean: class [org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=localeResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'themeResolver' with a different definition: replacing [Root bean: class [org.springframework.web.servlet.theme.FixedThemeResolver]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=themeResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'flashMapManager' with a different definition: replacing [Root bean: class [org.springframework.web.servlet.support.SessionFlashMapManager]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=flashMapManager; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Overriding bean definition for bean 'viewNameTranslator' with a different definition: replacing [Root bean: class [org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator]; scope=; abstract=false; lazyInit=null; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null] with [Root bean: class [null]; scope=; abstract=false; lazyInit=null; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration; factoryMethodName=viewNameTranslator; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/web/servlet/config/annotation/DelegatingWebMvcConfiguration.class]]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
-2025-01-09 19:39:50 [main] DEBUG o.s.u.c.s.UiApplicationContextUtils - Unable to locate ThemeSource with name 'themeSource': using default [org.springframework.ui.context.support.DelegatingThemeSource@4f2a9903]
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookController'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'bookController' via constructor to bean named 'bookService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'lendController'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'loginController'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'readerController'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'webConfig'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcCorsConfigurations'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.handler.MappedInterceptor#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.format.support.FormattingConversionServiceFactoryBean#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.handler.MappedInterceptor#1'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.BookController:
-	{ [/allbooks.html]}: allBooks()
-	{ [/updatebook.html]}: bookEdit(long)
-	{ [/book_add.html]}: addBook()
-	{ [/querybook.html]}: queryBook(String)
-	{ [/deletebook.html]}: deleteBook(long,RedirectAttributes)
-	{ [/reader_querybook.html]}: readerQueryBook()
-	{ [/reader_querybook_do.html]}: readerQueryBookDo(String,RedirectAttributes)
-	{ [/book_add_do.html]}: addBookDo(BookAddCommand,RedirectAttributes)
-	{ [/book_edit_do.html]}: bookEditDo(long,BookAddCommand,RedirectAttributes)
-	{ [/bookdetail.html]}: bookDetail(long)
-	{ [/readerbookdetail.html]}: readerBookDetail(long)
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.LendController:
-	{ [/mylend.html]}: myLend(HttpServletRequest)
-	{ [/lendlist.html]}: lendList()
-	{ [/lendbook.html]}: bookLend(HttpServletRequest)
-	{ [/returnbook.html]}: bookReturn(HttpServletRequest,RedirectAttributes)
-	{ [/lendbookdo.html]}: bookLendDo(HttpServletRequest,RedirectAttributes,int)
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.LoginController:
-	{ [/ || /login.html]}: toLogin(HttpServletRequest)
-	{ [/*]}: notFind()
-	{ [/logout.html]}: logout(HttpServletRequest)
-	{POST [/api/loginCheck]}: loginCheck(HttpServletRequest)
-	{ [/admin_main.html]}: toAdminMain(HttpServletResponse)
-	{ [/reader_main.html]}: toReaderMain(HttpServletResponse)
-	{ [/admin_repasswd.html]}: reAdminPasswd()
-	{ [/admin_repasswd_do]}: reAdminPasswdDo(HttpServletRequest,String,String,String,RedirectAttributes)
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.ReaderController:
-	{ [/allreaders.html]}: allBooks()
-	{ [/reader_delete.html]}: readerDelete(HttpServletRequest,RedirectAttributes)
-	{ [/reader_info.html]}: toReaderInfo(HttpServletRequest)
-	{ [/reader_edit.html]}: readerInfoEdit(HttpServletRequest)
-	{ [/reader_edit_do.html]}: readerInfoEditDo(HttpServletRequest,String,String,String,String,String,RedirectAttributes)
-	{ [/reader_add.html]}: readerInfoAdd()
-	{ [/reader_repasswd.html]}: readerRePasswd()
-	{ [/reader_repasswd_do.html]}: readerRePasswdDo(HttpServletRequest,String,String,String,RedirectAttributes)
-	{ [/reader_add_do.html]}: readerInfoAddDo(String,String,String,String,String,int,RedirectAttributes)
-	{ [/reader_info_edit.html]}: readerInfoEditReader(HttpServletRequest)
-	{ [/reader_edit_do_r.html]}: readerInfoEditDoReader(HttpServletRequest,String,String,String,String,String,RedirectAttributes)
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 35 mappings in 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcUriComponentsContributor'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings - 'org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping' {}
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'localeResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'themeResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'viewNameTranslator'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'flashMapManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcResourceUrlProvider'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcPathMatcher'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcUrlPathHelper'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.handler.SimpleUrlHandlerMapping#0'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings - 'org.springframework.web.servlet.handler.SimpleUrlHandlerMapping#0' {/resources/**=ResourceHttpRequestHandler [ServletContext [/resources/]]}
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.web.servlet.view.InternalResourceViewResolver#0'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'requestMappingHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'requestMappingHandlerMapping' via factory method to bean named 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'requestMappingHandlerMapping' via factory method to bean named 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'requestMappingHandlerMapping' via factory method to bean named 'mvcResourceUrlProvider'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.BookController:
-	{ [/allbooks.html]}: allBooks()
-	{ [/updatebook.html]}: bookEdit(long)
-	{ [/book_add.html]}: addBook()
-	{ [/querybook.html]}: queryBook(String)
-	{ [/deletebook.html]}: deleteBook(long,RedirectAttributes)
-	{ [/reader_querybook.html]}: readerQueryBook()
-	{ [/reader_querybook_do.html]}: readerQueryBookDo(String,RedirectAttributes)
-	{ [/book_add_do.html]}: addBookDo(BookAddCommand,RedirectAttributes)
-	{ [/book_edit_do.html]}: bookEditDo(long,BookAddCommand,RedirectAttributes)
-	{ [/bookdetail.html]}: bookDetail(long)
-	{ [/readerbookdetail.html]}: readerBookDetail(long)
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.LendController:
-	{ [/mylend.html]}: myLend(HttpServletRequest)
-	{ [/lendlist.html]}: lendList()
-	{ [/lendbook.html]}: bookLend(HttpServletRequest)
-	{ [/returnbook.html]}: bookReturn(HttpServletRequest,RedirectAttributes)
-	{ [/lendbookdo.html]}: bookLendDo(HttpServletRequest,RedirectAttributes,int)
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.LoginController:
-	{ [/ || /login.html]}: toLogin(HttpServletRequest)
-	{ [/*]}: notFind()
-	{ [/logout.html]}: logout(HttpServletRequest)
-	{POST [/api/loginCheck]}: loginCheck(HttpServletRequest)
-	{ [/admin_main.html]}: toAdminMain(HttpServletResponse)
-	{ [/reader_main.html]}: toReaderMain(HttpServletResponse)
-	{ [/admin_repasswd.html]}: reAdminPasswd()
-	{ [/admin_repasswd_do]}: reAdminPasswdDo(HttpServletRequest,String,String,String,RedirectAttributes)
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings -
-	c.b.c.ReaderController:
-	{ [/allreaders.html]}: allBooks()
-	{ [/reader_delete.html]}: readerDelete(HttpServletRequest,RedirectAttributes)
-	{ [/reader_info.html]}: toReaderInfo(HttpServletRequest)
-	{ [/reader_edit.html]}: readerInfoEdit(HttpServletRequest)
-	{ [/reader_edit_do.html]}: readerInfoEditDo(HttpServletRequest,String,String,String,String,String,RedirectAttributes)
-	{ [/reader_add.html]}: readerInfoAdd()
-	{ [/reader_repasswd.html]}: readerRePasswd()
-	{ [/reader_repasswd_do.html]}: readerRePasswdDo(HttpServletRequest,String,String,String,RedirectAttributes)
-	{ [/reader_add_do.html]}: readerInfoAddDo(String,String,String,String,String,int,RedirectAttributes)
-	{ [/reader_info_edit.html]}: readerInfoEditReader(HttpServletRequest)
-	{ [/reader_edit_do_r.html]}: readerInfoEditDoReader(HttpServletRequest,String,String,String,String,String,RedirectAttributes)
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 35 mappings in 'requestMappingHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcPatternParser'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'viewControllerHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'viewControllerHandlerMapping' via factory method to bean named 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'viewControllerHandlerMapping' via factory method to bean named 'mvcResourceUrlProvider'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'beanNameHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'beanNameHandlerMapping' via factory method to bean named 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'beanNameHandlerMapping' via factory method to bean named 'mvcResourceUrlProvider'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings - 'beanNameHandlerMapping' {}
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'routerFunctionMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'routerFunctionMapping' via factory method to bean named 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'routerFunctionMapping' via factory method to bean named 'mvcResourceUrlProvider'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'resourceHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'resourceHandlerMapping' via factory method to bean named 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'resourceHandlerMapping' via factory method to bean named 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'resourceHandlerMapping' via factory method to bean named 'mvcResourceUrlProvider'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings - 'resourceHandlerMapping' {/img/**=ResourceHttpRequestHandler [ServletContext [/static/images/]], /js/**=ResourceHttpRequestHandler [ServletContext [/static/js/]], /css/**=ResourceHttpRequestHandler [ServletContext [/static/css/]], /html/**=ResourceHttpRequestHandler [ServletContext [/static/html/]]}
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'defaultServletHandlerMapping'
-2025-01-09 19:39:50 [main] DEBUG _.s.w.s.HandlerMapping.Mappings - 'defaultServletHandlerMapping' {/**=org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler@6abaa14b}
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'requestMappingHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcValidator'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'requestMappingHandlerAdapter' via factory method to bean named 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'requestMappingHandlerAdapter' via factory method to bean named 'mvcConversionService'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'requestMappingHandlerAdapter' via factory method to bean named 'mvcValidator'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'handlerFunctionAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'httpRequestHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'simpleControllerHandlerAdapter'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'handlerExceptionResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'handlerExceptionResolver' via factory method to bean named 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'mvcViewResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'mvcViewResolver' via factory method to bean named 'mvcContentNegotiationManager'
-2025-01-09 19:39:50 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'viewResolver'
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@36bd07ec
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@85b9f9c
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [java:comp/env/spring.liveBeansView.mbeanDomain]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiLocatorDelegate - Converted JNDI name [java:comp/env/spring.liveBeansView.mbeanDomain] not found - trying original name [spring.liveBeansView.mbeanDomain]. javax.naming.NameNotFoundException: Name [spring.liveBeansView.mbeanDomain] is not bound in this Context. Unable to find [spring.liveBeansView.mbeanDomain].
-2025-01-09 19:39:50 [main] DEBUG o.springframework.jndi.JndiTemplate - Looking up JNDI object with name [spring.liveBeansView.mbeanDomain]
-2025-01-09 19:39:50 [main] DEBUG o.s.jndi.JndiPropertySource - JNDI lookup for name [spring.liveBeansView.mbeanDomain] threw NamingException with message: Name [spring.liveBeansView.mbeanDomain] is not bound in this Context. Unable to find [spring.liveBeansView.mbeanDomain].. Returning null.
-2025-01-09 19:39:50 [main] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-01-09 19:39:50 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 191 ms
-09-Jan-2025 19:39:50.672 INFO [main] org.apache.catalina.startup.HostConfig.deployDescriptor Deployment of deployment descriptor [/Users/LeoLee/.SmartTomcat/Books-Management-System/book/conf/Catalina/localhost/book.xml] has finished in [1,978] ms
-09-Jan-2025 19:39:50.674 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
-09-Jan-2025 19:39:50.679 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [2006] milliseconds
-http://localhost:8080/book
-09-Jan-2025 19:39:50.682 SEVERE [main] org.apache.catalina.core.StandardServer.await Failed to create server shutdown socket on address [localhost] and port [8005] (base port [8005] and offset [0])
-	java.net.BindException: Address already in use (Bind failed)
-		at java.net.PlainSocketImpl.socketBind(Native Method)
-		at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:387)
-		at java.net.ServerSocket.bind(ServerSocket.java:390)
-		at java.net.ServerSocket.<init>(ServerSocket.java:252)
-		at org.apache.catalina.core.StandardServer.await(StandardServer.java:537)
-		at org.apache.catalina.startup.Catalina.await(Catalina.java:825)
-		at org.apache.catalina.startup.Catalina.start(Catalina.java:773)
-		at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-		at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-		at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-		at java.lang.reflect.Method.invoke(Method.java:498)
-		at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)
-		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)
-09-Jan-2025 19:39:50.682 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
-09-Jan-2025 19:39:50.686 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service [Catalina]
-09-Jan-2025 19:39:50.696 WARNING [main] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc The web application [book] registered the JDBC driver [com.mysql.cj.jdbc.Driver] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
-09-Jan-2025 19:39:50.696 WARNING [main] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads The web application [book] appears to have started a thread named [mysql-cj-abandoned-connection-cleanup] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.lang.Object.wait(Native Method)
- java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
- com.mysql.cj.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:91)
- java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
- java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
- java.lang.Thread.run(Thread.java:750)
-2025-01-09 19:39:50 [main] DEBUG o.s.w.c.s.XmlWebApplicationContext - Closing WebApplicationContext for namespace 'rest-servlet', started on Thu Jan 09 19:39:50 CST 2025, parent: Root WebApplicationContext
-2025-01-09 19:39:50 [main] DEBUG o.s.w.c.s.XmlWebApplicationContext - Closing WebApplicationContext for namespace 'book-servlet', started on Thu Jan 09 19:39:50 CST 2025, parent: Root WebApplicationContext
-09-Jan-2025 19:39:50.699 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
-09-Jan-2025 19:39:50.708 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
-
-进程已结束，退出代码为 0
+~/IdeaProjects/Books-Management-System git:[master]
+tree -L 8
+.
+├── LICENSE
+├── README.md
+├── book.iml
+├── library.sql
+├── logs
+│   ├── application.log
+│   ├── error.log
+│   └── linshi.log
+├── pom.xml
+├── preview
+│   ├── 1.PNG
+│   ├── 2.PNG
+│   ├── 3.PNG
+│   ├── 4.PNG
+│   ├── 5.PNG
+│   └── 6.PNG
+├── qodana.yaml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── book
+│   │   │           ├── JDBCDriverUnloader.java
+│   │   │           ├── controller
+│   │   │           │   ├── BookAddCommand.java
+│   │   │           │   ├── BookController.java
+│   │   │           │   ├── LendController.java
+│   │   │           │   ├── LoginController.java
+│   │   │           │   ├── ReaderController.java
+│   │   │           │   └── WebConfig.java
+│   │   │           ├── domain
+│   │   │           │   ├── Admin.java
+│   │   │           │   ├── Book.java
+│   │   │           │   ├── Lend.java
+│   │   │           │   ├── ReaderCard.java
+│   │   │           │   └── ReaderInfo.java
+│   │   │           ├── mapper
+│   │   │           │   ├── AdminMapper.java
+│   │   │           │   ├── BookMapper.java
+│   │   │           │   ├── LendMapper.java
+│   │   │           │   ├── ReaderCardMapper.java
+│   │   │           │   └── ReaderInfoMapper.java
+│   │   │           └── service
+│   │   │               ├── BookService.java
+│   │   │               ├── LendService.java
+│   │   │               ├── LoginService.java
+│   │   │               ├── ReaderCardService.java
+│   │   │               └── ReaderInfoService.java
+│   │   ├── resources
+│   │   │   ├── logback.xml
+│   │   │   ├── mapper
+│   │   │   └── spring
+│   │   │       ├── mybatis-config.xml
+│   │   │       ├── spring-context.xml
+│   │   │       └── spring-mvc.xml
+│   │   └── webapp
+│   │       ├── WEB-INF
+│   │       │   ├── book-servlet.xml
+│   │       │   ├── dispatcher-servlet.xml
+│   │       │   ├── jsp
+│   │       │   │   ├── 404.jsp
+│   │       │   │   ├── admin_book_add.jsp
+│   │       │   │   ├── admin_book_detail.jsp
+│   │       │   │   ├── admin_book_edit.jsp
+│   │       │   │   ├── admin_book_lend.jsp
+│   │       │   │   ├── admin_books.jsp
+│   │       │   │   ├── admin_lend_list.jsp
+│   │       │   │   ├── admin_main.jsp
+│   │       │   │   ├── admin_reader_add.jsp
+│   │       │   │   ├── admin_reader_edit.jsp
+│   │       │   │   ├── admin_readers.jsp
+│   │       │   │   ├── admin_repasswd.jsp
+│   │       │   │   ├── index.jsp
+│   │       │   │   ├── reader_book_detail.jsp
+│   │       │   │   ├── reader_book_query.jsp
+│   │       │   │   ├── reader_info.jsp
+│   │       │   │   ├── reader_info_edit.jsp
+│   │       │   │   ├── reader_lend_list.jsp
+│   │       │   │   ├── reader_main.jsp
+│   │       │   │   └── reader_repasswd.jsp
+│   │       │   ├── rest-servlet.xml
+│   │       │   └── web.xml
+│   │       └── static
+│   │           ├── css
+│   │           │   └── bootstrap.min.css
+│   │           ├── images
+│   │           │   ├── 105905-106.jpg
+│   │           │   ├── 281289-106.jpg
+│   │           │   ├── 296494-106.jpg
+│   │           │   └── 82839-106.jpg
+│   │           └── js
+│   │               ├── bootstrap.min.js
+│   │               ├── jquery-3.2.1.js
+│   │               └── js.cookie.js

@@ -278,30 +278,30 @@
             }
             else {
                 $.ajax({
-                    type: "POST",
-                    url: "/api/loginCheck",
+                    type: 'POST',
+                    url: '/book/api/loginCheck',
                     data: {
-                        id:id ,
-                        passwd: passwd
+                        id: $('#id').val(),
+                        passwd: $('#passwd').val()
                     },
-                    dataType: "json",
                     success: function(data) {
-                        if(data.stateCode.trim() == "0") {
-                            $("#info").text("提示:账号或密码错误！");
-                        } else if(data.stateCode.trim() == "1") {
-                            $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/admin_main.html";
-                        } else if(data.stateCode.trim() == "2"){
-                            if(remember){
-                                rememberLogin(id,passwd,remember);
-                            }else {
-                                Cookies.remove('loginStatus');
-                            }
-                            $("#info").text("提示:登陆成功，跳转中...");
-                            window.location.href="/reader_main.html";
-
-
+                        console.log(data);
+                        // 根据返回的状态码处理不同的登录结果
+                        if (data.stateCode === '1') {
+                            alert('管理员登录成功！');
+                            // 重定向到管理员页面
+                            window.location.href = '/book/admin_main.html';
+                        } else if (data.stateCode === '2') {
+                            alert('读者登录成功！');
+                            // 重定向到读者页面
+                            window.location.href = '/book/reader_main.html';
+                        } else {
+                            alert('账号或密码错误！');
                         }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
+                        alert('登录请求失败，请重试！');
                     }
                 });
             }
