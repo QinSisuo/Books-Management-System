@@ -46,4 +46,10 @@ public interface BookMapper {
             "introduction = #{introduction}, language = #{language}, price = #{price}, pubdate = #{pubdate}, " +
             "class_id = #{classId}, pressmark = #{pressmark}, state = #{state} WHERE book_id = #{bookId}")
     int editBook(Book book);
+
+    @Select("SELECT * FROM books WHERE book_id = #{bookId}")
+    Book findBookById(int bookId); // 根据 bookId 查询图书
+
+    @Update("UPDATE books SET title = #{title}, author = #{author}, publisher = #{publisher} WHERE book_id = #{bookId}")
+    int updateBook(Book book); // 更新图书信息，返回受影响的行数
 }

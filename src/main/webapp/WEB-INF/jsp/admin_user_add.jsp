@@ -1,29 +1,18 @@
-<%@ page contentType="text/html;charset=UTF-8"  %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>管理主页</title>
+    <title>添加读者</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
     <style>
         body{
-            margin: 0;
-            padding: 0;
-            overflow: visible;
             background-color: rgb(240,242,245);
-        }
-        #newsa{
-            width:500px;
-            height: 200px;
-            position: fixed;
-            left: 35%;
-            top:30%;
         }
     </style>
 
 </head>
-<body background="img/281289-106.jpg">
+<body>
 <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
@@ -76,38 +65,55 @@
     </div>
 </nav>
 
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 25%">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加管理员</h3>
+        </div>
+        <div class="panel-body">
+            <form action="/admin/user/addUser.html" method="post" >
+                <div class="input-group">
+                    <span  class="input-group-addon">管理员证号</span>
+                    <input  type="text" class="form-control" name="readerId" id="readerId" ">
+                </div>
 
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    温馨提示
-                </h4>
-            </div>
-            <div class="modal-body">
-                使用结束后请安全退出。
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">知道了
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+                <div class="input-group">
+                    <span class="input-group-addon">姓名</span>
+                    <input type="text" class="form-control" name="name" id="name"  >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">性别</span>
+                    <input type="text" class="form-control" name="sex" id="sex" >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">生日</span>
+                    <input type="text" class="form-control" name="birth" id="birth"  >
+                </div>
+                <div class="input-group">
+                    <span  class="input-group-addon">地址</span>
+                    <input type="text" class="form-control" name="address" id="address"  >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">电话</span>
+                    <input type="text" class="form-control" name="telcode" id="telcode"  >
+                </div>
+                <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">
+                <script>
+                    function mySubmit(flag){
+                        return flag;
+                    }
+                    $("#readeredit").submit(function () {
+                        if($("#name").val()==''||$("#author").val()==''||$("#publish").val()==''||$("#isbn").val()==''||$("#introduction").val()==''||$("#language").val()==''||$("#price").val()==''||$("#pubdate").val()==''||$("#classId").val()==''||$("#pressmark").val()==''||$("#state").val()==''){
+                            alert("请填入完整读者信息！");
+                            return mySubmit(false);
+                        }
+                    })
+                </script>
+            </form>
+        </div>
+    </div>
+
 </div>
-<c:if test="${!empty login}">
-    <script>
-        $(function () {
-            $("#myModal").modal({
-                show: true
-            })
-        })
-    </script>
-</c:if>
 
 </body>
 </html>

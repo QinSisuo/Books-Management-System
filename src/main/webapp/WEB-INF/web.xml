@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-<!--    注册监听器用于在应用关闭时卸载jdbc驱动-->
+    <!-- 注册监听器用于在应用关闭时卸载 JDBC 驱动 -->
     <listener>
         <listener-class>com.book.JDBCDriverUnloader</listener-class>
     </listener>
@@ -32,7 +32,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- Spring MVC 的映射 URL -->
+    <!-- Spring MVC 的映射 URL (动态请求路径) -->
     <servlet-mapping>
         <servlet-name>book</servlet-name>
         <url-pattern>/</url-pattern>
@@ -47,6 +47,12 @@
 
     <servlet-mapping>
         <servlet-name>rest</servlet-name>
-        <url-pattern>/api/</url-pattern>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- 静态资源路径 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
 </web-app>

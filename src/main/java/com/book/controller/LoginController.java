@@ -18,6 +18,7 @@ import java.util.HashMap;
 //这是处理登录请求的主要控制器，负责接收和处理登录请求。
 //标注为一个Spring mvc的Controller
 @Controller
+@RequestMapping("/book")
 public class LoginController {
 
     private LoginService loginService;

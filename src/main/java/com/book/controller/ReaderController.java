@@ -2,11 +2,14 @@ package com.book.controller;
 
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
+import com.book.domain.User;
 import com.book.service.LoginService;
 import com.book.service.ReaderCardService;
 import com.book.service.ReaderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -135,7 +138,11 @@ public class ReaderController {
         }
 
     }
-
+    @PostMapping("/addUser")
+    public String addUser(@ModelAttribute User user) {
+        readerCardService.addUserCard(user);  // 假设需要用到类似的 Service
+        return "redirect:/admin/user/list";  // 保存成功后跳转到用户列表页面
+    }
     @RequestMapping("reader_add.html")
     public ModelAndView readerInfoAdd(){
         ModelAndView modelAndView=new ModelAndView("admin_reader_add");

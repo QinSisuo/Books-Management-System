@@ -48,4 +48,11 @@ public class BookService {
     public boolean editBook(Book book) {
         return bookMapper.editBook(book) > 0;
     }
+
+    public Book getBookById(int bookId) {return bookMapper.findBookById(bookId); }
+
+    public boolean updateBook(Book book) {
+        int rowsAffected = bookMapper.updateBook(book);
+        return rowsAffected > 0; // 返回是否更新成功
+    }
 }
