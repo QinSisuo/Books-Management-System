@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
     <!-- 注册监听器用于在应用关闭时卸载 JDBC 驱动 -->
     <listener>
@@ -18,36 +17,20 @@
 
     <!-- 启动 Spring 容器的监听器 -->
     <listener>
-        <listener-class>
-            org.springframework.web.context.ContextLoaderListener
-        </listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <!-- Spring MVC 的主控 servlet -->
     <servlet>
-        <servlet-name>book</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <!-- Spring MVC 的映射 URL (动态请求路径) -->
-    <servlet-mapping>
-        <servlet-name>book</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-
-    <!-- RESTful API 的 dispatcher servlet -->
-    <servlet>
-        <servlet-name>rest</servlet-name>
+        <servlet-name>book</servlet-name>  <!-- 保持 Servlet 名称为 book -->
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <!-- Spring MVC 的映射 URL (所有请求路径都交给 DispatcherServlet 处理) -->
     <servlet-mapping>
-        <servlet-name>rest</servlet-name>
-        <url-pattern>/api/*</url-pattern>
+        <servlet-name>book</servlet-name>
+        <url-pattern>/</url-pattern> <!-- 所有请求都交给 DispatcherServlet 处理 -->
     </servlet-mapping>
 
     <!-- 静态资源路径 -->
@@ -55,4 +38,5 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
+
 </web-app>

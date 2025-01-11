@@ -22,5 +22,10 @@
     </bean>
 
     <!-- 配置静态资源处理 -->
+    <mvc:annotation-driven/>
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/public/**" location="/public/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+
 </beans>

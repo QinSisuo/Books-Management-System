@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/user")
+//@RequestMapping("/book")
 public class UserController {
 
     @Autowired
@@ -27,60 +27,68 @@ public class UserController {
     private UserService userService;
 
     // 显示登录页面
-    @GetMapping("/index")
+    @RequestMapping(value = {"/","/login.html"})
     public String showLoginPage(HttpServletRequest request) {
-        // 清除会话，确保用户重新登录
-        request.getSession().invalidate();
+        request.getSession().invalidate(); // 清除会话
         return "index"; // 登录页面 JSP 文件路径
     }
+
+    // 处理登录逻辑
+
+
+    @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
+    public @ResponseBody Object loginCheck(HttpServletRequest request) {
+        System.out.println("进入 loginCheck 方法");  // 记录日志，确认是否进入该方法
+
+        int id = Integer.parseInt(request.getParameter("id"));
+        String passwd = request.getParameter("passwd");
+        boolean isReader = loginService.hasMatchReader(id, passwd);
+        boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
+
+        HashMap<String, String> res = new HashMap<>();
+        if (!isAdmin && !isReader) {
+            res.put("stateCode", "0");
+            res.put("msg", "账号或密码错误！");
+        } else if (isAdmin) {
+            Admin admin = new Admin();
+            admin.setAdminId(id);
+            admin.setPassword(passwd);
+            request.getSession().setAttribute("admin", admin);
+            res.put("stateCode", "1");
+            res.put("msg", "管理员登陆成功！");
+        } else {
+            ReaderCard readerCard = loginService.findReaderCardByUserId(id);
+            request.getSession().setAttribute("readercard", readerCard);
+            res.put("stateCode", "2");
+            res.put("msg", "读者登陆成功！");
+        }
+        return res;
+    }
+
+
 
     // 注销功能
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate(); // 清除会话
-        return "redirect:/user/index"; // 跳转回登录页面
-    }
-
-    // 处理登录表单提交
-    @PostMapping("/index")
-    public @ResponseBody HashMap<String, String> loginCheck(@RequestParam int id,
-                                                            @RequestParam String password,
-                                                            HttpServletRequest request) {
-        boolean isReader = loginService.hasMatchReader(id, password);
-        boolean isAdmin = loginService.hasMatchAdmin(id, password);
-        HashMap<String, String> res = new HashMap<>();
-
-        if (!isAdmin && !isReader) {
-            res.put("stateCode", "0");
-            res.put("msg", "账号或密码错误！");
-        } else if (isAdmin) {
-            // 管理员登录成功
-            Admin admin = new Admin();
-            admin.setAdminId(id);
-            admin.setPassword(password);
-            request.getSession().setAttribute("admin", admin);
-            res.put("stateCode", "1");
-            res.put("msg", "管理员登录成功！");
-        } else {
-            // 读者登录成功
-            ReaderCard readerCard = loginService.findReaderCardByUserId(id);
-            request.getSession().setAttribute("readerCard", readerCard);
-            res.put("stateCode", "2");
-            res.put("msg", "读者登录成功！");
-        }
-        return res;
+        return "redirect:/user/index"; // 跳转到登录页面
     }
 
     // 管理员主页
-    @GetMapping("/admin_main")
-    public ModelAndView toAdminMain() {
-        return new ModelAndView("admin_main");
+    @RequestMapping("/admin_main.html")
+    public ModelAndView toAdminMain(HttpServletRequest request) {
+        Admin admin = (Admin) request.getSession().getAttribute("admin");
+        String login = (admin != null) ? "true" : "false"; // 根据实际情况设置 login 变量
+        ModelAndView modelAndView = new ModelAndView("admin_main"); // 不需要写完整路径
+        modelAndView.addObject("login", login);
+        modelAndView.addObject("admin", admin);
+        return modelAndView;
     }
 
     // 读者主页
-    @GetMapping("/reader_main")
+    @GetMapping("/reader/reader_main")
     public ModelAndView toReaderMain() {
-        return new ModelAndView("reader_main");
+        return new ModelAndView("reader/reader_main");
     }
 
     // 修改管理员密码页面
@@ -94,7 +102,6 @@ public class UserController {
     public String reAdminPasswdDo(HttpServletRequest request,
                                   @RequestParam String oldPasswd,
                                   @RequestParam String newPasswd,
-                                  @RequestParam String reNewPasswd,
                                   RedirectAttributes redirectAttributes) {
 
         Admin admin = (Admin) request.getSession().getAttribute("admin");
@@ -115,8 +122,9 @@ public class UserController {
     }
 
     // 配置 404 页面
-    @RequestMapping("*")
+    @RequestMapping("/notfound")
     public String notFound() {
         return "404";
     }
+
 }

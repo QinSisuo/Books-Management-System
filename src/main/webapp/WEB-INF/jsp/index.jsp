@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/23
-  Time: 16:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -279,7 +272,7 @@
             else {
                 $.ajax({
                     type: 'POST',
-                    url: '/book/api/loginCheck',
+                    url: '/api/loginCheck',
                     data: {
                         id: $('#id').val(),
                         passwd: $('#passwd').val()
@@ -290,11 +283,11 @@
                         if (data.stateCode === '1') {
                             alert('管理员登录成功！');
                             // 重定向到管理员页面
-                            window.location.href = '/book/admin_main.html';
+                            window.location.href = '/admin_main.html';//插眼1
                         } else if (data.stateCode === '2') {
                             alert('读者登录成功！');
                             // 重定向到读者页面
-                            window.location.href = '/book/reader_main.html';
+                            window.location.href = '/reader_main.html';
                         } else {
                             alert('账号或密码错误！');
                         }
