@@ -32,6 +32,17 @@
         <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                         用户管理
+                         <b class="caret"></b>
+                     </a>
+                     <ul class="dropdown-menu">
+                         <li><a href="admin_all_users.html">全部用户</a></li>
+                         <li class="divider"></li>
+                         <li><a href="admin_user_add.html">新增用户</a></li>
+                     </ul>
+                </li>
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         图书管理
                         <b class="caret"></b>
@@ -44,18 +55,7 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        读者管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="allreaders.html">全部读者</a></li>
-                        <li class="divider"></li>
-                        <li><a href="reader_add.html">增加读者</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        借阅管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
@@ -63,9 +63,13 @@
                     </ul>
                 </li>
                 <li >
-                    <a href="admin_repasswd.html" >
-                        密码修改
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        数据分析和统计
+                        <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="lendlist.html">借还日志</a></li>
+                    </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
