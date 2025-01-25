@@ -1,10 +1,9 @@
 package com.book.controller;
 
-import com.book.domain.Admin;
-import com.book.domain.ReaderCard;
 import com.book.domain.User;
-import com.book.service.LoginService;
 import com.book.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,118 +12,153 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+//@Controller: 这是一个 Spring MVC 控制器，处理 HTTP 请求。
 @Controller
-//@RequestMapping("/book")
 public class UserController {
 
-    @Autowired
-    private LoginService loginService;
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class); // 日志对象
 
     @Autowired
     private UserService userService;
 
     // 显示登录页面
-    @RequestMapping(value = {"/","/login.html"})
+    //@RequestMapping("/admin"): 该控制器的所有路径都会以 /admin 开头。
+    @RequestMapping(value = {"/", "/login.html"})
     public String showLoginPage(HttpServletRequest request) {
         request.getSession().invalidate(); // 清除会话
-        return "index"; // 登录页面 JSP 文件路径
+        logger.info("访问登录页面"); // 添加日志
+        return "index"; // 登录页面对应的 JSP 文件
     }
 
-    // 处理登录逻辑
-
-
+    // 登录校验
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
-    public @ResponseBody Object loginCheck(HttpServletRequest request) {
-        System.out.println("进入 loginCheck 方法");  // 记录日志，确认是否进入该方法
+    public @ResponseBody Map<String, String> loginCheck(HttpServletRequest request) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-        int id = Integer.parseInt(request.getParameter("id"));
-        String passwd = request.getParameter("passwd");
-        boolean isReader = loginService.hasMatchReader(id, passwd);
-        boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
+        logger.info("尝试登录 - 用户名: {}", username); // 添加日志
 
-        HashMap<String, String> res = new HashMap<>();
-        if (!isAdmin && !isReader) {
+        User user = userService.login(username, password); // 调用 Service 层获取用户
+
+        Map<String, String> res = new HashMap<>();
+        if (user == null) {
+            logger.warn("登录失败 - 用户名: {}", username); // 添加日志
             res.put("stateCode", "0");
             res.put("msg", "账号或密码错误！");
-        } else if (isAdmin) {
-            Admin admin = new Admin();
-            admin.setAdminId(id);
-            admin.setPassword(passwd);
-            request.getSession().setAttribute("admin", admin);
-            res.put("stateCode", "1");
-            res.put("msg", "管理员登陆成功！");
         } else {
-            ReaderCard readerCard = loginService.findReaderCardByUserId(id);
-            request.getSession().setAttribute("readercard", readerCard);
-            res.put("stateCode", "2");
-            res.put("msg", "读者登陆成功！");
+            request.getSession().setAttribute("user", user); // 保存用户到 session
+            logger.info("登录成功 - 用户名: {}, 角色: {}", user.getUsername(), user.getRole()); // 添加日志
+
+            String role = user.getRole().toLowerCase();
+            if ("admin".equals(role)) {
+                res.put("stateCode", "1"); // 管理员角色
+                res.put("msg", "管理员登录成功！");
+            } else if ("reader".equals(role)) {
+                res.put("stateCode", "2"); // 读者角色
+                res.put("msg", "读者登录成功！");
+            } else {
+                logger.error("未知角色 - 用户名: {}, 角色: {}", user.getUsername(), user.getRole()); // 添加日志
+                res.put("stateCode", "3"); // 未知角色
+                res.put("msg", "未知用户角色！");
+            }
         }
         return res;
     }
 
-
-
     // 注销功能
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
+        logger.info("用户注销: {}", request.getSession().getAttribute("user")); // 添加日志
         request.getSession().invalidate(); // 清除会话
-        return "redirect:/user/index"; // 跳转到登录页面
+        return "redirect:/login.html";
     }
 
-    // 管理员主页
+    // admin主页
     @RequestMapping("/admin_main.html")
     public ModelAndView toAdminMain(HttpServletRequest request) {
-        Admin admin = (Admin) request.getSession().getAttribute("admin");
-        String login = (admin != null) ? "true" : "false"; // 根据实际情况设置 login 变量
-        ModelAndView modelAndView = new ModelAndView("admin_main"); // 不需要写完整路径
-        modelAndView.addObject("login", login);
-        modelAndView.addObject("admin", admin);
-        return modelAndView;
-    }
-
-    // 读者主页
-    @GetMapping("/reader/reader_main")
-    public ModelAndView toReaderMain() {
-        return new ModelAndView("reader/reader_main");
-    }
-
-    // 修改管理员密码页面
-    @GetMapping("/admin_repasswd")
-    public ModelAndView reAdminPasswd() {
-        return new ModelAndView("admin_repasswd");
-    }
-
-    // 修改管理员密码逻辑
-    @PostMapping("/admin_repasswd_do")
-    public String reAdminPasswdDo(HttpServletRequest request,
-                                  @RequestParam String oldPasswd,
-                                  @RequestParam String newPasswd,
-                                  RedirectAttributes redirectAttributes) {
-
-        Admin admin = (Admin) request.getSession().getAttribute("admin");
-        int id = admin.getAdminId();
-        String currentPasswd = loginService.getAdminPasswd(id);
-
-        if (currentPasswd.equals(oldPasswd)) {
-            boolean success = loginService.adminRePasswd(id, newPasswd);
-            if (success) {
-                redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
-            } else {
-                redirectAttributes.addFlashAttribute("error", "密码修改失败！");
-            }
-        } else {
-            redirectAttributes.addFlashAttribute("error", "旧密码错误！");
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || !"admin".equals(user.getRole())) {
+            logger.warn("非管理员访问管理员页面 - 跳转登录页面"); // 添加日志
+            return new ModelAndView("redirect:/login.html");
         }
-        return "redirect:/user/admin_repasswd";
+        logger.info("管理员页面访问成功 - 用户名: {}", user.getUsername()); // 添加日志
+        return new ModelAndView("admin_main").addObject("user", user);
+    }
+    //reader页面
+    @RequestMapping("/reader_main.html")
+    public ModelAndView toReaderMain(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || !"reader".equals(user.getRole())) {
+            logger.warn("非读者访问读者页面 - 跳转登录页面"); // 日志记录
+            return new ModelAndView("redirect:/login.html");
+        }
+        logger.info("读者页面访问成功 - 用户名: {}", user.getUsername()); // 日志记录
+        return new ModelAndView("reader_main").addObject("user", user);
     }
 
-    // 配置 404 页面
-    @RequestMapping("/notfound")
-    public String notFound() {
-        return "404";
+    //admin page show all users
+    @GetMapping("admin_all_users.html")
+    public String showAllUsers(Model model) {
+        List<User> userList = userService.getAllUsers();
+        model.addAttribute("users", userList);
+        return "admin_all_users";  // 显示用户列表的 JSP 页面
     }
 
+    @GetMapping("/admin/user/delete")
+    public String deleteUser(@RequestParam("userId") int userId, Model model) {
+        boolean success = userService.deleteUser(userId);
+        if (success) {
+            model.addAttribute("succ", "用户删除成功");
+            logger.info("User with ID {} deleted successfully", userId);
+        } else {
+            model.addAttribute("error", "用户删除失败");
+        }
+        return "redirect:/admin_all_users.html";
+    }
+
+    @PostMapping("/admin/user/add")
+    public String addUser(@RequestParam("username") String username,
+                          @RequestParam("password") String password,
+                          @RequestParam("role") String role,
+                          @RequestParam(value = "email", required = false) String email,
+                          @RequestParam(value = "phone", required = false) String phone,
+                          @RequestParam(value = "address", required = false) String address,
+                          RedirectAttributes redirectAttributes) {
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(password);
+        newUser.setRole(role);
+        newUser.setEmail(email);
+        newUser.setPhone(phone);
+        newUser.setAddress(address);
+
+        boolean success = userService.addUser(newUser);
+        if (success) {
+            redirectAttributes.addFlashAttribute("succ", "用户新增成功！");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "用户新增失败，请检查输入！");
+        }
+
+        return "redirect:/admin_all_users.html";
+    }
+
+    @PostMapping("/admin/user/update")
+    public String updateUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        boolean success = userService.updateUser(user);
+        if (success) {
+            redirectAttributes.addFlashAttribute("succ", "用户更新成功！");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "用户更新失败，请检查输入！");
+        }
+        return "redirect:/admin_all_users.html";
+    }
+
+    @GetMapping("/admin_user_add.html")
+    public String showAddReaderPage() {
+        return "/admin_user_add";  // 确保视图解析正确
+    }
 }
