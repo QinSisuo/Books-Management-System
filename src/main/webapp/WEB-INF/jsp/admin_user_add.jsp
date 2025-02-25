@@ -1,119 +1,101 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>添加读者</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js" ></script>
-    <style>
-        body{
-            background-color: rgb(240,242,245);
-        }
-    </style>
-
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-<nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
-    <div class="container-fluid">
-        <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
-            <a class="navbar-brand" href="admin_main.html">图书管理系统</a>
-        </div>
-        <div class="collapse navbar-collapse" >
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        图书管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="allbooks.html">全部图书</a></li>
-                        <li class="divider"></li>
-                        <li><a href="book_add.html">增加图书</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        读者管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="allreaders.html">全部读者</a></li>
-                        <li class="divider"></li>
-                        <li><a href="reader_add.html">增加读者</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
-                    </ul>
-                </li>
-                <li >
-                    <a href="admin_repasswd.html" >
-                        密码修改
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html"><span class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
-                <li><a href="logout.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    <%@ include file="common/header.jsp" %>
+    <%@ include file="common/navbar.jsp" %>
+<div class="container">
+    <h3 class="panel-title text-center mt-4">添加用户</h3>
 
-<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 25%">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">添加管理员</h3>
+    <form action="/admin/user/add" method="post" id="userForm">
+        <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+            <small class="text-danger d-none" id="usernameError">用户名不能为空</small>
         </div>
-        <div class="panel-body">
-            <form action="/admin/user/addUser.html" method="post" >
-                <div class="input-group">
-                    <span  class="input-group-addon">管理员证号</span>
-                    <input  type="text" class="form-control" name="readerId" id="readerId" ">
-                </div>
 
-                <div class="input-group">
-                    <span class="input-group-addon">姓名</span>
-                    <input type="text" class="form-control" name="name" id="name"  >
-                </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">性别</span>
-                    <input type="text" class="form-control" name="sex" id="sex" >
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">生日</span>
-                    <input type="text" class="form-control" name="birth" id="birth"  >
-                </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  >
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">电话</span>
-                    <input type="text" class="form-control" name="telcode" id="telcode"  >
-                </div>
-                <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">
-                <script>
-                    function mySubmit(flag){
-                        return flag;
-                    }
-                    $("#readeredit").submit(function () {
-                        if($("#name").val()==''||$("#author").val()==''||$("#publish").val()==''||$("#isbn").val()==''||$("#introduction").val()==''||$("#language").val()==''||$("#price").val()==''||$("#pubdate").val()==''||$("#classId").val()==''||$("#pressmark").val()==''||$("#state").val()==''){
-                            alert("请填入完整读者信息！");
-                            return mySubmit(false);
-                        }
-                    })
-                </script>
-            </form>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" name="password" required>
         </div>
-    </div>
 
+        <div class="form-group">
+            <label for="role">角色</label>
+            <select class="form-control" id="role" name="role" required>
+                <option value="admin">管理员</option>
+                <option value="reader">读者</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">邮箱</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">电话</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+        </div>
+
+        <div class="form-group">
+            <label for="address">地址</label>
+            <input type="text" class="form-control" id="address" name="address">
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-success">保存</button>
+            <a href="/admin_all_users.html" class="btn btn-outline-secondary">取消</a>
+        </div>
+    </form>
 </div>
+
+<!-- JavaScript 依赖 -->
+<script src="/js/jquery-3.2.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#userForm").submit(function(e) {
+            e.preventDefault();  // 阻止表单默认提交
+
+            let username = $("#username").val().trim();
+            let password = $("#password").val().trim();
+            let email = $("#email").val().trim();
+            let phone = $("#phone").val().trim();
+
+            if (username === "" || password === "") {
+                alert("用户名和密码不能为空！");
+                return;
+            }
+            if (email !== "" && !/^\S+@\S+\.\S+$/.test(email)) {
+                alert("请输入有效的邮箱地址！");
+                return;
+            }
+            if (phone !== "" && !/^\d{10,15}$/.test(phone)) {
+                alert("请输入有效的电话号码！");
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/user/add",
+                data: $(this).serialize(),
+                success: function(response) {
+                    alert("用户添加成功！");
+                    window.location.href = "/admin_all_users.html";
+                },
+                error: function() {
+                    alert("添加失败，请检查输入！");
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
