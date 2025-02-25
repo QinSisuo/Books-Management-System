@@ -11,7 +11,17 @@
 </head>
 <body>
 <div class="container">
-    <h1>用户管理</h1>
+    <div class="row">
+        <!-- 左侧 用户管理 -->
+        <div class="col-md-6 text-left">
+            <h2>用户管理</h2>
+        </div>
+
+        <!-- 右侧 新增用户按钮 -->
+        <div class="col-md-6 text-right">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">新增用户</button>
+        </div>
+    </div>
 
     <!-- 显示成功或错误信息 -->
     <c:if test="${not empty succ}">
@@ -22,10 +32,10 @@
     </c:if>
 
     <!-- 显示用户列表 -->
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>用户ID</th>
+            <th style="width: 6%;">用户ID</th>
             <th>用户名</th>
             <th>角色</th>
             <th>邮箱</th>
@@ -73,8 +83,6 @@
         </tbody>
     </table>
 
-    <!-- 新增用户按钮 -->
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">新增用户</button>
 </div>
 
 <!-- 新增用户弹窗 -->
