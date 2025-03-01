@@ -69,6 +69,17 @@ public class UserController {
         return res;
     }
 
+
+    @GetMapping("/admin_main")
+    public String showDashboard(HttpServletRequest request, Model model) {
+        User user = (User) request.getSession().getAttribute("user");
+
+        // 将 user 对象添加到模型中
+        model.addAttribute("user", user);
+
+        return "admin_main";  // 返回 JSP 页面
+    }
+
     // 注销功能
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -77,7 +88,7 @@ public class UserController {
         return "redirect:/login.html";
     }
 
-    // admin主页
+    // admin页面
     @RequestMapping("/admin_main.html")
     public ModelAndView toAdminMain(HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
@@ -108,6 +119,7 @@ public class UserController {
         return "admin_all_users";  // 显示用户列表的 JSP 页面
     }
 
+    //admin user delete
     @GetMapping("/admin/user/delete")
     public String deleteUser(@RequestParam("userId") int userId, Model model) {
         boolean success = userService.deleteUser(userId);
@@ -120,6 +132,7 @@ public class UserController {
         return "redirect:/admin_all_users.html";
     }
 
+    //admin user add
     @PostMapping("/admin/user/add")
     public String addUser(@RequestParam("username") String username,
                           @RequestParam("password") String password,
@@ -146,6 +159,7 @@ public class UserController {
         return "redirect:/admin_all_users.html";
     }
 
+    //admin edit
     @PostMapping("/admin/user/update")
     public String updateUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         boolean success = userService.updateUser(user);
@@ -157,6 +171,7 @@ public class UserController {
         return "redirect:/admin_all_users.html";
     }
 
+    //admin add
     @GetMapping("/admin_user_add.html")
     public String showAddReaderPage() {
         return "/admin_user_add";  // 确保视图解析正确

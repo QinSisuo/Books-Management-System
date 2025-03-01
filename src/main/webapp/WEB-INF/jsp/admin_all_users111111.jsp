@@ -113,7 +113,7 @@
             <tbody>
             <c:forEach items="${readers}" var="reader">
                 <tr>
-                    <td><c:out value="${reader.readerId}"></c:out></td>
+                    <td><c:out value="${reader.userId}"></c:out></td>
                     <td><c:out value="${reader.name}"></c:out></td>
                     <td><c:out value="${reader.sex}"></c:out></td>
                     <td><c:out value="${reader.birth}"></c:out></td>

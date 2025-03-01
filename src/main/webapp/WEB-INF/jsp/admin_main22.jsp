@@ -9,13 +9,14 @@
         .container { margin-top: 50px; }
     </style>
 </head>
-
 <body>
     <%@ include file="common/header.jsp" %>
     <%@ include file="common/navbar.jsp" %>
 
-<!-- 背景图body background="img/313515.jpg"-->
-
+    <div class="container">
+        <h3 class="text-center mt-4">欢迎来到管理员后台</h3>
+        <p class="text-center">请从上方导航栏选择功能。</p>
+    </div>
 
     <%@ include file="common/footer.jsp" %>
 

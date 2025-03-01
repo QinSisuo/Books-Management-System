@@ -1,120 +1,98 @@
 package com.book.controller;
 
-import com.book.domain.Book;
 import com.book.domain.User;
-import com.book.service.BookService;
-import com.book.service.UserService;
+import com.book.service.UserAdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin") // 所有路径以 /admin 开头
 public class UserAdminController {
 
-    @Autowired
-    private BookService bookService;
+    private static final Logger logger = LoggerFactory.getLogger(UserAdminController.class);
 
     @Autowired
-    private UserService userService;
+    private UserAdminService userAdminService;
 
-    // ========================= 图书管理功能 =========================
-
-    // 查询所有图书
-    @RequestMapping("/books")
-    public ModelAndView allBooks() {
-        List<Book> books = bookService.getAllBooks();
-        ModelAndView modelAndView = new ModelAndView("admin/book_list");
-        modelAndView.addObject("books", books);
-        return modelAndView;
+    // 1. 查看所有读者
+    @GetMapping("/readers")
+    public String getAllReaders(Model model) {
+        logger.info("管理员正在查看所有读者信息");
+        List<User> readers = userAdminService.getAllReaders();
+        model.addAttribute("readers", readers);
+        return "admin_readers"; // 对应的 JSP 文件名：/WEB-INF/jsp/admin_readers.jsp
     }
 
-    // 按关键词查询图书（管理员）
-    @RequestMapping("/books/search")
-    public ModelAndView queryBook(@RequestParam("searchWord") String searchWord) {
-        List<Book> books;
-        if (bookService.matchBook(searchWord)) {
-            books = bookService.queryBook(searchWord);
+    // 2. 添加读者页面
+    @GetMapping("/reader/add")
+    public String showAddReaderPage() {
+        logger.info("管理员正在进入添加读者页面");
+        return "admin_reader_add"; // 对应的 JSP 文件名：/WEB-INF/jsp/admin_reader_add.jsp
+    }
+
+    // 3. 添加读者逻辑
+    @PostMapping("/reader/add")
+    public String addReader(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        logger.info("管理员正在添加新读者 - 用户名: {}", user.getUsername());
+        boolean success = userAdminService.addReader(user);
+        if (success) {
+            logger.info("读者添加成功 - 用户名: {}", user.getUsername());
+            redirectAttributes.addFlashAttribute("success", "读者添加成功！");
         } else {
-            books = new ArrayList<>();
+            logger.error("读者添加失败 - 用户名: {}", user.getUsername());
+            redirectAttributes.addFlashAttribute("error", "读者添加失败！");
         }
-        ModelAndView modelAndView = new ModelAndView("admin/book_list");
-        modelAndView.addObject("books", books);
-        return modelAndView;
+        return "redirect:/admin/readers"; // 添加完成后重定向到读者列表
     }
 
-    // 添加图书页面
-    @RequestMapping("/books/add")
-    public ModelAndView addBookPage() {
-        return new ModelAndView("admin/book_add");
+    // 4. 编辑读者页面
+    @GetMapping("/reader/edit/{id}")
+    public String showEditReaderPage(@PathVariable("id") int id, Model model) {
+        logger.info("管理员正在进入编辑读者页面 - 读者ID: {}", id);
+        User reader = userAdminService.getReaderById(id);
+        if (reader == null) {
+            logger.warn("无法找到指定读者 - 读者ID: {}", id);
+            model.addAttribute("error", "无法找到指定的读者！");
+            return "admin_readers"; // 返回读者列表页面
+        }
+        model.addAttribute("reader", reader);
+        return "admin_reader_edit"; // 对应的 JSP 文件名：/WEB-INF/jsp/admin_reader_edit.jsp
     }
 
-    // 添加图书（通过 Book 对象）
-    @PostMapping("/books/add")
-    public String addBook(Book book, RedirectAttributes redirectAttributes) {
-        boolean success = bookService.addBook(book);
-        redirectAttributes.addFlashAttribute("message", success ? "图书添加成功！" : "图书添加失败，请重试！");
-        return "redirect:/admin/books";
+    // 5. 更新读者信息
+    @PostMapping("/reader/edit")
+    public String editReader(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+        logger.info("管理员正在更新读者信息 - 读者ID: {}", user.getUserId());
+        boolean success = userAdminService.updateReader(user);
+        if (success) {
+            logger.info("读者信息更新成功 - 读者ID: {}", user.getUserId());
+            redirectAttributes.addFlashAttribute("success", "读者信息更新成功！");
+        } else {
+            logger.error("读者信息更新失败 - 读者ID: {}", user.getUserId());
+            redirectAttributes.addFlashAttribute("error", "读者信息更新失败！");
+        }
+        return "redirect:/admin/readers"; // 更新完成后重定向到读者列表
     }
 
-    // 删除图书
-    @GetMapping("/books/delete")
-    public String deleteBook(@RequestParam("bookId") long bookId, RedirectAttributes redirectAttributes) {
-        boolean success = bookService.deleteBook(bookId);
-        redirectAttributes.addFlashAttribute("message", success ? "图书删除成功！" : "图书删除失败！");
-        return "redirect:/admin/books";
+    // 6. 删除读者
+    @PostMapping("/reader/delete/{id}")
+    public String deleteReader(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
+        logger.info("管理员正在删除读者 - 读者ID: {}", id);
+        boolean success = userAdminService.deleteReader(id);
+        if (success) {
+            logger.info("读者删除成功 - 读者ID: {}", id);
+            redirectAttributes.addFlashAttribute("success", "读者删除成功！");
+        } else {
+            logger.error("读者删除失败 - 读者ID: {}", id);
+            redirectAttributes.addFlashAttribute("error", "读者删除失败！");
+        }
+        return "redirect:/admin/readers"; // 删除完成后重定向到读者列表
     }
-
-    // 编辑图书页面
-    @GetMapping("/books/edit")
-    public ModelAndView editBook(@RequestParam("bookId") long bookId) {
-        Book book = bookService.getBook(bookId);
-        ModelAndView modelAndView = new ModelAndView("admin/book_edit");
-        modelAndView.addObject("book", book);
-        return modelAndView;
-    }
-
-    // 更新图书信息（通过 Book 对象）
-    @PostMapping("/books/update")
-    public String updateBook(Book book, RedirectAttributes redirectAttributes) {
-        boolean success = bookService.updateBook(book);
-        redirectAttributes.addFlashAttribute("message", success ? "图书更新成功！" : "图书更新失败！");
-        return "redirect:/admin/books";
-    }
-
-    // 图书详情（管理员）
-    @RequestMapping("/books/detail")
-    public ModelAndView bookDetail(@RequestParam("bookId") long bookId) {
-        Book book = bookService.getBook(bookId);
-        return new ModelAndView("admin/book_detail").addObject("detail", book);
-    }
-
-    // ========================= 用户管理功能（示例） =========================
-
-    // 查询所有用户
-    @RequestMapping("/users")
-    public ModelAndView allUsers() {
-        List<User> users = userService.getAllUsers();
-        ModelAndView modelAndView = new ModelAndView("admin/user_list");
-        modelAndView.addObject("users", users);
-        return modelAndView;
-    }
-
-    // 删除用户
-    @GetMapping("/users/delete")
-    public String deleteUser(@RequestParam("userId") long userId, RedirectAttributes redirectAttributes) {
-        boolean success = userService.deleteUser(userId);
-        redirectAttributes.addFlashAttribute("message", success ? "用户删除成功！" : "用户删除失败！");
-        return "redirect:/admin/users";
-    }
-
-
 }

@@ -1,15 +1,19 @@
 package com.book.domain;
 
-public class User {
-    private int userId;
-    private String username;
-    private String password;
-    private String role;
-    private String email;
-    private String phone;
-    private String address;
+import java.util.Date;
 
-    // Getter 和 Setter 方法
+public class User {
+    private int userId;          // 用户ID
+    private String username;     // 用户名
+    private String password;     // 密码
+    private String role;         // 角色（admin 或 reader）
+    private String email;        // 邮箱
+    private String phone;        // 电话
+    private String address;      // 地址
+    private Date createdAt;      // 创建时间
+    private Date updatedAt;      // 更新时间
+
+    // Getters 和 Setters
     public int getUserId() {
         return userId;
     }
@@ -64,5 +68,25 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getId() {
+        return userId;
     }
 }
