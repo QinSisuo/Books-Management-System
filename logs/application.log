@@ -1,0 +1,474 @@
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.j.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+2025-01-12 03:49:44 [main] DEBUG o.s.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+2025-01-12 03:49:44 [main] DEBUG o.s.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.book.service.BookServiceTest] from class [org.springframework.test.context.web.WebTestContextBootstrapper]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDelegatingSmartContextLoader - Delegating to GenericXmlWebContextLoader to process context configuration [ContextConfigurationAttributes@2ea6137 declaringClass = 'com.book.service.BookServiceTest', classes = '{}', locations = '{classpath:spring/spring-context.xml}', inheritLocations = true, initializers = '{}', inheritInitializers = true, name = [null], contextLoaderClass = 'org.springframework.test.context.ContextLoader'].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.w.WebTestContextBootstrapper - @TestExecutionListeners is not present for class [com.book.service.BookServiceTest]: using defaults.
+2025-01-12 03:49:44 [main] INFO  o.s.t.c.w.WebTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2025-01-12 03:49:44 [main] INFO  o.s.t.c.w.WebTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@25d250c6, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4df50bcc, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@6b26e945, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@63a65a25, org.springframework.test.context.support.DirtiesContextTestExecutionListener@54c562f7, org.springframework.test.context.transaction.TransactionalTestExecutionListener@318ba8c8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6dbb137d, org.springframework.test.context.event.EventPublishingTestExecutionListener@3c9d0b9d]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@1ffe63b9 testClass = BookServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@51e5fc98 testClass = BookServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.BookServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDelegatingSmartContextLoader - Delegating to GenericXmlWebContextLoader to load context from [WebMergedContextConfiguration@51e5fc98 testClass = BookServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.w.AbstractGenericWebContextLoader - Loading WebApplicationContext for merged context configuration [WebMergedContextConfiguration@51e5fc98 testClass = BookServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]].
+2025-01-12 03:49:44 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Activating profiles []
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/BookController.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/UserAdminController.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/UserController.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/WebConfig.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/BookService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/LendService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/ReaderInfoService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/UserService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 22 bean definitions from class path resource [spring/spring-context.xml]
+2025-01-12 03:49:44 [main] DEBUG o.s.w.c.s.GenericWebApplicationContext - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@be64738
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.mybatis.spring.mapper.MapperScannerConfigurer#0'
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class]
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class]
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class]
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class]
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class]
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class]
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'adminMapper' and 'com.book.mapper.AdminMapper' mapperInterface
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'bookMapper' and 'com.book.mapper.BookMapper' mapperInterface
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'lendMapper' and 'com.book.mapper.LendMapper' mapperInterface
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'readerInfoMapper' and 'com.book.mapper.ReaderInfoMapper' mapperInterface
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userMapper' and 'com.book.mapper.UserMapper' mapperInterface
+2025-01-12 03:49:44 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userReaderMapper' and 'com.book.mapper.UserReaderMapper' mapperInterface
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionalEventListenerFactory'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.aop.config.internalAutoProxyCreator'
+2025-01-12 03:49:44 [main] DEBUG o.s.u.c.s.UiApplicationContextUtils - Unable to locate ThemeSource with name 'themeSource': using default [org.springframework.ui.context.support.ResourceBundleThemeSource@176b75f7]
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookController'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookService'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookMapper'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'sqlSessionFactory'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'dataSource'
+2025-01-12 03:49:44 [main] DEBUG com.zaxxer.hikari.HikariConfig - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader sun.misc.Launcher$AppClassLoader@3d4eac69
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionAdvisor'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0'
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.VFS - Class not found: org.jboss.vfs.VFS
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.JBoss6VFS - JBoss 6 VFS API is not available in this environment.
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.VFS - Class not found: org.jboss.vfs.VirtualFile
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.VFS - VFS implementation org.apache.ibatis.io.JBoss6VFS is not valid in this environment.
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.VFS - Using VFS adapter org.apache.ibatis.io.DefaultVFS
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: AdminMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: BookMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: LendMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ReaderInfoMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UserMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UserReaderMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Listing file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4    
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 - + , 	queryBook )(Ljava/lang/String;)Ljava/util/ArrayList; 	Signature A(Ljava/lang/String;)Ljava/util/ArrayList<Lcom/book/domain/Book;>; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value �SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state FROM book_info WHERE book_id LIKE CONCAT('%', #{searchWord}, '%') OR name LIKE CONCAT('%', #{searchWord}, '%') "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; 
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 & $ % 
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4     getAllReaderInfo ()Ljava/util/List; 	Signature 0()Ljava/util/List<Lcom/book/domain/ReaderInfo;>; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value SELECT * FROM reader_info findReaderInfoByReaderId (I)Lcom/book/domain/ReaderInfo; 7SELECT * FROM reader_info WHERE reader_id = #{readerId} "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; readerId deleteReaderInfo (I)I &Lorg/apache/ibatis/annotations/Delete; 5DELETE FROM reader_info WHERE reader_id = #{readerId} editReaderInfo (Lcom/book/domain/ReaderInfo;)I &Lorg/apache/ibatis/annotations/Update; �UPDATE reader_info SET name = #{name}, sex = #{sex}, birth = #{birth}, address = #{address}, telcode = #{telcode} WHERE reader_id = #{readerId} 
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 * ( ) getUserByUsername *(Ljava/lang/String;)Lcom/book/domain/User; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value 0SELECT * FROM users WHERE username = #{username} "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; username getUsersByRole $(Ljava/lang/String;)Ljava/util/List; 	Signature <(Ljava/lang/String;)Ljava/util/List<Lcom/book/domain/User;>; (SELECT * FROM users WHERE role = #{role} role 
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4    
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.AdminMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.BookMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.LendMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.ReaderInfoMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.UserMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:44 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.UserReaderMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:44 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [spring/mybatis-config.xml]'
+2025-01-12 03:49:44 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.interceptor.TransactionInterceptor#0'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'bookController' via constructor to bean named 'bookService'
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'userAdminController'
+2025-01-12 03:49:44 [main] WARN  o.s.w.c.s.GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAdminController': Unsatisfied dependency expressed through field 'userAdminService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-01-12 03:49:44 [main] ERROR o.s.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@25d250c6] to prepare test instance [com.book.service.BookServiceTest@55562aa9]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:124)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAdminController': Unsatisfied dependency expressed through field 'userAdminService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:660)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.test.context.web.AbstractGenericWebContextLoader.loadContext(AbstractGenericWebContextLoader.java:129)
+	at org.springframework.test.context.web.AbstractGenericWebContextLoader.loadContext(AbstractGenericWebContextLoader.java:61)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:276)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:244)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90)
+	... 28 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1801)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1357)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657)
+	... 47 common frames omitted
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDirtiesContextTestExecutionListener - After test class: context [DefaultTestContext@1ffe63b9 testClass = BookServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@51e5fc98 testClass = BookServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.j.SpringJUnit4ClassRunner - SpringJUnit4ClassRunner constructor called with [class com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+2025-01-12 03:49:44 [main] DEBUG o.s.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+2025-01-12 03:49:44 [main] DEBUG o.s.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.book.service.LendServiceTest] from class [org.springframework.test.context.web.WebTestContextBootstrapper]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDelegatingSmartContextLoader - Delegating to GenericXmlWebContextLoader to process context configuration [ContextConfigurationAttributes@37ddb69a declaringClass = 'com.book.service.LendServiceTest', classes = '{}', locations = '{classpath:spring/spring-context.xml}', inheritLocations = true, initializers = '{}', inheritInitializers = true, name = [null], contextLoaderClass = 'org.springframework.test.context.ContextLoader'].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.w.WebTestContextBootstrapper - @TestExecutionListeners is not present for class [com.book.service.LendServiceTest]: using defaults.
+2025-01-12 03:49:44 [main] INFO  o.s.t.c.w.WebTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2025-01-12 03:49:44 [main] INFO  o.s.t.c.w.WebTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@349c1daf, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@dfddc9a, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@4b9df8a, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@5e8ac0e1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@aafcffa, org.springframework.test.context.transaction.TransactionalTestExecutionListener@6955cb39, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@235a0c16, org.springframework.test.context.event.EventPublishingTestExecutionListener@2b5f4d54]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@5f7b97da testClass = LendServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18b0930f testClass = LendServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.s.AbstractDelegatingSmartContextLoader - Delegating to GenericXmlWebContextLoader to load context from [WebMergedContextConfiguration@18b0930f testClass = LendServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]].
+2025-01-12 03:49:44 [main] DEBUG o.s.t.c.w.AbstractGenericWebContextLoader - Loading WebApplicationContext for merged context configuration [WebMergedContextConfiguration@18b0930f testClass = LendServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]].
+2025-01-12 03:49:44 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Activating profiles []
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/BookController.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/UserAdminController.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/UserController.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/WebConfig.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/BookService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/LendService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/ReaderInfoService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/UserService.class]
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 22 bean definitions from class path resource [spring/spring-context.xml]
+2025-01-12 03:49:44 [main] DEBUG o.s.w.c.s.GenericWebApplicationContext - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@6b7906b3
+2025-01-12 03:49:44 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.mybatis.spring.mapper.MapperScannerConfigurer#0'
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'adminMapper' and 'com.book.mapper.AdminMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'bookMapper' and 'com.book.mapper.BookMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'lendMapper' and 'com.book.mapper.LendMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'readerInfoMapper' and 'com.book.mapper.ReaderInfoMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userMapper' and 'com.book.mapper.UserMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userReaderMapper' and 'com.book.mapper.UserReaderMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionalEventListenerFactory'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.aop.config.internalAutoProxyCreator'
+2025-01-12 03:49:45 [main] DEBUG o.s.u.c.s.UiApplicationContextUtils - Unable to locate ThemeSource with name 'themeSource': using default [org.springframework.ui.context.support.ResourceBundleThemeSource@5c42d2b7]
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookController'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookService'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookMapper'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'sqlSessionFactory'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'dataSource'
+2025-01-12 03:49:45 [main] DEBUG com.zaxxer.hikari.HikariConfig - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader sun.misc.Launcher$AppClassLoader@3d4eac69
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionAdvisor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0'
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: AdminMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: BookMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: LendMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ReaderInfoMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UserMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UserReaderMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Listing file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4    
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 - + , 	queryBook )(Ljava/lang/String;)Ljava/util/ArrayList; 	Signature A(Ljava/lang/String;)Ljava/util/ArrayList<Lcom/book/domain/Book;>; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value �SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state FROM book_info WHERE book_id LIKE CONCAT('%', #{searchWord}, '%') OR name LIKE CONCAT('%', #{searchWord}, '%') "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 & $ % 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4     getAllReaderInfo ()Ljava/util/List; 	Signature 0()Ljava/util/List<Lcom/book/domain/ReaderInfo;>; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value SELECT * FROM reader_info findReaderInfoByReaderId (I)Lcom/book/domain/ReaderInfo; 7SELECT * FROM reader_info WHERE reader_id = #{readerId} "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; readerId deleteReaderInfo (I)I &Lorg/apache/ibatis/annotations/Delete; 5DELETE FROM reader_info WHERE reader_id = #{readerId} editReaderInfo (Lcom/book/domain/ReaderInfo;)I &Lorg/apache/ibatis/annotations/Update; �UPDATE reader_info SET name = #{name}, sex = #{sex}, birth = #{birth}, address = #{address}, telcode = #{telcode} WHERE reader_id = #{readerId} 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 * ( ) getUserByUsername *(Ljava/lang/String;)Lcom/book/domain/User; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value 0SELECT * FROM users WHERE username = #{username} "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; username getUsersByRole $(Ljava/lang/String;)Ljava/util/List; 	Signature <(Ljava/lang/String;)Ljava/util/List<Lcom/book/domain/User;>; (SELECT * FROM users WHERE role = #{role} role 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4    
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.AdminMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.BookMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.LendMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.ReaderInfoMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.UserMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.UserReaderMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [spring/mybatis-config.xml]'
+2025-01-12 03:49:45 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.interceptor.TransactionInterceptor#0'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'bookController' via constructor to bean named 'bookService'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'userAdminController'
+2025-01-12 03:49:45 [main] WARN  o.s.w.c.s.GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAdminController': Unsatisfied dependency expressed through field 'userAdminService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-01-12 03:49:45 [main] ERROR o.s.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@349c1daf] to prepare test instance [com.book.service.LendServiceTest@3b2c0e88]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:124)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAdminController': Unsatisfied dependency expressed through field 'userAdminService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:660)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.test.context.web.AbstractGenericWebContextLoader.loadContext(AbstractGenericWebContextLoader.java:129)
+	at org.springframework.test.context.web.AbstractGenericWebContextLoader.loadContext(AbstractGenericWebContextLoader.java:61)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:276)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:244)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90)
+	... 28 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1801)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1357)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657)
+	... 47 common frames omitted
+2025-01-12 03:49:45 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved @ProfileValueSourceConfiguration [null] for test class [com.book.service.LendServiceTest]
+2025-01-12 03:49:45 [main] DEBUG o.s.t.annotation.ProfileValueUtils - Retrieved ProfileValueSource type [class org.springframework.test.annotation.SystemProfileValueSource] for class [com.book.service.LendServiceTest]
+2025-01-12 03:49:45 [main] DEBUG o.s.t.c.s.AbstractDelegatingSmartContextLoader - Delegating to GenericXmlWebContextLoader to load context from [WebMergedContextConfiguration@18b0930f testClass = LendServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]].
+2025-01-12 03:49:45 [main] DEBUG o.s.t.c.w.AbstractGenericWebContextLoader - Loading WebApplicationContext for merged context configuration [WebMergedContextConfiguration@18b0930f testClass = LendServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]].
+2025-01-12 03:49:45 [main] DEBUG o.s.w.c.s.StandardServletEnvironment - Activating profiles []
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/BookController.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/UserAdminController.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/UserController.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/controller/WebConfig.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/BookService.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/LendService.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/ReaderInfoService.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.c.a.ClassPathBeanDefinitionScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/service/UserService.class]
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.xml.XmlBeanDefinitionReader - Loaded 22 bean definitions from class path resource [spring/spring-context.xml]
+2025-01-12 03:49:45 [main] DEBUG o.s.w.c.s.GenericWebApplicationContext - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@549949be
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.mybatis.spring.mapper.MapperScannerConfigurer#0'
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class]
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'adminMapper' and 'com.book.mapper.AdminMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'bookMapper' and 'com.book.mapper.BookMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'lendMapper' and 'com.book.mapper.LendMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'readerInfoMapper' and 'com.book.mapper.ReaderInfoMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userMapper' and 'com.book.mapper.UserMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'userReaderMapper' and 'com.book.mapper.UserReaderMapper' mapperInterface
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionalEventListenerFactory'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.aop.config.internalAutoProxyCreator'
+2025-01-12 03:49:45 [main] DEBUG o.s.u.c.s.UiApplicationContextUtils - Unable to locate ThemeSource with name 'themeSource': using default [org.springframework.ui.context.support.ResourceBundleThemeSource@cb191ca]
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookController'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookService'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'bookMapper'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'sqlSessionFactory'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'dataSource'
+2025-01-12 03:49:45 [main] DEBUG com.zaxxer.hikari.HikariConfig - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader sun.misc.Launcher$AppClassLoader@3d4eac69
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.config.internalTransactionAdvisor'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0'
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: AdminMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: BookMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: LendMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ReaderInfoMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UserMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: UserReaderMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Listing file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/AdminMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4    
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/BookMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 - + , 	queryBook )(Ljava/lang/String;)Ljava/util/ArrayList; 	Signature A(Ljava/lang/String;)Ljava/util/ArrayList<Lcom/book/domain/Book;>; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value �SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state FROM book_info WHERE book_id LIKE CONCAT('%', #{searchWord}, '%') OR name LIKE CONCAT('%', #{searchWord}, '%') "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/LendMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 & $ % 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/ReaderInfoMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4     getAllReaderInfo ()Ljava/util/List; 	Signature 0()Ljava/util/List<Lcom/book/domain/ReaderInfo;>; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value SELECT * FROM reader_info findReaderInfoByReaderId (I)Lcom/book/domain/ReaderInfo; 7SELECT * FROM reader_info WHERE reader_id = #{readerId} "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; readerId deleteReaderInfo (I)I &Lorg/apache/ibatis/annotations/Delete; 5DELETE FROM reader_info WHERE reader_id = #{readerId} editReaderInfo (Lcom/book/domain/ReaderInfo;)I &Lorg/apache/ibatis/annotations/Update; �UPDATE reader_info SET name = #{name}, sex = #{sex}, birth = #{birth}, address = #{address}, telcode = #{telcode} WHERE reader_id = #{readerId} 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4 * ( ) getUserByUsername *(Ljava/lang/String;)Lcom/book/domain/User; RuntimeVisibleAnnotations &Lorg/apache/ibatis/annotations/Select; value 0SELECT * FROM users WHERE username = #{username} "RuntimeVisibleParameterAnnotations %Lorg/apache/ibatis/annotations/Param; username getUsersByRole $(Ljava/lang/String;)Ljava/util/List; 	Signature <(Ljava/lang/String;)Ljava/util/List<Lcom/book/domain/User;>; (SELECT * FROM users WHERE role = #{role} role 
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Find JAR URL: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Not a JAR: file:/Users/LeoLee/IdeaProjects/Books-Management-System/target/classes/com/book/mapper/UserReaderMapper.class
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.DefaultVFS - Reader entry: ����   4    
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.AdminMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.BookMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.LendMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.ReaderInfoMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.UserMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG org.apache.ibatis.io.ResolverUtil - Checking to see if class com.book.mapper.UserReaderMapper matches criteria [is assignable to Object]
+2025-01-12 03:49:45 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [spring/mybatis-config.xml]'
+2025-01-12 03:49:45 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Property 'mapperLocations' was not specified.
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'org.springframework.transaction.interceptor.TransactionInterceptor#0'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Autowiring by type from bean name 'bookController' via constructor to bean named 'bookService'
+2025-01-12 03:49:45 [main] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Creating shared instance of singleton bean 'userAdminController'
+2025-01-12 03:49:45 [main] WARN  o.s.w.c.s.GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAdminController': Unsatisfied dependency expressed through field 'userAdminService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2025-01-12 03:49:45 [main] ERROR o.s.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@349c1daf] to prepare test instance [com.book.service.LendServiceTest@53812a9b]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:124)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userAdminController': Unsatisfied dependency expressed through field 'userAdminService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:660)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.test.context.web.AbstractGenericWebContextLoader.loadContext(AbstractGenericWebContextLoader.java:129)
+	at org.springframework.test.context.web.AbstractGenericWebContextLoader.loadContext(AbstractGenericWebContextLoader.java:61)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.delegateLoading(AbstractDelegatingSmartContextLoader.java:276)
+	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.loadContext(AbstractDelegatingSmartContextLoader.java:244)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90)
+	... 28 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.book.service.UserAdminService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1801)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1357)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:657)
+	... 47 common frames omitted
+2025-01-12 03:49:45 [main] DEBUG o.s.t.c.s.AbstractDirtiesContextTestExecutionListener - After test class: context [DefaultTestContext@5f7b97da testClass = LendServiceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@18b0930f testClass = LendServiceTest, locations = '{classpath:spring/spring-context.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.test.context.web.WebDelegatingSmartContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
