@@ -29,7 +29,6 @@ public class UserBehaviorService {
     public Map<String, Object> getBorrowTrend() {
         List<Map<String, Object>> trendData = userBehaviorMapper.getBorrowTrend();
         
-        // 处理数据为前端图表所需格式
         Map<String, Object> result = new HashMap<>();
         List<String> dates = trendData.stream()
             .map(m -> m.get("date").toString())
@@ -53,6 +52,11 @@ public class UserBehaviorService {
         }
         
         return behaviors;
+    }
+
+    // 获取图书分类分布
+    public List<Map<String, Object>> getCategoryDistribution() {
+        return userBehaviorMapper.getCategoryDistribution();
     }
 
     // 计算活跃度级别
