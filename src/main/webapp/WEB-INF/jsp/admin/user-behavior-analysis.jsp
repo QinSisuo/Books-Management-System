@@ -126,6 +126,11 @@
     </div>
 
     <script>
+        // 准备图表数据
+        var borrowTrendDates = <c:out value="${borrowTrend.dates}" default="[]"/>;
+        var borrowTrendCounts = <c:out value="${borrowTrend.counts}" default="[]"/>;
+        var categoryData = <c:out value="${categoryDistribution}" default="[]"/>;
+
         // 初始化借阅趋势图表
         var borrowTrendChart = echarts.init(document.getElementById('borrowTrendChart'));
         borrowTrendChart.setOption({
@@ -134,7 +139,7 @@
             },
             xAxis: {
                 type: 'category',
-                data: ${borrowTrend.dates},
+                data: borrowTrendDates,
                 axisLabel: {
                     formatter: function(value) {
                         return value.substring(5); // 只显示月-日
@@ -146,7 +151,7 @@
                 name: '借阅数量'
             },
             series: [{
-                data: ${borrowTrend.counts},
+                data: borrowTrendCounts,
                 type: 'line',
                 smooth: true,
                 areaStyle: {
@@ -193,7 +198,7 @@
                 labelLine: {
                     show: false
                 },
-                data: ${categoryDistribution}
+                data: categoryData
             }]
         });
 
