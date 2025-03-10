@@ -200,7 +200,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="lendlist.html">借阅统计</a></li>
-                            <li><a href="lendlist.html">用户行为分析</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user-behavior-analysis.html">用户行为分析</a></li>
                             <li><a href="system-logs-and-operation-records.html">系统日志和操作记录</a></li>
                         </ul>
                     </li>
