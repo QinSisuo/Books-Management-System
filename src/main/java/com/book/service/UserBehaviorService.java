@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserBehaviorService {
@@ -32,10 +33,10 @@ public class UserBehaviorService {
         Map<String, Object> result = new HashMap<>();
         List<String> dates = trendData.stream()
             .map(m -> m.get("date").toString())
-            .toList();
+            .collect(Collectors.toList());
         List<Integer> counts = trendData.stream()
             .map(m -> ((Number)m.get("count")).intValue())
-            .toList();
+            .collect(Collectors.toList());
             
         result.put("dates", dates);
         result.put("counts", counts);
