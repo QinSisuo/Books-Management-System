@@ -11,8 +11,11 @@
     <!-- 开启注解驱动 -->
     <mvc:annotation-driven/>
 
-    <!-- 扫描 Controller 层 -->
+    <!-- 扫描所有的controller包 -->
     <context:component-scan base-package="com.book.controller"/>
+    
+    <!-- 扫描服务层 -->
+    <context:component-scan base-package="com.book.service"/>
 
     <!-- 配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,11 +25,9 @@
     </bean>
 
     <!-- 配置静态资源处理 -->
-    <mvc:annotation-driven/>
     <mvc:resources mapping="/static/**" location="/static/"/>
-    <mvc:resources mapping="/public/**" location="/public/"/>
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
-
-
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
 
 </beans>

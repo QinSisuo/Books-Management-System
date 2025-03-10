@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin/analysis")
 public class UserBehaviorController {
     
     @Autowired
     private UserBehaviorService userBehaviorService;
     
-    @GetMapping("/user-behavior")
+    @RequestMapping("/user-behavior-analysis.html")
     public String showUserBehaviorPage(Model model) {
         // 获取关键指标数据
         model.addAttribute("metrics", userBehaviorService.getKeyMetrics());
@@ -34,13 +33,13 @@ public class UserBehaviorController {
     }
 
     // 用于AJAX刷新数据的接口
-    @GetMapping("/api/metrics")
+    @GetMapping("/api/behavior/metrics")
     @ResponseBody
     public Map<String, Object> getMetrics() {
         return userBehaviorService.getKeyMetrics();
     }
 
-    @GetMapping("/api/trend")
+    @GetMapping("/api/behavior/trend")
     @ResponseBody
     public Map<String, Object> getTrend() {
         return userBehaviorService.getBorrowTrend();
