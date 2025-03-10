@@ -23,6 +23,7 @@ public class UserBehaviorService {
         metrics.put("activeUsers", userBehaviorMapper.getActiveUsers());
         metrics.put("totalBorrows", userBehaviorMapper.getTotalBorrows());
         metrics.put("currentBorrows", userBehaviorMapper.getCurrentBorrows());
+        metrics.put("newUsers", userBehaviorMapper.getNewUsersCount());
         return metrics;
     }
 
@@ -58,6 +59,11 @@ public class UserBehaviorService {
     // 获取图书分类分布
     public List<Map<String, Object>> getCategoryDistribution() {
         return userBehaviorMapper.getCategoryDistribution();
+    }
+
+    // 获取用户角色分布
+    public List<Map<String, Object>> getUserRoleDistribution() {
+        return userBehaviorMapper.getUserRoleDistribution();
     }
 
     // 计算活跃度级别
