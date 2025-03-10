@@ -48,4 +48,16 @@ public class LogService {
     public List<SystemLog> getLogsByDateRange(String startDate, String endDate) {
         return systemLogMapper.getLogsByDateRange(startDate, endDate);
     }
+
+    /**
+     * 搜索日志
+     * @param query 搜索关键词
+     * @return 匹配的日志列表
+     */
+    public List<SystemLog> searchLogs(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return getAllLogs();
+        }
+        return systemLogMapper.searchLogs(query.trim());
+    }
 }
