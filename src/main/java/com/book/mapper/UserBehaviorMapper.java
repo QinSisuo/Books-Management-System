@@ -36,12 +36,14 @@ public interface UserBehaviorMapper {
             "r.name as userName, " +
             "COUNT(l.sernum) as borrowCount, " +
             "MAX(l.lend_date) as lastBorrowTime, " +
-            "(SELECT ci.class_name FROM class_info ci " +
-            "   INNER JOIN book_info bi ON ci.class_id = bi.class_id " +
-            "   WHERE bi.book_id = l.book_id " +
-            "   GROUP BY ci.class_id " +
-            "   ORDER BY COUNT(*) DESC LIMIT 1) as preferredCategory, " +
-            "EXISTS(SELECT 1 FROM lend_list WHERE reader_id = r.reader_id AND back_date > lend_date) as hasOverdue " +
+            "(SELECT ci.class_name " +
+            "FROM lend_list ll " +
+            "INNER JOIN book_info bi ON ll.book_id = bi.book_id " +
+            "INNER JOIN class_info ci ON bi.class_id = ci.class_id " +
+            "WHERE ll.reader_id = r.reader_id " +
+            "GROUP BY ci.class_id, ci.class_name " +
+            "ORDER BY COUNT(*) DESC LIMIT 1) as preferredCategory, " +
+            "MAX(CASE WHEN l.back_date > l.lend_date THEN 1 ELSE 0 END) as hasOverdue " +
             "FROM reader_info r " +
             "LEFT JOIN lend_list l ON r.reader_id = l.reader_id " +
             "GROUP BY r.reader_id, r.name")
