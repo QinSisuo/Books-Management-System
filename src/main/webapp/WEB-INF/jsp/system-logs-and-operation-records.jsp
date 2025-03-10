@@ -16,8 +16,21 @@
 
         <!-- 搜索框 -->
         <div class="mb-3">
-            <input type="text" id="searchQuery" class="form-control" placeholder="搜索日志..." />
+            <form action="${pageContext.request.contextPath}/system-logs-and-operation-records.html" method="GET" class="d-flex">
+                <input type="text" name="search" class="form-control me-2" placeholder="搜索日志..." value="${searchQuery}"/>
+                <button type="submit" class="btn btn-primary">搜索</button>
+                <c:if test="${not empty searchQuery}">
+                    <a href="${pageContext.request.contextPath}/system-logs-and-operation-records.html" class="btn btn-secondary ms-2">清除</a>
+                </c:if>
+            </form>
         </div>
+
+        <!-- 搜索结果提示 -->
+        <c:if test="${not empty searchQuery}">
+            <div class="alert alert-info">
+                搜索结果: "${searchQuery}" (共 ${logs.size()} 条记录)
+            </div>
+        </c:if>
 
         <!-- 日志表格 -->
         <table class="table table-bordered table-striped">
@@ -52,16 +65,10 @@
     </div>
 
     <script>
-        // 搜索框事件
-        $('#searchQuery').on('input', function() {
-            let query = $(this).val();
-            window.location.href = "/logs?search=" + query;  // 使用查询参数进行页面跳转
-        });
-
-        // 页面加载时加载日志数据
-        $(document).ready(function() {
-            // 如果你希望在页面加载时自动执行某些操作，可以在这里加上
-        });
+        // 删除确认
+        function confirmDelete(logId) {
+            return confirm('确定删除日志ID ' + logId + ' 吗？');
+        }
     </script>
 </body>
 </html>

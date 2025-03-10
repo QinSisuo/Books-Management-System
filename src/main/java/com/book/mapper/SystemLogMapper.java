@@ -34,4 +34,14 @@ public interface SystemLogMapper {
     @Select("SELECT * FROM system_logs WHERE timestamp BETWEEN #{startDate} AND #{endDate} ORDER BY timestamp DESC")
     List<SystemLog> getLogsByDateRange(String startDate, String endDate);
 
+    // 搜索日志
+    @Select("SELECT * FROM system_logs WHERE " +
+            "user_name LIKE CONCAT('%', #{query}, '%') OR " +
+            "operation_type LIKE CONCAT('%', #{query}, '%') OR " +
+            "description LIKE CONCAT('%', #{query}, '%') OR " +
+            "result LIKE CONCAT('%', #{query}, '%') OR " +
+            "ip_address LIKE CONCAT('%', #{query}, '%') " +
+            "ORDER BY timestamp DESC")
+    List<SystemLog> searchLogs(String query);
+
 }

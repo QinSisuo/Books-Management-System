@@ -17,10 +17,16 @@ public class LogController {
 
     // 显示系统日志和操作记录页面
     @RequestMapping("/system-logs-and-operation-records.html")
-    public String showLogsAndRecords(Model model) {
-        List<SystemLog> logs = logService.getAllLogs();
-        model.addAttribute("logs", logs);  // 将日志数据传递到视图
-        return "system-logs-and-operation-records";  // 返回 JSP 视图名称
+    public String showLogsAndRecords(@RequestParam(required = false) String search, Model model) {
+        List<SystemLog> logs;
+        if (search != null && !search.trim().isEmpty()) {
+            logs = logService.searchLogs(search);
+            model.addAttribute("searchQuery", search);  // 保持搜索词在输入框中
+        } else {
+            logs = logService.getAllLogs();
+        }
+        model.addAttribute("logs", logs);
+        return "system-logs-and-operation-records";
     }
 
     // 删除日志
