@@ -68,7 +68,6 @@
     </nav>
 
     <div class="container">
-        <!-- 这里可以添加读者主页的主要内容 -->
         <div class="jumbotron">
             <h2>欢迎来到智悦书屋</h2>
             <p>在这里，您可以：</p>
@@ -78,6 +77,41 @@
                 <li>更新个人信息</li>
                 <li>修改账户密码</li>
             </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">图书查询</h3>
+                    </div>
+                    <div class="panel-body">
+                        快速查找您感兴趣的图书，了解图书详情和借阅状态。
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">借阅管理</h3>
+                    </div>
+                    <div class="panel-body">
+                        查看您的借阅历史，管理当前借阅的图书。
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">个人中心</h3>
+                    </div>
+                    <div class="panel-body">
+                        更新个人信息，修改账户密码，确保账户安全。
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
