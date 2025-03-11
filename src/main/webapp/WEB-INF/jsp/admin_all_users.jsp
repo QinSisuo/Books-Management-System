@@ -213,31 +213,31 @@
                 <form action="/admin/user/add" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="username">用户名</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <label for="addUsername">用户名</label>
+                            <input type="text" class="form-control" id="addUsername" name="username" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">密码</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <label for="addPassword">密码</label>
+                            <input type="password" class="form-control" id="addPassword" name="password" required>
                         </div>
                         <div class="form-group">
-                            <label for="role">角色</label>
-                            <select class="form-control" id="role" name="role">
+                            <label for="addRole">角色</label>
+                            <select class="form-control" id="addRole" name="role">
                                 <option value="admin">管理员</option>
                                 <option value="reader">读者</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="email">邮箱</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <label for="addEmail">邮箱</label>
+                            <input type="email" class="form-control" id="addEmail" name="email">
                         </div>
                         <div class="form-group">
-                            <label for="phone">电话</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <label for="addPhone">电话</label>
+                            <input type="text" class="form-control" id="addPhone" name="phone">
                         </div>
                         <div class="form-group">
-                            <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" name="address">
+                            <label for="addAddress">地址</label>
+                            <input type="text" class="form-control" id="addAddress" name="address">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -262,28 +262,28 @@
                 <form id="editUserForm">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="userId">用户ID</label>
-                            <input type="text" class="form-control" id="userId" name="userId" readonly>
+                            <label for="editUserId">用户ID</label>
+                            <input type="text" class="form-control" id="editUserId" name="userId" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="username">用户名</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                            <label for="editUsername">用户名</label>
+                            <input type="text" class="form-control" id="editUsername" name="username" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">邮箱</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <label for="editEmail">邮箱</label>
+                            <input type="email" class="form-control" id="editEmail" name="email">
                         </div>
                         <div class="form-group">
-                            <label for="phone">电话</label>
-                            <input type="tel" class="form-control" id="phone" name="phone">
+                            <label for="editPhone">电话</label>
+                            <input type="tel" class="form-control" id="editPhone" name="phone">
                         </div>
                         <div class="form-group">
-                            <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" name="address">
+                            <label for="editAddress">地址</label>
+                            <input type="text" class="form-control" id="editAddress" name="address">
                         </div>
                         <div class="form-group">
-                            <label for="role">角色</label>
-                            <select class="form-control" id="role" name="role">
+                            <label for="editRole">角色</label>
+                            <select class="form-control" id="editRole" name="role">
                                 <option value="user">普通用户</option>
                                 <option value="admin">管理员</option>
                             </select>
@@ -328,12 +328,12 @@
             $('#editUserForm')[0].reset();
             
             // 填充数据
-            $('#userId').val(userId);
-            $('#username').val(username);
-            $('#email').val(email || '');
-            $('#phone').val(phone || '');
-            $('#address').val(address || '');
-            $('#role').val(role || 'user');
+            $('#editUserId').val(userId);
+            $('#editUsername').val(username);
+            $('#editEmail').val(email || '');
+            $('#editPhone').val(phone || '');
+            $('#editAddress').val(address || '');
+            $('#editRole').val(role || 'user');
 
             // 显示模态框
             $('#editUserModal').modal('show');
