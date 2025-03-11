@@ -6,9 +6,26 @@
     <title>读者主页</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <style>
-        .container { margin-top: 50px; }
         body {
             background-color: rgb(240,242,245);
+            margin-bottom: 70px;
+        }
+        .container { 
+            margin-top: 50px; 
+        }
+        .navbar-nav .nav-item { 
+            margin-right: 20px; 
+        }
+        .navbar-brand { 
+            font-weight: bold; 
+            font-size: 24px; 
+        }
+        .navbar-nav .nav-link { 
+            font-size: 18px; 
+        }
+        .navbar .btn-outline-danger { 
+            font-size: 16px; 
+            padding: 5px 15px; 
         }
     </style>
 </head>
