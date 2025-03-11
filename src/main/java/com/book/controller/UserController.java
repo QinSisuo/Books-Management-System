@@ -134,9 +134,16 @@ public class UserController {
 
     //admin add page
     @GetMapping("/admin_user_add.html")
-    public String showAddUserPage() {
-        logger.info("管理员正在进入添加用户页面");
-        return "admin_user_add";  // 确保这个视图名称与实际的JSP文件名匹配
+    public String showAddUserPage(HttpServletRequest request, Model model) {
+        // 添加权限检查
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || !"admin".equals(user.getRole())) {
+            logger.warn("非管理员尝试访问添加用户页面");
+            return "redirect:/login.html";
+        }
+        
+        logger.info("管理员正在进入添加用户页面 - 管理员: {}", user.getUsername());
+        return "admin_user_add";
     }
 
     //admin add logic
@@ -147,19 +154,46 @@ public class UserController {
                           @RequestParam(value = "email", required = false) String email,
                           @RequestParam(value = "phone", required = false) String phone,
                           @RequestParam(value = "address", required = false) String address,
+                          HttpServletRequest request,
                           RedirectAttributes redirectAttributes) {
+        // 权限检查
+        User currentUser = (User) request.getSession().getAttribute("user");
+        if (currentUser == null || !"admin".equals(currentUser.getRole())) {
+            logger.warn("非管理员尝试添加用户");
+            return "redirect:/login.html";
+        }
+
+        // 数据验证
+        if (username == null || username.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "用户名不能为空！");
+            return "redirect:/admin_user_add.html";
+        }
+        if (password == null || password.trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "密码不能为空！");
+            return "redirect:/admin_user_add.html";
+        }
+        if (role == null || (!role.equals("admin") && !role.equals("reader"))) {
+            redirectAttributes.addFlashAttribute("error", "无效的用户角色！");
+            return "redirect:/admin_user_add.html";
+        }
+
         User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setPassword(password);
+        newUser.setUsername(username.trim());
+        newUser.setPassword(password.trim());
         newUser.setRole(role);
-        newUser.setEmail(email);
-        newUser.setPhone(phone);
-        newUser.setAddress(address);
+        newUser.setEmail(email != null ? email.trim() : null);
+        newUser.setPhone(phone != null ? phone.trim() : null);
+        newUser.setAddress(address != null ? address.trim() : null);
+
+        logger.info("管理员[{}]正在添加新用户 - 用户名: {}, 角色: {}", 
+                   currentUser.getUsername(), username, role);
 
         boolean success = userService.addUser(newUser);
         if (success) {
-            redirectAttributes.addFlashAttribute("succ", "用户新增成功！");
+            logger.info("用户添加成功 - 用户名: {}", username);
+            redirectAttributes.addFlashAttribute("success", "用户新增成功！");
         } else {
+            logger.error("用户添加失败 - 用户名: {}", username);
             redirectAttributes.addFlashAttribute("error", "用户新增失败，请检查输入！");
         }
 
