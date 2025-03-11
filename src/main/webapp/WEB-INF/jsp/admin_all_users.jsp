@@ -6,6 +6,7 @@
     <title>用户管理</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
@@ -18,18 +19,39 @@
             margin: 30px auto;
             padding: 20px;
         }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 5px;
+        }
         .search-input {
-            border-radius: 20px 0 0 20px !important;
-            border-right: none;
+            flex: 1;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            outline: none;
+            background: transparent;
         }
         .search-btn {
-            border-radius: 0 20px 20px 0 !important;
-            background-color: #007bff;
+            background: #007bff;
             color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         .search-btn:hover {
-            background-color: #0056b3;
-            color: white;
+            background: #0056b3;
+        }
+        .search-btn i {
+            margin-right: 5px;
         }
         .btn-xs {
             padding: 2px 8px;
@@ -78,13 +100,12 @@
     <!-- 搜索框 -->
     <div class="search-container">
         <form method="post" action="queryuser.html" class="form-inline" id="searchform">
-            <div class="input-group w-100">
-                <input type="text" placeholder="输入用户名" class="form-control search-input" id="search" name="searchWord">
-                <div class="input-group-append">
-                    <button type="submit" class="btn search-btn">
-                        <i class="fas fa-search"></i> 搜索
-                    </button>
-                </div>
+            <div class="search-box">
+                <input type="text" placeholder="输入用户名" class="search-input" id="search" name="searchWord">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                    搜索
+                </button>
             </div>
         </form>
     </div>
