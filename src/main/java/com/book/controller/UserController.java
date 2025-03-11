@@ -132,7 +132,14 @@ public class UserController {
         return "redirect:/admin_all_users.html";
     }
 
-    //admin user add
+    //admin add page
+    @GetMapping("/admin_user_add.html")
+    public String showAddUserPage() {
+        logger.info("管理员正在进入添加用户页面");
+        return "admin_user_add";  // 确保这个视图名称与实际的JSP文件名匹配
+    }
+
+    //admin add logic
     @PostMapping("/admin/user/add")
     public String addUser(@RequestParam("username") String username,
                           @RequestParam("password") String password,
