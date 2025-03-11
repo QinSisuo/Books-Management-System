@@ -53,8 +53,9 @@
             margin-right: 5px;
         }
         .btn-xs {
-            padding: 2px 8px;
+            padding: 4px 10px;
             font-size: 12px;
+            margin: 0 2px;
         }
         .loading {
             position: fixed;
@@ -70,10 +71,27 @@
         }
         .table-responsive {
             margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 12px 8px;
+        }
+        .table td {
+            padding: 12px 8px;
+            vertical-align: middle;
         }
         .pagination {
-            margin-top: 20px;
-            justify-content: center;
+            display: none;
         }
     </style>
 </head>
@@ -137,23 +155,23 @@
                     <table class="table table-hover" id="bookTable">
                         <thead>
                         <tr>
-                            <th data-sort="name">书名 <i class="fas fa-sort"></i></th>
-                            <th data-sort="author">作者 <i class="fas fa-sort"></i></th>
-                            <th data-sort="publish">出版社 <i class="fas fa-sort"></i></th>
-                            <th data-sort="isbn">ISBN <i class="fas fa-sort"></i></th>
-                            <th data-sort="price">价格 <i class="fas fa-sort"></i></th>
-                            <th>借还</th>
-                            <th>操作</th>
+                            <th style="width: 20%">书名</th>
+                            <th style="width: 15%">作者</th>
+                            <th style="width: 15%">出版社</th>
+                            <th style="width: 15%">ISBN</th>
+                            <th style="width: 10%">价格</th>
+                            <th style="width: 10%">借还</th>
+                            <th style="width: 15%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach items="${books}" var="book">
                         <tr>
-                            <td><c:out value="${book.name}"></c:out></td>
-                            <td><c:out value="${book.author}"></c:out></td>
-                            <td><c:out value="${book.publish}"></c:out></td>
-                            <td><c:out value="${book.isbn}"></c:out></td>
-                            <td><c:out value="${book.price}"></c:out></td>
+                            <td title="${book.name}"><c:out value="${book.name}"></c:out></td>
+                            <td title="${book.author}"><c:out value="${book.author}"></c:out></td>
+                            <td title="${book.publish}"><c:out value="${book.publish}"></c:out></td>
+                            <td title="${book.isbn}"><c:out value="${book.isbn}"></c:out></td>
+                            <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
                             <td>
                                 <c:if test="${book.state==1}">
                                     <a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-primary btn-xs">借阅</a>
@@ -169,7 +187,6 @@
                                     编辑
                                 </button>
                                 <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>" 
-                                   onclick="return confirm('确定删除图书《${book.name}》吗？')"
                                    class="btn btn-danger btn-xs">删除</a>
                             </td>
                         </tr>
@@ -177,13 +194,6 @@
                         </tbody>
                     </table>
                 </div>
-                
-                <!-- 分页 -->
-                <nav aria-label="图书列表分页">
-                    <ul class="pagination" id="pagination">
-                        <!-- 分页内容将由JavaScript动态生成 -->
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
@@ -262,66 +272,6 @@
 </div>
 
 <script>
-    // 获取列索引函数
-    function getColumnIndex(column) {
-        const headers = $('#bookTable thead th').toArray();
-        for (let i = 0; i < headers.length; i++) {
-            if ($(headers[i]).data('sort') === column) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    // 表格排序功能
-    $(document).ready(function() {
-        // 初始化排序图标状态
-        $('th[data-sort]').append(' <i class="fas fa-sort"></i>');
-        
-        $('th[data-sort]').click(function() {
-            var column = $(this).data('sort');
-            var icon = $(this).find('i');
-            
-            // 重置其他列的图标
-            $('th[data-sort] i').attr('class', 'fas fa-sort');
-            
-            // 更新当前列的图标
-            if ($(this).hasClass('asc')) {
-                $(this).removeClass('asc').addClass('desc');
-                icon.attr('class', 'fas fa-sort-down');
-            } else if ($(this).hasClass('desc')) {
-                $(this).removeClass('desc').addClass('asc');
-                icon.attr('class', 'fas fa-sort-up');
-            } else {
-                $(this).addClass('asc');
-                icon.attr('class', 'fas fa-sort-up');
-            }
-            
-            sortTable(column);
-        });
-    });
-
-    function sortTable(column) {
-        var table = $('#bookTable');
-        var rows = table.find('tbody tr').toArray();
-        var isAscending = !table.find(`th[data-sort="${column}"]`).hasClass('desc');
-        
-        rows.sort(function(a, b) {
-            var A = $(a).find('td').eq(getColumnIndex(column)).text().trim();
-            var B = $(b).find('td').eq(getColumnIndex(column)).text().trim();
-            
-            // 处理数字排序
-            if (!isNaN(A) && !isNaN(B)) {
-                return isAscending ? (Number(A) - Number(B)) : (Number(B) - Number(A));
-            }
-            
-            // 字符串排序
-            return isAscending ? A.localeCompare(B) : B.localeCompare(A);
-        });
-        
-        table.find('tbody').empty().append(rows);
-    }
-
     // 删除确认
     $(document).on('click', '.btn-danger', function(e) {
         if ($(this).attr('href')) {
