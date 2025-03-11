@@ -12,11 +12,7 @@
 
 <body>
     <%@ include file="common/header.jsp" %>
-    <%@ include file="common/navbar.jsp" %>
-
-<!-- 背景图body background="img/313515.jpg"-->
-
-
+    <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
     <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
