@@ -198,8 +198,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form id="editBookForm">
+      <form id="editBookForm">
+        <div class="modal-body">
             <div class="form-group">
               <label for="bookId">图书ID</label>
               <input type="text" class="form-control" id="bookId" name="bookId" readonly>
@@ -251,9 +251,12 @@
                 <option value="0">不可借阅</option>
               </select>
             </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
           <button type="submit" class="btn btn-primary">保存</button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
