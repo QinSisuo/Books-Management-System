@@ -24,7 +24,7 @@ public class BookForm {
     private String publish;
 
     @NotBlank(message = "ISBN不能为空")
-    @Pattern(regexp = "^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$", message = "ISBN格式不正确")
+    @Pattern(regexp = "^[0-9-]{10,17}$", message = "ISBN格式不正确")
     private String isbn;
 
     private String introduction;
