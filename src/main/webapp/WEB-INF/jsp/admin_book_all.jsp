@@ -165,7 +165,7 @@
                             <td>
                                 <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
                                 <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#editBookModal"
-                                        onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}')">
+                                        onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.classId}', '${book.pressmark}', '${book.state}')">
                                     编辑
                                 </button>
                                 <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>" 
@@ -259,26 +259,41 @@
 </div>
 
 <script>
-    // 这个函数用来在点击编辑按钮时填充模态框中的数据
-    function openEditModal(bookId, bookTitle, bookAuthor, bookPrice, bookPublish, bookIsbn, bookIntroduction, bookLanguage, bookPubdate, bookClassId, bookPressmark, bookState) {
-        document.getElementById('bookId').value = bookId;
-        document.getElementById('bookTitle').value = bookTitle;
-        document.getElementById('bookAuthor').value = bookAuthor;
-        document.getElementById('bookPrice').value = bookPrice;
-        document.getElementById('bookPublish').value = bookPublish;
-        document.getElementById('bookIsbn').value = bookIsbn;
-        document.getElementById('bookIntroduction').value = bookIntroduction;
-        document.getElementById('bookLanguage').value = bookLanguage;
-        document.getElementById('bookPubdate').value = bookPubdate;
-        document.getElementById('bookClassId').value = bookClassId;
-        document.getElementById('bookPressmark').value = bookPressmark;
-        document.getElementById('bookState').value = bookState;
+    // 获取列索引函数
+    function getColumnIndex(column) {
+        const headers = $('#bookTable thead th').toArray();
+        for (let i = 0; i < headers.length; i++) {
+            if ($(headers[i]).data('sort') === column) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // 表格排序功能
     $(document).ready(function() {
+        // 初始化排序图标状态
+        $('th[data-sort]').append(' <i class="fas fa-sort"></i>');
+        
         $('th[data-sort]').click(function() {
             var column = $(this).data('sort');
+            var icon = $(this).find('i');
+            
+            // 重置其他列的图标
+            $('th[data-sort] i').attr('class', 'fas fa-sort');
+            
+            // 更新当前列的图标
+            if ($(this).hasClass('asc')) {
+                $(this).removeClass('asc').addClass('desc');
+                icon.attr('class', 'fas fa-sort-down');
+            } else if ($(this).hasClass('desc')) {
+                $(this).removeClass('desc').addClass('asc');
+                icon.attr('class', 'fas fa-sort-up');
+            } else {
+                $(this).addClass('asc');
+                icon.attr('class', 'fas fa-sort-up');
+            }
+            
             sortTable(column);
         });
     });
@@ -286,16 +301,107 @@
     function sortTable(column) {
         var table = $('#bookTable');
         var rows = table.find('tbody tr').toArray();
-        var isAscending = table.data('sort-' + column) !== 'asc';
+        var isAscending = !table.find(`th[data-sort="${column}"]`).hasClass('desc');
         
         rows.sort(function(a, b) {
-            var A = $(a).find('td').eq(getColumnIndex(column)).text();
-            var B = $(b).find('td').eq(getColumnIndex(column)).text();
+            var A = $(a).find('td').eq(getColumnIndex(column)).text().trim();
+            var B = $(b).find('td').eq(getColumnIndex(column)).text().trim();
+            
+            // 处理数字排序
+            if (!isNaN(A) && !isNaN(B)) {
+                return isAscending ? (Number(A) - Number(B)) : (Number(B) - Number(A));
+            }
+            
+            // 字符串排序
             return isAscending ? A.localeCompare(B) : B.localeCompare(A);
         });
         
-        table.data('sort-' + column, isAscending ? 'asc' : 'desc');
         table.find('tbody').empty().append(rows);
+    }
+
+    // 删除确认
+    $(document).on('click', '.btn-danger', function(e) {
+        if ($(this).attr('href')) {
+            e.preventDefault();
+            var bookId = $(this).attr('href').split('bookId=')[1];
+            var bookName = $(this).closest('tr').find('td:first').text();
+            
+            Swal.fire({
+                title: '确认删除',
+                text: `确定要删除图书《${bookName}》吗？`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '确定',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    showLoading();
+                    window.location.href = $(this).attr('href');
+                }
+            });
+        }
+    });
+
+    // 编辑图书功能
+    function openEditModal(bookId, bookName, bookAuthor, bookPrice, bookPublish, bookIsbn, bookIntroduction, bookLanguage, bookPubdate, bookClassId, bookPressmark, bookState) {
+        // 清空之前的数据
+        $('#editBookForm')[0].reset();
+        
+        // 填充数据
+        $('#bookId').val(bookId);
+        $('#bookTitle').val(bookName);
+        $('#bookAuthor').val(bookAuthor);
+        $('#bookPrice').val(bookPrice);
+        $('#bookPublish').val(bookPublish || '');
+        $('#bookIsbn').val(bookIsbn || '');
+        $('#bookIntroduction').val(bookIntroduction || '');
+        $('#bookLanguage').val(bookLanguage || '');
+        $('#bookPubdate').val(bookPubdate || '');
+        $('#bookClassId').val(bookClassId || '');
+        $('#bookPressmark').val(bookPressmark || '');
+        $('#bookState').val(bookState || '1');
+
+        // 显示模态框
+        $('#editBookModal').modal('show');
+    }
+
+    // AJAX 表单提交优化
+    $('#editBookForm').on('submit', function(e) {
+        e.preventDefault();
+        showLoading();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/admin/book/edit',
+            data: $(this).serialize(),
+            success: function(response) {
+                hideLoading();
+                Swal.fire({
+                    title: '成功',
+                    text: '图书信息更新成功！',
+                    icon: 'success'
+                }).then(() => {
+                    location.reload();
+                });
+            },
+            error: function(xhr) {
+                hideLoading();
+                Swal.fire({
+                    title: '错误',
+                    text: xhr.responseText || '更新失败，请重试！',
+                    icon: 'error'
+                });
+            }
+        });
+    });
+
+    // Loading 状态控制
+    function showLoading() {
+        $('.loading').css('display', 'flex');
+    }
+
+    function hideLoading() {
+        $('.loading').css('display', 'none');
     }
 
     // 搜索验证
@@ -311,62 +417,6 @@
             });
             return false;
         }
-    });
-
-    // 删除确认
-    function confirmDelete(bookId, bookName) {
-        Swal.fire({
-            title: '确认删除',
-            text: `确定要删除图书《${bookName}》吗？`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '确定',
-            cancelButtonText: '取消'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                showLoading();
-                window.location.href = `/admin/book/delete.html?bookId=${bookId}`;
-            }
-        });
-        return false;
-    }
-
-    // Loading 状态控制
-    function showLoading() {
-        $('.loading').css('display', 'flex');
-    }
-
-    function hideLoading() {
-        $('.loading').css('display', 'none');
-    }
-
-    // AJAX 表单提交优化
-    $('#editBookForm').on('submit', function(e) {
-        e.preventDefault();
-        showLoading();
-        $.ajax({
-            type: 'POST',
-            url: '/admin/book/edit',
-            data: $(this).serialize(),
-            success: function(response) {
-                hideLoading();
-                Swal.fire({
-                    title: '成功',
-                    text: '图书信息更新成功！',
-                    icon: 'success'
-                }).then(() => {
-                    location.reload();
-                });
-            },
-            error: function() {
-                hideLoading();
-                Swal.fire({
-                    title: '错误',
-                    text: '更新失败，请重试！',
-                    icon: 'error'
-                });
-            }
-        });
     });
 </script>
 

@@ -303,10 +303,41 @@
     </div>
 
     <script>
+        // 获取列索引函数
+        function getColumnIndex(column) {
+            const headers = $('#userTable thead th').toArray();
+            for (let i = 0; i < headers.length; i++) {
+                if ($(headers[i]).data('sort') === column) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         // 表格排序功能
         $(document).ready(function() {
+            // 初始化排序图标状态
+            $('th[data-sort]').append(' <i class="fas fa-sort"></i>');
+            
             $('th[data-sort]').click(function() {
                 var column = $(this).data('sort');
+                var icon = $(this).find('i');
+                
+                // 重置其他列的图标
+                $('th[data-sort] i').attr('class', 'fas fa-sort');
+                
+                // 更新当前列的图标
+                if ($(this).hasClass('asc')) {
+                    $(this).removeClass('asc').addClass('desc');
+                    icon.attr('class', 'fas fa-sort-down');
+                } else if ($(this).hasClass('desc')) {
+                    $(this).removeClass('desc').addClass('asc');
+                    icon.attr('class', 'fas fa-sort-up');
+                } else {
+                    $(this).addClass('asc');
+                    icon.attr('class', 'fas fa-sort-up');
+                }
+                
                 sortTable(column);
             });
         });
@@ -314,64 +345,69 @@
         function sortTable(column) {
             var table = $('#userTable');
             var rows = table.find('tbody tr').toArray();
-            var isAscending = table.data('sort-' + column) !== 'asc';
+            var isAscending = !table.find(`th[data-sort="${column}"]`).hasClass('desc');
             
             rows.sort(function(a, b) {
-                var A = $(a).find('td').eq(getColumnIndex(column)).text();
-                var B = $(b).find('td').eq(getColumnIndex(column)).text();
+                var A = $(a).find('td').eq(getColumnIndex(column)).text().trim();
+                var B = $(b).find('td').eq(getColumnIndex(column)).text().trim();
+                
+                // 处理数字排序
+                if (!isNaN(A) && !isNaN(B)) {
+                    return isAscending ? (Number(A) - Number(B)) : (Number(B) - Number(A));
+                }
+                
+                // 字符串排序
                 return isAscending ? A.localeCompare(B) : B.localeCompare(A);
             });
             
-            table.data('sort-' + column, isAscending ? 'asc' : 'desc');
             table.find('tbody').empty().append(rows);
         }
 
-        // 搜索验证
-        $('#searchform').on('submit', function(e) {
-            var searchValue = $('#search').val().trim();
-            if (searchValue === '') {
+        // 删除确认
+        $(document).on('click', '.btn-danger', function(e) {
+            if ($(this).attr('href')) {
                 e.preventDefault();
+                var userId = $(this).attr('href').split('userId=')[1];
+                var username = $(this).closest('tr').find('td:eq(1)').text();
+                
                 Swal.fire({
-                    title: '提示',
-                    text: '请输入搜索关键词',
+                    title: '确认删除',
+                    text: `确定要删除用户"${username}"吗？`,
                     icon: 'warning',
-                    confirmButtonText: '确定'
+                    showCancelButton: true,
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading();
+                        window.location.href = $(this).attr('href');
+                    }
                 });
-                return false;
             }
         });
 
-        // 删除确认
-        function confirmDelete(userId, username) {
-            Swal.fire({
-                title: '确认删除',
-                text: `确定要删除用户"${username}"吗？`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: '确定',
-                cancelButtonText: '取消'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    showLoading();
-                    window.location.href = `/admin/user/delete?userId=${userId}`;
-                }
-            });
-            return false;
-        }
+        // 编辑用户功能
+        function openEditModal(userId, username, role, email, phone, address) {
+            // 清空之前的数据
+            $('#editUserForm')[0].reset();
+            
+            // 填充数据
+            $('#editUserId').val(userId);
+            $('#editUsername').val(username);
+            $('#editRole').val(role);
+            $('#editEmail').val(email || '');
+            $('#editPhone').val(phone || '');
+            $('#editAddress').val(address || '');
 
-        // Loading 状态控制
-        function showLoading() {
-            $('.loading').css('display', 'flex');
-        }
-
-        function hideLoading() {
-            $('.loading').css('display', 'none');
+            // 显示模态框
+            $('#editUserModal').modal('show');
         }
 
         // AJAX 表单提交优化
         $('#editUserForm').on('submit', function(e) {
             e.preventDefault();
             showLoading();
+            
             $.ajax({
                 type: 'POST',
                 url: '/admin/user/update',
@@ -386,15 +422,39 @@
                         location.reload();
                     });
                 },
-                error: function() {
+                error: function(xhr) {
                     hideLoading();
                     Swal.fire({
                         title: '错误',
-                        text: '更新失败，请重试！',
+                        text: xhr.responseText || '更新失败，请重试！',
                         icon: 'error'
                     });
                 }
             });
+        });
+
+        // Loading 状态控制
+        function showLoading() {
+            $('.loading').css('display', 'flex');
+        }
+
+        function hideLoading() {
+            $('.loading').css('display', 'none');
+        }
+
+        // 新增用户表单验证
+        $('#addUserForm').on('submit', function(e) {
+            var password = $('#password').val();
+            if (password.length < 6) {
+                e.preventDefault();
+                Swal.fire({
+                    title: '提示',
+                    text: '密码长度至少需要6个字符',
+                    icon: 'warning',
+                    confirmButtonText: '确定'
+                });
+                return false;
+            }
         });
     </script>
 </body>
