@@ -107,14 +107,13 @@
     </div>
 
     <!-- 搜索框 -->
-    <div class="search-container">
+    <div style="padding: 70px 550px 10px">
         <form method="post" action="querybook.html" class="form-inline" id="searchform">
-            <div class="search-box">
-                <input type="text" placeholder="输入图书名" class="search-input" id="search" name="searchWord">
-                <button type="submit" class="search-btn">
-                    <i class="fas fa-search"></i>
-                    搜索
-                </button>
+            <div class="input-group">
+                <input type="text" placeholder="输入图书名" class="form-control" id="search" name="searchWord">
+                <span class="input-group-btn">
+                    <input type="submit" value="搜索" class="btn btn-default">
+                </span>
             </div>
         </form>
     </div>
@@ -358,16 +357,11 @@
     }
 
     // 搜索验证
-    $('#searchform').on('submit', function(e) {
+    $('#searchform').submit(function(e) {
         var searchValue = $('#search').val().trim();
         if (searchValue === '') {
             e.preventDefault();
-            Swal.fire({
-                title: '提示',
-                text: '请输入搜索关键词',
-                icon: 'warning',
-                confirmButtonText: '确定'
-            });
+            alert('请输入搜索关键词');
             return false;
         }
     });
