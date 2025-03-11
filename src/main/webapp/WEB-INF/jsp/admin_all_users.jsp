@@ -54,8 +54,9 @@
             margin-right: 5px;
         }
         .btn-xs {
-            padding: 2px 8px;
+            padding: 4px 10px;
             font-size: 12px;
+            margin: 0 2px;
         }
         .loading {
             position: fixed;
@@ -71,18 +72,24 @@
         }
         .table-responsive {
             margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
         }
-        .pagination {
-            margin-top: 20px;
-            justify-content: center;
+        .table {
+            margin-bottom: 0;
         }
-        .modal-header {
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: #333;
             background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
+            padding: 12px 8px;
         }
-        .modal-footer {
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
+        .table td {
+            padding: 12px 8px;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -112,13 +119,13 @@
 
     <!-- 显示成功或错误信息 -->
     <div class="container">
-        <c:if test="${not empty succ}">
+        <c:if test="${!empty succ}">
             <div class="alert alert-success alert-dismissable fade show">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 ${succ}
             </div>
         </c:if>
-        <c:if test="${not empty error}">
+        <c:if test="${!empty error}">
             <div class="alert alert-danger alert-dismissable fade show">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 ${error}
@@ -143,51 +150,42 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="userTable">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th data-sort="userId">用户ID <i class="fas fa-sort"></i></th>
-                            <th data-sort="username">用户名 <i class="fas fa-sort"></i></th>
-                            <th data-sort="role">角色 <i class="fas fa-sort"></i></th>
-                            <th data-sort="email">邮箱 <i class="fas fa-sort"></i></th>
-                            <th data-sort="phone">电话 <i class="fas fa-sort"></i></th>
-                            <th data-sort="address">地址 <i class="fas fa-sort"></i></th>
-                            <th data-sort="createdAt">创建时间 <i class="fas fa-sort"></i></th>
-                            <th data-sort="updatedAt">更新时间 <i class="fas fa-sort"></i></th>
-                            <th>操作</th>
+                            <th style="width: 10%">用户ID</th>
+                            <th style="width: 15%">用户名</th>
+                            <th style="width: 10%">角色</th>
+                            <th style="width: 15%">邮箱</th>
+                            <th style="width: 15%">电话</th>
+                            <th style="width: 15%">地址</th>
+                            <th style="width: 10%">创建时间</th>
+                            <th style="width: 10%">操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:choose>
-                            <c:when test="${not empty users}">
-                                <c:forEach var="user" items="${users}">
-                                    <tr>
-                                        <td>${user.userId}</td>
-                                        <td>${user.username}</td>
-                                        <td>${user.role}</td>
-                                        <td>${user.email}</td>
-                                        <td>${user.phone}</td>
-                                        <td>${user.address}</td>
-                                        <td>${user.createdAt}</td>
-                                        <td>${user.updatedAt}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-info btn-xs" 
-                                                    onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
-                                                编辑
-                                            </button>
-                                            <a href="/admin/user/delete?userId=${user.userId}"
-                                               onclick="return confirm('确定删除用户 ${user.username} 吗？')"
-                                               class="btn btn-danger btn-xs">删除</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <tr>
-                                    <td colspan="9" class="text-center">暂无用户数据</td>
-                                </tr>
-                            </c:otherwise>
-                        </c:choose>
+                        <c:forEach items="${users}" var="user">
+                        <tr>
+                            <td title="${user.userId}"><c:out value="${user.userId}"></c:out></td>
+                            <td title="${user.username}"><c:out value="${user.username}"></c:out></td>
+                            <td title="${user.role}">
+                                <c:if test="${user.role=='admin'}">管理员</c:if>
+                                <c:if test="${user.role=='user'}">普通用户</c:if>
+                            </td>
+                            <td title="${user.email}"><c:out value="${user.email}"></c:out></td>
+                            <td title="${user.phone}"><c:out value="${user.phone}"></c:out></td>
+                            <td title="${user.address}"><c:out value="${user.address}"></c:out></td>
+                            <td title="${user.createTime}"><c:out value="${user.createTime}"></c:out></td>
+                            <td>
+                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#editUserModal"
+                                        onclick="openEditModal('${user.userId}', '${user.username}', '${user.email}', '${user.phone}', '${user.address}', '${user.role}')">
+                                    编辑
+                                </button>
+                                <a href="/admin/user/delete.html?userId=<c:out value="${user.userId}"></c:out>" 
+                                   class="btn btn-danger btn-xs">删除</a>
+                            </td>
+                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -252,50 +250,48 @@
     </div>
 
     <!-- 编辑用户弹窗 -->
-    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel">
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="editUserModalLabel">编辑用户</h4>
+                    <h5 class="modal-title" id="editUserModalLabel">编辑用户</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="editUserForm" action="/admin/user/update" method="post">
+                <form id="editUserForm">
                     <div class="modal-body">
-                        <input type="hidden" id="editUserId" name="userId">
-
                         <div class="form-group">
-                            <label for="editUsername">用户名</label>
-                            <input type="text" class="form-control" id="editUsername" name="username" required>
+                            <label for="userId">用户ID</label>
+                            <input type="text" class="form-control" id="userId" name="userId" readonly>
                         </div>
-
                         <div class="form-group">
-                            <label for="editRole">角色</label>
-                            <select class="form-control" id="editRole" name="role">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">电话</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">地址</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">角色</label>
+                            <select class="form-control" id="role" name="role">
+                                <option value="user">普通用户</option>
                                 <option value="admin">管理员</option>
-                                <option value="reader">读者</option>
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editEmail">邮箱</label>
-                            <input type="email" class="form-control" id="editEmail" name="email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editPhone">电话</label>
-                            <input type="text" class="form-control" id="editPhone" name="phone">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="editAddress">地址</label>
-                            <input type="text" class="form-control" id="editAddress" name="address">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">保存</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
                     </div>
                 </form>
             </div>
@@ -303,66 +299,6 @@
     </div>
 
     <script>
-        // 获取列索引函数
-        function getColumnIndex(column) {
-            const headers = $('#userTable thead th').toArray();
-            for (let i = 0; i < headers.length; i++) {
-                if ($(headers[i]).data('sort') === column) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        // 表格排序功能
-        $(document).ready(function() {
-            // 初始化排序图标状态
-            $('th[data-sort]').append(' <i class="fas fa-sort"></i>');
-            
-            $('th[data-sort]').click(function() {
-                var column = $(this).data('sort');
-                var icon = $(this).find('i');
-                
-                // 重置其他列的图标
-                $('th[data-sort] i').attr('class', 'fas fa-sort');
-                
-                // 更新当前列的图标
-                if ($(this).hasClass('asc')) {
-                    $(this).removeClass('asc').addClass('desc');
-                    icon.attr('class', 'fas fa-sort-down');
-                } else if ($(this).hasClass('desc')) {
-                    $(this).removeClass('desc').addClass('asc');
-                    icon.attr('class', 'fas fa-sort-up');
-                } else {
-                    $(this).addClass('asc');
-                    icon.attr('class', 'fas fa-sort-up');
-                }
-                
-                sortTable(column);
-            });
-        });
-
-        function sortTable(column) {
-            var table = $('#userTable');
-            var rows = table.find('tbody tr').toArray();
-            var isAscending = !table.find(`th[data-sort="${column}"]`).hasClass('desc');
-            
-            rows.sort(function(a, b) {
-                var A = $(a).find('td').eq(getColumnIndex(column)).text().trim();
-                var B = $(b).find('td').eq(getColumnIndex(column)).text().trim();
-                
-                // 处理数字排序
-                if (!isNaN(A) && !isNaN(B)) {
-                    return isAscending ? (Number(A) - Number(B)) : (Number(B) - Number(A));
-                }
-                
-                // 字符串排序
-                return isAscending ? A.localeCompare(B) : B.localeCompare(A);
-            });
-            
-            table.find('tbody').empty().append(rows);
-        }
-
         // 删除确认
         $(document).on('click', '.btn-danger', function(e) {
             if ($(this).attr('href')) {
@@ -387,17 +323,17 @@
         });
 
         // 编辑用户功能
-        function openEditModal(userId, username, role, email, phone, address) {
+        function openEditModal(userId, username, email, phone, address, role) {
             // 清空之前的数据
             $('#editUserForm')[0].reset();
             
             // 填充数据
-            $('#editUserId').val(userId);
-            $('#editUsername').val(username);
-            $('#editRole').val(role);
-            $('#editEmail').val(email || '');
-            $('#editPhone').val(phone || '');
-            $('#editAddress').val(address || '');
+            $('#userId').val(userId);
+            $('#username').val(username);
+            $('#email').val(email || '');
+            $('#phone').val(phone || '');
+            $('#address').val(address || '');
+            $('#role').val(role || 'user');
 
             // 显示模态框
             $('#editUserModal').modal('show');
@@ -410,7 +346,7 @@
             
             $.ajax({
                 type: 'POST',
-                url: '/admin/user/update',
+                url: '/admin/user/edit',
                 data: $(this).serialize(),
                 success: function(response) {
                     hideLoading();
@@ -442,14 +378,14 @@
             $('.loading').css('display', 'none');
         }
 
-        // 新增用户表单验证
-        $('#addUserForm').on('submit', function(e) {
-            var password = $('#password').val();
-            if (password.length < 6) {
+        // 搜索验证
+        $('#searchform').on('submit', function(e) {
+            var searchValue = $('#search').val().trim();
+            if (searchValue === '') {
                 e.preventDefault();
                 Swal.fire({
                     title: '提示',
-                    text: '密码长度至少需要6个字符',
+                    text: '请输入搜索关键词',
                     icon: 'warning',
                     confirmButtonText: '确定'
                 });
