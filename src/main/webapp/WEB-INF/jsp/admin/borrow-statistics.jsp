@@ -121,37 +121,37 @@
             <div class="col-md-3">
                 <div class="metric-card bg-primary bg-opacity-10">
                     <div class="metric-title">今日借阅量</div>
-                    <div class="metric-value">${stats.todayBorrows}</div>
-                    <div class="metric-trend ${stats.borrowTrend > 0 ? 'trend-up' : 'trend-down'}">
+                    <div class="metric-value" data-key="todayBorrows">${stats.todayBorrows}</div>
+                    <div class="metric-trend" data-trend-key="borrowTrend">
                         <i class="fas fa-arrow-${stats.borrowTrend > 0 ? 'up' : 'down'}"></i>
-                        ${Math.abs(stats.borrowTrend)}% 较昨日
+                        <span data-trend-value="${Math.abs(stats.borrowTrend)}">${Math.abs(stats.borrowTrend)}%</span> 较昨日
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="metric-card bg-success bg-opacity-10">
                     <div class="metric-title">今日归还量</div>
-                    <div class="metric-value">${stats.todayReturns}</div>
-                    <div class="metric-trend ${stats.returnTrend > 0 ? 'trend-up' : 'trend-down'}">
+                    <div class="metric-value" data-key="todayReturns">${stats.todayReturns}</div>
+                    <div class="metric-trend" data-trend-key="returnTrend">
                         <i class="fas fa-arrow-${stats.returnTrend > 0 ? 'up' : 'down'}"></i>
-                        ${Math.abs(stats.returnTrend)}% 较昨日
+                        <span data-trend-value="${Math.abs(stats.returnTrend)}">${Math.abs(stats.returnTrend)}%</span> 较昨日
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="metric-card bg-info bg-opacity-10">
                     <div class="metric-title">当前借出总量</div>
-                    <div class="metric-value">${stats.currentBorrows}</div>
+                    <div class="metric-value" data-key="currentBorrows">${stats.currentBorrows}</div>
                     <div class="metric-trend">
                         <i class="fas fa-book"></i>
-                        占总藏书 ${stats.borrowPercentage}%
+                        占总藏书 <span data-borrow-percentage="${stats.borrowPercentage}">${stats.borrowPercentage}%</span>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="metric-card bg-warning bg-opacity-10">
                     <div class="metric-title">逾期未还数</div>
-                    <div class="metric-value">${stats.overdueCount}</div>
+                    <div class="metric-value" data-key="overdueCount">${stats.overdueCount}</div>
                     <div class="metric-trend trend-up">
                         <i class="fas fa-exclamation-triangle"></i>
                         需要关注
@@ -244,7 +244,7 @@
             },
             xAxis: {
                 type: 'category',
-                data: ${trendDates}
+                data: JSON.parse('${trendDates}')
             },
             yAxis: {
                 type: 'value'
@@ -253,7 +253,7 @@
                 {
                     name: '借出量',
                     type: 'bar',
-                    data: ${borrowData},
+                    data: JSON.parse('${borrowData}'),
                     itemStyle: {
                         color: '#409EFF'
                     }
@@ -261,7 +261,7 @@
                 {
                     name: '归还量',
                     type: 'bar',
-                    data: ${returnData},
+                    data: JSON.parse('${returnData}'),
                     itemStyle: {
                         color: '#67C23A'
                     }
@@ -305,7 +305,7 @@
                 labelLine: {
                     show: false
                 },
-                data: ${categoryData}
+                data: JSON.parse('${categoryData}')
             }]
         };
         categoryPieChart.setOption(pieOption);
@@ -314,11 +314,76 @@
         function updateStats(range) {
             showLoading();
             $.ajax({
-                url: '/admin/borrow-statistics',
+                url: '/admin/statistics/borrow',
                 data: { timeRange: range },
                 success: function(response) {
-                    // 更新统计数据和图表
-                    // ...
+                    // 更新卡片数据
+                    $('.metric-value').each(function() {
+                        var key = $(this).data('key');
+                        if (response[key]) {
+                            $(this).text(response[key]);
+                        }
+                    });
+
+                    // 更新趋势指标
+                    $('.metric-trend').each(function() {
+                        var key = $(this).data('trend-key');
+                        if (response[key]) {
+                            var trend = response[key];
+                            $(this).removeClass('trend-up trend-down')
+                                  .addClass(trend > 0 ? 'trend-up' : 'trend-down');
+                            $(this).find('i').removeClass('fa-arrow-up fa-arrow-down')
+                                           .addClass(trend > 0 ? 'fa-arrow-up' : 'fa-arrow-down');
+                            $(this).find('span').text(Math.abs(trend) + '%');
+                        }
+                    });
+
+                    // 更新图表
+                    if (response.chartData) {
+                        borrowTrendChart.setOption({
+                            xAxis: {
+                                data: response.chartData.dates
+                            },
+                            series: [{
+                                data: response.chartData.borrows
+                            }, {
+                                data: response.chartData.returns
+                            }]
+                        });
+                        
+                        categoryPieChart.setOption({
+                            series: [{
+                                data: response.chartData.categories
+                            }]
+                        });
+                    }
+
+                    // 更新热门图书表格
+                    if (response.popularBooks) {
+                        var tbody = '';
+                        response.popularBooks.forEach(function(book, index) {
+                            tbody += `
+                                <tr>
+                                    <td>${index + 1}</td>
+                                    <td>${book.name}</td>
+                                    <td>${book.author}</td>
+                                    <td>${book.category}</td>
+                                    <td>${book.borrowCount}</td>
+                                    <td>
+                                        <span class="status-badge ${
+                                            book.popularity >= 80 ? 'book-status-high' : 
+                                            book.popularity >= 50 ? 'book-status-medium' : 
+                                            'book-status-low'
+                                        }">
+                                            ${book.popularity}%
+                                        </span>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        $('table tbody').html(tbody);
+                    }
+
                     hideLoading();
                 },
                 error: function() {
