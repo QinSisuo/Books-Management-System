@@ -10,9 +10,10 @@ public interface BookMapper {
     // 查询图书
     @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state " +
             "FROM book_info " +
-            "WHERE book_id LIKE CONCAT('%', #{searchWord}, '%') " +
-            "OR name LIKE CONCAT('%', #{searchWord}, '%')")
+            "WHERE name LIKE CONCAT('%', #{searchWord}, '%') " +
+            "OR author LIKE CONCAT('%', #{searchWord}, '%') ")
     ArrayList<Book> queryBook(@Param("searchWord") String searchWord);
+
 
     // 获取所有图书
     @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, class_id, pressmark, state " +
@@ -46,6 +47,7 @@ public interface BookMapper {
             "introduction = #{introduction}, language = #{language}, price = #{price}, pubdate = #{pubdate}, " +
             "class_id = #{classId}, pressmark = #{pressmark}, state = #{state} WHERE book_id = #{bookId}")
     int editBook(Book book);
+
 
     @Select("SELECT * FROM books WHERE book_id = #{bookId}")
     Book findBookById(int bookId); // 根据 bookId 查询图书

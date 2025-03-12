@@ -19,6 +19,10 @@ public class BookService {
     }
 
     public ArrayList<Book> queryBook(String searchWord) {
+
+        if (searchWord == null || searchWord.trim().isEmpty()) {
+            return bookMapper.getAllBooks(); // 如果没有搜索词，则返回所有图书
+        }
         return bookMapper.queryBook(searchWord);
     }
 
@@ -55,4 +59,22 @@ public class BookService {
         int rowsAffected = bookMapper.updateBook(book);
         return rowsAffected > 0; // 返回是否更新成功
     }
+
+
+
+
+
+    @Transactional
+    public boolean borrowBook(long bookId) {
+        // 先获取该书状态
+        Book book = bookMapper.getBook(bookId);
+        // 如果书不为空 && state=0 表示可借，则更新 state=1
+        if (book != null && book.getState() == 0) {
+            book.setState(1); // 1表示已借出
+            int rowsAffected = bookMapper.editBook(book);
+            return rowsAffected > 0;
+        }
+        return false;
+    }
+
 }

@@ -44,7 +44,14 @@ public class UserService {
         }
     }
 
+
     // =============== 整合UserAdminService的功能 ===============
+
+    public List<User> searchUsers(String searchWord) {
+        logger.info("搜索用户，关键词: {}", searchWord);
+        return userMapper.searchUsers(searchWord);
+    }
+
 
     // 获取所有读者信息
     public List<User> getAllReaders() {

@@ -33,83 +33,90 @@
 </div>
 
 
-    <!-- 显示成功或错误信息 -->
-    <div style="position: relative;top: 10%">
-        <c:if test="${not empty succ}">
-            <div class="alert alert-success alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${succ}
-            </div>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${error}
-            </div>
-        </c:if>
-    </div>
+<!-- 显示成功或错误信息（默认隐藏） -->
+<div id="messageContainer" class="container" style="display: none;">
+    <c:if test="${not empty succ}">
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${succ}
+        </div>
+    </c:if>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${error}
+        </div>
+    </c:if>
+</div>
+
 
     <!-- 用户列表面板 -->
-    <div class="panel panel-default" style="width: 90%;margin-left: 5%">
-        <div class="panel-heading" style="background-color: #fff">
-            <div class="row">
+    <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading bg-white">
+            <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h3 class="panel-title">用户管理</h3>
+                    <h3 class="panel-title mb-0">用户管理</h3>
                 </div>
                 <div class="col-md-6 text-right">
-                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addUserModal">新增用户</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                    <i class="fas fa-plus"></i> 新增用户
                 </div>
             </div>
         </div>
         <div class="panel-body">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>用户ID</th>
-                    <th>用户名</th>
-                    <th>角色</th>
-                    <th>邮箱</th>
-                    <th>电话</th>
-                    <th>地址</th>
-                    <th>创建时间</th>
-                    <th>更新时间</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:choose>
-                    <c:when test="${not empty users}">
-                        <c:forEach var="user" items="${users}">
-                            <tr>
-                                <td>${user.userId}</td>
-                                <td>${user.username}</td>
-                                <td>${user.role}</td>
-                                <td>${user.email}</td>
-                                <td>${user.phone}</td>
-                                <td>${user.address}</td>
-                                <td>${user.createdAt}</td>
-                                <td>${user.updatedAt}</td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-xs"
-                                            onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
-                                        编辑
-                                    </button>
-                                    <a href="/admin/user/delete?userId=${user.userId}"
-                                       onclick="return confirm('确定删除用户 ${user.username} 吗？')"
-                                       class="btn btn-danger btn-xs">删除</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <td colspan="9" class="text-center">暂无用户数据</td>
+                            <th style="width: 10%;">用户ID</th>
+                            <th style="width: 15%;">用户名</th>
+                            <th style="width: 10%;">角色</th>
+                            <th style="width: 15%;">邮箱</th>
+                            <th style="width: 10%;">电话</th>
+                            <th style="width: 15%;">地址</th>
+                            <th style="width: 15%;">创建时间</th>
+                            <th style="width: 15%;">更新时间</th>
+                            <th style="width: 10%;">操作</th>
                         </tr>
-                    </c:otherwise>
-                </c:choose>
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                    <c:choose>
+                        <c:when test="${not empty users}">
+                            <c:forEach var="user" items="${users}">
+                                <tr>
+                                    <td>${user.userId}</td>
+                                    <td>${user.username}</td>
+                                    <td>${user.role}</td>
+                                    <td>${user.email}</td>
+                                    <td>${user.phone}</td>
+                                    <td>${user.address}</td>
+                                    <td>${user.createdAt}</td>
+                                    <td>${user.updatedAt}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-xs"
+                                                onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
+                                            编辑
+                                        </button>
+                                        <a href="/admin/user/delete?userId=${user.userId}"
+                                           onclick="return confirm('确定删除用户 ${user.username} 吗？')"
+                                           class="btn btn-danger btn-xs">删除</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td colspan="9" class="text-center">暂无用户数据</td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
     </div>
 
     <!-- 新增用户弹窗 -->
@@ -213,6 +220,13 @@
     </div>
 
     <script>
+        // 只有有消息时才显示
+        $(document).ready(function() {
+            if ($("#messageContainer").text().trim() !== "") {
+                $("#messageContainer").show();
+            }
+        });
+
         // 打开编辑模态框并填充用户数据
         function openEditModal(userId, username, role, email, phone, address) {
             // 将数据填充到模态框表单

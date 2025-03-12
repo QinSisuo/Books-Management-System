@@ -40,21 +40,22 @@
 </div>
 
 
-    <!-- 显示成功或错误信息 -->
-    <div class="container">
-        <c:if test="${!empty succ}">
-            <div class="alert alert-success alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${succ}
-            </div>
-        </c:if>
-        <c:if test="${!empty error}">
-            <div class="alert alert-danger alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${error}
-            </div>
-        </c:if>
-    </div>
+<!-- 显示成功或错误信息（默认隐藏） -->
+<div id="messageContainer" class="container" style="display: none;">
+    <c:if test="${!empty succ}">
+        <div class="alert alert-success alert-dismissable fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${succ}
+        </div>
+    </c:if>
+    <c:if test="${!empty error}">
+        <div class="alert alert-danger alert-dismissable fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${error}
+        </div>
+    </c:if>
+</div>
+
 
     <!-- 图书列表面板 -->
     <div class="container">
@@ -193,6 +194,13 @@
 </div>
 
 <script>
+    //消息
+    $(document).ready(function() {
+        if ($("#messageContainer").text().trim() !== "") {
+            $("#messageContainer").show();
+        }
+    });
+
     // 删除确认
     $(document).on('click', '.btn-danger', function(e) {
         if ($(this).attr('href')) {

@@ -49,4 +49,13 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE user_id = #{id}")
     User findUserById(@Param("id") int id);
 
+    @Select("SELECT user_id, username, email, role, phone, address, created_at, updated_at FROM users")
+    List<User> getAllUsers();
+
+    @Select("SELECT user_id, username, email, role, phone, address, created_at, updated_at FROM users " +
+            "WHERE username LIKE CONCAT('%', #{searchWord}, '%') " +
+            "OR email LIKE CONCAT('%', #{searchWord}, '%')")
+    List<User> searchUsers(@Param("searchWord") String searchWord);
+
+
 }

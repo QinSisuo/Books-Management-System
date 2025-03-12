@@ -111,6 +111,35 @@ public class UserController {
         return new ModelAndView("reader_main").addObject("user", user);
     }
 
+
+    /**
+     * 处理用户查询（管理员端）
+     */
+    @RequestMapping(value = "/queryuser.html", method = RequestMethod.GET)
+    public ModelAndView adminQueryUser(@RequestParam(required = false) String searchWord) {
+        ModelAndView mav = new ModelAndView("admin_all_users");
+
+        // 查询用户
+        List<User> users;
+        if (searchWord == null || searchWord.trim().isEmpty()) {
+            users = userService.getAllUsers(); // 关键词为空时，返回所有用户
+        } else {
+            users = userService.searchUsers(searchWord); // 按关键词搜索用户
+        }
+
+        // 传递数据到页面
+        if (!users.isEmpty()) {
+            mav.addObject("users", users);
+        } else {
+            mav.addObject("error", "没有匹配的用户");
+        }
+        mav.addObject("searchWord", searchWord); // 让搜索框回填
+
+        return mav;
+    }
+
+
+
     //admin page show all users
     @GetMapping("admin_all_users.html")
     public String showAllUsers(Model model) {

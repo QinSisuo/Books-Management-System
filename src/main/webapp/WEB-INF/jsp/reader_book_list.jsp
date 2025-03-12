@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>读者图书查询</title>
+    <title>reader图书查询</title>
     <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
@@ -17,7 +17,6 @@
 <body>
     <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
-    <!-- 引入读者导航栏 -->
     <%@ include file="common/reader_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
