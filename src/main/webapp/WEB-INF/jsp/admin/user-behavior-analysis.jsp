@@ -54,6 +54,29 @@
             justify-content: center;
             align-items: center;
         }
+        /* 新增样式 */
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 12px;
+            color: white;
+        }
+        .status-overdue-yes {
+            background-color: #ff4d4f;
+        }
+        .status-overdue-no {
+            background-color: #52c41a;
+        }
+        .activity-level-high {
+            background-color: #1890ff;
+        }
+        .activity-level-medium {
+            background-color: #faad14;
+        }
+        .activity-level-low {
+            background-color: #d9d9d9;
+        }
     </style>
 </head>
 
@@ -175,12 +198,18 @@
                                     <td><fmt:formatDate value="${user.lastBorrowTime}" pattern="yyyy-MM-dd"/></td>
                                     <td>${user.preferredCategory}</td>
                                     <td>
-                                        <span class="badge ${user.hasOverdue ? 'bg-danger' : 'bg-success'}">
-                                            ${user.hasOverdue ? '是' : '否'}
+                                        <span class="status-badge ${user.hasOverdue ? 'status-overdue-yes' : 'status-overdue-no'}">
+                                            ${user.hasOverdue ? '有逾期' : '无逾期'}
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="badge bg-primary">${user.activityLevel}</span>
+                                        <span class="status-badge 
+                                            ${user.activityLevel == 'HIGH' ? 'activity-level-high' : 
+                                              user.activityLevel == 'MEDIUM' ? 'activity-level-medium' : 
+                                              'activity-level-low'}">
+                                            ${user.activityLevel == 'HIGH' ? '高' : 
+                                              user.activityLevel == 'MEDIUM' ? '中' : '低'}
+                                        </span>
                                     </td>
                                 </tr>
                             </c:forEach>
