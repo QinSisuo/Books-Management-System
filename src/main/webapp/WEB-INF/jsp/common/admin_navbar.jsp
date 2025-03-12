@@ -198,9 +198,9 @@
                             数据分析和统计
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="admin_borrow_statistics.html">借阅统计</a></li>
-                            <li><a href="admin_user_behavior.html">用户行为分析</a></li>
-                            <li><a href="admin_system_logs.html">系统日志和操作记录</a></li>
+                            <li><a href="${pageContext.request.contextPath}/borrow-statistics.html">借阅统计</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user-behavior-analysis.html">用户行为分析</a></li>
+                            <li><a href="system-logs-and-operation-records.html">系统日志和操作记录</a></li>
                         </ul>
                     </li>
                 </ul>
