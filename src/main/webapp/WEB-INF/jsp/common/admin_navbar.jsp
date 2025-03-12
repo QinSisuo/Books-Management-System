@@ -1,4 +1,3 @@
-<!-- navbar.jsp -->
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <meta charset="UTF-8">
 <html>
@@ -211,7 +210,7 @@
             <div class="user-section">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <span class="nav-link welcome-text">欢迎：admin</span>
+                        <span class="nav-link welcome-text">admin：${user.username}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-danger btn-sm ml-2" href="logout">退出</a>
