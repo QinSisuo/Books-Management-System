@@ -1,33 +1,37 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
     <title>用户管理</title>
+    <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <style>
-        body{
-            background-color: rgb(240,242,245);
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
 </head>
-<body>
-    <%@ include file="common/header.jsp" %>
-    <%@ include file="common/navbar.jsp" %>
 
-    <!-- 搜索框 -->
-    <div style="padding: 70px 550px 10px">
-        <form method="post" action="queryuser.html" class="form-inline" id="searchform">
-            <div class="input-group">
-                <input type="text" placeholder="输入用户名" class="form-control" id="search" name="searchWord">
-                <span class="input-group-btn">
-                    <input type="submit" value="搜索" class="btn btn-default">
-                </span>
-            </div>
-        </form>
-    </div>
+<body>
+    <!-- 引入公共头部: 包含CSS/JS等 -->
+    <%@ include file="common/header.jsp" %>
+    <%@ include file="common/admin_navbar.jsp" %>
+    <%@ include file="common/footer.jsp" %>
+
+<!-- 搜索表单：与 admin_book_list.jsp 保持一致 -->
+<div class="container" style="margin-top: 20px; max-width: 600px;">
+    <form action="queryuser.html" method="get" class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" name="searchWord"
+                   placeholder="输入用户名" value="${searchWord}" style="width: 300px;" />
+        </div>
+        &nbsp;
+        <button type="submit" class="btn btn-primary">搜索</button>
+    </form>
+</div>
+
 
     <!-- 显示成功或错误信息 -->
     <div style="position: relative;top: 10%">
