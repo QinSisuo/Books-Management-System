@@ -1,13 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
     <title>用户行为分析</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 引入外部 CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
         .metric-card {
@@ -34,12 +39,65 @@
             background: white;
             border-radius: 8px;
             padding: 15px;
+            margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
-<body class="bg-light">
-    <div class="container-fluid p-4">
+
+<body>
+    <!-- 引入公共头部: 包含CSS/JS等 -->
+    <%@ include file="../common/header.jsp" %>
+    <%@ include file="../common/admin_navbar.jsp" %>
+    <%@ include file="../common/footer.jsp" %>
+
+    <!-- Loading 指示器 -->
+    <div class="loading">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">加载中...</span>
+        </div>
+    </div>
+
+    <!-- 显示成功或错误信息（默认隐藏） -->
+    <div id="messageContainer" class="container" style="display: none;">
+        <c:if test="${not empty succ}">
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                ${succ}
+            </div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                ${error}
+            </div>
+        </c:if>
+    </div>
+
+    <div class="container">
+        <!-- 页面标题 -->
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="panel-title mb-0">用户行为分析</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 关键指标卡片 -->
         <div class="row">
             <div class="col-md-3">
@@ -69,7 +127,7 @@
         </div>
 
         <!-- 图表区域 -->
-        <div class="row mb-4">
+        <div class="row">
             <div class="col-md-8">
                 <div class="chart-container">
                     <h5 class="card-title">借阅趋势（近7天）</h5>
@@ -85,42 +143,50 @@
         </div>
 
         <!-- 用户行为表格 -->
-        <div class="chart-container">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="card-title mb-0">用户行为详情</h5>
-                <input type="text" class="form-control w-25" id="userSearch" placeholder="搜索用户...">
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h5 class="panel-title mb-0">用户行为详情</h5>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <input type="text" class="form-control w-50 float-end" id="userSearch" placeholder="搜索用户...">
+                    </div>
+                </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>用户名</th>
-                            <th>借阅次数</th>
-                            <th>最近借阅</th>
-                            <th>常借类型</th>
-                            <th>逾期记录</th>
-                            <th>活跃度</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${userBehaviors}" var="user">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
                             <tr>
-                                <td>${user.userName}</td>
-                                <td>${user.borrowCount}</td>
-                                <td><fmt:formatDate value="${user.lastBorrowTime}" pattern="yyyy-MM-dd"/></td>
-                                <td>${user.preferredCategory}</td>
-                                <td>
-                                    <span class="badge ${user.hasOverdue ? 'bg-danger' : 'bg-success'}">
-                                        ${user.hasOverdue ? '是' : '否'}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-primary">${user.activityLevel}</span>
-                                </td>
+                                <th>用户名</th>
+                                <th>借阅次数</th>
+                                <th>最近借阅</th>
+                                <th>常借类型</th>
+                                <th>逾期记录</th>
+                                <th>活跃度</th>
                             </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${userBehaviors}" var="user">
+                                <tr>
+                                    <td>${user.userName}</td>
+                                    <td>${user.borrowCount}</td>
+                                    <td><fmt:formatDate value="${user.lastBorrowTime}" pattern="yyyy-MM-dd"/></td>
+                                    <td>${user.preferredCategory}</td>
+                                    <td>
+                                        <span class="badge ${user.hasOverdue ? 'bg-danger' : 'bg-success'}">
+                                            ${user.hasOverdue ? '是' : '否'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary">${user.activityLevel}</span>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -200,6 +266,13 @@
                 },
                 data: categoryData
             }]
+        });
+
+        // 消息显示控制
+        $(document).ready(function() {
+            if ($("#messageContainer").text().trim() !== "") {
+                $("#messageContainer").show();
+            }
         });
 
         // 用户搜索功能
