@@ -104,11 +104,11 @@
                             </td>
                             <td>
                                 <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
-                                <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#editBookModal"
+                                <button type="button" class="btn btn-info btn-xs"
                                         onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.classId}', '${book.pressmark}', '${book.state}')">
                                     编辑
                                 </button>
-                                <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>" 
+                                <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>"
                                    class="btn btn-danger btn-xs">删除</a>
                             </td>
                         </tr>
