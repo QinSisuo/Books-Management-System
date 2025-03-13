@@ -109,6 +109,7 @@
                                     编辑
                                 </button>
                                 <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>"
+                                   onclick="return confirm('确定删除图书《<c:out value="${book.name}"></c:out>》吗？')"
                                    class="btn btn-danger btn-xs">删除</a>
                             </td>
                         </tr>
@@ -201,28 +202,6 @@
         }
     });
 
-    // 删除确认
-    $(document).on('click', '.btn-danger', function(e) {
-        if ($(this).attr('href')) {
-            e.preventDefault();
-            var bookId = $(this).attr('href').split('bookId=')[1];
-            var bookName = $(this).closest('tr').find('td:first').text();
-            
-            Swal.fire({
-                title: '确认删除',
-                text: `确定要删除图书《${bookName}》吗？`,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: '确定',
-                cancelButtonText: '取消'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    showLoading();
-                    window.location.href = $(this).attr('href');
-                }
-            });
-        }
-    });
 
     // 编辑图书功能
     function openEditModal(bookId, bookName, bookAuthor, bookPrice, bookPublish, bookIsbn, bookIntroduction, bookLanguage, bookPubdate, bookClassId, bookPressmark, bookState) {
