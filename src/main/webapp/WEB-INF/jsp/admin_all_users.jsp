@@ -94,14 +94,16 @@
                                     <td>${user.address}</td>
                                     <td>${user.createdAt}</td>
                                     <td>${user.updatedAt}</td>
-                                    <td>
+                                    <td style="white-space: nowrap;">
                                         <button type="button" class="btn btn-info btn-xs"
                                                 onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
                                             编辑
                                         </button>
                                         <a href="/admin/user/delete?userId=${user.userId}"
                                            onclick="return confirm('确定删除用户 ${user.username} 吗？')"
-                                           class="btn btn-danger btn-xs">删除</a>
+                                           class="btn btn-danger btn-xs">
+                                           删除
+                                        </a>
                                     </td>
                                 </tr>
                             </c:forEach>
