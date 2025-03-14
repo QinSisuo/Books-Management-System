@@ -42,10 +42,6 @@
             <input type="text" class="form-control" id="phone" name="phone">
         </div>
 
-        <div class="form-group">
-            <label for="address">地址</label>
-            <input type="text" class="form-control" id="address" name="address">
-        </div>
 
         <div class="form-group text-center">
             <button type="submit" class="btn btn-success">保存</button>
