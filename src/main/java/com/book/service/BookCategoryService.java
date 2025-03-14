@@ -52,24 +52,39 @@ public class BookCategoryService {
     // 删除分类
     @Transactional
     public boolean deleteCategory(int categoryId) {
-        // 检查分类是否存在
-        BookCategory category = getCategoryById(categoryId);
-        if (category == null) {
-            throw new CategoryException("要删除的分类不存在");
-        }
+        System.out.println("Service层开始处理删除请求，分类ID: " + categoryId);
+        
+        try {
+            // 检查分类是否存在
+            BookCategory category = getCategoryById(categoryId);
+            System.out.println("查询到的分类信息: " + (category != null ? category.getCategoryName() : "null"));
+            
+            if (category == null) {
+                throw new CategoryException("要删除的分类不存在");
+            }
 
-        // 检查分类下是否有图书
-        int bookCount = categoryMapper.getBookCountInCategory(categoryId);
-        if (bookCount > 0) {
-            throw new CategoryException("该分类下还有" + bookCount + "本图书，不能删除");
-        }
+            // 检查分类下是否有图书
+            int bookCount = categoryMapper.getBookCountInCategory(categoryId);
+            System.out.println("分类下的图书数量: " + bookCount);
+            
+            if (bookCount > 0) {
+                throw new CategoryException("该分类下还有" + bookCount + "本图书，不能删除");
+            }
 
-        // 执行删除操作
-        int result = categoryMapper.deleteCategory(categoryId);
-        if (result <= 0) {
-            throw new CategoryException("删除分类失败，请重试");
+            // 执行删除操作
+            System.out.println("开始执行删除SQL");
+            int result = categoryMapper.deleteCategory(categoryId);
+            System.out.println("删除SQL执行结果: " + result);
+            
+            if (result <= 0) {
+                throw new CategoryException("删除分类失败，请重试");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Service层删除操作发生异常: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
-        return true;
     }
 
     // 根据ID获取分类信息

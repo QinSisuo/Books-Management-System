@@ -59,13 +59,19 @@ public class BookCategoryController {
     @GetMapping("/admin_category_delete.html")
     public String deleteCategory(@RequestParam int categoryId, RedirectAttributes redirectAttributes) {
         try {
+            System.out.println("开始删除分类，ID: " + categoryId); // 输出开始删除的信息
             boolean result = categoryService.deleteCategory(categoryId);
+            System.out.println("删除操作结果: " + result); // 输出删除结果
+            
             if (result) {
                 redirectAttributes.addFlashAttribute("succ", "分类删除成功！");
             } else {
                 redirectAttributes.addFlashAttribute("error", "分类删除失败！");
             }
         } catch (Exception e) {
+            System.out.println("删除分类时发生异常: " + e.getClass().getName()); // 输出异常类型
+            System.out.println("异常信息: " + e.getMessage()); // 输出异常信息
+            e.printStackTrace(); // 打印完整堆栈跟踪
             redirectAttributes.addFlashAttribute("error", "删除失败：" + e.getMessage());
         }
         return "redirect:/admin_category_list.html";
