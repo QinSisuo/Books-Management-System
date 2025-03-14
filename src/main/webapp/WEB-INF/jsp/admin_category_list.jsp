@@ -3,14 +3,14 @@
 <html lang="zh-CN">
 <head>
     <title>图书分类管理</title>
-    <!-- 引入外部 CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- 按正确顺序引入CSS和JS文件 -->
     <link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    
+    <!-- 先引入jQuery，再引入Bootstrap JS -->
     <script src="<c:url value='/js/jquery-3.2.1.js'/>"></script>
     <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
-
 </head>
 
 <body>
@@ -55,10 +55,13 @@
                     <td>${category.categoryId}</td>
                     <td>${category.categoryName}</td>
                     <td style="white-space: nowrap;">
-                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editCategoryModal"
-                           data-id="${category.categoryId}" data-name="${category.categoryName}">
-                           编辑
-                        </a>
+                        <button type="button" class="btn btn-warning btn-sm edit-category" 
+                                data-toggle="modal" 
+                                data-target="#editCategoryModal"
+                                data-id="${category.categoryId}" 
+                                data-name="${category.categoryName}">
+                            编辑
+                        </button>
                         <a href="<c:url value='/admin_category_delete.html?categoryId=${category.categoryId}'/>"
                            class="btn btn-danger btn-sm"
                            onclick="return confirm('确定删除该分类吗？')">
@@ -114,18 +117,22 @@
 <!-- 自动填充模态框数据 -->
 <script>
     $(document).ready(function() {
-        $('#editCategoryModal').on('show.bs.modal', function (event) {
-            let button = $(event.relatedTarget); // 触发事件的按钮
-            let categoryId = button.data('id');
-            let categoryName = button.data('name');
+        // 使用类选择器绑定点击事件
+        $('.edit-category').on('click', function() {
+            let categoryId = $(this).data('id');
+            let categoryName = $(this).data('name');
             $('#editCategoryId').val(categoryId);
             $('#editCategoryName').val(categoryName);
+            $('#editCategoryModal').modal('show');
+        });
+        
+        // 添加调试代码
+        console.log('Document ready executed');
+        $('.edit-category').each(function() {
+            console.log('Found edit button:', $(this).data('id'));
         });
     });
 </script>
-
-
-
 
 </body>
 </html>
