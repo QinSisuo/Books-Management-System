@@ -248,6 +248,7 @@
                     <div class="form-group">
                         <label for="classId">分类</label>
                         <select class="form-control" name="classId" id="classId" required>
+                            <option value="">请选择分类</option>
                             <c:forEach items="${categories}" var="category">
                                 <option value="${category.categoryId}">${category.categoryName}</option>
                             </c:forEach>
@@ -384,18 +385,28 @@
         
         $.ajax({
             type: 'POST',
-            url: 'book_add_do.html',
+            url: '/book_add_do.html',  // 修改URL，确保与后端匹配
             data: $(this).serialize(),
+            dataType: 'json',  // 指定返回数据类型为JSON
             success: function(response) {
                 hideLoading();
                 console.log("服务器响应:", response);
-                Swal.fire({
-                    title: '成功',
-                    text: '图书添加成功！',
-                    icon: 'success'
-                }).then(() => {
-                    location.reload();
-                });
+                
+                if (response.status === 'success') {
+                    Swal.fire({
+                        title: '成功',
+                        text: response.message || '图书添加成功！',
+                        icon: 'success'
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: '错误',
+                        text: response.message || '添加失败，请重试！',
+                        icon: 'error'
+                    });
+                }
             },
             error: function(xhr) {
                 hideLoading();

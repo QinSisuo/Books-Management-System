@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @Controller
 //@RequestMapping("/admin/book")
@@ -75,37 +77,50 @@ public class BookController {
 
     // 5. 处理添加图书
     @PostMapping("/book_add_do.html")
-    @ResponseBody  // 返回JSON响应
-    public Object addBook(@ModelAttribute Book book) {
+    @ResponseBody
+    public Map<String, Object> addBook(@ModelAttribute Book book) {
+        Map<String, Object> response = new HashMap<>();
         try {
             System.out.println("接收到的图书数据: " + book.toString());
             
             // 参数验证
             if (book.getName() == null || book.getName().trim().isEmpty()) {
-                return new ResponseEntity<>("图书名称不能为空", HttpStatus.BAD_REQUEST);
+                response.put("status", "error");
+                response.put("message", "图书名称不能为空");
+                return response;
             }
             if (book.getAuthor() == null || book.getAuthor().trim().isEmpty()) {
-                return new ResponseEntity<>("作者不能为空", HttpStatus.BAD_REQUEST);
+                response.put("status", "error");
+                response.put("message", "作者不能为空");
+                return response;
             }
             if (book.getIsbn() == null || !book.getIsbn().matches("^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$")) {
-                return new ResponseEntity<>("ISBN格式不正确", HttpStatus.BAD_REQUEST);
+                response.put("status", "error");
+                response.put("message", "ISBN格式不正确");
+                return response;
             }
             
             // 检查分类是否存在
             if (book.getClassId() <= 0 || categoryService.getCategoryById(book.getClassId()) == null) {
-                return new ResponseEntity<>("所选分类不存在", HttpStatus.BAD_REQUEST);
+                response.put("status", "error");
+                response.put("message", "所选分类不存在");
+                return response;
             }
 
             boolean success = bookService.addBook(book);
             if (success) {
-                return new ResponseEntity<>("图书添加成功", HttpStatus.OK);
+                response.put("status", "success");
+                response.put("message", "图书添加成功");
             } else {
-                return new ResponseEntity<>("图书添加失败", HttpStatus.INTERNAL_SERVER_ERROR);
+                response.put("status", "error");
+                response.put("message", "图书添加失败");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("添加图书时发生错误：" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            response.put("status", "error");
+            response.put("message", "添加图书时发生错误：" + e.getMessage());
         }
+        return response;
     }
 
     // 6. 管理员查询图书（返回 ModelAndView）
