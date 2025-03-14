@@ -4,6 +4,8 @@ import com.book.domain.Book;
 import com.book.service.BookService;
 import com.book.service.BookCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +40,15 @@ public class BookController {
 //    }
     @RequestMapping("/admin_book_manage.html")
     public ModelAndView allBooks() {
-        return new ModelAndView("admin_book_manage").addObject("books", bookService.getAllBooks());
+        ModelAndView mav = new ModelAndView("admin_book_manage");
+        try {
+            mav.addObject("books", bookService.getAllBooks());
+            mav.addObject("categories", categoryService.getAllCategories()); // 添加分类列表
+        } catch (Exception e) {
+            e.printStackTrace();
+            mav.addObject("error", "获取数据失败：" + e.getMessage());
+        }
+        return mav;
     }
 
     // 2. 删除图书
@@ -65,10 +75,37 @@ public class BookController {
 
     // 5. 处理添加图书
     @PostMapping("/book_add_do.html")
-    public String addBook(@ModelAttribute Book book, RedirectAttributes redirectAttributes) {
-        boolean success = bookService.addBook(book);
-        redirectAttributes.addFlashAttribute("succ", success ? "图书添加成功！" : "图书添加失败！");
-        return "redirect:/admin_book_manage.html";
+    @ResponseBody  // 返回JSON响应
+    public Object addBook(@ModelAttribute Book book) {
+        try {
+            System.out.println("接收到的图书数据: " + book.toString());
+            
+            // 参数验证
+            if (book.getName() == null || book.getName().trim().isEmpty()) {
+                return new ResponseEntity<>("图书名称不能为空", HttpStatus.BAD_REQUEST);
+            }
+            if (book.getAuthor() == null || book.getAuthor().trim().isEmpty()) {
+                return new ResponseEntity<>("作者不能为空", HttpStatus.BAD_REQUEST);
+            }
+            if (book.getIsbn() == null || !book.getIsbn().matches("^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$")) {
+                return new ResponseEntity<>("ISBN格式不正确", HttpStatus.BAD_REQUEST);
+            }
+            
+            // 检查分类是否存在
+            if (book.getClassId() <= 0 || categoryService.getCategoryById(book.getClassId()) == null) {
+                return new ResponseEntity<>("所选分类不存在", HttpStatus.BAD_REQUEST);
+            }
+
+            boolean success = bookService.addBook(book);
+            if (success) {
+                return new ResponseEntity<>("图书添加成功", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("图书添加失败", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("添加图书时发生错误：" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // 6. 管理员查询图书（返回 ModelAndView）

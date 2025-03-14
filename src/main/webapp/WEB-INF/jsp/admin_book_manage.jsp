@@ -375,7 +375,12 @@
             return;
         }
         
+        // 显示加载状态
         showLoading();
+        
+        // 收集表单数据
+        var formData = $(this).serializeArray();
+        console.log("提交的表单数据:", formData);
         
         $.ajax({
             type: 'POST',
@@ -383,6 +388,7 @@
             data: $(this).serialize(),
             success: function(response) {
                 hideLoading();
+                console.log("服务器响应:", response);
                 Swal.fire({
                     title: '成功',
                     text: '图书添加成功！',
@@ -393,6 +399,7 @@
             },
             error: function(xhr) {
                 hideLoading();
+                console.error("错误响应:", xhr);
                 Swal.fire({
                     title: '错误',
                     text: xhr.responseText || '添加失败，请重试！',
@@ -400,6 +407,20 @@
                 });
             }
         });
+    });
+
+    // 在页面加载完成后检查分类数据
+    $(document).ready(function() {
+        var categorySelect = $('#classId');
+        if (categorySelect.find('option').length <= 1) {
+            console.warn("分类数据未加载");
+            // 可以选择重新加载分类数据或显示提示
+            Swal.fire({
+                title: '警告',
+                text: '分类数据加载失败，请刷新页面重试',
+                icon: 'warning'
+            });
+        }
     });
 
     // ISBN格式验证
