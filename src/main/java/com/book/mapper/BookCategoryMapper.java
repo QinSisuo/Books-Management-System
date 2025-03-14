@@ -34,6 +34,6 @@ public interface BookCategoryMapper {
     BookCategory getCategoryByName(String categoryName);
 
     // 获取分类下的图书数量
-    @Select("SELECT COUNT(*) FROM book WHERE category_id = #{categoryId}")
+    @Select("SELECT COUNT(*) FROM book_info WHERE class_id = #{categoryId}")
     int getBookCountInCategory(int categoryId);
 }
