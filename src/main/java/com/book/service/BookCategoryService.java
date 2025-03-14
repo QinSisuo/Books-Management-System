@@ -63,14 +63,6 @@ public class BookCategoryService {
                 throw new CategoryException("要删除的分类不存在");
             }
 
-            // 检查分类下是否有图书
-            int bookCount = categoryMapper.getBookCountInCategory(categoryId);
-            System.out.println("分类下的图书数量: " + bookCount);
-            
-            if (bookCount > 0) {
-                throw new CategoryException("该分类下还有" + bookCount + "本图书，不能删除");
-            }
-
             // 执行删除操作
             System.out.println("开始执行删除SQL");
             int result = categoryMapper.deleteCategory(categoryId);
