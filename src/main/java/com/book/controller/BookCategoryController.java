@@ -58,8 +58,16 @@ public class BookCategoryController {
     // 删除分类
     @GetMapping("/admin_category_delete.html")
     public String deleteCategory(@RequestParam int categoryId, RedirectAttributes redirectAttributes) {
-        boolean result = categoryService.deleteCategory(categoryId);
-        redirectAttributes.addFlashAttribute("succ", result ? "分类删除成功！" : "分类删除失败！");
+        try {
+            boolean result = categoryService.deleteCategory(categoryId);
+            if (result) {
+                redirectAttributes.addFlashAttribute("succ", "分类删除成功！");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "分类删除失败！");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "删除失败：" + e.getMessage());
+        }
         return "redirect:/admin_category_list.html";
     }
 

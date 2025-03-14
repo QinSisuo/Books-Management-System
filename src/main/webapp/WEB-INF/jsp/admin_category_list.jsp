@@ -59,11 +59,10 @@
                                 onclick="openEditModal('${category.categoryId}', '${category.categoryName}')">
                             编辑
                         </button>
-                        <a href="<c:url value='/admin_category_delete.html?categoryId=${category.categoryId}'/>"
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('确定删除该分类吗？')">
-                           删除
-                        </a>
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="deleteCategory('${category.categoryId}', '${category.categoryName}')">
+                            删除
+                        </button>
                     </td>
                 </tr>
             </c:forEach>
@@ -132,6 +131,13 @@ function openEditModal(categoryId, categoryName) {
     $('#editCategoryName').val(categoryName);
     // 显示模态框
     $('#editCategoryModal').modal('show');
+}
+
+// 删除分类
+function deleteCategory(categoryId, categoryName) {
+    if (confirm('确定要删除分类【' + categoryName + '】吗？')) {
+        window.location.href = 'admin_category_delete.html?categoryId=' + categoryId;
+    }
 }
 
 // 页面加载完成后执行
