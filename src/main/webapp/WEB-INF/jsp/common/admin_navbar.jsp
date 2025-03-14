@@ -180,7 +180,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="admin_book_manage.html">图书信息管理</a></li>
-                            <li><a href="admin_book_add.html">新增图书</a></li>
                             <li><a href="admin_category_list.html">图书分类管理</a></li>
                         </ul>
                     </li>

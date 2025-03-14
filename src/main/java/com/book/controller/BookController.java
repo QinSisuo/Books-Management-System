@@ -2,6 +2,7 @@ package com.book.controller;
 
 import com.book.domain.Book;
 import com.book.service.BookService;
+import com.book.service.BookCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final BookCategoryService categoryService;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, BookCategoryService categoryService) {
         this.bookService = bookService;
+        this.categoryService = categoryService;
     }
 
 
@@ -79,6 +82,7 @@ public class BookController {
             mav.addObject("error", "没有匹配的图书");
         }
         mav.addObject("searchWord", searchWord); // 让搜索框回填搜索词
+        mav.addObject("categories", categoryService.getAllCategories()); // 添加分类列表
         return mav;
     }
 

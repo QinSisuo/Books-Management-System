@@ -194,6 +194,88 @@
   </div>
 </div>
 
+<!-- 新增图书的模态框 -->
+<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBookModalLabel">新增图书</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="addBookForm" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">图书名</label>
+                        <input type="text" class="form-control" name="name" id="name" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">作者</label>
+                        <input type="text" class="form-control" name="author" id="author" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="publish">出版社</label>
+                        <input type="text" class="form-control" name="publish" id="publish" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input type="text" class="form-control" name="isbn" id="isbn" required 
+                               pattern="^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="introduction">简介</label>
+                        <textarea class="form-control" rows="3" name="introduction" id="introduction"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">语言</label>
+                        <input type="text" class="form-control" name="language" id="language">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">价格</label>
+                        <input type="number" step="0.01" class="form-control" name="price" id="price" required min="0">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pubdate">出版日期</label>
+                        <input type="text" class="form-control datepicker" name="pubdate" id="pubdate" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="classId">分类</label>
+                        <select class="form-control" name="classId" id="classId" required>
+                            <c:forEach items="${categories}" var="category">
+                                <option value="${category.categoryId}">${category.categoryName}</option>
+                            </c:forEach>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pressmark">书架号</label>
+                        <input type="number" class="form-control" name="pressmark" id="pressmark" required min="1">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">状态</label>
+                        <select class="form-control" name="state" id="state" required>
+                            <option value="1">在馆</option>
+                            <option value="0">借出</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     //消息
     $(document).ready(function() {
@@ -272,6 +354,62 @@
             e.preventDefault();
             alert('请输入搜索关键词');
             return false;
+        }
+    });
+
+    // 初始化日期选择器
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        language: 'zh-CN'
+    });
+
+    // 新增图书表单提交
+    $('#addBookForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        // 表单验证
+        if (!this.checkValidity()) {
+            e.stopPropagation();
+            $(this).addClass('was-validated');
+            return;
+        }
+        
+        showLoading();
+        
+        $.ajax({
+            type: 'POST',
+            url: 'book_add_do.html',
+            data: $(this).serialize(),
+            success: function(response) {
+                hideLoading();
+                Swal.fire({
+                    title: '成功',
+                    text: '图书添加成功！',
+                    icon: 'success'
+                }).then(() => {
+                    location.reload();
+                });
+            },
+            error: function(xhr) {
+                hideLoading();
+                Swal.fire({
+                    title: '错误',
+                    text: xhr.responseText || '添加失败，请重试！',
+                    icon: 'error'
+                });
+            }
+        });
+    });
+
+    // ISBN格式验证
+    $('#isbn').on('input', function() {
+        var isbn = $(this).val();
+        var isbnPattern = /^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/;
+        if (!isbnPattern.test(isbn)) {
+            $(this).next('.error-message').text('ISBN格式不正确');
+        } else {
+            $(this).next('.error-message').text('');
         }
     });
 </script>
