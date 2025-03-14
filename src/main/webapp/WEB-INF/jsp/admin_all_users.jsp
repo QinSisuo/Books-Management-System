@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -92,8 +93,8 @@
                                     <td>${user.email}</td>
                                     <td>${user.phone}</td>
                                     <td>${user.address}</td>
-                                    <td>${user.createdAt}</td>
-                                    <td>${user.updatedAt}</td>
+                                    <td><fmt:formatDate value="${user.createdAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
+                                    <td><fmt:formatDate value="${user.updatedAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
                                     <td style="white-space: nowrap;">
                                         <button type="button" class="btn btn-info btn-xs"
                                                 onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
