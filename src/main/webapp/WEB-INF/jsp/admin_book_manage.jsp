@@ -385,9 +385,9 @@
         
         $.ajax({
             type: 'POST',
-            url: '/book_add_do.html',  // 修改URL，确保与后端匹配
+            url: 'book_add_do.html',  // 修改URL，去掉前导斜杠
             data: $(this).serialize(),
-            dataType: 'json',  // 指定返回数据类型为JSON
+            dataType: 'json',
             success: function(response) {
                 hideLoading();
                 console.log("服务器响应:", response);
@@ -411,9 +411,16 @@
             error: function(xhr) {
                 hideLoading();
                 console.error("错误响应:", xhr);
+                let errorMsg = '';
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    errorMsg = response.message || '添加失败，请重试！';
+                } catch (e) {
+                    errorMsg = xhr.responseText || '添加失败，请重试！';
+                }
                 Swal.fire({
                     title: '错误',
-                    text: xhr.responseText || '添加失败，请重试！',
+                    text: errorMsg,
                     icon: 'error'
                 });
             }

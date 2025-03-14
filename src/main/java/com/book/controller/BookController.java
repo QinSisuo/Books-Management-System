@@ -81,33 +81,48 @@ public class BookController {
     public Map<String, Object> addBook(@ModelAttribute Book book) {
         Map<String, Object> response = new HashMap<>();
         try {
+            System.out.println("开始处理新增图书请求");
             System.out.println("接收到的图书数据: " + book.toString());
             
             // 参数验证
             if (book.getName() == null || book.getName().trim().isEmpty()) {
+                System.out.println("验证失败：图书名称为空");
                 response.put("status", "error");
                 response.put("message", "图书名称不能为空");
                 return response;
             }
             if (book.getAuthor() == null || book.getAuthor().trim().isEmpty()) {
+                System.out.println("验证失败：作者为空");
                 response.put("status", "error");
                 response.put("message", "作者不能为空");
                 return response;
             }
             if (book.getIsbn() == null || !book.getIsbn().matches("^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$")) {
+                System.out.println("验证失败：ISBN格式不正确");
                 response.put("status", "error");
                 response.put("message", "ISBN格式不正确");
                 return response;
             }
             
             // 检查分类是否存在
-            if (book.getClassId() <= 0 || categoryService.getCategoryById(book.getClassId()) == null) {
+            if (book.getClassId() <= 0) {
+                System.out.println("验证失败：未选择分类");
+                response.put("status", "error");
+                response.put("message", "请选择图书分类");
+                return response;
+            }
+            
+            if (categoryService.getCategoryById(book.getClassId()) == null) {
+                System.out.println("验证失败：分类不存在，分类ID=" + book.getClassId());
                 response.put("status", "error");
                 response.put("message", "所选分类不存在");
                 return response;
             }
 
+            System.out.println("开始保存图书数据");
             boolean success = bookService.addBook(book);
+            System.out.println("保存图书结果: " + success);
+
             if (success) {
                 response.put("status", "success");
                 response.put("message", "图书添加成功");
@@ -116,6 +131,7 @@ public class BookController {
                 response.put("message", "图书添加失败");
             }
         } catch (Exception e) {
+            System.out.println("添加图书时发生异常: " + e.getMessage());
             e.printStackTrace();
             response.put("status", "error");
             response.put("message", "添加图书时发生错误：" + e.getMessage());
