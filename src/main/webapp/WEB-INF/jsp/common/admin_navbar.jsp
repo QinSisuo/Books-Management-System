@@ -171,7 +171,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="admin_all_users.html">全部用户</a></li>
-                            <li class="dropdown-divider"></li>
                             <li><a href="admin_user_add.html">新增用户</a></li>
                         </ul>
                     </li>
@@ -181,8 +180,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="admin_book_list.html">全部图书</a></li>
-                            <li class="dropdown-divider"></li>
                             <li><a href="admin_book_add.html">新增图书</a></li>
+                            <li><a href="/admin/category/list">图书分类管理</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
