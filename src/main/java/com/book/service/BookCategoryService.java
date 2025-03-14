@@ -53,14 +53,23 @@ public class BookCategoryService {
     @Transactional
     public boolean deleteCategory(int categoryId) {
         // 检查分类是否存在
-        if (getCategoryById(categoryId) == null) {
+        BookCategory category = getCategoryById(categoryId);
+        if (category == null) {
             throw new CategoryException("要删除的分类不存在");
         }
+
         // 检查分类下是否有图书
-        if (hasBooks(categoryId)) {
-            throw new CategoryException("该分类下还有图书，不能删除");
+        int bookCount = categoryMapper.getBookCountInCategory(categoryId);
+        if (bookCount > 0) {
+            throw new CategoryException("该分类下还有" + bookCount + "本图书，不能删除");
         }
-        return categoryMapper.deleteCategory(categoryId) > 0;
+
+        // 执行删除操作
+        int result = categoryMapper.deleteCategory(categoryId);
+        if (result <= 0) {
+            throw new CategoryException("删除分类失败，请重试");
+        }
+        return true;
     }
 
     // 根据ID获取分类信息
@@ -87,10 +96,5 @@ public class BookCategoryService {
     // 检查分类名是否已存在
     private boolean isCategoryNameExists(String categoryName) {
         return categoryMapper.getCategoryByName(categoryName) != null;
-    }
-
-    // 检查分类下是否有图书
-    private boolean hasBooks(int categoryId) {
-        return categoryMapper.getBookCountInCategory(categoryId) > 0;
     }
 }

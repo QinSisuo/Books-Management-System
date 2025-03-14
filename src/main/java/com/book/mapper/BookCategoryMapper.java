@@ -23,17 +23,17 @@ public interface BookCategoryMapper {
 
     // 删除分类
     @Delete("DELETE FROM book_category WHERE category_id = #{categoryId}")
-    int deleteCategory(@Param("categoryId") int categoryId);
+    int deleteCategory(int categoryId);
 
     // 根据ID查询分类
     @Select("SELECT * FROM book_category WHERE category_id = #{categoryId}")
-    BookCategory getCategoryById(@Param("categoryId") int categoryId);
+    BookCategory getCategoryById(int categoryId);
 
     // 根据分类名称查询
     @Select("SELECT * FROM book_category WHERE category_name = #{categoryName}")
-    BookCategory getCategoryByName(@Param("categoryName") String categoryName);
+    BookCategory getCategoryByName(String categoryName);
 
     // 获取分类下的图书数量
     @Select("SELECT COUNT(*) FROM book WHERE category_id = #{categoryId}")
-    int getBookCountInCategory(@Param("categoryId") int categoryId);
+    int getBookCountInCategory(int categoryId);
 }
