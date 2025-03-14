@@ -29,7 +29,7 @@
 
 <!-- 搜索表单：与 reader 端保持一致 -->
 <div class="container" style="margin-top: 20px; max-width: 600px;">
-    <form action="admin_book_list.html" method="get" class="form-inline">
+    <form action="admin_book_manage.html" method="get" class="form-inline">
         <div class="form-group">
             <input type="text" class="form-control" name="searchWord"
                    placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />

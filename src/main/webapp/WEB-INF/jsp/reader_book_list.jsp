@@ -20,7 +20,7 @@
     <%@ include file="common/reader_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-    <!-- 提示信息 (与admin_book_list类似), 用来显示后端传的 succ/error -->
+    <!-- 提示信息 (与admin_book_manage类似), 用来显示后端传的 succ/error -->
     <div class="container" style="margin-top: 20px;">
         <c:if test="${not empty succ}">
             <div class="alert alert-success alert-dismissable fade show">

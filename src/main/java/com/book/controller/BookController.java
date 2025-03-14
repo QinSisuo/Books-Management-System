@@ -31,11 +31,11 @@ public class BookController {
 //    @GetMapping("/all")
 //    public ModelAndView allBooks() {
 //        List<Book> books = bookService.getAllBooks();
-//        return new ModelAndView("admin_book_list", "books", books);
+//        return new ModelAndView("admin_book_manage", "books", books);
 //    }
-    @RequestMapping("/admin_book_list.html")
+    @RequestMapping("/admin_book_manage.html")
     public ModelAndView allBooks() {
-        return new ModelAndView("admin_book_list").addObject("books", bookService.getAllBooks());
+        return new ModelAndView("admin_book_manage").addObject("books", bookService.getAllBooks());
     }
 
     // 2. 删除图书
@@ -43,7 +43,7 @@ public class BookController {
     public String deleteBook(@RequestParam long bookId, RedirectAttributes redirectAttributes) {
         boolean result = bookService.deleteBook(bookId);
         redirectAttributes.addFlashAttribute("succ", result ? "图书删除成功！" : "图书删除失败！");
-        return "redirect:/admin_book_list.html";
+        return "redirect:/admin_book_manage.html";
     }
 
     // 3. 修改图书
@@ -51,7 +51,7 @@ public class BookController {
     public String editBook(Book book, RedirectAttributes redirectAttributes) {
         boolean result = bookService.editBook(book);
         redirectAttributes.addFlashAttribute("succ", result ? "图书编辑成功！" : "图书编辑失败！");
-        return "redirect:/admin_book_list.html";
+        return "redirect:/admin_book_manage.html";
     }
 
     // 4. 添加图书页面
@@ -65,13 +65,13 @@ public class BookController {
     public String addBook(@ModelAttribute Book book, RedirectAttributes redirectAttributes) {
         boolean success = bookService.addBook(book);
         redirectAttributes.addFlashAttribute("succ", success ? "图书添加成功！" : "图书添加失败！");
-        return "redirect:/admin_book_list.html";
+        return "redirect:/admin_book_manage.html";
     }
 
     // 6. 管理员查询图书（返回 ModelAndView）
-    @RequestMapping(value = "/admin_book_list.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin_book_manage.html", method = RequestMethod.GET)
     public ModelAndView adminQueryBook(@RequestParam(required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("admin_book_list");
+        ModelAndView mav = new ModelAndView("admin_book_manage");
         List<Book> books = bookService.queryBook(searchWord);
         if (!books.isEmpty()) {
             mav.addObject("books", books);

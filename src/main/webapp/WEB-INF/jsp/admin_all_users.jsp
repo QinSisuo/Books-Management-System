@@ -21,7 +21,7 @@
     <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-<!-- 搜索表单：与 admin_book_list.jsp 保持一致 -->
+<!-- 搜索表单：与 admin_book_manage.jsp 保持一致 -->
 <div class="container" style="margin-top: 20px; max-width: 600px;">
     <form action="queryuser.html" method="get" class="form-inline">
         <div class="form-group">
