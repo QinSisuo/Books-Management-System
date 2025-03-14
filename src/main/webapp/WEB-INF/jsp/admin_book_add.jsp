@@ -24,8 +24,9 @@
     </style>
 </head>
 <body>
+    <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
-    <%@ include file="common/navbar.jsp" %>
+    <%@ include file="common/admin_navbar.jsp" %>
 
 <div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
     <form action="book_add_do.html" method="post" id="addbook" class="needs-validation" novalidate>

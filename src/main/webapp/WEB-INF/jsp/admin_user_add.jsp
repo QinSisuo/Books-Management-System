@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
+    <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
-    <%@ include file="common/navbar.jsp" %>
+    <%@ include file="common/admin_navbar.jsp" %>
 <div class="container">
     <h3 class="panel-title text-center mt-4">添加用户</h3>
 
