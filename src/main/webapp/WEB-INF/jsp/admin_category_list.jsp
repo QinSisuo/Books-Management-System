@@ -41,7 +41,7 @@
                            data-id="${category.categoryId}" data-name="${category.categoryName}">
                            编辑
                         </a>
-                        <a href="<c:url value='/admin/category/delete?categoryId=${category.categoryId}'/>"
+                        <a href="<c:url value='/admin_category_delete.html?categoryId=${category.categoryId}'/>"
                            class="btn btn-danger btn-sm"
                            onclick="return confirm('确定删除该分类吗？')">
                            删除
@@ -57,7 +57,7 @@
 <div class="modal fade" id="addCategoryModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form action="<c:url value='/admin/category/add'/>" method="post">
+        <form action="<c:url value='/admin_category_add.html'/>" method="post">
             <div class="modal-header">
                 <h5 class="modal-title">新增图书分类</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -75,7 +75,7 @@
 <div class="modal fade" id="editCategoryModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<c:url value='/admin/category/edit'/>" method="post">
+            <form action="<c:url value='/admin_category_edit.html'/>" method="post">
                 <div class="modal-header">
                     <h5 class="modal-title">编辑分类</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>

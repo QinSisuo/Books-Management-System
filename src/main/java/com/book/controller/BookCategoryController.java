@@ -27,40 +27,40 @@ public class BookCategoryController {
     }
 
     // 新增分类页面
-    @GetMapping("/add")
+    @GetMapping("/admin_category_add.html")
     public String addCategoryPage() {
         return "admin_category_add";
     }
 
     // 添加分类
-    @PostMapping("/add")
+    @PostMapping("/admin_category_add.html")
     public String addCategory(BookCategory category, RedirectAttributes redirectAttributes) {
         boolean result = categoryService.addCategory(category);
         redirectAttributes.addFlashAttribute("succ", result ? "分类添加成功！" : "分类添加失败！");
-        return "redirect:/admin/category/list";
+        return "redirect:/admin_category_list.html";
     }
 
     // 编辑分类页面
-    @GetMapping("/edit")
+    @GetMapping("/admin_category_edit.html")
     public ModelAndView editCategoryPage(@RequestParam int categoryId) {
         BookCategory category = categoryService.getCategoryById(categoryId);
         return new ModelAndView("admin_category_edit").addObject("category", category);
     }
 
     // 执行编辑
-    @PostMapping("/edit")
+    @PostMapping("/admin_category_edit.html")
     public String editCategory(BookCategory category, RedirectAttributes redirectAttributes) {
         boolean result = categoryService.editCategory(category);
         redirectAttributes.addFlashAttribute("succ", result ? "分类编辑成功！" : "分类编辑失败！");
-        return "redirect:/admin/category/list";
+        return "redirect:/admin_category_list.html";
     }
 
     // 删除分类
-    @GetMapping("/delete")
+    @GetMapping("/admin_category_delete.html")
     public String deleteCategory(@RequestParam int categoryId, RedirectAttributes redirectAttributes) {
         boolean result = categoryService.deleteCategory(categoryId);
         redirectAttributes.addFlashAttribute("succ", result ? "分类删除成功！" : "分类删除失败！");
-        return "redirect:/admin/category/list";
+        return "redirect:/admin_category_list.html";
     }
 
 }
