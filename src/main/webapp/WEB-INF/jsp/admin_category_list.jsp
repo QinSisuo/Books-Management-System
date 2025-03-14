@@ -3,13 +3,17 @@
 <html lang="zh-CN">
 <head>
     <title>图书分类管理</title>
+    <!-- 引入外部 CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="<c:url value='/css/bootstrap.min.css'/>">
     <script src="<c:url value='/js/jquery-3.2.1.js'/>"></script>
     <script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+
 </head>
 
 <body>
-
 <!-- 引入公共头部导航栏 -->
 <%@ include file="common/header.jsp" %>
 <%@ include file="common/admin_navbar.jsp" %>
@@ -17,7 +21,7 @@
 <div class="container" style="margin-top: 30px;">
     <h3>📚 图书分类管理</h3>
 
-    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addCategoryModal">新增分类</a>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">新增分类</button>
 
     <table class="table table-bordered table-hover" style="margin-top:20px;">
         <thead>
@@ -33,11 +37,14 @@
                     <td>${category.categoryId}</td>
                     <td>${category.categoryName}</td>
                     <td style="white-space: nowrap;">
-                        <a href="#" class="btn btn-success btn-sm">编辑</a>
-                        <a href="/admin/category/delete?categoryId=${category.categoryId}"
+                        <a href="#" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editCategoryModal"
+                           data-id="${category.categoryId}" data-name="${category.categoryName}">
+                           编辑
+                        </a>
+                        <a href="<c:url value='/admin/category/delete?categoryId=${category.categoryId}'/>"
                            class="btn btn-danger btn-sm"
-                           onclick="return confirm('确定删除此分类吗？');">
-                            删除
+                           onclick="return confirm('确定删除该分类吗？')">
+                           删除
                         </a>
                     </td>
                 </tr>
@@ -46,11 +53,61 @@
     </table>
 </div>
 
-<!-- 这里可以先不实现模态框，先看列表能否正常显示 -->
+<!-- 新增分类模态框 -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form action="<c:url value='/admin/category/add'/>" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title">新增图书分类</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" name="categoryName" placeholder="输入分类名" required>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="editCategoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="<c:url value='/admin/category/edit'/>" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">编辑分类</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="categoryId" id="editCategoryId">
+                    <input class="form-control" name="categoryName" id="editCategoryName" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-<%@ include file="common/footer.jsp" %>
+<!-- 自动填充模态框数据 -->
+<script>
+    $(document).ready(function() {
+        $('#editCategoryModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget); // 触发事件的按钮
+            let categoryId = button.data('id');
+            let categoryName = button.data('name');
+            $('#editCategoryId').val(categoryId);
+            $('#editCategoryName').val(categoryName);
+        });
+    });
+</script>
 
-<script src="<c:url value='/js/jquery-3.2.1.js'/>"></script>
-<script src="<c:url value='/js/bootstrap.min.js'/>"></script>
+
+
+
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+//@RequestMapping("/admin/book")
 public class BookController {
 
     private final BookService bookService;
@@ -18,6 +19,74 @@ public class BookController {
     @Autowired
     public BookController(BookService bookService) {
         this.bookService = bookService;
+    }
+
+
+    /**
+     * ========== 管理员相关 ==========
+     * 以下是示例方法，你可以根据需要自行增删。
+     */
+
+    // 1. 显示所有图书（管理员）
+//    @GetMapping("/all")
+//    public ModelAndView allBooks() {
+//        List<Book> books = bookService.getAllBooks();
+//        return new ModelAndView("admin_book_list", "books", books);
+//    }
+    @RequestMapping("/admin_book_list.html")
+    public ModelAndView allBooks() {
+        return new ModelAndView("admin_book_list").addObject("books", bookService.getAllBooks());
+    }
+
+    // 2. 删除图书
+    @RequestMapping("/admin/book/delete.html")
+    public String deleteBook(@RequestParam long bookId, RedirectAttributes redirectAttributes) {
+        boolean result = bookService.deleteBook(bookId);
+        redirectAttributes.addFlashAttribute("succ", result ? "图书删除成功！" : "图书删除失败！");
+        return "redirect:/admin_book_list.html";
+    }
+
+    // 3. 修改图书
+    @PostMapping("/admin/book/edit")
+    public String editBook(Book book, RedirectAttributes redirectAttributes) {
+        boolean result = bookService.editBook(book);
+        redirectAttributes.addFlashAttribute("succ", result ? "图书编辑成功！" : "图书编辑失败！");
+        return "redirect:/admin_book_list.html";
+    }
+
+    // 4. 添加图书页面
+    @RequestMapping("/admin_book_add.html")
+    public ModelAndView addBookPage() {
+        return new ModelAndView("admin_book_add");
+    }
+
+    // 5. 处理添加图书
+    @PostMapping("/book_add_do.html")
+    public String addBook(@ModelAttribute Book book, RedirectAttributes redirectAttributes) {
+        boolean success = bookService.addBook(book);
+        redirectAttributes.addFlashAttribute("succ", success ? "图书添加成功！" : "图书添加失败！");
+        return "redirect:/admin_book_list.html";
+    }
+
+    // 6. 管理员查询图书（返回 ModelAndView）
+    @RequestMapping(value = "/admin_book_list.html", method = RequestMethod.GET)
+    public ModelAndView adminQueryBook(@RequestParam(required = false) String searchWord) {
+        ModelAndView mav = new ModelAndView("admin_book_list");
+        List<Book> books = bookService.queryBook(searchWord);
+        if (!books.isEmpty()) {
+            mav.addObject("books", books);
+        } else {
+            mav.addObject("error", "没有匹配的图书");
+        }
+        mav.addObject("searchWord", searchWord); // 让搜索框回填搜索词
+        return mav;
+    }
+
+
+    // 7. 管理员查看书籍详情
+    @RequestMapping("/bookdetail.html")
+    public ModelAndView adminBookDetail(@RequestParam long bookId) {
+        return new ModelAndView("admin_book_detail").addObject("detail", bookService.getBook(bookId));
     }
 
     /**
@@ -82,65 +151,4 @@ public class BookController {
         return "redirect:/reader_book_all.html";
     }
 
-    /**
-     * ========== 管理员相关 ==========
-     * 以下是示例方法，你可以根据需要自行增删。
-     */
-
-    // 1. 显示所有图书（管理员）
-    @RequestMapping("/admin_book_list.html")
-    public ModelAndView allBooks() {
-        return new ModelAndView("admin_book_list").addObject("books", bookService.getAllBooks());
-    }
-
-    // 2. 删除图书
-    @RequestMapping("/admin/book/delete.html")
-    public String deleteBook(@RequestParam long bookId, RedirectAttributes redirectAttributes) {
-        boolean result = bookService.deleteBook(bookId);
-        redirectAttributes.addFlashAttribute("succ", result ? "图书删除成功！" : "图书删除失败！");
-        return "redirect:/admin_book_list.html";
-    }
-
-    // 3. 修改图书
-    @PostMapping("/admin/book/edit")
-    public String editBook(Book book, RedirectAttributes redirectAttributes) {
-        boolean result = bookService.editBook(book);
-        redirectAttributes.addFlashAttribute("succ", result ? "图书编辑成功！" : "图书编辑失败！");
-        return "redirect:/admin_book_list.html";
-    }
-
-    // 4. 添加图书页面
-    @RequestMapping("/admin_book_add.html")
-    public ModelAndView addBookPage() {
-        return new ModelAndView("admin_book_add");
-    }
-
-    // 5. 处理添加图书
-    @PostMapping("/book_add_do.html")
-    public String addBook(@ModelAttribute Book book, RedirectAttributes redirectAttributes) {
-        boolean success = bookService.addBook(book);
-        redirectAttributes.addFlashAttribute("succ", success ? "图书添加成功！" : "图书添加失败！");
-        return "redirect:/admin_book_list.html";
-    }
-
-    // 6. 管理员查询图书（返回 ModelAndView）
-    @RequestMapping(value = "/admin_book_list.html", method = RequestMethod.GET)
-    public ModelAndView adminQueryBook(@RequestParam(required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("admin_book_list");
-        List<Book> books = bookService.queryBook(searchWord);
-        if (!books.isEmpty()) {
-            mav.addObject("books", books);
-        } else {
-            mav.addObject("error", "没有匹配的图书");
-        }
-        mav.addObject("searchWord", searchWord); // 让搜索框回填搜索词
-        return mav;
-    }
-
-
-    // 7. 管理员查看书籍详情
-    @RequestMapping("/bookdetail.html")
-    public ModelAndView adminBookDetail(@RequestParam long bookId) {
-        return new ModelAndView("admin_book_detail").addObject("detail", bookService.getBook(bookId));
-    }
 }

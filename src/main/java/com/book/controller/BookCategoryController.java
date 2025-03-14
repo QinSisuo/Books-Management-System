@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,14 +13,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin/category")
+//@RequestMapping("/admin/category")
 public class BookCategoryController {
 
     @Autowired
     private BookCategoryService categoryService;
 
     // 显示分类列表
-    @GetMapping("/list")
+    @GetMapping("/admin_category_list.html")
     public ModelAndView categoryList() {
         List<BookCategory> categories = categoryService.getAllCategories();
         return new ModelAndView("admin_category_list").addObject("categories", categories);
