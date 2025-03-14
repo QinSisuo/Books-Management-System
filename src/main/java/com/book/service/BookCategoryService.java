@@ -1,10 +1,12 @@
 package com.book.service;
 
 import com.book.domain.BookCategory;
+import com.book.exception.CategoryException;
 import com.book.mapper.BookCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -22,24 +24,73 @@ public class BookCategoryService {
     // 添加分类
     @Transactional
     public boolean addCategory(BookCategory category) {
+        validateCategory(category);
+        // 检查分类名是否已存在
+        if (isCategoryNameExists(category.getCategoryName())) {
+            throw new CategoryException("分类名称已存在，请使用其他名称");
+        }
         return categoryMapper.insertCategory(category) > 0;
     }
 
     // 修改分类
     @Transactional
     public boolean editCategory(BookCategory category) {
+        validateCategory(category);
+        // 检查分类是否存在
+        BookCategory existingCategory = getCategoryById(category.getCategoryId());
+        if (existingCategory == null) {
+            throw new CategoryException("要修改的分类不存在");
+        }
+        // 检查新名称是否与其他分类重复（排除自身）
+        if (!existingCategory.getCategoryName().equals(category.getCategoryName()) 
+            && isCategoryNameExists(category.getCategoryName())) {
+            throw new CategoryException("分类名称已存在，请使用其他名称");
+        }
         return categoryMapper.updateCategory(category) > 0;
     }
 
     // 删除分类
     @Transactional
     public boolean deleteCategory(int categoryId) {
+        // 检查分类是否存在
+        if (getCategoryById(categoryId) == null) {
+            throw new CategoryException("要删除的分类不存在");
+        }
+        // 检查分类下是否有图书
+        if (hasBooks(categoryId)) {
+            throw new CategoryException("该分类下还有图书，不能删除");
+        }
         return categoryMapper.deleteCategory(categoryId) > 0;
     }
 
     // 根据ID获取分类信息
     public BookCategory getCategoryById(int categoryId) {
+        if (categoryId <= 0) {
+            throw new CategoryException("分类ID不能小于或等于0");
+        }
         return categoryMapper.getCategoryById(categoryId);
     }
 
+    // 验证分类信息
+    private void validateCategory(BookCategory category) {
+        if (category == null) {
+            throw new CategoryException("分类信息不能为空");
+        }
+        if (!StringUtils.hasText(category.getCategoryName())) {
+            throw new CategoryException("分类名称不能为空");
+        }
+        if (category.getCategoryName().length() > 50) {
+            throw new CategoryException("分类名称不能超过50个字符");
+        }
+    }
+
+    // 检查分类名是否已存在
+    private boolean isCategoryNameExists(String categoryName) {
+        return categoryMapper.getCategoryByName(categoryName) != null;
+    }
+
+    // 检查分类下是否有图书
+    private boolean hasBooks(int categoryId) {
+        return categoryMapper.getBookCountInCategory(categoryId) > 0;
+    }
 }

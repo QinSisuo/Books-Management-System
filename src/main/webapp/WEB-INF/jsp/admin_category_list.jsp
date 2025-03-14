@@ -21,6 +21,24 @@
 <div class="container" style="margin-top: 30px;">
     <h3>📚 图书分类管理</h3>
 
+    <!-- 添加错误消息显示 -->
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ${error}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+    <c:if test="${not empty succ}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ${succ}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </c:if>
+
     <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">新增分类</button>
 
     <table class="table table-bordered table-hover" style="margin-top:20px;">
