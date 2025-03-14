@@ -60,12 +60,11 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>书籍ID</th>
                                 <th>书名</th>
                                 <th>作者</th>
                                 <th>出版社</th>
-                                <th>价格</th>
                                 <th>ISBN</th>
+                                <th>价格</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
@@ -73,12 +72,11 @@
                         <tbody>
                             <c:forEach var="bk" items="${books}">
                                 <tr>
-                                    <td>${bk.bookId}</td>
                                     <td>${bk.name}</td>
                                     <td>${bk.author}</td>
                                     <td>${bk.publish}</td>
-                                    <td>${bk.price}</td>
                                     <td>${bk.isbn}</td>
+                                    <td>${bk.price}</td>
 
                                     <!-- 状态列 -->
                                     <td>
