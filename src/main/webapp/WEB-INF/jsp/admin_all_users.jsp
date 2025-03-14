@@ -75,7 +75,6 @@
                             <th style="width: 10%;">角色</th>
                             <th style="width: 15%;">邮箱</th>
                             <th style="width: 10%;">电话</th>
-                            <th style="width: 15%;">地址</th>
                             <th style="width: 15%;">创建时间</th>
                             <th style="width: 15%;">更新时间</th>
                             <th style="width: 10%;">操作</th>
@@ -92,7 +91,6 @@
                                     <td>${user.role}</td>
                                     <td>${user.email}</td>
                                     <td>${user.phone}</td>
-                                    <td>${user.address}</td>
                                     <td><fmt:formatDate value="${user.createdAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
                                     <td><fmt:formatDate value="${user.updatedAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
                                     <td style="white-space: nowrap;">
@@ -157,10 +155,6 @@
                             <label for="phone">电话</label>
                             <input type="text" class="form-control" id="phone" name="phone">
                         </div>
-                        <div class="form-group">
-                            <label for="address">地址</label>
-                            <input type="text" class="form-control" id="address" name="address">
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -207,11 +201,6 @@
                             <label for="editPhone">电话</label>
                             <input type="text" class="form-control" id="editPhone" name="phone">
                         </div>
-
-                        <div class="form-group">
-                            <label for="editAddress">地址</label>
-                            <input type="text" class="form-control" id="editAddress" name="address">
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">保存</button>
@@ -238,7 +227,6 @@
             document.getElementById("editRole").value = role;
             document.getElementById("editEmail").value = email;
             document.getElementById("editPhone").value = phone;
-            document.getElementById("editAddress").value = address;
 
             // 显示模态框
             $('#editUserModal').modal('show');
