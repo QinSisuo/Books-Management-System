@@ -239,14 +239,18 @@ public class UserController {
 
     //admin edit
     @PostMapping("/admin/user/update")
-    public String updateUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        boolean success = userService.updateUser(user);
-        if (success) {
-            redirectAttributes.addFlashAttribute("succ", "用户更新成功！");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "用户更新失败，请检查输入！");
+    @ResponseBody  // 添加此注解返回JSON
+    public Map<String, Object> updateUser(@ModelAttribute User user) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            boolean success = userService.updateUser(user);
+            response.put("success", success);
+            response.put("message", success ? "用户更新成功" : "用户更新失败");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "更新失败：" + e.getMessage());
         }
-        return "redirect:/admin_all_users.html";
+        return response;
     }
 
     // =============== 整合UserAdminController的功能 ===============

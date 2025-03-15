@@ -30,8 +30,8 @@ public interface UserMapper {
     User getUserById(@Param("userId") int userId);
 
     // 更新用户信息
-    @Update("UPDATE users SET username = #{username}, email = #{email}, phone = #{phone}, " +
-            "address = #{address}, updated_at = NOW() WHERE user_id = #{userId}")
+    @Update("UPDATE users SET username = #{username}, role = #{role}, email = #{email}, " +
+            "phone = #{phone}, updated_at = NOW() WHERE user_id = #{userId}")
     int updateUser(User user);
 
     // 删除用户
