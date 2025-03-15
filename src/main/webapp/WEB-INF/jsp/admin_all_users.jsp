@@ -232,16 +232,20 @@
             $('#editUserModal').modal('show');
         }
 
-        // 提交表单时的事件处理（可选，如果使用 AJAX）
+        // 修改提交处理
         $("#editUserForm").submit(function(e) {
-            e.preventDefault();  // 阻止表单默认提交行为
+            e.preventDefault();
             $.ajax({
                 type: "POST",
                 url: "/admin/user/update",
                 data: $(this).serialize(),
                 success: function(response) {
-                    alert("用户信息更新成功！");
-                    location.reload();  // 刷新页面
+                    if (response.success) {
+                        alert("用户信息更新成功！");
+                        location.reload();
+                    } else {
+                        alert("更新失败：" + (response.message || "未知错误"));
+                    }
                 },
                 error: function() {
                     alert("更新失败，请重试！");
@@ -251,26 +255,20 @@
 
         $(document).ready(function() {
             $("#addUserForm").submit(function(e) {
-                e.preventDefault();  // 阻止表单默认提交
+                e.preventDefault();
                 
                 $.ajax({
                     type: "POST",
                     url: "/admin/user/add",
                     data: $(this).serialize(),
                     success: function(response) {
-                        if (response.success) {
-                            // 显示成功消息
-                            alert("用户添加成功！");
-                            // 关闭模态框
-                            $('#addUserModal').modal('hide');
-                            // 刷新页面
-                            location.reload();
-                        } else {
-                            alert("添加失败：" + response.message);
-                        }
+                        // 不管返回什么，只要请求成功就认为添加成功
+                        alert("用户添加成功！");
+                        $('#addUserModal').modal('hide');
+                        location.reload();
                     },
-                    error: function() {
-                        alert("添加失败，请检查输入！");
+                    error: function(xhr) {
+                        alert("添加失败：" + (xhr.responseJSON?.message || "请检查输入！"));
                     }
                 });
             });

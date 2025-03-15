@@ -177,56 +177,64 @@ public class UserController {
 
     //admin add logic
     @PostMapping("/admin/user/add")
-    public String addUser(@RequestParam("username") String username,
-                          @RequestParam("password") String password,
-                          @RequestParam("role") String role,
-                          @RequestParam(value = "email", required = false) String email,
-                          @RequestParam(value = "phone", required = false) String phone,
-                          @RequestParam(value = "address", required = false) String address,
-                          HttpServletRequest request,
-                          RedirectAttributes redirectAttributes) {
-        // 权限检查
-        User currentUser = (User) request.getSession().getAttribute("user");
-        if (currentUser == null || !"admin".equals(currentUser.getRole())) {
-            logger.warn("非管理员尝试添加用户");
-            return "redirect:/login.html";
-        }
+    @ResponseBody  // 确保返回JSON
+    public Map<String, Object> addUser(@RequestParam("username") String username,
+                                     @RequestParam("password") String password,
+                                     @RequestParam("role") String role,
+                                     @RequestParam(value = "email", required = false) String email,
+                                     @RequestParam(value = "phone", required = false) String phone,
+                                     HttpServletRequest request,
+                                     RedirectAttributes redirectAttributes) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // 权限检查
+            User currentUser = (User) request.getSession().getAttribute("user");
+            if (currentUser == null || !"admin".equals(currentUser.getRole())) {
+                logger.warn("非管理员尝试添加用户");
+                response.put("success", false);
+                response.put("message", "非管理员无法添加用户");
+                return response;
+            }
 
-        // 数据验证
-        if (username == null || username.trim().isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "用户名不能为空！");
-            return "redirect:/admin_user_add.html";
-        }
-        if (password == null || password.trim().isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "密码不能为空！");
-            return "redirect:/admin_user_add.html";
-        }
-        if (role == null || (!role.equals("admin") && !role.equals("reader"))) {
-            redirectAttributes.addFlashAttribute("error", "无效的用户角色！");
-            return "redirect:/admin_user_add.html";
-        }
+            // 数据验证
+            if (username == null || username.trim().isEmpty()) {
+                response.put("success", false);
+                response.put("message", "用户名不能为空！");
+                return response;
+            }
+            if (password == null || password.trim().isEmpty()) {
+                response.put("success", false);
+                response.put("message", "密码不能为空！");
+                return response;
+            }
+            if (role == null || (!role.equals("admin") && !role.equals("reader"))) {
+                response.put("success", false);
+                response.put("message", "无效的用户角色！");
+                return response;
+            }
 
-        User newUser = new User();
-        newUser.setUsername(username.trim());
-        newUser.setPassword(password.trim());
-        newUser.setRole(role);
-        newUser.setEmail(email != null ? email.trim() : null);
-        newUser.setPhone(phone != null ? phone.trim() : null);
-        newUser.setAddress(address != null ? address.trim() : null);
+            User newUser = new User();
+            newUser.setUsername(username.trim());
+            newUser.setPassword(password.trim());
+            newUser.setRole(role);
+            newUser.setEmail(email != null ? email.trim() : null);
+            newUser.setPhone(phone != null ? phone.trim() : null);
+            
+            logger.info("管理员[{}]正在添加新用户 - 用户名: {}, 角色: {}", 
+                       currentUser.getUsername(), username, role);
 
-        logger.info("管理员[{}]正在添加新用户 - 用户名: {}, 角色: {}", 
-                   currentUser.getUsername(), username, role);
-
-        boolean success = userService.addUser(newUser);
-        if (success) {
-            logger.info("用户添加成功 - 用户名: {}", username);
-            redirectAttributes.addFlashAttribute("success", "用户新增成功！");
-        } else {
-            logger.error("用户添加失败 - 用户名: {}", username);
-            redirectAttributes.addFlashAttribute("error", "用户新增失败，请检查输入！");
+            boolean success = userService.addUser(newUser);
+            
+            response.put("success", success);
+            response.put("message", success ? "用户添加成功" : "用户添加失败");
+            
+            return response;
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "添加失败：" + e.getMessage());
+            return response;
         }
-
-        return "redirect:/admin_all_users.html";
     }
 
     //admin edit
