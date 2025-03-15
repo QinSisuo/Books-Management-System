@@ -130,7 +130,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="/admin/user/add" method="post">
+                <form id="addUserForm" action="/admin/user/add" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="username">用户名 <span class="text-danger">*</span></label>
@@ -246,6 +246,33 @@
                 error: function() {
                     alert("更新失败，请重试！");
                 }
+            });
+        });
+
+        $(document).ready(function() {
+            $("#addUserForm").submit(function(e) {
+                e.preventDefault();  // 阻止表单默认提交
+                
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/user/add",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.success) {
+                            // 显示成功消息
+                            alert("用户添加成功！");
+                            // 关闭模态框
+                            $('#addUserModal').modal('hide');
+                            // 刷新页面
+                            location.reload();
+                        } else {
+                            alert("添加失败：" + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert("添加失败，请检查输入！");
+                    }
+                });
             });
         });
     </script>
