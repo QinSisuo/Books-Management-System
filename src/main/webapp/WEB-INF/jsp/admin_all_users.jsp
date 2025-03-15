@@ -133,16 +133,16 @@
                 <form action="/admin/user/add" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="username">用户名</label>
+                            <label for="username">用户名 <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">密码</label>
+                            <label for="password">密码 <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="form-group">
-                            <label for="role">角色</label>
-                            <select class="form-control" id="role" name="role">
+                            <label for="role">角色 <span class="text-danger">*</span></label>
+                            <select class="form-control" id="role" name="role" required>
                                 <option value="admin">管理员</option>
                                 <option value="reader">读者</option>
                             </select>
