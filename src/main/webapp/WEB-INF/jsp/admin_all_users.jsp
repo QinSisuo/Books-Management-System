@@ -235,11 +235,16 @@
         // 修改提交处理
         $("#editUserForm").submit(function(e) {
             e.preventDefault();
+            
+            // 添加日志查看提交的数据
+            console.log("提交的数据:", $(this).serialize());
+            
             $.ajax({
                 type: "POST",
                 url: "/admin/user/update",
                 data: $(this).serialize(),
                 success: function(response) {
+                    console.log("服务器响应:", response); // 添加日志
                     if (response.success) {
                         alert("用户信息更新成功！");
                         location.reload();
@@ -247,7 +252,8 @@
                         alert("更新失败：" + (response.message || "未知错误"));
                     }
                 },
-                error: function() {
+                error: function(xhr, status, error) {
+                    console.log("错误信息:", error); // 添加错误日志
                     alert("更新失败，请重试！");
                 }
             });

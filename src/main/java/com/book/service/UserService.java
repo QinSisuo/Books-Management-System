@@ -147,16 +147,34 @@ public class UserService {
     }
 
     public boolean updateUser(User user) {
-        logger.info("更新用户信息 - 用户ID: {}", user.getUserId());
-        int rows = userMapper.updateUser(user);
-        
-        // 记录操作日志
-        SystemLog log = new SystemLog();
-        log.setOperationType("更新用户");
-        log.setDescription("更新用户信息: " + user.getUsername());
-        log.setResult(rows > 0 ? "成功" : "失败");
-        logService.recordLog(log);
-        
-        return rows > 0;
+        try {
+            logger.info("正在更新用户信息 - 用户ID: {}, 角色: {}", user.getUserId(), user.getRole());
+            
+            // 验证用户是否存在
+            User existingUser = userMapper.getUserById(user.getUserId());
+            if (existingUser == null) {
+                logger.error("更新失败 - 用户不存在，ID: {}", user.getUserId());
+                return false;
+            }
+            
+            // 验证角色值
+            if (user.getRole() == null || (!user.getRole().equals("admin") && !user.getRole().equals("reader"))) {
+                logger.error("更新失败 - 无效的角色值: {}", user.getRole());
+                return false;
+            }
+            
+            int rows = userMapper.updateUser(user);
+            
+            if (rows > 0) {
+                logger.info("用户信息更新成功 - 用户ID: {}", user.getUserId());
+                return true;
+            } else {
+                logger.error("用户信息更新失败 - 用户ID: {}", user.getUserId());
+                return false;
+            }
+        } catch (Exception e) {
+            logger.error("更新用户信息时发生错误 - 用户ID: {}, 错误: {}", user.getUserId(), e.getMessage());
+            throw e;
+        }
     }
 }
