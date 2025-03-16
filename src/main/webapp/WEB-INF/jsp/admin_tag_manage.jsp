@@ -8,6 +8,9 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+<%@include file="admin_header.jsp"%>
+
+<div style="position: relative;padding-top: 100px">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">标签管理</h3>
@@ -116,5 +119,6 @@ function submitAddTag() {
     });
 }
 </script>
+</div>
 </body>
 </html>
