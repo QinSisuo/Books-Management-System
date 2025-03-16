@@ -27,7 +27,8 @@ public class BookTagController {
     }
 
     @RequestMapping("/admin_tag_add.html")
-    public ModelAndView addTag(HttpServletRequest request) {
+    @ResponseBody
+    public Object addTag(HttpServletRequest request) {
         String name = request.getParameter("name");
         String status = request.getParameter("status");
         
@@ -38,8 +39,8 @@ public class BookTagController {
         bookTag.setCreateBy("admin"); // 这里应该从session获取当前用户
 
         boolean success = bookTagService.addBookTag(bookTag);
-        ModelAndView modelAndView = new ModelAndView("redirect:/admin_tag_manage.html");
-        return modelAndView;
+        
+        return success ? "{\"success\":true}" : "{\"success\":false}";
     }
 
     @RequestMapping("/admin_tag_edit.html")
