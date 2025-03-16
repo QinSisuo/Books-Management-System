@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BorrowRecord {
     private Long id;         // borrow_record表主键
-    private Long bookId;     // 关联 book_info
+    private Long bookId;     // 关联 books
     private Long readerId;   // 关联用户/读者
     private Date borrowTime; // 借书时间
     private Date dueTime;    // 到期时间

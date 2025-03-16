@@ -38,7 +38,7 @@ public interface UserBehaviorMapper {
             "MAX(l.lend_date) as lastBorrowTime, " +
             "(SELECT ci.class_name " +
             "FROM lend_list ll " +
-            "INNER JOIN book_info bi ON ll.book_id = bi.book_id " +
+            "INNER JOIN books bi ON ll.book_id = bi.book_id " +
             "INNER JOIN class_info ci ON bi.class_id = ci.class_id " +
             "WHERE ll.reader_id = r.reader_id " +
             "GROUP BY ci.class_id, ci.class_name " +
@@ -52,7 +52,7 @@ public interface UserBehaviorMapper {
     // 获取各类别图书借阅分布
     @Select("SELECT ci.class_name as name, COUNT(*) as count " +
             "FROM lend_list l " +
-            "INNER JOIN book_info bi ON l.book_id = bi.book_id " +
+            "INNER JOIN books bi ON l.book_id = bi.book_id " +
             "INNER JOIN class_info ci ON bi.class_id = ci.class_id " +
             "GROUP BY ci.class_id, ci.class_name")
     List<Map<String, Object>> getCategoryDistribution();

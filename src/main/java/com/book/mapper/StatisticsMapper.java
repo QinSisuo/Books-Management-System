@@ -19,7 +19,7 @@ public interface StatisticsMapper {
     // 获取热门借阅书籍
     @Select("SELECT bi.name AS name, bi.author AS author, COUNT(*) AS borrowCount " +
             "FROM borrow_record br " +
-            "JOIN book_info bi ON br.book_id = bi.book_id " +
+            "JOIN books bi ON br.book_id = bi.book_id " +
             "GROUP BY bi.book_id " +
             "ORDER BY borrowCount DESC " +
             "LIMIT 10")

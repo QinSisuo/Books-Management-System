@@ -33,7 +33,7 @@ public class BorrowController {
 
         // 2. 调用Service里的借阅业务逻辑
         boolean success = borrowService.borrowBook(bookId, readerId);
-        // borrowBook里应插入 borrow_record 并把 book_info.state 改为0或1(视你项目定义)
+        // borrowBook里应插入 borrow_record 并把 books.state 改为0或1(视你项目定义)
 
         // 3. 给页面一个提示
         if (success) {

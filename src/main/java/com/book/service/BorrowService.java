@@ -18,7 +18,7 @@ public class BorrowService {
     private BorrowRecordMapper borrowRecordMapper;
 
     @Autowired
-    private BookMapper bookMapper; // 假如我们想改 book_info.state
+    private BookMapper bookMapper; // 假如我们想改 books.state
 
     @Transactional
     public boolean borrowBook(long bookId, long readerId) {
@@ -45,11 +45,11 @@ public class BorrowService {
         return true;
     }
     /**
-     * 借书：插入borrow_record并可更新book_info state=1
+     * 借书：插入borrow_record并可更新books state=1
      */
     @Transactional
     public boolean borrowBook(Long bookId, Long readerId) {
-        // 1) 可先检查该书是否可借(若 book_info.state=0?)
+        // 1) 可先检查该书是否可借(若 books.state=0?)
         // Book book = bookMapper.getBook(bookId);
         // if(book.getState() != 0){ return false; }
 
@@ -65,7 +65,7 @@ public class BorrowService {
         int rows = borrowRecordMapper.insertBorrowRecord(record);
         if(rows <= 0) return false;
 
-        // 3) 更新 book_info.state=1(表示已借出)
+        // 3) 更新 books.state=1(表示已借出)
         // book.setState(1);
         // bookMapper.editBook(book);
 
@@ -95,7 +95,7 @@ public class BorrowService {
         int updated = borrowRecordMapper.updateBorrowRecord(record);
         if(updated <= 0) return false;
 
-        // 同时book_info.state=0(可借)
+        // 同时books.state=0(可借)
         // Book book = bookMapper.getBook(record.getBookId());
         // book.setState(0);
         // bookMapper.editBook(book);
