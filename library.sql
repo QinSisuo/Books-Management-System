@@ -89,14 +89,14 @@ INSERT INTO `books` (`book_id`, `name`, `author`, `publish`, `ISBN`, `introducti
 
 CREATE TABLE `class_info` (
   `class_id` int(11) NOT NULL,
-  `class_name` varchar(45) NOT NULL
+  `category_name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `class_info`
 --
 
-INSERT INTO `class_info` (`class_id`, `class_name`) VALUES
+INSERT INTO `class_info` (`class_id`, `category_name`) VALUES
 (1, '马克思主义'),
 (2, '哲学'),
 (3, '社会科学总论'),

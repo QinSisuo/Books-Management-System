@@ -36,12 +36,12 @@ public interface UserBehaviorMapper {
             "r.name as userName, " +
             "COUNT(l.sernum) as borrowCount, " +
             "MAX(l.lend_date) as lastBorrowTime, " +
-            "(SELECT ci.class_name " +
+            "(SELECT ci.category_name " +
             "FROM lend_list ll " +
             "INNER JOIN books bi ON ll.book_id = bi.book_id " +
-            "INNER JOIN class_info ci ON bi.class_id = ci.class_id " +
+            "INNER JOIN book_category ci ON bi.category_id = ci.category_id " +
             "WHERE ll.reader_id = r.reader_id " +
-            "GROUP BY ci.class_id, ci.class_name " +
+            "GROUP BY ci.category_id, ci.category_name " +
             "ORDER BY COUNT(*) DESC LIMIT 1) as preferredCategory, " +
             "MAX(CASE WHEN l.back_date > l.lend_date THEN 1 ELSE 0 END) as hasOverdue " +
             "FROM reader_info r " +
@@ -50,11 +50,11 @@ public interface UserBehaviorMapper {
     List<UserBehavior> getUserBehaviors();
 
     // 获取各类别图书借阅分布
-    @Select("SELECT ci.class_name as name, COUNT(*) as count " +
+    @Select("SELECT ci.category_name as name, COUNT(*) as count " +
             "FROM lend_list l " +
             "INNER JOIN books bi ON l.book_id = bi.book_id " +
-            "INNER JOIN class_info ci ON bi.class_id = ci.class_id " +
-            "GROUP BY ci.class_id, ci.class_name")
+            "INNER JOIN book_category ci ON bi.category_id = ci.category_id " +
+            "GROUP BY ci.category_id, ci.category_name")
     List<Map<String, Object>> getCategoryDistribution();
 
     // 获取用户角色分布
