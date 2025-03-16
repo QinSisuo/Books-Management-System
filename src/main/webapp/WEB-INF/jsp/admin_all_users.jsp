@@ -62,6 +62,7 @@
                 <div class="col-md-6 text-right">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
                     <i class="fas fa-plus"></i> 新增用户
+                    </button>
                 </div>
             </div>
         </div>
