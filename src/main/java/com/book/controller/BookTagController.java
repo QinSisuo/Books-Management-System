@@ -21,7 +21,7 @@ public class BookTagController {
     public ModelAndView bookTags(HttpServletRequest request) {
         String searchWord = request.getParameter("searchWord");
         List<BookTag> tags = bookTagService.queryBookTags(searchWord);
-        ModelAndView modelAndView = new ModelAndView("admin/admin_tag_manage");
+        ModelAndView modelAndView = new ModelAndView("admin_tag_manage");
         modelAndView.addObject("tags", tags);
         return modelAndView;
     }

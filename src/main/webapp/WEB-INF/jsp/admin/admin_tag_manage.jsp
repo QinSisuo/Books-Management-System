@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -8,7 +8,10 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<%@include file="admin_header.jsp"%>
+<!-- 引入公共头部: 包含CSS/JS等 -->
+<%@ include file="common/header.jsp" %>
+<%@ include file="common/admin_navbar.jsp" %>
+<%@ include file="common/footer.jsp" %>
 
 <div style="position: relative;padding-top: 100px">
     <div class="panel panel-default">
