@@ -170,7 +170,7 @@
                             用户管理
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="admin_all_users.html">全部用户</a></li>
+                            <li><a href="admin_user_manage.html">全部用户</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

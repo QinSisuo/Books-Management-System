@@ -46,7 +46,7 @@
 
         <div class="form-group text-center">
             <button type="submit" class="btn btn-success">保存</button>
-            <a href="/admin_all_users.html" class="btn btn-outline-secondary">取消</a>
+            <a href="/admin_user_manage.html" class="btn btn-outline-secondary">取消</a>
         </div>
     </form>
 </div>
@@ -84,7 +84,7 @@
                 data: $(this).serialize(),
                 success: function(response) {
                     alert("用户添加成功！");
-                    window.location.href = "/admin_all_users.html";
+                    window.location.href = "/admin_user_manage.html";
                 },
                 error: function() {
                     alert("添加失败，请检查输入！");

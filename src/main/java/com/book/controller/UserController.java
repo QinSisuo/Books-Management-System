@@ -117,7 +117,7 @@ public class UserController {
      */
     @RequestMapping(value = "/queryuser.html", method = RequestMethod.GET)
     public ModelAndView adminQueryUser(@RequestParam(required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("admin_all_users");
+        ModelAndView mav = new ModelAndView("admin_user_manage");
 
         // 查询用户
         List<User> users;
@@ -141,11 +141,11 @@ public class UserController {
 
 
     //admin page show all users
-    @GetMapping("admin_all_users.html")
+    @GetMapping("admin_user_manage.html")
     public String showAllUsers(Model model) {
         List<User> userList = userService.getAllUsers();
         model.addAttribute("users", userList);
-        return "admin_all_users";  // 显示用户列表的 JSP 页面
+        return "admin_user_manage";  // 显示用户列表的 JSP 页面
     }
 
     //admin user delete
@@ -158,7 +158,7 @@ public class UserController {
         } else {
             model.addAttribute("error", "用户删除失败");
         }
-        return "redirect:/admin_all_users.html";
+        return "redirect:/admin_user_manage.html";
     }
 
     //admin add page
