@@ -8,57 +8,61 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">标签管理</h3>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <form method="post" action="admin_tag_manage.html" class="form-inline" id="searchForm">
-                            <input type="text" placeholder="输入标签名" class="form-control" id="searchWord" name="searchWord">
-                            <button type="submit" class="btn btn-default">搜索</button>
-                        </form>
-                    </div>
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTagModal">
-                            新增标签
-                        </button>
+<%@include file="admin_header.jsp"%>
+
+<div style="position: relative;padding-top: 100px">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">标签管理</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <form method="post" action="admin_tag_manage.html" class="form-inline" id="searchForm">
+                                <input type="text" placeholder="输入标签名" class="form-control" id="searchWord" name="searchWord">
+                                <button type="submit" class="btn btn-default">搜索</button>
+                            </form>
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTagModal">
+                                新增标签
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>标签名称</th>
-                <th>状态</th>
-                <th>使用次数</th>
-                <th>搜索次数</th>
-                <th>借阅次数</th>
-                <th>热度得分</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${tags}" var="tag">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td>${tag.name}</td>
-                    <td>${tag.status == '0' ? '正常' : '停用'}</td>
-                    <td>${tag.useCount}</td>
-                    <td>${tag.searchCount}</td>
-                    <td>${tag.borrowCount}</td>
-                    <td>${tag.hotScore}</td>
-                    <td>
-                        <button type="button" class="btn btn-info btn-xs" onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">编辑</button>
-                        <button type="button" class="btn btn-danger btn-xs" onclick="deleteTag(${tag.id})">删除</button>
-                    </td>
+                    <th>标签名称</th>
+                    <th>状态</th>
+                    <th>使用次数</th>
+                    <th>搜索次数</th>
+                    <th>借阅次数</th>
+                    <th>热度得分</th>
+                    <th>操作</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:forEach items="${tags}" var="tag">
+                    <tr>
+                        <td>${tag.name}</td>
+                        <td>${tag.status == '0' ? '正常' : '停用'}</td>
+                        <td>${tag.useCount}</td>
+                        <td>${tag.searchCount}</td>
+                        <td>${tag.borrowCount}</td>
+                        <td>${tag.hotScore}</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-xs" onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">编辑</button>
+                            <button type="button" class="btn btn-danger btn-xs" onclick="deleteTag(${tag.id})">删除</button>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
