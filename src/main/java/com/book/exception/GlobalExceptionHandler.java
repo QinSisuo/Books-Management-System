@@ -10,12 +10,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CategoryException.class)
     public String handleCategoryException(CategoryException e, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", e.getMessage());
-        return "redirect:/admin_category_list.html";
+        return "redirect:/admin_category_manage.html";
     }
 
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", "系统发生错误：" + e.getMessage());
-        return "redirect:/admin_category_list.html";
+        return "redirect:/admin_category_manage.html";
     }
 } 

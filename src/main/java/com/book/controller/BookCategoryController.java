@@ -20,10 +20,10 @@ public class BookCategoryController {
     private BookCategoryService categoryService;
 
     // 显示分类列表
-    @GetMapping("/admin_category_list.html")
+    @GetMapping("/admin_category_manage.html")
     public ModelAndView categoryList() {
         List<BookCategory> categories = categoryService.getAllCategories();
-        return new ModelAndView("admin_category_list").addObject("categories", categories);
+        return new ModelAndView("admin_category_manage").addObject("categories", categories);
     }
 
     // 新增分类页面
@@ -37,7 +37,7 @@ public class BookCategoryController {
     public String addCategory(BookCategory category, RedirectAttributes redirectAttributes) {
         boolean result = categoryService.addCategory(category);
         redirectAttributes.addFlashAttribute("succ", result ? "分类添加成功！" : "分类添加失败！");
-        return "redirect:/admin_category_list.html";
+        return "redirect:/admin_category_manage.html";
     }
 
     // 编辑分类页面
@@ -52,7 +52,7 @@ public class BookCategoryController {
     public String editCategory(BookCategory category, RedirectAttributes redirectAttributes) {
         boolean result = categoryService.editCategory(category);
         redirectAttributes.addFlashAttribute("succ", result ? "分类编辑成功！" : "分类编辑失败！");
-        return "redirect:/admin_category_list.html";
+        return "redirect:/admin_category_manage.html";
     }
 
     // 删除分类
@@ -74,7 +74,7 @@ public class BookCategoryController {
             e.printStackTrace(); // 打印完整堆栈跟踪
             redirectAttributes.addFlashAttribute("error", "删除失败：" + e.getMessage());
         }
-        return "redirect:/admin_category_list.html";
+        return "redirect:/admin_category_manage.html";
     }
 
 }
