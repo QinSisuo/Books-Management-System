@@ -32,4 +32,7 @@ public interface BookTagMapper {
 
     @Select("SELECT * FROM book_tag WHERE id=#{id}")
     BookTag getBookTagById(@Param("id") Long id);
+
+    @Select("SELECT * FROM book_tag WHERE status = '0' ORDER BY hot_score DESC LIMIT #{limit}")
+    List<BookTag> getHotTags(@Param("limit") int limit);
 } 

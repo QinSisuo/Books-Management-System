@@ -9,4 +9,5 @@ public interface BookTagService {
     boolean updateBookTag(BookTag bookTag);
     boolean deleteBookTag(Long id);
     BookTag getBookTagById(Long id);
+    List<BookTag> getHotTags(int limit);
 } 

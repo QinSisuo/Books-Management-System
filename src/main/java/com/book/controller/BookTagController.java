@@ -86,4 +86,13 @@ public class BookTagController {
         ModelAndView modelAndView = new ModelAndView("redirect:/admin_tag_manage.html");
         return modelAndView;
     }
+
+    @RequestMapping("/hot_tags.html")
+    public ModelAndView hotTags() {
+        // 获取热门标签，按hot_score降序排序，限制前10个
+        List<BookTag> hotTags = bookTagService.getHotTags(10);
+        ModelAndView modelAndView = new ModelAndView("hot_tags");
+        modelAndView.addObject("hotTags", hotTags);
+        return modelAndView;
+    }
 } 

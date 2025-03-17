@@ -38,4 +38,9 @@ public class BookTagServiceImpl implements BookTagService {
     public BookTag getBookTagById(Long id) {
         return bookTagMapper.getBookTagById(id);
     }
+
+    @Override
+    public List<BookTag> getHotTags(int limit) {
+        return bookTagMapper.getHotTags(limit);
+    }
 } 
