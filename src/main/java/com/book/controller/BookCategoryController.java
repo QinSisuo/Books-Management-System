@@ -26,7 +26,7 @@ public class BookCategoryController {
         return new ModelAndView("admin_category_manage").addObject("categories", categories);
     }
 
-    // 新增分类页面
+    // 新增分类
     @GetMapping("/admin_category_add.html")
     public String addCategoryPage() {
         return "admin_category_add";
