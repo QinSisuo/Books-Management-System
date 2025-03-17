@@ -21,7 +21,7 @@ public class BookInventoryController {
     @RequestMapping("/admin_book_inventory.html")
     public ModelAndView bookInventory(HttpServletRequest request) {
         String searchWord = request.getParameter("searchWord");
-        List<Book> books = bookService.queryBooksByName(searchWord);
+        List<Book> books = bookService.queryBook(searchWord);
         ModelAndView modelAndView = new ModelAndView("admin_book_inventory");
         modelAndView.addObject("books", books);
         modelAndView.addObject("searchWord", searchWord);

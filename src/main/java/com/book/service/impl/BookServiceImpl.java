@@ -5,6 +5,9 @@ import com.book.mapper.BookMapper;
 import com.book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -13,6 +16,69 @@ public class BookServiceImpl implements BookService {
     private BookMapper bookMapper;
 
     @Override
+    public ArrayList<Book> queryBook(String searchWord) {
+        if (searchWord == null || searchWord.trim().isEmpty()) {
+            return bookMapper.getAllBooks();
+        }
+        return bookMapper.queryBook(searchWord);
+    }
+
+    @Override
+    public ArrayList<Book> getAllBooks() {
+        return bookMapper.getAllBooks();
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteBook(long bookId) {
+        return bookMapper.deleteBook(bookId) > 0;
+    }
+
+    @Override
+    public boolean matchBook(String searchWord) {
+        return bookMapper.matchBook(searchWord) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean addBook(Book book) {
+        return bookMapper.addBook(book) > 0;
+    }
+
+    @Override
+    public Book getBook(Long bookId) {
+        return bookMapper.getBook(bookId);
+    }
+
+    @Override
+    @Transactional
+    public boolean editBook(Book book) {
+        return bookMapper.editBook(book) > 0;
+    }
+
+    @Override
+    public Book getBookById(int bookId) {
+        return bookMapper.findBookById(bookId);
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        return bookMapper.updateBook(book) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean borrowBook(long bookId) {
+        Book book = bookMapper.getBook(bookId);
+        if (book != null && book.getState() == 0) {
+            book.setState(1);
+            return bookMapper.editBook(book) > 0;
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
     public boolean addBookStock(long bookId, int count) {
         if (count <= 0) {
             throw new IllegalArgumentException("入库数量必须大于0");
@@ -25,6 +91,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional
     public boolean reduceBookStock(long bookId, int count) {
         if (count <= 0) {
             throw new IllegalArgumentException("出库数量必须大于0");
