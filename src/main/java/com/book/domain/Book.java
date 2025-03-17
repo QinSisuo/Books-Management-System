@@ -18,8 +18,8 @@ public class Book implements Serializable{
     private int classId;
     private int pressmark;
     private int state;
-    private Integer totalCount;
-    private Integer lentCount;
+    private Integer totalCount = 0;
+    private Integer lentCount = 0;
 
     public void setName(String name) {
         this.name = name;
@@ -70,11 +70,11 @@ public class Book implements Serializable{
     }
 
     public void setTotalCount(Integer totalCount) {
-        this.totalCount = totalCount;
+        this.totalCount = totalCount == null ? 0 : totalCount;
     }
 
     public void setLentCount(Integer lentCount) {
-        this.lentCount = lentCount;
+        this.lentCount = lentCount == null ? 0 : lentCount;
     }
 
     public String getName() {
@@ -126,11 +126,11 @@ public class Book implements Serializable{
     }
 
     public Integer getTotalCount() {
-        return totalCount;
+        return totalCount == null ? 0 : totalCount;
     }
 
     public Integer getLentCount() {
-        return lentCount;
+        return lentCount == null ? 0 : lentCount;
     }
 
     @Override

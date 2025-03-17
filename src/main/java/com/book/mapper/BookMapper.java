@@ -56,10 +56,10 @@ public interface BookMapper {
     int updateBook(Book book); // 更新图书信息，返回受影响的行数
 
     @Update("<script>" +
-            "UPDATE books SET total_count = total_count " +
-            "<if test='isAdd'>+ #{count}</if>" +
-            "<if test='!isAdd'>- #{count}</if>" +
-            "WHERE book_id = #{bookId}" +
+            "UPDATE books SET " +
+            "total_count = total_count <if test='isAdd'>+ #{count}</if><if test='!isAdd'>- #{count}</if> " +
+            "WHERE book_id = #{bookId} " +
+            "<if test='!isAdd'>AND (total_count - lent_count) >= #{count}</if>" +
             "</script>")
     int updateBookStock(@Param("bookId") long bookId, 
                        @Param("count") int count, 

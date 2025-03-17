@@ -166,8 +166,8 @@
                         title: '成功',
                         text: '入库成功！',
                         icon: 'success'
-                    }).then(() => {
-                        location.reload();
+                    }).then(function() {
+                        window.location.href = 'admin_book_inventory.html';
                     });
                 } else {
                     Swal.fire({
@@ -176,6 +176,13 @@
                         icon: 'error'
                     });
                 }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    title: '错误',
+                    text: '系统错误，请重试！',
+                    icon: 'error'
+                });
             }
         });
     }
@@ -193,8 +200,8 @@
                         title: '成功',
                         text: '出库成功！',
                         icon: 'success'
-                    }).then(() => {
-                        location.reload();
+                    }).then(function() {
+                        window.location.href = 'admin_book_inventory.html';
                     });
                 } else {
                     Swal.fire({
@@ -203,6 +210,13 @@
                         icon: 'error'
                     });
                 }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    title: '错误',
+                    text: '系统错误，请重试！',
+                    icon: 'error'
+                });
             }
         });
     }
