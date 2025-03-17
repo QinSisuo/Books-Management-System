@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>标签管理</title>
+    <title>图书标签管理</title>
     <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
@@ -15,67 +15,71 @@
 </head>
 
 <body>
-<!-- 引入公共头部: 包含CSS/JS等 -->
-<%@ include file="common/header.jsp" %>
-<%@ include file="common/admin_navbar.jsp" %>
-<%@ include file="common/footer.jsp" %>
+    <!-- 引入公共头部: 包含CSS/JS等 -->
+    <%@ include file="common/header.jsp" %>
+    <%@ include file="common/admin_navbar.jsp" %>
+    <%@ include file="common/footer.jsp" %>
 
-<div style="position: relative;padding-top: 100px">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">标签管理</h3>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-8">
-                            <form method="post" action="admin_tag_manage.html" class="form-inline" id="searchForm">
-                                <input type="text" placeholder="输入标签名" class="form-control" id="searchWord" name="searchWord">
-                                <button type="submit" class="btn btn-default">搜索</button>
-                            </form>
-                        </div>
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTagModal">
-                                新增标签
-                            </button>
-                        </div>
+    <!-- 统一搜索框 -->
+    <div class="container" style="margin-top: 20px; max-width: 600px;">
+        <form action="admin_tag_manage.html" method="post" class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" name="searchWord"
+                       placeholder="输入标签名" value="${searchWord}" style="width: 300px;" />
+            </div>
+            &nbsp;
+            <button type="submit" class="btn btn-primary">搜索</button>
+        </form>
+    </div>
+
+    <!-- 统一面板 -->
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="panel-title mb-0">标签管理</h3>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addTagModal">
+                            <i class="fas fa-plus"></i> 新增标签
+                        </button>
                     </div>
                 </div>
             </div>
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>标签名称</th>
-                    <th>状态</th>
-                    <th>使用次数</th>
-                    <th>搜索次数</th>
-                    <th>借阅次数</th>
-                    <th>热度得分</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr><td colspan="7">标签总数：${tags.size()}</td></tr>
-                <c:forEach items="${tags}" var="tag">
-                    <tr>
-                        <td>${tag.name}</td>
-                        <td>${tag.status == '0' ? '正常' : '停用'}</td>
-                        <td>${tag.useCount}</td>
-                        <td>${tag.searchCount}</td>
-                        <td>${tag.borrowCount}</td>
-                        <td>${tag.hotScore}</td>
-                        <td>
-                            <button type="button" class="btn btn-info btn-xs" onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">编辑</button>
-                            <button type="button" class="btn btn-danger btn-xs" onclick="deleteTag(${tag.id})">删除</button>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
         </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>标签名称</th>
+                <th>状态</th>
+                <th>使用次数</th>
+                <th>搜索次数</th>
+                <th>借阅次数</th>
+                <th>热度得分</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td colspan="7">标签总数：${tags.size()}</td></tr>
+            <c:forEach items="${tags}" var="tag">
+                <tr>
+                    <td>${tag.name}</td>
+                    <td>${tag.status == '0' ? '正常' : '停用'}</td>
+                    <td>${tag.useCount}</td>
+                    <td>${tag.searchCount}</td>
+                    <td>${tag.borrowCount}</td>
+                    <td>${tag.hotScore}</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-xs" onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">编辑</button>
+                        <button type="button" class="btn btn-danger btn-xs" onclick="deleteTag(${tag.id})">删除</button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
-</div>
+
 
 <!-- 新增标签模态框 -->
 <div class="modal fade" id="addTagModal" tabindex="-1" role="dialog">
