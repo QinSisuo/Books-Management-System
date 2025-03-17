@@ -7,7 +7,15 @@ import java.util.List;
 
 public interface BookTagMapper {
     
-    @Select("SELECT * FROM book_tag WHERE name LIKE CONCAT('%',#{name},'%') ORDER BY hot_score DESC")
+    @Select("<script>" +
+        "SELECT * FROM book_tag" +
+        "<where>" +
+            "<if test='name != null and name != \"\"'>" +
+                "name LIKE CONCAT('%',#{name},'%')" +
+            "</if>" +
+        "</where>" +
+        " ORDER BY hot_score DESC" +
+        "</script>")
     List<BookTag> queryBookTags(@Param("name") String name);
 
     @Insert("INSERT INTO book_tag(name, status, create_time, create_by) " +

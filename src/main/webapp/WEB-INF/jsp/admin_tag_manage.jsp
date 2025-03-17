@@ -49,6 +49,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr><td colspan="7">标签总数：${tags.size()}</td></tr>
                 <c:forEach items="${tags}" var="tag">
                     <tr>
                         <td>${tag.name}</td>
@@ -133,22 +134,23 @@
 <script>
 function submitAddTag() {
     var formData = $("#addTagForm").serialize();
-
+    
     $.ajax({
         url: "admin_tag_add.html",
         type: "POST",
         data: formData,
+        dataType: "json",
         success: function(response) {
             if(response.success) {
                 alert("添加成功！");
                 $('#addTagModal').modal('hide');
-                // 刷新页面
-                window.location.reload();
+                location.href = 'admin_tag_manage.html';
             } else {
-                alert("添加失败，请重试！");
+                // 显示具体的错误信息
+                alert(response.message || "添加失败，请重试！");
             }
         },
-        error: function() {
+        error: function(xhr, status, error) {
             alert("系统错误，请重试！");
         }
     });

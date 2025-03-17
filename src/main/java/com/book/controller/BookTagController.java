@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @Controller
 public class BookTagController {
@@ -20,7 +22,16 @@ public class BookTagController {
     @RequestMapping("/admin_tag_manage.html")
     public ModelAndView bookTags(HttpServletRequest request) {
         String searchWord = request.getParameter("searchWord");
-        List<BookTag> tags = bookTagService.queryBookTags(searchWord);
+        List<BookTag> tags;
+        
+        if (searchWord != null && !searchWord.trim().isEmpty()) {
+            tags = bookTagService.queryBookTags(searchWord);
+        } else {
+            tags = bookTagService.queryBookTags(null);
+        }
+        
+        System.out.println("查询到的标签数量: " + (tags != null ? tags.size() : 0));
+        
         ModelAndView modelAndView = new ModelAndView("admin_tag_manage");
         modelAndView.addObject("tags", tags);
         return modelAndView;
@@ -29,18 +40,25 @@ public class BookTagController {
     @RequestMapping("/admin_tag_add.html")
     @ResponseBody
     public Object addTag(HttpServletRequest request) {
-        String name = request.getParameter("name");
-        String status = request.getParameter("status");
-        
-        BookTag bookTag = new BookTag();
-        bookTag.setName(name);
-        bookTag.setStatus(status);
-        bookTag.setCreateTime(new Date());
-        bookTag.setCreateBy("admin"); // 这里应该从session获取当前用户
+        try {
+            String name = request.getParameter("name");
+            String status = request.getParameter("status");
+            
+            BookTag bookTag = new BookTag();
+            bookTag.setName(name);
+            bookTag.setStatus(status);
+            bookTag.setCreateTime(new Date());
+            bookTag.setCreateBy("admin");
 
-        boolean success = bookTagService.addBookTag(bookTag);
-        
-        return success ? "{\"success\":true}" : "{\"success\":false}";
+            boolean success = bookTagService.addBookTag(bookTag);
+            return success ? "{\"success\":true}" : "{\"success\":false}";
+        } catch (Exception e) {
+            // 捕获重复标签异常
+            if (e.getMessage().contains("Duplicate entry")) {
+                return "{\"success\":false, \"message\":\"标签名称已存在\"}";
+            }
+            return "{\"success\":false, \"message\":\"添加失败\"}";
+        }
     }
 
     @RequestMapping("/admin_tag_edit.html")
