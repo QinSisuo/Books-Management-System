@@ -77,4 +77,14 @@ public class BookService {
         return false;
     }
 
+    public boolean addBookStock(long bookId, int count) {
+        // Implementation needed
+        return false;
+    }
+
+    public boolean reduceBookStock(long bookId, int count) {
+        // Implementation needed
+        return false;
+    }
+
 }

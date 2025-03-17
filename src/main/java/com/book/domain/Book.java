@@ -18,6 +18,8 @@ public class Book implements Serializable{
     private int classId;
     private int pressmark;
     private int state;
+    private Integer totalCount;
+    private Integer lentCount;
 
     public void setName(String name) {
         this.name = name;
@@ -67,6 +69,14 @@ public class Book implements Serializable{
         this.state = state;
     }
 
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public void setLentCount(Integer lentCount) {
+        this.lentCount = lentCount;
+    }
+
     public String getName() {
         return name;
     }
@@ -114,11 +124,14 @@ public class Book implements Serializable{
     public String getPublish() {
         return publish;
     }
-//
-//    @Override
-//    public String toString() {
-//        return "这本书的信息为"+pressmark+pubdate+bookId+name+author+publish+isbn+introduction+language+price+classId+state;
-//    }
+
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public Integer getLentCount() {
+        return lentCount;
+    }
 
     @Override
     public String toString() {
@@ -135,6 +148,8 @@ public class Book implements Serializable{
                 ", classId=" + classId +
                 ", pressmark=" + pressmark +
                 ", state=" + state +
+                ", totalCount=" + totalCount +
+                ", lentCount=" + lentCount +
                 '}';
     }
 }

@@ -54,4 +54,14 @@ public interface BookMapper {
 
     @Update("UPDATE books SET title = #{title}, author = #{author}, publisher = #{publisher} WHERE book_id = #{bookId}")
     int updateBook(Book book); // 更新图书信息，返回受影响的行数
+
+    @Update("<script>" +
+            "UPDATE books SET total_count = total_count " +
+            "<if test='isAdd'>+ #{count}</if>" +
+            "<if test='!isAdd'>- #{count}</if>" +
+            "WHERE book_id = #{bookId}" +
+            "</script>")
+    int updateBookStock(@Param("bookId") long bookId, 
+                       @Param("count") int count, 
+                       @Param("isAdd") boolean isAdd);
 }
