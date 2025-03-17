@@ -22,6 +22,14 @@ public class BookInventoryController {
     public ModelAndView bookInventory(HttpServletRequest request) {
         String searchWord = request.getParameter("searchWord");
         List<Book> books = bookService.queryBook(searchWord);
+        
+        // 添加调试日志
+        for (Book book : books) {
+            System.out.println("Book: " + book.getName() + 
+                             ", Total: " + book.getTotalCount() + 
+                             ", Lent: " + book.getLentCount());
+        }
+        
         ModelAndView modelAndView = new ModelAndView("admin_book_inventory");
         modelAndView.addObject("books", books);
         modelAndView.addObject("searchWord", searchWord);

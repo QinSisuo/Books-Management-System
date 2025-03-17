@@ -62,9 +62,9 @@
                                 <tr>
                                     <td>${book.name}</td>
                                     <td>${book.isbn}</td>
-                                    <td>${book.totalCount}</td>
-                                    <td>${book.lentCount}</td>
-                                    <td>${book.totalCount - book.lentCount}</td>
+                                    <td>${book.totalCount == null ? 0 : book.totalCount}</td>
+                                    <td>${book.lentCount == null ? 0 : book.lentCount}</td>
+                                    <td>${(book.totalCount == null ? 0 : book.totalCount) - (book.lentCount == null ? 0 : book.lentCount)}</td>
                                     <td>
                                         <button type="button" class="btn btn-success btn-xs" 
                                                 onclick="openAddStockModal(${book.bookId}, '${book.name}')">

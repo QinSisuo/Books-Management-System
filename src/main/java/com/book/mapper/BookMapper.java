@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface BookMapper {
 
     // 查询图书
-    @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state " +
+    @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state, total_count, lent_count " +
             "FROM books " +
             "WHERE name LIKE CONCAT('%', #{searchWord}, '%') " +
             "OR author LIKE CONCAT('%', #{searchWord}, '%') ")
@@ -16,12 +16,12 @@ public interface BookMapper {
 
 
     // 获取所有图书
-    @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state " +
+    @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state, total_count, lent_count " +
             "FROM books")
     ArrayList<Book> getAllBooks();
 
     // 根据书籍ID获取图书详情
-    @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state " +
+    @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state, total_count, lent_count " +
             "FROM books " +
             "WHERE book_id = #{bookId}")
     Book getBook(@Param("bookId") long bookId);
@@ -57,9 +57,12 @@ public interface BookMapper {
 
     @Update("<script>" +
             "UPDATE books SET " +
-            "total_count = total_count <if test='isAdd'>+ #{count}</if><if test='!isAdd'>- #{count}</if> " +
+            "total_count = CASE " +
+            "  WHEN #{isAdd} = true THEN total_count + #{count} " +
+            "  ELSE total_count - #{count} " +
+            "END " +
             "WHERE book_id = #{bookId} " +
-            "<if test='!isAdd'>AND (total_count - lent_count) >= #{count}</if>" +
+            "AND (#{isAdd} = true OR (total_count - lent_count) >= #{count})" +
             "</script>")
     int updateBookStock(@Param("bookId") long bookId, 
                        @Param("count") int count, 
