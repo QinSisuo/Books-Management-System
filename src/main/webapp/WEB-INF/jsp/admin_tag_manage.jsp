@@ -20,20 +20,22 @@
     <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-    <!-- 统一搜索框 -->
-    <div class="container" style="margin-top: 20px; max-width: 600px;">
-        <form action="admin_tag_manage.html" method="post" class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" name="searchWord"
-                       placeholder="输入标签名" value="${searchWord}" style="width: 300px;" />
-            </div>
-            &nbsp;
-            <button type="submit" class="btn btn-primary">搜索</button>
-        </form>
-    </div>
-
     <!-- 统一面板 -->
     <div class="container">
+
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form action="admin_tag_manage.html" method="post" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="searchWord"
+                           placeholder="输入标签名" value="${searchWord}" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+
+        <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">
                 <div class="row align-items-center">
@@ -48,6 +50,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- 显示列表 -->
         <table class="table table-hover">
             <thead>
             <tr>
