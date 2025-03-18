@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 <html>
 <head>
@@ -153,55 +154,27 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%; z-index: 999;">
     <div class="container">
         <!-- 创建一个新的父容器来包裹所有内容，设置为 flex 布局并在底端对齐 -->
         <div class="navbar-content">
             <!-- 图书管理系统标题 -->
-            <a class="navbar-brand" href="admin_main.html">
+            <a class="navbar-brand" href="reader_main.html">
                 <h1>图书管理系统</h1>
             </a>
 
             <!-- 菜单项 -->
             <div class="nav-menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            用户管理
+                    <li><a href="reader_querybook.html">图书查询</a></li>
+                    <li><a href="reader_info.html">个人信息</a></li>
+                    <li><a href="reader_my_borrow.html">我的借还</a></li>
+                    <li><a href="reader_repasswd.html">密码修改</a></li>
+                    <li>
+                        <a href="notifications.html">
+                            通知
+                            <span class="badge" id="notification-count" style="background-color: #ff4444;">0</span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="admin_all_users.html">全部用户</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a href="admin_user_add.html">新增用户</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            图书管理
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="reader_book_list.html">全部图书</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a href="reader_my_borrow.html">我的借还</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            借阅管理
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="lendlist.html">借还日志</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            数据分析和统计
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="lendlist.html">借阅统计</a></li>
-                            <li><a href="${pageContext.request.contextPath}/user-behavior-analysis.html">用户行为分析</a></li>
-                            <li><a href="system-logs-and-operation-records.html">系统日志和操作记录</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -220,6 +193,28 @@
         </div>
     </div>
 </nav>
+
+<script>
+    $(document).ready(function() {
+        // 获取未读通知数量
+        function updateUnreadCount() {
+            $.get('/notification/unread/count', function(count) {
+                $('#notification-count').text(count);
+                if (count > 0) {
+                    $('#notification-count').show();
+                } else {
+                    $('#notification-count').hide();
+                }
+            });
+        }
+
+        // 页面加载时获取未读数量
+        updateUnreadCount();
+
+        // 每60秒更新一次未读数量
+        setInterval(updateUnreadCount, 60000);
+    });
+</script>
 
 </head>
 </html>

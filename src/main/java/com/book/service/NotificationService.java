@@ -94,4 +94,18 @@ public class NotificationService {
         notification.setPriority(1); // 普通
         createNotification(notification);
     }
+
+    /**
+     * 获取用户的所有通知
+     */
+    public List<Notification> getUserNotifications(Integer userId) {
+        return notificationMapper.findByUserId(userId);
+    }
+
+    /**
+     * 获取用户的未读通知数量
+     */
+    public int getUnreadCount(Integer userId) {
+        return notificationMapper.countUnreadByUserId(userId);
+    }
 } 
