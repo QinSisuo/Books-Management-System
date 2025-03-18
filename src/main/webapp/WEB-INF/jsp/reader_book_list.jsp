@@ -84,17 +84,18 @@
                                         <c:choose>
                                             <c:when test="${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount) > 0}">
                                                 <!-- 有可借数量 => 显示绿色借阅按钮 -->
-                                                <a href="/reader/book/borrow?bookId=${bk.bookId}"
-                                                   class="btn btn-success btn-sm">
-                                                   <i class="fas fa-book"></i> 借阅
-                                                </a>
+                                                <form action="/reader/book/borrow" method="post" style="display:inline;">
+                                                    <input type="hidden" name="bookId" value="${bk.bookId}" />
+                                                    <button type="submit" class="btn btn-success btn-sm">
+                                                        <i class="fas fa-book"></i> 借阅
+                                                    </button>
+                                                </form>
                                             </c:when>
                                             <c:otherwise>
                                                 <!-- 无可借数量 => 显示灰色预约按钮 -->
-                                                <a href="/reader/book/reserve?bookId=${bk.bookId}"
-                                                   class="btn btn-secondary btn-sm">
-                                                   <i class="fas fa-clock"></i> 预约
-                                                </a>
+                                                <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                                    <i class="fas fa-clock"></i> 预约
+                                                </button>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
