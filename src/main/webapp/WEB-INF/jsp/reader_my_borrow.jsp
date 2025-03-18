@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -68,11 +69,13 @@
                     <tr>
                         <td>${r.id}</td>
                         <td>${r.bookId}</td>
-                        <td>${r.borrowTime}</td>
-                        <td>${r.dueTime}</td>
+                        <td><fmt:formatDate value="${r.borrowTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
+                        <td><fmt:formatDate value="${r.dueTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
                         <td>
                             <c:choose>
-                                <c:when test="${r.returnTime != null}">${r.returnTime}</c:when>
+                                <c:when test="${r.returnTime != null}">
+                                    <fmt:formatDate value="${r.returnTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/>
+                                </c:when>
                                 <c:otherwise>未归还</c:otherwise>
                             </c:choose>
                         </td>
@@ -84,7 +87,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <!-- 只有status=0时，才显示“归还”和“续借”按钮 -->
+                            <!-- 只有status=0时，才显示"归还"和"续借"按钮 -->
                             <c:if test="${r.status == 0}">
                                 <!-- 归还 -->
                                 <form action="borrow_return" method="post" style="display:inline;">
