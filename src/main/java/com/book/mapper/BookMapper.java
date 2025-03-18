@@ -74,5 +74,6 @@ public interface BookMapper {
      * @param lentCount 新的已借数量
      * @return 更新的行数
      */
+    @Update("UPDATE books SET lent_count = #{lentCount} WHERE book_id = #{bookId}")
     int updateLentCount(@Param("bookId") long bookId, @Param("lentCount") int lentCount);
 }
