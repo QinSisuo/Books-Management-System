@@ -67,4 +67,12 @@ public interface BookMapper {
     int updateBookStock(@Param("bookId") long bookId, 
                        @Param("count") int count, 
                        @Param("isAdd") boolean isAdd);
+
+    /**
+     * 更新图书已借数量
+     * @param bookId 图书ID
+     * @param lentCount 新的已借数量
+     * @return 更新的行数
+     */
+    int updateLentCount(@Param("bookId") long bookId, @Param("lentCount") int lentCount);
 }

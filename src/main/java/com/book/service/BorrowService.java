@@ -3,7 +3,7 @@ package com.book.service;
 import com.book.domain.Book;
 import com.book.domain.BorrowRecord;
 import com.book.mapper.BorrowRecordMapper;
-import com.book.mapper.BookMapper;   // 如果需要修改书的 state
+import com.book.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public class BorrowService {
     private BorrowRecordMapper borrowRecordMapper;
 
     @Autowired
-    private BookMapper bookMapper; // 假如我们想改 books.state
+    private BookMapper bookMapper;
 
     @Transactional
     public boolean borrowBook(long bookId, long readerId) {
@@ -46,9 +46,8 @@ public class BorrowService {
         }
 
         // 4. 更新图书已借数量
-        book.setLentCount(book.getLentCount() + 1);
-        int bookResult = bookMapper.editBook(book);
-        if (bookResult <= 0) {
+        int updateResult = bookMapper.updateLentCount(bookId, book.getLentCount() + 1);
+        if (updateResult <= 0) {
             return false;
         }
 
@@ -84,9 +83,8 @@ public class BorrowService {
         // 3. 更新图书已借数量
         Book book = bookMapper.getBook(record.getBookId());
         if (book != null) {
-            book.setLentCount(book.getLentCount() - 1);
-            int bookResult = bookMapper.editBook(book);
-            if (bookResult <= 0) {
+            int updateResult = bookMapper.updateLentCount(book.getBookId(), book.getLentCount() - 1);
+            if (updateResult <= 0) {
                 return false;
             }
         }

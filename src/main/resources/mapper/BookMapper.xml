@@ -1,0 +1,5 @@
+  <update id="updateLentCount">
+    UPDATE books 
+    SET lent_count = #{lentCount}
+    WHERE book_id = #{bookId}
+  </update> 
