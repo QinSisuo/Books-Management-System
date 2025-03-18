@@ -180,7 +180,9 @@
                         <ul class="dropdown-menu">
                             <li><a href="admin_book_manage.html">图书信息管理</a></li>
                             <li><a href="admin_category_manage.html">图书分类管理</a></li>
-                            <li><a href="admin_tag_manage.html">图书分类管理</a></li>
+                            <li><a href="admin_tag_manage.html">图书标签管理</a></li>
+                            <li><a href="hot_tags.html">图书热门标签</a></li>
+                            <li><a href="admin_book_inventory.html">图书库存管理</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

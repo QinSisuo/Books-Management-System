@@ -20,69 +20,68 @@
     <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-    <!-- 搜索框 -->
-    <div class="container" style="margin-top: 20px; max-width: 600px;">
-        <form action="admin_book_inventory.html" method="get" class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" name="searchWord"
-                       placeholder="输入图书名称" value="${searchWord}" style="width: 300px;" />
-            </div>
-            &nbsp;
-            <button type="submit" class="btn btn-primary">搜索</button>
-        </form>
-    </div>
-
-    <!-- 主要内容 -->
+    <!-- 统一面板 -->
     <div class="container">
+
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form action="admin_book_inventory.html" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="searchWord"
+                           placeholder="输入图书名称" value="${searchWord}" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+
+        <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h3 class="panel-title mb-0">
-                            <i class="fas fa-boxes"></i> 图书库存管理
-                        </h3>
+                        <h3 class="panel-title mb-0">图书库存管理</h3>
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>图书名称</th>
-                                <th>ISBN</th>
-                                <th>总库存</th>
-                                <th>已借数量</th>
-                                <th>可借数量</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${books}" var="book">
-                                <tr>
-                                    <td>${book.name}</td>
-                                    <td>${book.isbn}</td>
-                                    <td>${book.totalCount == null ? 0 : book.totalCount}</td>
-                                    <td>${book.lentCount == null ? 0 : book.lentCount}</td>
-                                    <td>${(book.totalCount == null ? 0 : book.totalCount) - (book.lentCount == null ? 0 : book.lentCount)}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-xs" 
-                                                onclick="openAddStockModal(${book.bookId}, '${book.name}')">
-                                            <i class="fas fa-plus"></i> 入库
-                                        </button>
-                                        <button type="button" class="btn btn-warning btn-xs" 
-                                                onclick="openReduceStockModal(${book.bookId}, '${book.name}')">
-                                            <i class="fas fa-minus"></i> 出库
-                                        </button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
+
+        <!-- 显示列表 -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>图书名称</th>
+                    <th>ISBN</th>
+                    <th>总库存</th>
+                    <th>已借数量</th>
+                    <th>可借数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${books}" var="book">
+                    <tr>
+                        <td>${book.name}</td>
+                        <td>${book.isbn}</td>
+                        <td>${book.totalCount == null ? 0 : book.totalCount}</td>
+                        <td>${book.lentCount == null ? 0 : book.lentCount}</td>
+                        <td>${(book.totalCount == null ? 0 : book.totalCount) - (book.lentCount == null ? 0 : book.lentCount)}</td>
+                        <td>
+                            <button type="button" class="btn btn-success btn-xs"
+                                    onclick="openAddStockModal(${book.bookId}, '${book.name}')">
+                                <i class="fas fa-plus"></i> 入库
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs"
+                                    onclick="openReduceStockModal(${book.bookId}, '${book.name}')">
+                                <i class="fas fa-minus"></i> 出库
+                            </button>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
     </div>
+
 
     <!-- 入库模态框 -->
     <div class="modal fade" id="addStockModal" tabindex="-1" role="dialog">

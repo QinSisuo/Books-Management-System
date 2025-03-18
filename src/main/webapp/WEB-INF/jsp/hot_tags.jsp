@@ -37,7 +37,7 @@
 </head>
 <body>
     <%@ include file="common/header.jsp" %>
-    <%@ include file="common/navbar.jsp" %>
+    <%@ include file="common/admin_navbar.jsp" %>
 
     <div class="container">
         <div class="panel panel-default">
