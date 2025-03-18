@@ -5,13 +5,14 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的通知</title>
+    <title>我的通知 - 智悦书屋图书管理系统</title>
     <!-- 引入外部 CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <!-- 引入外部 JavaScript -->
+    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
 </head>
 
@@ -19,8 +20,7 @@
     <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
     <%@ include file="common/reader_navbar.jsp" %>
-    <%@ include file="common/footer.jsp" %>
-
+    
     <!-- 通知列表面板 -->
     <div class="panel panel-default" style="width: 90%; margin-left: 5%; margin-top: 5%">
         <div class="panel-heading">
@@ -55,12 +55,14 @@
         </div>
     </div>
 
+    <%@ include file="common/footer.jsp" %>
+
     <script>
         $(document).ready(function() {
             // 标记通知为已读
             $('.mark-read').click(function() {
                 var notificationId = $(this).data('notification-id');
-                $.post('/notification/read/' + notificationId, function(response) {
+                $.post('${pageContext.request.contextPath}/notification/read/' + notificationId, function(response) {
                     if (response === 'success') {
                         // 更新UI
                         var item = $('[data-notification-id="' + notificationId + '"]');
@@ -82,7 +84,7 @@
 
             // 更新未读通知数量
             function updateUnreadCount() {
-                $.get('/notification/unread/count', function(count) {
+                $.get('${pageContext.request.contextPath}/notification/unread/count', function(count) {
                     $('#notification-count').text(count);
                 });
             }

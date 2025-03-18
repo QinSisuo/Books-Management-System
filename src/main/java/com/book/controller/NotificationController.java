@@ -20,7 +20,7 @@ public class NotificationController {
     /**
      * 获取用户的通知列表
      */
-    @GetMapping("/notifications")
+    @GetMapping("/notifications.html")
     public String getNotifications(HttpSession session, Model model) {
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null) {
