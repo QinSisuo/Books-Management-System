@@ -84,7 +84,7 @@
                                         <c:choose>
                                             <c:when test="${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount) > 0}">
                                                 <!-- 有可借数量 => 显示绿色借阅按钮 -->
-                                                <form action="/reader/book/borrow" method="post" style="display:inline;">
+                                                <form action="reader_book_borrow.html" method="post" style="display:inline;">
                                                     <input type="hidden" name="bookId" value="${bk.bookId}" />
                                                     <button type="submit" class="btn btn-success btn-sm">
                                                         <i class="fas fa-book"></i> 借阅

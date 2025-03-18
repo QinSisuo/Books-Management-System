@@ -22,7 +22,7 @@ public class BorrowController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/reader/book/borrow")
+    @PostMapping("/reader_book_borrow.html")
     public String borrowBook(@RequestParam("bookId") long bookId,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
