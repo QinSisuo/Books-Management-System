@@ -163,11 +163,11 @@ public class BookController {
 
     /**
      * ========== 读者相关 ==========
-     * 当访问 /reader_querybook.html 时：
+     * 当访问 /reader_book_catalog.html 时：
      *  - 如果没有 searchWord 参数，则显示所有图书。
      *  - 如果有 searchWord，则按关键词搜索并返回结果。
      */
-    @GetMapping("/reader_querybook.html")
+    @GetMapping("/reader_book_catalog.html")
     public ModelAndView readerQueryBookPage(
             @RequestParam(value = "searchWord", required = false) String searchWord) {
         List<Book> books;
@@ -184,7 +184,7 @@ public class BookController {
     /**
      * 读者查看书籍详情
      */
-    @RequestMapping("/reader_querybook.html")
+    @RequestMapping("/reader_book_catalog.html")
     public ModelAndView readerBookDetail(@RequestParam long bookId) {
         return new ModelAndView("reader_book_detail").addObject("detail", bookService.getBook(bookId));
     }

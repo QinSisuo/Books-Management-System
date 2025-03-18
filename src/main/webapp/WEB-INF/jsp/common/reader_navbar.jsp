@@ -166,7 +166,11 @@
             <!-- 菜单项 -->
             <div class="nav-menu">
                 <ul class="navbar-nav">
-                    <li><a href="reader_querybook.html">图书查询</a></li>
+                    <li class="active">
+                        <a href="reader_book_catalog.html">
+                            图书目录
+                        </a>
+                    </li>
                     <li><a href="reader_info.html">个人信息</a></li>
                     <li><a href="reader_my_borrow.html">我的借还</a></li>
                     <li><a href="reader_repasswd.html">密码修改</a></li>

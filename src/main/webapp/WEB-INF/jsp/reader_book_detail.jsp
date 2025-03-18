@@ -21,8 +21,8 @@
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
                 <li class="active">
-                    <a href="reader_querybook.html" >
-                        图书查询
+                    <a href="reader_book_catalog.html">
+                        图书目录
                     </a>
                 </li>
                 <li>
