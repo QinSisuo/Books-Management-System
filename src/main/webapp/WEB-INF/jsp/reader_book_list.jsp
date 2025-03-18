@@ -65,7 +65,7 @@
                                 <th>出版社</th>
                                 <th>ISBN</th>
                                 <th>价格</th>
-                                <th>状态</th>
+                                <th>可借数量</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -77,34 +77,23 @@
                                     <td>${bk.publish}</td>
                                     <td>${bk.isbn}</td>
                                     <td>${bk.price}</td>
+                                    <td>${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount)}</td>
 
-                                    <!-- 状态列 -->
+                                    <!-- 操作列: 根据可借数量显示借阅按钮 -->
                                     <td>
                                         <c:choose>
-                                            <c:when test="${bk.state == 1}">
-                                                <span class="label label-success">可借</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="label label-danger">已借出</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-
-                                    <!-- 操作列: 如果可借 => 显示"借阅"，否则 => 显示"预约借阅" -->
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${bk.state == 1}">
-                                                <!-- 可借 => 借阅 -->
+                                            <c:when test="${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount) > 0}">
+                                                <!-- 有可借数量 => 显示绿色借阅按钮 -->
                                                 <a href="/reader/book/borrow?bookId=${bk.bookId}"
-                                                   class="btn btn-primary btn-sm">
-                                                   借阅
+                                                   class="btn btn-success btn-sm">
+                                                   <i class="fas fa-book"></i> 借阅
                                                 </a>
                                             </c:when>
                                             <c:otherwise>
-                                                <!-- 已借 => 预约借阅 -->
+                                                <!-- 无可借数量 => 显示灰色预约按钮 -->
                                                 <a href="/reader/book/reserve?bookId=${bk.bookId}"
-                                                   class="btn btn-info btn-sm">
-                                                   预约借阅
+                                                   class="btn btn-secondary btn-sm">
+                                                   <i class="fas fa-clock"></i> 预约
                                                 </a>
                                             </c:otherwise>
                                         </c:choose>
