@@ -82,28 +82,15 @@
                                     <td>
                                         <c:choose>
                                             <c:when test="${bk.state == 1}">
-                                                可借
+                                                <span class="label label-success">可借</span>
                                             </c:when>
                                             <c:otherwise>
-                                                已借出
+                                                <span class="label label-danger">已借出</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
 
-                                    <!-- 借阅/归还按钮列 -->
-                                    <!-- 状态列不变: state=1 => 可借, 0 => 已借出 -->
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${bk.state == 1}">
-                                                可借
-                                            </c:when>
-                                            <c:otherwise>
-                                                已借出
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-
-                                    <!-- 操作列: 如果可借 => 显示“借阅”，否则 => 显示“预约借阅” -->
+                                    <!-- 操作列: 如果可借 => 显示"借阅"，否则 => 显示"预约借阅" -->
                                     <td>
                                         <c:choose>
                                             <c:when test="${bk.state == 1}">
@@ -122,7 +109,6 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-
                                 </tr>
                             </c:forEach>
                         </tbody>
