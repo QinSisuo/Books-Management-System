@@ -132,6 +132,13 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.5.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version> <!-- 你可以使用最新版本 -->
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
