@@ -19,9 +19,12 @@ public class BorrowService {
 
     @Autowired
     private BookMapper bookMapper;
+    
+    @Autowired
+    private NotificationService notificationService;
 
     @Transactional
-    public boolean borrowBook(long bookId, long readerId) {
+    public boolean borrowBook(int bookId, int userId) {
         // 1. 查询该书是否可借
         Book book = bookMapper.getBook(bookId);
         if (book == null) {
@@ -36,7 +39,7 @@ public class BorrowService {
         // 3. 插入一条借阅记录
         BorrowRecord record = new BorrowRecord();
         record.setBookId(bookId);
-        record.setReaderId(readerId);
+        record.setReaderId(userId);
         record.setBorrowTime(new Date());
         record.setDueTime(new Date(System.currentTimeMillis() + 30L * 24 * 3600 * 1000)); // 默认借期30天
         record.setStatus(0); // 0=借出中
@@ -50,6 +53,9 @@ public class BorrowService {
         if (updateResult <= 0) {
             return false;
         }
+        
+        // 5. 创建借阅成功通知
+        notificationService.createBorrowSuccessNotification(userId, book.getName());
 
         return true;
     }
@@ -57,15 +63,15 @@ public class BorrowService {
     /**
      * 查询我的借阅记录
      */
-    public List<BorrowRecord> getMyBorrowRecords(Long readerId) {
-        return borrowRecordMapper.findRecordsByReader(readerId);
+    public List<BorrowRecord> getMyBorrowRecords(Integer userId) {
+        return borrowRecordMapper.findRecordsByReader(userId);
     }
 
     /**
      * 归还图书
      */
     @Transactional
-    public boolean returnBook(Long borrowId) {
+    public boolean returnBook(Integer borrowId) {
         // 1. 查询借阅记录
         BorrowRecord record = borrowRecordMapper.findById(borrowId);
         if (record == null || record.getStatus() != 0) {
@@ -87,6 +93,9 @@ public class BorrowService {
             if (updateResult <= 0) {
                 return false;
             }
+            
+            // 4. 创建归还成功通知
+            notificationService.createReturnSuccessNotification(record.getReaderId(), book.getName());
         }
 
         return true;
@@ -96,7 +105,7 @@ public class BorrowService {
      * 延期(续借)
      */
     @Transactional
-    public boolean extendBook(Long borrowId, int extraDays) {
+    public boolean extendBook(Integer borrowId, int extraDays) {
         // 1. 查询借阅记录
         BorrowRecord record = borrowRecordMapper.findById(borrowId);
         if (record == null || record.getStatus() != 0) {
