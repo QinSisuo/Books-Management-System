@@ -61,8 +61,8 @@
             }
         }
 
-        // 点击登录按钮时触发
-        $("#loginButton").click(function () {
+        // 处理登录逻辑
+        function handleLogin() {
             var username = $("#username").val().trim();
             var password = $("#password").val().trim();
             var remember = $("#remember").prop("checked");
@@ -80,7 +80,6 @@
                 data: { username: username, password: password },
                 success: function (data) {
                     if (data.stateCode === "1") {
-                        alert("管理员登录成功！");
                         if (remember) {
                             Cookies.set("loginStatus", JSON.stringify({ username: username, password: password }), { expires: 30 });
                         } else {
@@ -88,7 +87,6 @@
                         }
                         window.location.href = "/admin_main.html"; // 管理员页面
                     } else if (data.stateCode === "2") {
-                        alert("读者登录成功！");
                         if (remember) {
                             Cookies.set("loginStatus", JSON.stringify({ username: username, password: password }), { expires: 30 });
                         } else {
@@ -100,9 +98,19 @@
                     }
                 },
                 error: function () {
-                    alert("登录失败，请稍后重试！");
+                    $("#info").text("登录失败，请稍后重试！");
                 }
             });
+        }
+
+        // 点击登录按钮时触发
+        $("#loginButton").click(handleLogin);
+
+        // 添加回车键登录功能
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                handleLogin();
+            }
         });
 
         // 初始化登录状态
