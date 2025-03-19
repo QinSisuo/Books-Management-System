@@ -206,7 +206,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="addBookForm" method="post">
+                <form id="addBookForm">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">图书名</label>
@@ -373,12 +373,13 @@
         // 新增图书表单提交
         $('#addBookForm').on('submit', function(e) {
             e.preventDefault();
+            e.stopPropagation();
 
             // 表单验证
             if (!this.checkValidity()) {
                 e.stopPropagation();
                 $(this).addClass('was-validated');
-                return;
+                return false;
             }
 
             // 显示加载状态
@@ -443,6 +444,7 @@
                     });
                 }
             });
+            return false;
         });
 
         // 在页面加载完成后检查分类数据
