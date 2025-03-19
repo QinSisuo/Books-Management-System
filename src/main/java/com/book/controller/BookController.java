@@ -88,6 +88,10 @@ public class BookController {
         try {
             System.out.println("开始处理新增图书请求");
             System.out.println("接收到的图书数据: " + book.toString());
+            System.out.println("图书名称: " + book.getName());
+            System.out.println("作者: " + book.getAuthor());
+            System.out.println("ISBN: " + book.getIsbn());
+            System.out.println("分类ID: " + book.getClassId());
             
             // 参数验证
             if (book.getName() == null || book.getName().trim().isEmpty()) {
@@ -129,18 +133,23 @@ public class BookController {
             System.out.println("保存图书结果: " + success);
 
             if (success) {
+                System.out.println("图书添加成功，准备返回成功响应");
                 response.put("status", "success");
                 response.put("message", "图书添加成功");
                 response.put("redirectUrl", "/admin_book_manage.html");
+                System.out.println("返回的响应数据: " + response);
             } else {
+                System.out.println("图书添加失败，准备返回错误响应");
                 response.put("status", "error");
                 response.put("message", "图书添加失败");
+                System.out.println("返回的响应数据: " + response);
             }
         } catch (Exception e) {
             System.out.println("添加图书时发生异常: " + e.getMessage());
             e.printStackTrace();
             response.put("status", "error");
             response.put("message", "添加图书时发生错误：" + e.getMessage());
+            System.out.println("返回的错误响应数据: " + response);
         }
         return response;
     }

@@ -387,6 +387,7 @@
             // 收集表单数据
             var formData = $(this).serializeArray();
             console.log("提交的表单数据:", formData);
+            console.log("序列化后的表单数据:", $(this).serialize());
 
             $.ajax({
                 type: 'POST',
@@ -396,21 +397,29 @@
                 success: function(response) {
                     hideLoading();
                     console.log("服务器响应:", response);
+                    console.log("响应状态:", response.status);
+                    console.log("响应消息:", response.message);
+                    console.log("重定向URL:", response.redirectUrl);
 
                     if (response.status === 'success') {
+                        console.log("准备显示成功消息");
                         Swal.fire({
                             title: '成功',
                             text: response.message || '图书添加成功！',
                             icon: 'success'
                         }).then(() => {
+                            console.log("用户确认后准备重定向");
                             // 使用后端返回的重定向URL
                             if (response.redirectUrl) {
+                                console.log("使用重定向URL:", response.redirectUrl);
                                 window.location.href = response.redirectUrl;
                             } else {
+                                console.log("没有重定向URL，刷新当前页面");
                                 window.location.reload();
                             }
                         });
                     } else {
+                        console.log("显示错误消息");
                         Swal.fire({
                             title: '错误',
                             text: response.message || '添加失败，请重试！',
@@ -420,13 +429,18 @@
                 },
                 error: function(xhr) {
                     hideLoading();
-                    console.error("错误响应:", xhr);
+                    console.error("AJAX错误响应:", xhr);
+                    console.error("错误状态:", xhr.status);
+                    console.error("错误状态文本:", xhr.statusText);
+                    console.error("响应文本:", xhr.responseText);
                     let errorMsg = '';
                     try {
                         const response = JSON.parse(xhr.responseText);
                         errorMsg = response.message || '添加失败，请重试！';
+                        console.log("解析后的错误消息:", errorMsg);
                     } catch (e) {
                         errorMsg = xhr.responseText || '添加失败，请重试！';
+                        console.error("解析错误响应失败:", e);
                     }
                     Swal.fire({
                         title: '错误',
