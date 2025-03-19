@@ -35,17 +35,22 @@ public class BookController {
      */
 
     // 1. 显示所有图书（管理员）
-//    @GetMapping("/all")
-//    public ModelAndView allBooks() {
-//        List<Book> books = bookService.getAllBooks();
-//        return new ModelAndView("admin_book_manage", "books", books);
-//    }
     @GetMapping("/admin_book_manage.html")
-    public ModelAndView allBooks() {
+    public ModelAndView allBooks(@RequestParam(required = false) String searchWord) {
         ModelAndView mav = new ModelAndView("admin_book_manage");
         try {
-            mav.addObject("books", bookService.getAllBooks());
-            mav.addObject("categories", categoryService.getAllCategories()); // 添加分类列表
+            List<Book> books;
+            if (searchWord != null && !searchWord.trim().isEmpty()) {
+                books = bookService.queryBook(searchWord);
+                if (books.isEmpty()) {
+                    mav.addObject("error", "没有匹配的图书");
+                }
+            } else {
+                books = bookService.getAllBooks();
+            }
+            mav.addObject("books", books);
+            mav.addObject("searchWord", searchWord);
+            mav.addObject("categories", categoryService.getAllCategories());
         } catch (Exception e) {
             e.printStackTrace();
             mav.addObject("error", "获取数据失败：" + e.getMessage());
@@ -137,30 +142,6 @@ public class BookController {
             response.put("message", "添加图书时发生错误：" + e.getMessage());
         }
         return response;
-    }
-
-    // 6. 管理员查询图书（返回 ModelAndView）
-    @GetMapping("/admin_book_manage.html")
-    public ModelAndView allBooks(@RequestParam(required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("admin_book_manage");
-        try {
-            List<Book> books;
-            if (searchWord != null && !searchWord.trim().isEmpty()) {
-                books = bookService.queryBook(searchWord);
-                if (books.isEmpty()) {
-                    mav.addObject("error", "没有匹配的图书");
-                }
-            } else {
-                books = bookService.getAllBooks();
-            }
-            mav.addObject("books", books);
-            mav.addObject("searchWord", searchWord);
-            mav.addObject("categories", categoryService.getAllCategories());
-        } catch (Exception e) {
-            e.printStackTrace();
-            mav.addObject("error", "获取数据失败：" + e.getMessage());
-        }
-        return mav;
     }
 
     // 7. 管理员查看书籍详情
