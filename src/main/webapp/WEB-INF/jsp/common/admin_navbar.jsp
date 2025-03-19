@@ -206,6 +206,17 @@
                 </ul>
             </div>
 
+            <div>
+                <ul class="navbar-nav">
+                    <li>
+                        <a href="notifications.html">
+                            通知
+                            <span class="badge" id="notification-count" style="background-color: #ff4444;">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
             <!-- 用户名和退出按钮区域 -->
             <div class="user-section">
                 <ul class="navbar-nav">
@@ -220,6 +231,28 @@
         </div>
     </div>
 </nav>
+
+<script>
+    $(document).ready(function() {
+        // 获取未读通知数量
+        function updateUnreadCount() {
+            $.get('/notification/unread/count', function(count) {
+                $('#notification-count').text(count);
+                if (count > 0) {
+                    $('#notification-count').show();
+                } else {
+                    $('#notification-count').hide();
+                }
+            });
+        }
+
+        // 页面加载时获取未读数量
+        updateUnreadCount();
+
+        // 每60秒更新一次未读数量
+        setInterval(updateUnreadCount, 60000);
+    });
+</script>
 
 </head>
 </html>
