@@ -206,7 +206,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="addBookForm" onsubmit="return false;">
+                <form id="addBookForm">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">图书名 <span class="text-danger">*</span></label>
@@ -374,83 +374,85 @@
         });
 
         // 新增图书表单提交
-        $('#addBookForm').on('submit', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log("表单提交事件被触发");
-
-            // 表单验证
-            if (!this.checkValidity()) {
-                console.log("表单验证未通过");
+        $(document).ready(function() {
+            $('#addBookForm').on('submit', function(e) {
+                console.log("表单提交事件被触发");
+                e.preventDefault();
                 e.stopPropagation();
-                $(this).addClass('was-validated');
-                return false;
-            }
-            console.log("表单验证通过");
 
-            // 显示加载状态
-            showLoading();
+                // 表单验证
+                if (!this.checkValidity()) {
+                    console.log("表单验证未通过");
+                    e.stopPropagation();
+                    $(this).addClass('was-validated');
+                    return false;
+                }
+                console.log("表单验证通过");
 
-            // 收集表单数据
-            var formData = $(this).serializeArray();
-            console.log("提交的表单数据:", formData);
-            console.log("序列化后的表单数据:", $(this).serialize());
+                // 显示加载状态
+                showLoading();
 
-            $.ajax({
-                type: 'POST',
-                url: '/book_add_do.html',  // 确保这个URL是正确的
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    hideLoading();
-                    console.log("服务器响应:", response);
-                    console.log("响应状态:", response.status);
-                    console.log("响应消息:", response.message);
-                    console.log("重定向URL:", response.redirectUrl);
+                // 收集表单数据
+                var formData = $(this).serializeArray();
+                console.log("提交的表单数据:", formData);
+                console.log("序列化后的表单数据:", $(this).serialize());
 
-                    if (response.status === 'success') {
-                        console.log("准备显示成功消息");
-                        Swal.fire({
-                            title: '成功',
-                            text: response.message || '图书添加成功！',
-                            icon: 'success'
-                        }).then(() => {
-                            console.log("用户确认后准备重定向");
-                            // 直接重定向到图书管理页面
-                            window.location.href = '/admin_book_manage.html';
+                // 确保按钮被禁用，防止重复提交
+                var submitButton = $(this).find('button[type="submit"]');
+                submitButton.prop('disabled', true);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/book_add_do.html',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log("服务器响应:", response);
+                        hideLoading();
+                        submitButton.prop('disabled', false);
+
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: '成功',
+                                text: response.message || '图书添加成功！',
+                                icon: 'success'
+                            }).then(() => {
+                                window.location.href = '/admin_book_manage.html';
+                            });
+                        } else {
+                            Swal.fire({
+                                title: '错误',
+                                text: response.message || '添加失败，请重试！',
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX错误:", {
+                            status: status,
+                            error: error,
+                            response: xhr.responseText
                         });
-                    } else {
-                        console.log("显示错误消息");
+                        hideLoading();
+                        submitButton.prop('disabled', false);
+
+                        let errorMsg = '添加失败，请重试！';
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            errorMsg = response.message || errorMsg;
+                        } catch (e) {
+                            errorMsg = xhr.responseText || errorMsg;
+                        }
+
                         Swal.fire({
                             title: '错误',
-                            text: response.message || '添加失败，请重试！',
+                            text: errorMsg,
                             icon: 'error'
                         });
                     }
-                },
-                error: function(xhr) {
-                    hideLoading();
-                    console.error("AJAX错误响应:", xhr);
-                    console.error("错误状态:", xhr.status);
-                    console.error("错误状态文本:", xhr.statusText);
-                    console.error("响应文本:", xhr.responseText);
-                    let errorMsg = '';
-                    try {
-                        const response = JSON.parse(xhr.responseText);
-                        errorMsg = response.message || '添加失败，请重试！';
-                        console.log("解析后的错误消息:", errorMsg);
-                    } catch (e) {
-                        errorMsg = xhr.responseText || '添加失败，请重试！';
-                        console.error("解析错误响应失败:", e);
-                    }
-                    Swal.fire({
-                        title: '错误',
-                        text: errorMsg,
-                        icon: 'error'
-                    });
-                }
+                });
+                return false;
             });
-            return false;
         });
 
         // 在页面加载完成后检查分类数据
