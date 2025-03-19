@@ -403,7 +403,12 @@
                             text: response.message || '图书添加成功！',
                             icon: 'success'
                         }).then(() => {
-                            location.reload();
+                            // 使用后端返回的重定向URL
+                            if (response.redirectUrl) {
+                                window.location.href = response.redirectUrl;
+                            } else {
+                                window.location.reload();
+                            }
                         });
                     } else {
                         Swal.fire({
