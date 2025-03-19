@@ -131,6 +131,7 @@ public class BookController {
             if (success) {
                 response.put("status", "success");
                 response.put("message", "图书添加成功");
+                response.put("redirectUrl", "/admin_book_manage.html");
             } else {
                 response.put("status", "error");
                 response.put("message", "图书添加失败");
