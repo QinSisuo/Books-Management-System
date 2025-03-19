@@ -206,7 +206,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="addBookForm">
+                <form id="addBookForm" onsubmit="return false;">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">图书名</label>
@@ -375,6 +375,12 @@
             e.preventDefault();
             e.stopPropagation();
             console.log("表单提交事件被触发");
+
+            // 阻止表单的默认提交行为
+            $(this).on('submit', function(e) {
+                e.preventDefault();
+                return false;
+            });
 
             // 表单验证
             if (!this.checkValidity()) {
