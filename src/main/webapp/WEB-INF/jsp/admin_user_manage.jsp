@@ -16,23 +16,25 @@
 </head>
 
 <body>
-    <!-- 引入公共头部: 包含CSS/JS等 -->
+    <!-- 引入公共头部 -->
     <%@ include file="common/header.jsp" %>
     <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-<!-- 搜索表单：与 admin_book_manage.jsp 保持一致 -->
-<div class="container" style="margin-top: 20px; max-width: 600px;">
-    <form action="queryuser.html" method="get" class="form-inline">
-        <div class="form-group">
-            <input type="text" class="form-control" name="searchWord"
-                   placeholder="输入用户名" value="${searchWord}" style="width: 300px;" />
-        </div>
-        &nbsp;
-        <button type="submit" class="btn btn-primary">搜索</button>
-    </form>
-</div>
+    <!-- 统一面板 -->
+    <div class="container">
 
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form action="queryuser.html" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="searchWord"
+                           placeholder="输入用户名" value="${searchWord}" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
 
 <!-- 显示成功或错误信息（默认隐藏） -->
 <div id="messageContainer" class="container" style="display: none;">
@@ -50,75 +52,71 @@
     </c:if>
 </div>
 
-
-    <!-- 用户列表面板 -->
-    <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading bg-white">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h3 class="panel-title mb-0">用户管理</h3>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
-                    <i class="fas fa-plus"></i> 新增用户
-                    </button>
+        <!-- 标题和新增按钮 -->
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="panel-title mb-0">标签管理</h3>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                            <i class="fas fa-plus"></i> 新增用户
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+
+        <!-- 显示列表 -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">用户ID</th>
+                    <th style="width: 15%;">用户名</th>
+                    <th style="width: 10%;">角色</th>
+                    <th style="width: 15%;">邮箱</th>
+                    <th style="width: 10%;">电话</th>
+                    <th style="width: 15%;">创建时间</th>
+                    <th style="width: 15%;">更新时间</th>
+                    <th style="width: 10%;">操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <c:choose>
+                <c:when test="${not empty users}">
+                    <c:forEach var="user" items="${users}">
                         <tr>
-                            <th style="width: 10%;">用户ID</th>
-                            <th style="width: 15%;">用户名</th>
-                            <th style="width: 10%;">角色</th>
-                            <th style="width: 15%;">邮箱</th>
-                            <th style="width: 10%;">电话</th>
-                            <th style="width: 15%;">创建时间</th>
-                            <th style="width: 15%;">更新时间</th>
-                            <th style="width: 10%;">操作</th>
+                            <td>${user.userId}</td>
+                            <td>${user.username}</td>
+                            <td>${user.role}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phone}</td>
+                            <td><fmt:formatDate value="${user.createdAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
+                            <td><fmt:formatDate value="${user.updatedAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
+                            <td style="white-space: nowrap;">
+                                <button type="button" class="btn btn-info btn-xs"
+                                        onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
+                                    编辑
+                                </button>
+                                <a href="/admin/user/delete?userId=${user.userId}"
+                                   onclick="return confirm('确定删除用户 ${user.username} 吗？')"
+                                   class="btn btn-danger btn-xs">
+                                   删除
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-
-                    <tbody>
-                    <c:choose>
-                        <c:when test="${not empty users}">
-                            <c:forEach var="user" items="${users}">
-                                <tr>
-                                    <td>${user.userId}</td>
-                                    <td>${user.username}</td>
-                                    <td>${user.role}</td>
-                                    <td>${user.email}</td>
-                                    <td>${user.phone}</td>
-                                    <td><fmt:formatDate value="${user.createdAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
-                                    <td><fmt:formatDate value="${user.updatedAt}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
-                                    <td style="white-space: nowrap;">
-                                        <button type="button" class="btn btn-info btn-xs"
-                                                onclick="openEditModal('${user.userId}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}', '${user.address}')">
-                                            编辑
-                                        </button>
-                                        <a href="/admin/user/delete?userId=${user.userId}"
-                                           onclick="return confirm('确定删除用户 ${user.username} 吗？')"
-                                           class="btn btn-danger btn-xs">
-                                           删除
-                                        </a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <tr>
-                                <td colspan="9" class="text-center">暂无用户数据</td>
-                            </tr>
-                        </c:otherwise>
-                    </c:choose>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <tr>
+                        <td colspan="9" class="text-center">暂无用户数据</td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+            </tbody>
+        </table>
     </div>
 
     <!-- 新增用户弹窗 -->

@@ -20,45 +20,29 @@
     <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-    <!-- Loading 指示器 -->
-    <div class="loading">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">加载中...</span>
-        </div>
-    </div>
-
-    <!-- 搜索表单：与 reader 端保持一致 -->
-    <div class="container" style="margin-top: 20px; max-width: 600px;">
-        <form action="admin_book_manage.html" method="get" class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" name="searchWord"
-                       placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
-            </div>
-            &nbsp;
-            <button type="submit" class="btn btn-primary">搜索</button>
-        </form>
-    </div>
-
-
-    <!-- 显示成功或错误信息（默认隐藏） -->
-    <div id="messageContainer" class="container" style="display: none;">
-        <c:if test="${!empty succ}">
-            <div class="alert alert-success alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${succ}
-            </div>
-        </c:if>
-        <c:if test="${!empty error}">
-            <div class="alert alert-danger alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${error}
-            </div>
-        </c:if>
-    </div>
-
-
-    <!-- 图书列表面板 -->
+    <!-- 统一面板 -->
     <div class="container">
+
+        <!-- Loading 指示器 -->
+        <div class="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">加载中...</span>
+            </div>
+        </div>
+
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form action="admin_book_manage.html" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="searchWord"
+                           placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+
+        <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">
                 <div class="row align-items-center">
@@ -72,54 +56,72 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="bookTable">
-                        <thead>
-                        <tr>
-                            <th style="width: 20%">书名</th>
-                            <th style="width: 15%">作者</th>
-                            <th style="width: 15%">出版社</th>
-                            <th style="width: 15%">ISBN</th>
-                            <th style="width: 10%">价格</th>
-                            <th style="width: 10%">借还</th>
-                            <th style="width: 15%">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${books}" var="book">
-                        <tr>
-                            <td title="${book.name}"><c:out value="${book.name}"></c:out></td>
-                            <td title="${book.author}"><c:out value="${book.author}"></c:out></td>
-                            <td title="${book.publish}"><c:out value="${book.publish}"></c:out></td>
-                            <td title="${book.isbn}"><c:out value="${book.isbn}"></c:out></td>
-                            <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
-                            <td>
-                                <c:if test="${book.state==1}">
-                                    <a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-primary btn-xs">借阅</a>
-                                </c:if>
-                                <c:if test="${book.state==0}">
-                                    <a href="returnbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-warning btn-xs">归还</a>
-                                </c:if>
-                            </td>
-                            <td>
-                                <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
-                                <button type="button" class="btn btn-info btn-xs"
-                                        onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.classId}', '${book.pressmark}', '${book.state}')">
-                                    编辑
-                                </button>
-                                <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>"
-                                   onclick="return confirm('确定删除图书《<c:out value="${book.name}"></c:out>》吗？')"
-                                   class="btn btn-danger btn-xs">删除</a>
-                            </td>
-                        </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+        </div>
+
+        <div id="messageContainer" style="position: fixed; top: 10%; right: 5%; z-index: 1000;">
+            <c:if test="${!empty succ}">
+                <div class="alert alert-success alert-dismissable fade show">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        ${succ}
+                </div>
+            </c:if>
+            <c:if test="${!empty error}">
+                <div class="alert alert-danger alert-dismissable fade show">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        ${error}
+                </div>
+            </c:if>
+        </div>
+
+
+        <!-- 图书列表面板 -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="bookTable">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%">书名</th>
+                                <th style="width: 15%">作者</th>
+                                <th style="width: 15%">出版社</th>
+                                <th style="width: 15%">ISBN</th>
+                                <th style="width: 10%">价格</th>
+                                <th style="width: 10%">借还</th>
+                                <th style="width: 15%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${books}" var="book">
+                            <tr>
+                                <td title="${book.name}"><c:out value="${book.name}"></c:out></td>
+                                <td title="${book.author}"><c:out value="${book.author}"></c:out></td>
+                                <td title="${book.publish}"><c:out value="${book.publish}"></c:out></td>
+                                <td title="${book.isbn}"><c:out value="${book.isbn}"></c:out></td>
+                                <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
+                                <td>
+                                    <c:if test="${book.state==1}">
+                                        <a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-primary btn-xs">借阅</a>
+                                    </c:if>
+                                    <c:if test="${book.state==0}">
+                                        <a href="returnbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-warning btn-xs">归还</a>
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
+                                    <button type="button" class="btn btn-info btn-xs"
+                                            onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.classId}', '${book.pressmark}', '${book.state}')">
+                                        编辑
+                                    </button>
+                                    <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>"
+                                       onclick="return confirm('确定删除图书《<c:out value="${book.name}"></c:out>》吗？')"
+                                       class="btn btn-danger btn-xs">删除</a>
+                                </td>
+                            </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
     <!-- 编辑图书的模态框 -->
     <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel" aria-hidden="true">
@@ -279,10 +281,13 @@
 
     <script>
         //消息
-        $(document).ready(function() {
-            if ($("#messageContainer").text().trim() !== "") {
-                $("#messageContainer").show();
-            }
+            $(document).ready(function(){
+            if ($('#messageContainer .alert').length > 0) {
+            $('#messageContainer').show();
+            setTimeout(function(){
+            $('#messageContainer').fadeOut('slow');
+        }, 3000); // 3秒后自动隐藏
+        }
         });
 
 

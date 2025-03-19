@@ -20,43 +20,45 @@
     <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-    <!-- Loading 指示器 -->
-    <div class="loading" style="display:none;">
-        <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">加载中...</span>
+    <!-- 统一面板 -->
+    <div class="container">
+
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form action="admin_category_manage.html" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="searchWord"
+                           placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
         </div>
-    </div>
 
-    <!-- 搜索表单：与 reader 端保持一致 -->
-    <div class="container" style="margin-top: 20px; max-width: 600px;">
-        <form action="admin_category_manage.html" method="get" class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" name="searchWord"
-                       placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
+        <!-- Loading 指示器 -->
+        <div class="loading" style="display:none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">加载中...</span>
             </div>
-            &nbsp;
-            <button type="submit" class="btn btn-primary">搜索</button>
-        </form>
-    </div>
+        </div>
 
+        <!-- 显示成功或错误信息（默认隐藏） -->
+        <div id="messageContainer" class="container" style="display: none;">
+            <c:if test="${!empty succ}">
+                <div class="alert alert-success alert-dismissable fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        ${succ}
+                </div>
+            </c:if>
+            <c:if test="${!empty error}">
+                <div class="alert alert-danger alert-dismissable fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        ${error}
+                </div>
+            </c:if>
+        </div>
 
-    <!-- 显示成功或错误信息（默认隐藏） -->
-    <div id="messageContainer" class="container" style="display: none;">
-        <c:if test="${!empty succ}">
-            <div class="alert alert-success alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    ${succ}
-            </div>
-        </c:if>
-        <c:if test="${!empty error}">
-            <div class="alert alert-danger alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    ${error}
-            </div>
-        </c:if>
-    </div>
-
-    <div class="container" style="margin-top: 30px;">
+        <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">
                 <div class="row align-items-center">
@@ -65,44 +67,41 @@
                     </div>
                     <div class="col-md-6 text-right">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">
-                            <i class="fas fa-plus"></i>新增分类
+                            <i class="fas fa-plus"></i> 新增分类
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>分类ID</th>
-                            <th>分类名称</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="category" items="${categories}">
-                            <tr>
-                                <td>${category.categoryId}</td>
-                                <td>${category.categoryName}</td>
-                                <td>
-                                    <button type="button" class="btn btn-warning btn-sm"
-                                            onclick="openEditModal('${category.categoryId}', '${category.categoryName}')">
-                                        编辑
-                                    </button>
-                                    <a href="<c:url value='/admin_category_delete.html?categoryId=${category.categoryId}'/>"
-                                       class="btn btn-danger btn-sm"
-                                       onclick="return confirm('确定删除分类【${category.categoryName}】吗？')">
-                                        删除
-                                    </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>分类ID</th>
+                <th>分类名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="category" items="${categories}">
+                <tr>
+                    <td>${category.categoryId}</td>
+                    <td>${category.categoryName}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm"
+                                onclick="openEditModal('${category.categoryId}', '${category.categoryName}')">
+                            编辑
+                        </button>
+                        <a href="<c:url value='/admin_category_delete.html?categoryId=${category.categoryId}'/>"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('确定删除分类【${category.categoryName}】吗？')">
+                            删除
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 
     <!-- 新增分类模态框 -->
