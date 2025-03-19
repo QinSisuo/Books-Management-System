@@ -375,16 +375,13 @@
 
         // 新增图书表单提交
         $(document).ready(function() {
-            // 阻止表单的默认提交行为
             $('#addBookForm').on('submit', function(e) {
                 e.preventDefault();
-                e.stopPropagation();
                 console.log("表单提交事件被触发");
 
                 // 表单验证
                 if (!this.checkValidity()) {
                     console.log("表单验证未通过");
-                    e.stopPropagation();
                     $(this).addClass('was-validated');
                     return false;
                 }
@@ -394,25 +391,20 @@
                 showLoading();
 
                 // 收集表单数据
-                var formData = $(this).serializeArray();
+                var formData = $(this).serialize();
                 console.log("提交的表单数据:", formData);
-                console.log("序列化后的表单数据:", $(this).serialize());
 
                 // 确保按钮被禁用，防止重复提交
                 var submitButton = $(this).find('button[type="submit"]');
                 submitButton.prop('disabled', true);
 
-                // 使用 FormData 对象提交数据
-                var form = this;
-                var formData = new FormData(form);
-
+                // 发送POST请求
                 $.ajax({
                     type: 'POST',
                     url: '/book_add_do.html',
                     data: formData,
-                    processData: false,
-                    contentType: false,
                     dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded',
                     success: function(response) {
                         console.log("服务器响应:", response);
                         hideLoading();
@@ -458,14 +450,6 @@
                         });
                     }
                 });
-                return false;
-            });
-
-            // 为提交按钮添加点击事件
-            $('#addBookForm button[type="submit"]').on('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                $('#addBookForm').trigger('submit');
                 return false;
             });
         });
