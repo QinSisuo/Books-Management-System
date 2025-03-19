@@ -376,12 +376,6 @@
             e.stopPropagation();
             console.log("表单提交事件被触发");
 
-            // 阻止表单的默认提交行为
-            $(this).on('submit', function(e) {
-                e.preventDefault();
-                return false;
-            });
-
             // 表单验证
             if (!this.checkValidity()) {
                 console.log("表单验证未通过");
