@@ -391,7 +391,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/book_add_do.html',  // 添加前导斜杠
+                url: '/book_add_do.html',  // 确保这个URL是正确的
                 data: $(this).serialize(),
                 dataType: 'json',
                 success: function(response) {
@@ -409,14 +409,8 @@
                             icon: 'success'
                         }).then(() => {
                             console.log("用户确认后准备重定向");
-                            // 使用后端返回的重定向URL
-                            if (response.redirectUrl) {
-                                console.log("使用重定向URL:", response.redirectUrl);
-                                window.location.href = response.redirectUrl;
-                            } else {
-                                console.log("没有重定向URL，刷新当前页面");
-                                window.location.reload();
-                            }
+                            // 直接重定向到图书管理页面
+                            window.location.href = '/admin_book_manage.html';
                         });
                     } else {
                         console.log("显示错误消息");
