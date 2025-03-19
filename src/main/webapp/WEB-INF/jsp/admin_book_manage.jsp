@@ -32,7 +32,7 @@
 
         <!-- 统一搜索框 -->
         <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
-            <form action="admin_book_manage.html" method="get" class="form-inline">
+            <form action="/admin_book_manage.html" method="get" class="form-inline">
                 <div class="form-group">
                     <input type="text" class="form-control" name="searchWord"
                            placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
@@ -390,7 +390,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'book_add_do.html',  // 修改URL，去掉前导斜杠
+                url: '/book_add_do.html',  // 添加前导斜杠
                 data: $(this).serialize(),
                 dataType: 'json',
                 success: function(response) {
