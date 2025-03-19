@@ -374,13 +374,16 @@
         $('#addBookForm').on('submit', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            console.log("表单提交事件被触发");
 
             // 表单验证
             if (!this.checkValidity()) {
+                console.log("表单验证未通过");
                 e.stopPropagation();
                 $(this).addClass('was-validated');
                 return false;
             }
+            console.log("表单验证通过");
 
             // 显示加载状态
             showLoading();
