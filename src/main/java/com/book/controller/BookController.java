@@ -140,20 +140,28 @@ public class BookController {
     }
 
     // 6. 管理员查询图书（返回 ModelAndView）
-    @RequestMapping(value = "/admin_book_manage.html", method = RequestMethod.GET)
-    public ModelAndView adminQueryBook(@RequestParam(required = false) String searchWord) {
+    @GetMapping("/admin_book_manage.html")
+    public ModelAndView allBooks(@RequestParam(required = false) String searchWord) {
         ModelAndView mav = new ModelAndView("admin_book_manage");
-        List<Book> books = bookService.queryBook(searchWord);
-        if (!books.isEmpty()) {
+        try {
+            List<Book> books;
+            if (searchWord != null && !searchWord.trim().isEmpty()) {
+                books = bookService.queryBook(searchWord);
+                if (books.isEmpty()) {
+                    mav.addObject("error", "没有匹配的图书");
+                }
+            } else {
+                books = bookService.getAllBooks();
+            }
             mav.addObject("books", books);
-        } else {
-            mav.addObject("error", "没有匹配的图书");
+            mav.addObject("searchWord", searchWord);
+            mav.addObject("categories", categoryService.getAllCategories());
+        } catch (Exception e) {
+            e.printStackTrace();
+            mav.addObject("error", "获取数据失败：" + e.getMessage());
         }
-        mav.addObject("searchWord", searchWord); // 让搜索框回填搜索词
-        mav.addObject("categories", categoryService.getAllCategories()); // 添加分类列表
         return mav;
     }
-
 
     // 7. 管理员查看书籍详情
     @RequestMapping("/bookdetail.html")
