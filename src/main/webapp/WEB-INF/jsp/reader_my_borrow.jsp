@@ -56,7 +56,7 @@
                 <thead>
                 <tr>
                     <th>记录ID</th>
-                    <th>图书ID</th>
+                    <th>书名</th>
                     <th>借书时间</th>
                     <th>到期时间</th>
                     <th>归还时间</th>
@@ -68,7 +68,7 @@
                 <c:forEach var="r" items="${records}">
                     <tr>
                         <td>${r.id}</td>
-                        <td>${r.bookId}</td>
+                        <td>${r.bookName}</td>
                         <td><fmt:formatDate value="${r.borrowTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
                         <td><fmt:formatDate value="${r.dueTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
                         <td>
