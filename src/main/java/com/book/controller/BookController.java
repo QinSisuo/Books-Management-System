@@ -40,7 +40,7 @@ public class BookController {
 //        List<Book> books = bookService.getAllBooks();
 //        return new ModelAndView("admin_book_manage", "books", books);
 //    }
-    @RequestMapping("/admin_book_manage.html")
+    @GetMapping("/admin_book_manage.html")
     public ModelAndView allBooks() {
         ModelAndView mav = new ModelAndView("admin_book_manage");
         try {
