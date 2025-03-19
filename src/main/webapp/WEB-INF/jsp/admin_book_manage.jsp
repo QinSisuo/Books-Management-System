@@ -375,10 +375,11 @@
 
         // 新增图书表单提交
         $(document).ready(function() {
+            // 阻止表单的默认提交行为
             $('#addBookForm').on('submit', function(e) {
-                console.log("表单提交事件被触发");
                 e.preventDefault();
                 e.stopPropagation();
+                console.log("表单提交事件被触发");
 
                 // 表单验证
                 if (!this.checkValidity()) {
@@ -401,10 +402,16 @@
                 var submitButton = $(this).find('button[type="submit"]');
                 submitButton.prop('disabled', true);
 
+                // 使用 FormData 对象提交数据
+                var form = this;
+                var formData = new FormData(form);
+
                 $.ajax({
                     type: 'POST',
                     url: '/book_add_do.html',
-                    data: $(this).serialize(),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     dataType: 'json',
                     success: function(response) {
                         console.log("服务器响应:", response);
@@ -451,6 +458,14 @@
                         });
                     }
                 });
+                return false;
+            });
+
+            // 为提交按钮添加点击事件
+            $('#addBookForm button[type="submit"]').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('#addBookForm').trigger('submit');
                 return false;
             });
         });
