@@ -17,99 +17,97 @@
 <body>
     <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
-    <%@ include file="common/reader_navbar.jsp" %>
+    <%@ include file="common/admin_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
+
+    <!-- 统一面板 -->
+    <div class="container">
+
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form action="reader_book_catalog.html" method="get" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="searchWord"
+                           placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="submit" class="btn btn-primary">搜索</button>
+            </form>
+        </div>
+
+        <!-- 标题和新增按钮 -->
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="panel-title mb-0">查询结果</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>出版社</th>
+                    <th>ISBN</th>
+                    <th>价格</th>
+                    <th>可借数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="bk" items="${books}">
+                    <tr>
+                        <td>${bk.name}</td>
+                        <td>${bk.author}</td>
+                        <td>${bk.publish}</td>
+                        <td>${bk.isbn}</td>
+                        <td>${bk.price}</td>
+                        <td>${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount)}</td>
+
+                        <!-- 操作列: 根据可借数量显示借阅按钮 -->
+                        <td>
+                            <c:choose>
+                                <c:when test="${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount) > 0}">
+                                    <!-- 有可借数量 => 显示绿色借阅按钮 -->
+                                    <form action="reader_book_borrow.html" method="post" style="display:inline;">
+                                        <input type="hidden" name="bookId" value="${bk.bookId}" />
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <i class="fas fa-book"></i> 借阅
+                                        </button>
+                                    </form>
+                                </c:when>
+                                <c:otherwise>
+                                    <!-- 无可借数量 => 显示灰色预约按钮 -->
+                                    <button type="button" class="btn btn-secondary btn-sm" disabled>
+                                        <i class="fas fa-clock"></i> 预约
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
     <!-- 提示信息 (与admin_book_manage类似), 用来显示后端传的 succ/error -->
     <div class="container" style="margin-top: 20px;">
         <c:if test="${not empty succ}">
             <div class="alert alert-success alert-dismissable fade show">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${succ}
+                    ${succ}
             </div>
         </c:if>
         <c:if test="${not empty error}">
             <div class="alert alert-danger alert-dismissable fade show">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                ${error}
+                    ${error}
             </div>
         </c:if>
-    </div>
-
-    <!-- 搜索表单：保留原有功能 -->
-    <div class="container" style="margin-top: 20px; max-width: 600px;">
-        <form action="reader_book_catalog.html" method="get" class="form-inline">
-            <div class="form-group">
-                <input type="text" class="form-control" name="searchWord"
-                       placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />
-            </div>
-            &nbsp;
-            <button type="submit" class="btn btn-primary">搜索</button>
-        </form>
-    </div>
-
-    <!-- 查询结果：Bootstrap风格的 Panel + table -->
-    <div class="container" style="margin-top: 30px;">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">查询结果</h3>
-            </div>
-            <div class="panel-body">
-                <!-- 如果 books 非空, 显示表格, 否则提示 -->
-                <c:if test="${not empty books}">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>书名</th>
-                                <th>作者</th>
-                                <th>出版社</th>
-                                <th>ISBN</th>
-                                <th>价格</th>
-                                <th>可借数量</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="bk" items="${books}">
-                                <tr>
-                                    <td>${bk.name}</td>
-                                    <td>${bk.author}</td>
-                                    <td>${bk.publish}</td>
-                                    <td>${bk.isbn}</td>
-                                    <td>${bk.price}</td>
-                                    <td>${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount)}</td>
-
-                                    <!-- 操作列: 根据可借数量显示借阅按钮 -->
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount) > 0}">
-                                                <!-- 有可借数量 => 显示绿色借阅按钮 -->
-                                                <form action="reader_book_borrow.html" method="post" style="display:inline;">
-                                                    <input type="hidden" name="bookId" value="${bk.bookId}" />
-                                                    <button type="submit" class="btn btn-success btn-sm">
-                                                        <i class="fas fa-book"></i> 借阅
-                                                    </button>
-                                                </form>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <!-- 无可借数量 => 显示灰色预约按钮 -->
-                                                <button type="button" class="btn btn-secondary btn-sm" disabled>
-                                                    <i class="fas fa-clock"></i> 预约
-                                                </button>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-
-                    </table>
-                </c:if>
-                <c:if test="${empty books}">
-                    <p>暂无匹配的图书</p>
-                </c:if>
-            </div>
-        </div>
     </div>
 
 </body>
