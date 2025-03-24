@@ -166,14 +166,45 @@
             <!-- 菜单项 -->
             <div class="nav-menu">
                 <ul class="navbar-nav">
-                    <li class="active">
-                        <a href="reader_book_catalog.html">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             图书目录
                         </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="reader_book_catalog.html">图书目录</a></li>
+                        </ul>
                     </li>
-                    <li><a href="reader_info.html">个人信息</a></li>
-                    <li><a href="reader_my_borrow.html">我的借还</a></li>
-                    <li><a href="reader_repasswd.html">密码修改</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            图书管理
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href=".html">图书信息管理</a></li>
+                            <li><a href="hot_tags.html">图书热门标签</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            图书管理
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href=".html">图书推荐</a></li>
+                            <li><a href=".html">排行榜</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            借阅管理
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="reader_my_borrow.html">我的借还</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-menu">
+                <ul class="navbar-nav">
                     <li>
                         <a href="notifications.html">
                             通知
