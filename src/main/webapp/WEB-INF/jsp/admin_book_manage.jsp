@@ -197,33 +197,35 @@
     </div>
 
     <!-- 新增图书的模态框 -->
-    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel">
+    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="addBookModalLabel">添加新图书</h4>
+                    <h5 class="modal-title" id="addBookModalLabel">新增图书</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <form id="addBookForm" method="post" action="/book_add_do.html">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">图书名称 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <label for="name">图书名 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="name" id="name" required>
                             <div class="error-message"></div>
                         </div>
                         <div class="form-group">
                             <label for="author">作者 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="author" name="author" required>
+                            <input type="text" class="form-control" name="author" id="author" required>
                             <div class="error-message"></div>
                         </div>
                         <div class="form-group">
                             <label for="publish">出版社 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="publish" name="publish" required>
+                            <input type="text" class="form-control" name="publish" id="publish" required>
                             <div class="error-message"></div>
                         </div>
                         <div class="form-group">
                             <label for="isbn">ISBN <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="isbn" name="isbn" required
+                            <input type="text" class="form-control" name="isbn" id="isbn" required 
                                    pattern="^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$">
                             <small class="form-text text-muted">ISBN格式：10位或13位数字，可包含连字符</small>
                             <div class="error-message"></div>
