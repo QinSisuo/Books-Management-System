@@ -38,7 +38,7 @@
 
     <!-- 搜索表单：保留原有功能 -->
     <div class="container" style="margin-top: 20px; max-width: 600px;">
-        <form action="reader_book_list.html" method="get" class="form-inline">
+        <form action="reader_book_catalog.html" method="get" class="form-inline">
             <div class="form-group">
                 <input type="text" class="form-control" name="searchWord"
                        placeholder="输入搜索关键词" value="${searchWord}" style="width: 300px;" />

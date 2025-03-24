@@ -189,7 +189,7 @@ public class BookController {
         } else {
             books = bookService.queryBook(searchWord);
         }
-        return new ModelAndView("reader_book_list")
+        return new ModelAndView("reader_book_catalog")
                 .addObject("books", books)
                 .addObject("searchWord", searchWord);
     }
@@ -197,29 +197,29 @@ public class BookController {
     /**
      * 读者查看书籍详情
      */
-    @RequestMapping("/reader_book_catalog.html")
+    @RequestMapping("/reader_book_detail.html")
     public ModelAndView readerBookDetail(@RequestParam long bookId) {
         return new ModelAndView("reader_book_detail").addObject("detail", bookService.getBook(bookId));
     }
 
-    // 读者查看所有图书
-    @GetMapping("/reader_book_list.html")
-    public ModelAndView readerQueryBook(
-            @RequestParam(value = "searchWord", required = false) String searchWord) {
-        List<Book> books;
-        // 如果没有搜索词，或搜索词为空，则查询所有
-        if (searchWord == null || searchWord.trim().isEmpty()) {
-            books = bookService.getAllBooks();
-        } else {
-            // 否则带关键字查询
-            books = bookService.queryBook(searchWord);
-        }
-
-        // 跳转到 reader_book_list.jsp，并传递 books 和当前搜索词
-        return new ModelAndView("reader_book_list")
-                .addObject("books", books)
-                .addObject("searchWord", searchWord);
-    }
+//    // 读者查看所有图书
+//    @GetMapping("/reader_book_catalog.html")
+//    public ModelAndView readerQueryBook(
+//            @RequestParam(value = "searchWord", required = false) String searchWord) {
+//        List<Book> books;
+//        // 如果没有搜索词，或搜索词为空，则查询所有
+//        if (searchWord == null || searchWord.trim().isEmpty()) {
+//            books = bookService.getAllBooks();
+//        } else {
+//            // 否则带关键字查询
+//            books = bookService.queryBook(searchWord);
+//        }
+//
+//        // 跳转到 reader_book_catalog.jsp，并传递 books 和当前搜索词
+//        return new ModelAndView("reader_book_catalog")
+//                .addObject("books", books)
+//                .addObject("searchWord", searchWord);
+//    }
 
     // 读者借阅图书
     @PostMapping("/reader_book_borrow")

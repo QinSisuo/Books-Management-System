@@ -36,7 +36,7 @@ public class BorrowController {
         // 2. 检查图书是否可借
         if (bookService.getBookById(bookId) == null) {
             redirectAttributes.addFlashAttribute("error", "图书不存在！");
-            return "redirect:/reader_book_list.html";
+            return "redirect:/reader_book_catalog.html";
         }
 
         // 3. 执行借阅
@@ -47,7 +47,7 @@ public class BorrowController {
             redirectAttributes.addFlashAttribute("error", "借阅失败，请检查图书是否可借！");
         }
 
-        return "redirect:/reader_book_list.html";
+        return "redirect:/reader_book_catalog.html";
     }
 
     /**
