@@ -61,7 +61,7 @@ public class BorrowController {
         }
 
         List<BorrowRecord> records = borrowService.getMyBorrowRecords(currentUser.getUserId());
-        return new ModelAndView("reader_my_borrow")
+        return new ModelAndView("reader/reader_my_borrow")
                 .addObject("records", records);
     }
 
