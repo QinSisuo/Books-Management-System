@@ -1,12 +1,16 @@
 package com.book.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Setter
+@Getter
 public class Book implements Serializable{
 
-    private long bookId;
+    private Long bookId;
     private String name;
     private String author;
     private String publish;
@@ -15,141 +19,13 @@ public class Book implements Serializable{
     private String language;
     private BigDecimal price;
     private Date pubdate;
-    private int classId;
-    private int pressmark;
-    private int state;
+    private Integer classId;
+    private Integer pressmark;
+    private Integer state;
     private Integer totalCount = 0;
     private Integer lentCount = 0;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Book() {
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setClassId(int classId) {
-        this.classId = classId;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public void setBookId(long bookId) {
-        this.bookId = bookId;
-    }
-
-    public void setPubdate(Date pubdate) {
-        this.pubdate = pubdate;
-    }
-
-    public void setPublish(String publish) {
-        this.publish = publish;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setPressmark(int pressmark) {
-        this.pressmark = pressmark;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public void setTotalCount(Integer totalCount) {
-        this.totalCount = totalCount == null ? 0 : totalCount;
-    }
-
-    public void setLentCount(Integer lentCount) {
-        this.lentCount = lentCount == null ? 0 : lentCount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public long getBookId() {
-        return bookId;
-    }
-
-    public int getClassId() {
-        return classId;
-    }
-
-    public Date getPubdate() {
-        return pubdate;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public int getPressmark() {
-        return pressmark;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public int getState() {
-        return state;
-    }
-
-    public String getPublish() {
-        return publish;
-    }
-
-    public Integer getTotalCount() {
-        return totalCount == null ? 0 : totalCount;
-    }
-
-    public Integer getLentCount() {
-        return lentCount == null ? 0 : lentCount;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", publish='" + publish + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", language='" + language + '\'' +
-                ", price=" + price +
-                ", pubdate=" + pubdate +
-                ", classId=" + classId +
-                ", pressmark=" + pressmark +
-                ", state=" + state +
-                ", totalCount=" + totalCount +
-                ", lentCount=" + lentCount +
-                '}';
     }
 }

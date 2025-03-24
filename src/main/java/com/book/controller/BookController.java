@@ -4,19 +4,19 @@ import com.book.domain.Book;
 import com.book.service.BookService;
 import com.book.service.BookCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 @Controller
 //@RequestMapping("/admin/book")
@@ -83,9 +83,18 @@ public class BookController {
         return new ModelAndView("admin_book_add");
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+
     // 5. 处理添加图书
     @PostMapping("/book_add_do.html")
     public String addBook(@ModelAttribute Book book, HttpServletRequest request, Model model) {
+
         try {
             System.out.println("========== 开始处理新增图书请求 ==========");
             System.out.println("请求方法: " + request.getMethod());
@@ -112,30 +121,30 @@ public class BookController {
             if (book.getName() == null || book.getName().trim().isEmpty()) {
                 System.out.println("验证失败：图书名称为空");
                 model.addAttribute("error", "图书名称不能为空");
-                return "admin_book_manage";
+                return "redirect:/admin_book_manage.html";
             }
             if (book.getAuthor() == null || book.getAuthor().trim().isEmpty()) {
                 System.out.println("验证失败：作者为空");
                 model.addAttribute("error", "作者不能为空");
-                return "admin_book_manage";
+                return "redirect:/admin_book_manage.html";
             }
-            if (book.getIsbn() == null || !book.getIsbn().matches("^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$")) {
+            if (book.getIsbn() == null ) {
                 System.out.println("验证失败：ISBN格式不正确");
                 model.addAttribute("error", "ISBN格式不正确");
-                return "admin_book_manage";
+                return "redirect:/admin_book_manage.html";
             }
             
             // 检查分类是否存在
             if (book.getClassId() <= 0) {
                 System.out.println("验证失败：未选择分类");
                 model.addAttribute("error", "请选择图书分类");
-                return "admin_book_manage";
+                return "redirect:/admin_book_manage.html";
             }
             
             if (categoryService.getCategoryById(book.getClassId()) == null) {
                 System.out.println("验证失败：分类不存在，分类ID=" + book.getClassId());
                 model.addAttribute("error", "所选分类不存在");
-                return "admin_book_manage";
+                return "redirect:/admin_book_manage.html";
             }
 
             System.out.println("\n开始保存图书数据");
@@ -149,13 +158,13 @@ public class BookController {
             } else {
                 System.out.println("图书添加失败，准备返回错误信息");
                 model.addAttribute("error", "图书添加失败");
-                return "admin_book_manage";
+                return "redirect:/admin_book_manage.html";
             }
         } catch (Exception e) {
             System.out.println("添加图书时发生异常: " + e.getMessage());
             e.printStackTrace();
             model.addAttribute("error", "添加图书时发生错误：" + e.getMessage());
-            return "admin_book_manage";
+            return "redirect:/admin_book_manage.html";
         }
     }
 
