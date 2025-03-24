@@ -26,7 +26,7 @@ public class LogController {
             logs = logService.getAllLogs();
         }
         model.addAttribute("logs", logs);
-        return "system-logs-and-operation-records";
+        return "admin/system-logs-and-operation-records";
     }
 
     // 删除日志

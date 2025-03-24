@@ -36,21 +36,21 @@
             </form>
         </div>
 
-<!-- 显示成功或错误信息（默认隐藏） -->
-<div id="messageContainer" class="container" style="display: none;">
-    <c:if test="${not empty succ}">
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            ${succ}
+        <!-- 显示成功或错误信息（默认隐藏） -->
+        <div id="messageContainer" class="container" style="display: none;">
+            <c:if test="${not empty succ}">
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    ${succ}
+                </div>
+            </c:if>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    ${error}
+                </div>
+            </c:if>
         </div>
-    </c:if>
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            ${error}
-        </div>
-    </c:if>
-</div>
 
         <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
