@@ -23,96 +23,100 @@
 <body>
     <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
-    <!-- 引入读者导航栏 -->
     <%@ include file="common/reader_navbar.jsp" %>
     <%@ include file="common/footer.jsp" %>
 
-<!-- ================== 提示信息 ================== -->
-<div style="position: relative; top: 10%;">
-    <c:if test="${!empty message}">
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">&times;</button>
-            ${message}
-        </div>
-    </c:if>
-    <c:if test="${!empty error}">
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">&times;</button>
-            ${error}
-        </div>
-    </c:if>
-</div>
+    <!-- 统一面板 -->
+    <div class="container">
 
-<!-- ================== 借还表格 ================== -->
-<div class="panel panel-default" style="width: 90%; margin-left: 5%; margin-top: 5%">
-    <div class="panel-heading">
-        <h3 class="panel-title">我的借还日志</h3>
-    </div>
-    <div class="panel-body">
-        <c:if test="${not empty records}">
-            <table class="table table-hover">
-                <thead>
+        <!-- 标题和新增按钮 -->
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="panel-title mb-0">我的借还日志</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>记录ID</th>
+                <th>书名</th>
+                <th>借书时间</th>
+                <th>到期时间</th>
+                <th>归还时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="r" items="${records}">
                 <tr>
-                    <th>记录ID</th>
-                    <th>书名</th>
-                    <th>借书时间</th>
-                    <th>到期时间</th>
-                    <th>归还时间</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <td>${r.id}</td>
+                    <td>${r.bookName}</td>
+                    <td><fmt:formatDate value="${r.borrowTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
+                    <td><fmt:formatDate value="${r.dueTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${r.returnTime != null}">
+                                <fmt:formatDate value="${r.returnTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/>
+                            </c:when>
+                            <c:otherwise>未归还</c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${r.status == 0}">借出中</c:when>
+                            <c:when test="${r.status == 1}">已归还</c:when>
+                            <c:otherwise>其他状态</c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <!-- 只有status=0时，才显示"归还"和"续借"按钮 -->
+                        <c:if test="${r.status == 0}">
+                            <!-- 归还 -->
+                            <form action="borrow_return" method="post" style="display:inline;">
+                                <input type="hidden" name="borrowId" value="${r.id}" />
+                                <input type="submit" class="btn btn-danger btn-sm" value="归还" />
+                            </form>
+                            <!-- 续借 -->
+                            <form action="borrow_extend" method="post" style="display:inline; margin-left:5px;">
+                                <input type="hidden" name="borrowId" value="${r.id}" />
+                                <input type="number" name="extraDays" value="7" min="1"
+                                       class="form-control input-sm" style="width:60px; display:inline;" />
+                                <input type="submit" class="btn btn-info btn-sm" value="续借" />
+                            </form>
+                        </c:if>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="r" items="${records}">
-                    <tr>
-                        <td>${r.id}</td>
-                        <td>${r.bookName}</td>
-                        <td><fmt:formatDate value="${r.borrowTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
-                        <td><fmt:formatDate value="${r.dueTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${r.returnTime != null}">
-                                    <fmt:formatDate value="${r.returnTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/>
-                                </c:when>
-                                <c:otherwise>未归还</c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${r.status == 0}">借出中</c:when>
-                                <c:when test="${r.status == 1}">已归还</c:when>
-                                <c:otherwise>其他状态</c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td>
-                            <!-- 只有status=0时，才显示"归还"和"续借"按钮 -->
-                            <c:if test="${r.status == 0}">
-                                <!-- 归还 -->
-                                <form action="borrow_return" method="post" style="display:inline;">
-                                    <input type="hidden" name="borrowId" value="${r.id}" />
-                                    <input type="submit" class="btn btn-danger btn-sm" value="归还" />
-                                </form>
-                                <!-- 续借 -->
-                                <form action="borrow_extend" method="post" style="display:inline; margin-left:5px;">
-                                    <input type="hidden" name="borrowId" value="${r.id}" />
-                                    <input type="number" name="extraDays" value="7" min="1"
-                                           class="form-control input-sm" style="width:60px; display:inline;" />
-                                    <input type="submit" class="btn btn-info btn-sm" value="续借" />
-                                </form>
-                            </c:if>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </c:if>
-        <c:if test="${empty records}">
-            <p>暂无借阅记录</p>
-        </c:if>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
-</div>
 
+    <!-- ================== 提示信息 ================== -->
+    <c:if test="${not empty message}">
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '${message}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+    </c:if>
+
+    <c:if test="${not empty error}">
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: '${error}',
+            showConfirmButton: true
+        });
+    </script>
+    </c:if>
 </body>
 </html>

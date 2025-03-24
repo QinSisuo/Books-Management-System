@@ -94,21 +94,27 @@
         </table>
     </div>
 
-    <!-- 提示信息 (与admin_book_manage类似), 用来显示后端传的 succ/error -->
-    <div class="container" style="margin-top: 20px;">
-        <c:if test="${not empty succ}">
-            <div class="alert alert-success alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    ${succ}
-            </div>
-        </c:if>
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger alert-dismissable fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    ${error}
-            </div>
-        </c:if>
-    </div>
+    <!-- SweetAlert 提示信息 -->
+    <c:if test="${not empty succ}">
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '${succ}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+    </c:if>
+
+    <c:if test="${not empty error}">
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: '${error}',
+                showConfirmButton: true
+            });
+        </script>
+    </c:if>
 
 </body>
 </html>
