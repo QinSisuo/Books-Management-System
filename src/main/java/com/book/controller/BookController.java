@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -84,9 +85,7 @@ public class BookController {
 
     // 5. 处理添加图书
     @PostMapping("/book_add_do.html")
-    @ResponseBody
-    public Map<String, Object> addBook(@ModelAttribute Book book, HttpServletRequest request) {
-        Map<String, Object> response = new HashMap<>();
+    public String addBook(@ModelAttribute Book book, HttpServletRequest request, Model model) {
         try {
             System.out.println("========== 开始处理新增图书请求 ==========");
             System.out.println("请求方法: " + request.getMethod());
@@ -112,36 +111,31 @@ public class BookController {
             // 参数验证
             if (book.getName() == null || book.getName().trim().isEmpty()) {
                 System.out.println("验证失败：图书名称为空");
-                response.put("status", "error");
-                response.put("message", "图书名称不能为空");
-                return response;
+                model.addAttribute("error", "图书名称不能为空");
+                return "admin_book_manage";
             }
             if (book.getAuthor() == null || book.getAuthor().trim().isEmpty()) {
                 System.out.println("验证失败：作者为空");
-                response.put("status", "error");
-                response.put("message", "作者不能为空");
-                return response;
+                model.addAttribute("error", "作者不能为空");
+                return "admin_book_manage";
             }
             if (book.getIsbn() == null || !book.getIsbn().matches("^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$")) {
                 System.out.println("验证失败：ISBN格式不正确");
-                response.put("status", "error");
-                response.put("message", "ISBN格式不正确");
-                return response;
+                model.addAttribute("error", "ISBN格式不正确");
+                return "admin_book_manage";
             }
             
             // 检查分类是否存在
             if (book.getClassId() <= 0) {
                 System.out.println("验证失败：未选择分类");
-                response.put("status", "error");
-                response.put("message", "请选择图书分类");
-                return response;
+                model.addAttribute("error", "请选择图书分类");
+                return "admin_book_manage";
             }
             
             if (categoryService.getCategoryById(book.getClassId()) == null) {
                 System.out.println("验证失败：分类不存在，分类ID=" + book.getClassId());
-                response.put("status", "error");
-                response.put("message", "所选分类不存在");
-                return response;
+                model.addAttribute("error", "所选分类不存在");
+                return "admin_book_manage";
             }
 
             System.out.println("\n开始保存图书数据");
@@ -149,25 +143,20 @@ public class BookController {
             System.out.println("保存图书结果: " + success);
 
             if (success) {
-                System.out.println("图书添加成功，准备返回成功响应");
-                response.put("status", "success");
-                response.put("message", "图书添加成功");
-                System.out.println("返回的响应数据: " + response);
+                System.out.println("图书添加成功，准备重定向");
+                model.addAttribute("succ", "图书添加成功");
+                return "redirect:/admin_book_manage.html";
             } else {
-                System.out.println("图书添加失败，准备返回错误响应");
-                response.put("status", "error");
-                response.put("message", "图书添加失败");
-                System.out.println("返回的响应数据: " + response);
+                System.out.println("图书添加失败，准备返回错误信息");
+                model.addAttribute("error", "图书添加失败");
+                return "admin_book_manage";
             }
         } catch (Exception e) {
             System.out.println("添加图书时发生异常: " + e.getMessage());
             e.printStackTrace();
-            response.put("status", "error");
-            response.put("message", "添加图书时发生错误：" + e.getMessage());
-            System.out.println("返回的错误响应数据: " + response);
+            model.addAttribute("error", "添加图书时发生错误：" + e.getMessage());
+            return "admin_book_manage";
         }
-        System.out.println("========== 结束处理新增图书请求 ==========\n");
-        return response;
     }
 
     // 7. 管理员查看书籍详情
