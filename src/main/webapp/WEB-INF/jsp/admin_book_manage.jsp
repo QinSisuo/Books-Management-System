@@ -378,6 +378,7 @@
             $('#addBookForm').on('submit', function(e) {
                 e.preventDefault();
                 console.log("表单提交事件被触发");
+                console.log("表单元素:", this);
 
                 // 表单验证
                 if (!this.checkValidity()) {
@@ -393,18 +394,33 @@
                 // 收集表单数据
                 var formData = $(this).serialize();
                 console.log("提交的表单数据:", formData);
+                console.log("表单字段值:", {
+                    name: $('#name').val(),
+                    author: $('#author').val(),
+                    publish: $('#publish').val(),
+                    isbn: $('#isbn').val(),
+                    price: $('#price').val(),
+                    pubdate: $('#pubdate').val(),
+                    classId: $('#classId').val(),
+                    pressmark: $('#pressmark').val(),
+                    state: $('#state').val()
+                });
 
                 // 确保按钮被禁用，防止重复提交
                 var submitButton = $(this).find('button[type="submit"]');
                 submitButton.prop('disabled', true);
 
                 // 发送POST请求
+                console.log("准备发送AJAX请求");
                 $.ajax({
                     type: 'POST',
                     url: '/book_add_do.html',
                     data: formData,
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded',
+                    beforeSend: function() {
+                        console.log("AJAX请求即将发送");
+                    },
                     success: function(response) {
                         console.log("服务器响应:", response);
                         hideLoading();
@@ -430,7 +446,8 @@
                         console.error("AJAX错误:", {
                             status: status,
                             error: error,
-                            response: xhr.responseText
+                            response: xhr.responseText,
+                            xhr: xhr
                         });
                         hideLoading();
                         submitButton.prop('disabled', false);

@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @Controller
 //@RequestMapping("/admin/book")
@@ -83,15 +85,29 @@ public class BookController {
     // 5. 处理添加图书
     @PostMapping("/book_add_do.html")
     @ResponseBody
-    public Map<String, Object> addBook(@ModelAttribute Book book) {
+    public Map<String, Object> addBook(@ModelAttribute Book book, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         try {
-            System.out.println("开始处理新增图书请求");
-            System.out.println("接收到的图书数据: " + book.toString());
+            System.out.println("========== 开始处理新增图书请求 ==========");
+            System.out.println("请求方法: " + request.getMethod());
+            System.out.println("请求URL: " + request.getRequestURL());
+            System.out.println("Content-Type: " + request.getContentType());
+            
+            // 打印所有请求参数
+            System.out.println("请求参数:");
+            request.getParameterMap().forEach((key, value) -> 
+                System.out.println(key + " = " + Arrays.toString(value)));
+            
+            System.out.println("\n接收到的图书数据:");
             System.out.println("图书名称: " + book.getName());
             System.out.println("作者: " + book.getAuthor());
+            System.out.println("出版社: " + book.getPublish());
             System.out.println("ISBN: " + book.getIsbn());
+            System.out.println("价格: " + book.getPrice());
+            System.out.println("出版日期: " + book.getPubdate());
             System.out.println("分类ID: " + book.getClassId());
+            System.out.println("索书号: " + book.getPressmark());
+            System.out.println("状态: " + book.getState());
             
             // 参数验证
             if (book.getName() == null || book.getName().trim().isEmpty()) {
@@ -128,7 +144,7 @@ public class BookController {
                 return response;
             }
 
-            System.out.println("开始保存图书数据");
+            System.out.println("\n开始保存图书数据");
             boolean success = bookService.addBook(book);
             System.out.println("保存图书结果: " + success);
 
@@ -151,6 +167,7 @@ public class BookController {
             response.put("message", "添加图书时发生错误：" + e.getMessage());
             System.out.println("返回的错误响应数据: " + response);
         }
+        System.out.println("========== 结束处理新增图书请求 ==========\n");
         return response;
     }
 
