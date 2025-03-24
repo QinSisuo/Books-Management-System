@@ -85,7 +85,7 @@
                                 <th style="width: 15%">出版社</th>
                                 <th style="width: 15%">ISBN</th>
                                 <th style="width: 10%">价格</th>
-                                <th style="width: 10%">借还</th>
+<%--                                <th style="width: 10%">借还</th>--%>
                                 <th style="width: 15%">操作</th>
                             </tr>
                             </thead>
@@ -97,14 +97,14 @@
                                 <td title="${book.publish}"><c:out value="${book.publish}"></c:out></td>
                                 <td title="${book.isbn}"><c:out value="${book.isbn}"></c:out></td>
                                 <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
-                                <td>
-                                    <c:if test="${book.state==1}">
-                                        <a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-primary btn-xs">借阅</a>
-                                    </c:if>
-                                    <c:if test="${book.state==0}">
-                                        <a href="returnbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-warning btn-xs">归还</a>
-                                    </c:if>
-                                </td>
+<%--                                <td>--%>
+<%--                                    <c:if test="${book.state==1}">--%>
+<%--                                        <a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-primary btn-xs">借阅</a>--%>
+<%--                                    </c:if>--%>
+<%--                                    <c:if test="${book.state==0}">--%>
+<%--                                        <a href="returnbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-warning btn-xs">归还</a>--%>
+<%--                                    </c:if>--%>
+<%--                                </td>--%>
                                 <td>
                                     <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
                                     <button type="button" class="btn btn-info btn-xs"
@@ -122,6 +122,92 @@
                     </div>
                 </div>
             </div>
+
+    <!-- 新增图书的模态框 -->
+    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="addBookForm" method="post" action="/admin_book_add.html">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addBookModalLabel">新增图书</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">图书名 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="name" id="name" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">作者 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="author" id="author" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="publish">出版社 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="publish" id="publish" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="isbn">ISBN <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="isbn" id="isbn" required
+                                   pattern="^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$">
+                            <small class="form-text text-muted">ISBN格式：10位或13位数字，可包含连字符</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="introduction">简介</label>
+                            <textarea class="form-control" rows="3" name="introduction" id="introduction"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="language">语言</label>
+                            <input type="text" class="form-control" name="language" id="language">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">价格 <span class="text-danger">*</span></label>
+                            <input type="number" step="0.01" class="form-control" name="price" id="price" required min="0">
+                            <small class="form-text text-muted">请输入大于等于0的价格</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pubdate">出版日期 <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" name="pubdate" id="pubdate" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="classId">分类 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="classId" id="classId" required>
+                                <option value="">请选择分类</option>
+                                <c:forEach items="${categories}" var="category">
+                                    <option value="${category.categoryId}">${category.categoryName}</option>
+                                </c:forEach>
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pressmark">书架号 <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="pressmark" id="pressmark" required min="1">
+                            <small class="form-text text-muted">请输入大于0的整数</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">状态 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="state" id="state" required>
+                                <option value="1">在馆</option>
+                                <option value="0">借出</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- 编辑图书的模态框 -->
     <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel" aria-hidden="true">
@@ -194,92 +280,6 @@
           </form>
         </div>
       </div>
-    </div>
-
-    <!-- 新增图书的模态框 -->
-    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="addBookForm" method="post" action="/admin_book_add.html">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addBookModalLabel">新增图书</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">图书名 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="name" id="name" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="author">作者 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="author" id="author" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="publish">出版社 <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="publish" id="publish" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="isbn">ISBN <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="isbn" id="isbn" required 
-                                   pattern="^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$">
-                            <small class="form-text text-muted">ISBN格式：10位或13位数字，可包含连字符</small>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="introduction">简介</label>
-                            <textarea class="form-control" rows="3" name="introduction" id="introduction"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="language">语言</label>
-                            <input type="text" class="form-control" name="language" id="language">
-                        </div>
-                        <div class="form-group">
-                            <label for="price">价格 <span class="text-danger">*</span></label>
-                            <input type="number" step="0.01" class="form-control" name="price" id="price" required min="0">
-                            <small class="form-text text-muted">请输入大于等于0的价格</small>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="pubdate">出版日期 <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="pubdate" id="pubdate" required>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="classId">分类 <span class="text-danger">*</span></label>
-                            <select class="form-control" name="classId" id="classId" required>
-                                <option value="">请选择分类</option>
-                                <c:forEach items="${categories}" var="category">
-                                    <option value="${category.categoryId}">${category.categoryName}</option>
-                                </c:forEach>
-                            </select>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="pressmark">书架号 <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" name="pressmark" id="pressmark" required min="1">
-                            <small class="form-text text-muted">请输入大于0的整数</small>
-                            <div class="error-message"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">状态 <span class="text-danger">*</span></label>
-                            <select class="form-control" name="state" id="state" required>
-                                <option value="1">在馆</option>
-                                <option value="0">借出</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary">保存</button>
-                    </div>
-                </form>
-            </div>
-        </div>
     </div>
 
     <script>

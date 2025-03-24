@@ -171,7 +171,7 @@ public class BookController {
     // 7. 管理员查看书籍详情
     @RequestMapping("/bookdetail.html")
     public ModelAndView adminBookDetail(@RequestParam long bookId) {
-        return new ModelAndView("admin_book_detail").addObject("detail", bookService.getBook(bookId));
+        return new ModelAndView("admin/admin_book_detail").addObject("detail", bookService.getBook(bookId));
     }
 
     /**
