@@ -29,7 +29,7 @@
     <%@ include file="common/admin_navbar.jsp" %>
 
 <div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
-    <form action="book_add_do.html" method="post" id="addbook" class="needs-validation" novalidate>
+    <form action="admin_book_add.html" method="post" id="addbook" class="needs-validation" novalidate>
         <div class="form-group">
             <label for="name">图书名</label>
             <input type="text" class="form-control" name="name" id="name" required>

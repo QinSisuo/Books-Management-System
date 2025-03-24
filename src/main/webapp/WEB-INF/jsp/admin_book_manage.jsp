@@ -200,7 +200,7 @@
     <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="addBookForm" method="post" action="/book_add_do.html">
+                <form id="addBookForm" method="post" action="/admin_book_add.html">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addBookModalLabel">新增图书</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -414,7 +414,7 @@
                 console.log("准备发送AJAX请求");
                 $.ajax({
                     type: 'POST',
-                    url: '/book_add_do.html',
+                    url: '/admin_book_add.html',
                     data: formData,
                     dataType: 'json',
                     contentType: 'application/x-www-form-urlencoded',

@@ -92,7 +92,7 @@ public class BookController {
 
 
     // 5. 处理添加图书
-    @PostMapping("/book_add_do.html")
+    @PostMapping("/admin_book_add.html")
     public String addBook(@ModelAttribute Book book, HttpServletRequest request, Model model) {
 
         try {

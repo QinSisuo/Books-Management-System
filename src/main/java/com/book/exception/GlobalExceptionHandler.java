@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
             return "redirect:/admin_book_manage.html";
         } else if (requestURI.contains("admin_category")) {
             return "redirect:/admin_category_manage.html";
-        }  else if (requestURI.contains("book_add_do")) {
+        }  else if (requestURI.contains("admin_book_add")) {
             return "redirect:/admin_book_manage.html";
         } else {
             return "redirect:/error.html";
