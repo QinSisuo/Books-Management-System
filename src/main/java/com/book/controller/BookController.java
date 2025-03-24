@@ -152,7 +152,6 @@ public class BookController {
                 System.out.println("图书添加成功，准备返回成功响应");
                 response.put("status", "success");
                 response.put("message", "图书添加成功");
-                response.put("redirectUrl", "/admin_book_manage.html");
                 System.out.println("返回的响应数据: " + response);
             } else {
                 System.out.println("图书添加失败，准备返回错误响应");
@@ -237,6 +236,41 @@ public class BookController {
         }
         // 借完后重定向回读者图书列表
         return "redirect:/reader_book_all.html";
+    }
+
+    // 获取图书列表HTML片段
+    @GetMapping("/admin_book_list.html")
+    @ResponseBody
+    public String getBookListHtml() {
+        try {
+            List<Book> books = bookService.getAllBooks();
+            StringBuilder html = new StringBuilder();
+            
+            for (Book book : books) {
+                html.append("<tr>");
+                html.append("<td>").append(book.getBookId()).append("</td>");
+                html.append("<td>").append(book.getName()).append("</td>");
+                html.append("<td>").append(book.getAuthor()).append("</td>");
+                html.append("<td>").append(book.getPublish()).append("</td>");
+                html.append("<td>").append(book.getIsbn()).append("</td>");
+                html.append("<td>").append(book.getPrice()).append("</td>");
+                html.append("<td>").append(book.getPubdate()).append("</td>");
+                html.append("<td>").append(book.getClassId()).append("</td>");
+                html.append("<td>").append(book.getPressmark()).append("</td>");
+                html.append("<td>").append(book.getState() == 0 ? "可借" : "已借出").append("</td>");
+                html.append("<td>");
+                html.append("<a href='/bookdetail.html?bookId=").append(book.getBookId()).append("' class='btn btn-info btn-sm'>详情</a> ");
+                html.append("<a href='/admin_book_edit.html?bookId=").append(book.getBookId()).append("' class='btn btn-warning btn-sm'>编辑</a> ");
+                html.append("<a href='/admin_book_delete.html?bookId=").append(book.getBookId()).append("' class='btn btn-danger btn-sm' onclick='return confirm(\"确定要删除这本书吗？\")'>删除</a>");
+                html.append("</td>");
+                html.append("</tr>");
+            }
+            
+            return html.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<tr><td colspan='11' class='text-center text-danger'>获取图书列表失败：" + e.getMessage() + "</td></tr>";
+        }
     }
 
 }

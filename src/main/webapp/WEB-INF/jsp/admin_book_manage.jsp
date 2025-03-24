@@ -432,7 +432,14 @@
                                 text: response.message || '图书添加成功！',
                                 icon: 'success'
                             }).then(() => {
-                                window.location.href = '/admin_book_manage.html';
+                                // 刷新图书列表
+                                refreshBookList();
+                                // 关闭模态框
+                                $('#addBookModal').modal('hide');
+                                // 重置表单
+                                $('#addBookForm')[0].reset();
+                                // 移除验证样式
+                                $('#addBookForm').removeClass('was-validated');
                             });
                         } else {
                             Swal.fire({
@@ -470,6 +477,28 @@
                 return false;
             });
         });
+
+        // 刷新图书列表的函数
+        function refreshBookList() {
+            console.log("开始刷新图书列表");
+            $.ajax({
+                url: '/admin_book_list.html',
+                method: 'GET',
+                success: function(response) {
+                    console.log("获取到新的图书列表");
+                    // 更新表格内容
+                    $('#bookTable tbody').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('刷新图书列表失败:', error);
+                    Swal.fire({
+                        title: '错误',
+                        text: '刷新图书列表失败',
+                        icon: 'error'
+                    });
+                }
+            });
+        }
 
         // 在页面加载完成后检查分类数据
         $(document).ready(function() {
