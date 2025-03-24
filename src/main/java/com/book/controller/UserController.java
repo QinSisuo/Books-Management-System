@@ -117,7 +117,7 @@ public class UserController {
      */
     @RequestMapping(value = "/queryuser.html", method = RequestMethod.GET)
     public ModelAndView adminQueryUser(@RequestParam(required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("admin_user_manage");
+        ModelAndView mav = new ModelAndView("admin/admin_user_manage");
 
         // 查询用户
         List<User> users;
@@ -145,7 +145,7 @@ public class UserController {
     public String showAllUsers(Model model) {
         List<User> userList = userService.getAllUsers();
         model.addAttribute("users", userList);
-        return "admin_user_manage";  // 显示用户列表的 JSP 页面
+        return "admin/admin_user_manage";  // 显示用户列表的 JSP 页面
     }
 
     //admin user delete
