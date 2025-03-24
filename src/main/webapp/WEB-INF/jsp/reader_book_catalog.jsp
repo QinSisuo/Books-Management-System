@@ -17,7 +17,7 @@
 <body>
     <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
-    <%@ include file="common/admin_navbar.jsp" %>
+    <%@ include file="common/reader_navbar.jspπ" %>
     <%@ include file="common/footer.jsp" %>
 
     <!-- 统一面板 -->
