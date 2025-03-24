@@ -204,58 +204,78 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="addBookModalLabel">添加新图书</h4>
                 </div>
-                <div class="modal-body">
-                    <form id="addBookForm" method="post" action="/book_add_do.html">
+                <form id="addBookForm" method="post" action="/book_add_do.html">
+                    <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">图书名称</label>
+                            <label for="name">图书名称 <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="author">作者</label>
+                            <label for="author">作者 <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="author" name="author" required>
+                            <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="publish">出版社</label>
+                            <label for="publish">出版社 <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="publish" name="publish" required>
+                            <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="isbn">ISBN</label>
-                            <input type="text" class="form-control" id="isbn" name="isbn" required>
+                            <label for="isbn">ISBN <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="isbn" name="isbn" required
+                                   pattern="^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$">
+                            <small class="form-text text-muted">ISBN格式：10位或13位数字，可包含连字符</small>
+                            <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="price">价格</label>
-                            <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                            <label for="introduction">简介</label>
+                            <textarea class="form-control" rows="3" name="introduction" id="introduction"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="pubdate">出版日期</label>
-                            <input type="date" class="form-control" id="pubdate" name="pubdate" required>
+                            <label for="language">语言</label>
+                            <input type="text" class="form-control" name="language" id="language">
                         </div>
                         <div class="form-group">
-                            <label for="classId">分类</label>
-                            <select class="form-control" id="classId" name="classId" required>
+                            <label for="price">价格 <span class="text-danger">*</span></label>
+                            <input type="number" step="0.01" class="form-control" name="price" id="price" required min="0">
+                            <small class="form-text text-muted">请输入大于等于0的价格</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pubdate">出版日期 <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" name="pubdate" id="pubdate" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="classId">分类 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="classId" id="classId" required>
                                 <option value="">请选择分类</option>
                                 <c:forEach items="${categories}" var="category">
-                                    <option value="${category.classId}">${category.className}</option>
+                                    <option value="${category.categoryId}">${category.categoryName}</option>
                                 </c:forEach>
                             </select>
+                            <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="pressmark">索书号</label>
-                            <input type="text" class="form-control" id="pressmark" name="pressmark" required>
+                            <label for="pressmark">书架号 <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="pressmark" id="pressmark" required min="1">
+                            <small class="form-text text-muted">请输入大于0的整数</small>
+                            <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="state">状态</label>
-                            <select class="form-control" id="state" name="state" required>
-                                <option value="0">可借</option>
-                                <option value="1">已借出</option>
+                            <label for="state">状态 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="state" id="state" required>
+                                <option value="1">在馆</option>
+                                <option value="0">借出</option>
                             </select>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">保存</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
