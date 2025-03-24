@@ -9,7 +9,7 @@ import java.util.List;
 public interface BookCategoryMapper {
 
     // 获取全部分类
-    @Select("SELECT * FROM book_category")
+    @Select("SELECT * FROM book_category ORDER BY category_id ASC")// ORDER BY category_id ASC加上就是查询并排序
     List<BookCategory> getAllCategories();
 
     // 插入分类
