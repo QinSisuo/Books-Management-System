@@ -17,7 +17,7 @@
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/library?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=UTF-8"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/library?useSSL=false&amp;serverTimezone=Asia/Shanghai&amp;characterEncoding=UTF-8"/>
         <property name="username" value="root"/>
         <property name="password" value="0000"/>
         <property name="maximumPoolSize" value="10"/>
