@@ -231,7 +231,17 @@ public class BookController {
                 model.addAttribute("error", "图书不存在");
                 return "redirect:/reader_book_catalog.html";
             }
+            
+            // 获取分类信息
+            String categoryName = categoryService.getCategoryById(book.getCategoryId()).getCategoryName();
             model.addAttribute("book", book);
+            model.addAttribute("categoryName", categoryName);
+            
+            // 获取图书的标签
+            List<Long> tagIds = bookService.getBookTagIds(id);
+            List<BookTag> bookTags = bookTagService.queryBookTagByIds(tagIds);
+            model.addAttribute("tags", bookTags);
+            
             return "reader/reader_book_detail";
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>《 ${detail.name}》</title>
+    <title>《 ${book.name}》</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -67,63 +67,62 @@
 <div class="col-xs-6 col-md-offset-3" style="position: relative;top: 3%">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">《 ${detail.name}》</h3>
+            <h3 class="panel-title">《 ${book.name}》</h3>
         </div>
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
                     <th width="15%">书名</th>
-                    <td>${detail.name}</td>
+                    <td>${book.name}</td>
                 </tr>
                 <tr>
                     <th>作者</th>
-                    <td>${detail.author}</td>
+                    <td>${book.author}</td>
                 </tr>
                 <tr>
                     <th>出版社</th>
-                    <td>${detail.publish}</td>
+                    <td>${book.publish}</td>
                 </tr>
                 <tr>
                     <th>ISBN</th>
-                    <td>${detail.isbn}</td>
+                    <td>${book.isbn}</td>
                 </tr>
                 <tr>
                     <th>简介</th>
-                    <td>${detail.introduction}</td>
+                    <td>${book.introduction}</td>
                 </tr>
                 <tr>
                     <th>语言</th>
-                    <td>${detail.language}</td>
+                    <td>${book.language}</td>
                 </tr>
                 <tr>
                     <th>价格</th>
-                    <td>${detail.price}</td>
+                    <td>${book.price}</td>
                 </tr>
                 <tr>
                     <th>出版日期</th>
-                    <td>${detail.pubdate}</td>
+                    <td>${book.pubdate}</td>
                 </tr>
                 <tr>
                     <th>分类号</th>
-                    <td>${detail.categoryId}</td>
+                    <td>${book.categoryId}</td>
                 </tr>
                 <tr>
                     <th>书架号</th>
-                    <td>${detail.pressmark}</td>
+                    <td>${book.pressmark}</td>
                 </tr>
                 <tr>
                     <th>状态</th>
-                    <c:if test="${detail.state==1}">
+                    <c:if test="${book.state==1}">
                         <td>在馆</td>
                     </c:if>
-                    <c:if test="${detail.state==0}">
+                    <c:if test="${book.state==0}">
                         <td>借出</td>
                     </c:if>
-
                 </tr>
                 <tr>
                     <th>图书分类：</th>
-                    <td>${book.categoryName}</td>
+                    <td>${categoryName}</td>
                 </tr>
                 <tr>
                     <th>图书标签：</th>
@@ -137,7 +136,7 @@
                 </tr>
                 <tr>
                     <th>图书简介：</th>
-                    <td>${book.description}</td>
+                    <td>${book.introduction}</td>
                 </tr>
                 </tbody>
             </table>
