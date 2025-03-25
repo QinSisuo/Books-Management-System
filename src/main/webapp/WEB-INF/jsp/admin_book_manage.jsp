@@ -9,9 +9,39 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            min-height: 38px;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: #80bdff;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 2px 8px;
+            margin: 3px;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 5px;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #fff;
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
@@ -195,12 +225,14 @@
                         </div>
                         <div class="form-group">
                             <label for="tags">标签</label>
-                            <select class="form-control" name="tagIds" id="tags" multiple>
-                                <c:forEach items="${tags}" var="tag">
-                                    <option value="${tag.id}">${tag.name}</option>
-                                </c:forEach>
-                            </select>
-                            <small class="form-text text-muted">按住 Ctrl 键可以选择多个标签</small>
+                            <div class="tag-select-container">
+                                <select class="form-control select2" name="tagIds" id="tags" multiple="multiple">
+                                    <c:forEach items="${tags}" var="tag">
+                                        <option value="${tag.id}">${tag.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <small class="form-text text-muted">可以搜索或直接点击选择多个标签</small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -509,6 +541,32 @@
             } else {
                 $(this).next('.error-message').text('');
             }
+        });
+
+        $(document).ready(function() {
+            // 初始化 Select2
+            $('.select2').select2({
+                placeholder: '请选择标签',
+                allowClear: true,
+                language: {
+                    noResults: function() {
+                        return "没有找到匹配的标签";
+                    },
+                    searching: function() {
+                        return "搜索中...";
+                    },
+                    inputTooLong: function() {
+                        return "输入内容过长";
+                    }
+                }
+            });
+
+            // 在模态框打开时重新初始化 Select2
+            $('#addBookModal').on('shown.bs.modal', function () {
+                $('.select2').select2({
+                    dropdownParent: $('#addBookModal')
+                });
+            });
         });
     </script>
 
