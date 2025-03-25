@@ -286,7 +286,7 @@ public class UserController {
         return "redirect:/admin/readers";
     }
 
-    // 4. 编辑读者页面
+    // 4. 编辑读者页面//应该可以删除
     @GetMapping("/admin/reader/edit/{id}")
     public String showEditReaderPage(@PathVariable("id") int id, Model model) {
         logger.info("管理员正在进入编辑读者页面 - 读者ID: {}", id);
