@@ -198,6 +198,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="reader_my_borrow.html">我的借还</a></li>
+                            <li><a href="reader_my_reservations.html">我的预约</a></li>
                         </ul>
                     </li>
                 </ul>
