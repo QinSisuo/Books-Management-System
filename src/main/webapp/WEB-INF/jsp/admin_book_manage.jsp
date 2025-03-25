@@ -291,6 +291,14 @@
             // 清空之前的数据
             $('#editBookForm')[0].reset();
 
+            // 处理日期格式
+            let formattedDate = '';
+            if (bookPubdate) {
+                // 将日期字符串转换为 YYYY-MM-DD 格式
+                const date = new Date(bookPubdate);
+                formattedDate = date.toISOString().split('T')[0];
+            }
+
             // 填充数据
             $('#bookId').val(bookId);
             $('#bookTitle').val(bookName);
@@ -300,7 +308,7 @@
             $('#bookIsbn').val(bookIsbn || '');
             $('#bookIntroduction').val(bookIntroduction || '');
             $('#bookLanguage').val(bookLanguage || '');
-            $('#bookPubdate').val(bookPubdate || '');
+            $('#bookPubdate').val(formattedDate);
             $('#bookClassId').val(bookClassId || '');
             $('#bookPressmark').val(bookPressmark || '');
             $('#bookState').val(bookState || '1');
