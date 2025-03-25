@@ -3,6 +3,7 @@ package com.book.service.impl;
 import com.book.domain.Book;
 import com.book.mapper.BookMapper;
 import com.book.service.BookService;
+import com.book.service.BookReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookMapper bookMapper;
+
+    @Autowired
+    private BookReservationService reservationService;
 
     @Override
     public ArrayList<Book> queryBook(String searchWord) {
@@ -87,7 +91,16 @@ public class BookServiceImpl implements BookService {
         if (book == null) {
             throw new IllegalArgumentException("图书不存在");
         }
-        return bookMapper.updateBookStock(bookId, count, true) > 0;
+        
+        // 更新库存
+        boolean success = bookMapper.updateBookStock(bookId, count, true) > 0;
+        
+        // 如果更新成功，检查是否有预约
+        if (success && reservationService.hasActiveReservation(bookId)) {
+            reservationService.notifyReservations(bookId);
+        }
+        
+        return success;
     }
 
     @Override
