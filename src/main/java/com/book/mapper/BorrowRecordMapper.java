@@ -28,7 +28,7 @@ public interface BorrowRecordMapper {
     BorrowRecord findById(Integer id);
 
     // 更新借阅记录(用于归还、延期等)
-    @Update("UPDATE borrow_record SET return_time = #{returnTime}, status = #{status} " +
+    @Update("UPDATE borrow_record SET return_time = #{returnTime}, status = #{status}, due_time = #{dueTime} " +
             "WHERE id = #{id}")
     int updateBorrowRecord(BorrowRecord record);
 
