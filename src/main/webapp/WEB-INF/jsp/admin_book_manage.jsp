@@ -247,91 +247,103 @@
 
     <!-- 编辑图书的模态框 -->
     <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="editBookModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editBookModalLabel">编辑图书</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form id="editBookForm" method="post" action="/admin/book/edit">
-            <div class="modal-body">
-                <div class="form-group">
-                  <label for="bookId">图书ID</label>
-                  <input type="text" class="form-control" id="bookId" name="bookId" readonly>
-                </div>
-                <div class="form-group">
-                  <label for="bookTitle">书名 <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="bookTitle" name="name" required>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-group">
-                  <label for="bookAuthor">作者</label>
-                  <input type="text" class="form-control" id="bookAuthor" name="author" required>
-                </div>
-                <div class="form-group">
-                  <label for="bookPublish">出版社</label>
-                  <input type="text" class="form-control" id="bookPublish" name="publish">
-                </div>
-                <div class="form-group">
-                  <label for="bookIsbn">ISBN</label>
-                  <input type="text" class="form-control" id="bookIsbn" name="isbn">
-                </div>
-                <div class="form-group">
-                  <label for="bookIntroduction">简介</label>
-                  <textarea class="form-control" id="bookIntroduction" name="introduction"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="bookLanguage">语言</label>
-                  <input type="text" class="form-control" id="bookLanguage" name="language">
-                </div>
-                <div class="form-group">
-                  <label for="bookPrice">价格</label>
-                  <input type="text" class="form-control" id="bookPrice" name="price" required>
-                </div>
-                <div class="form-group">
-                  <label for="bookPubdate">出版日期</label>
-                  <input type="date" class="form-control" id="bookPubdate" name="pubdate">
-                </div>
-                <div class="form-group">
-                  <label for="bookCategoryId">分类</label>
-                  <select class="form-control" id="bookCategoryId" name="categoryId" required>
-                    <option value="">请选择分类</option>
-                    <c:forEach items="${categories}" var="category">
-                        <option value="${category.categoryId}">${category.categoryName}</option>
-                    </c:forEach>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="bookPressmark">书架号 <span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" id="bookPressmark" name="pressmark" required min="1">
-                  <small class="form-text text-muted">请输入大于0的整数</small>
-                  <div class="error-message"></div>
-                </div>
-                <div class="form-group">
-                  <label for="bookState">状态</label>
-                  <select class="form-control" id="bookState" name="state">
-                    <option value="1">可借阅</option>
-                    <option value="0">不可借阅</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                    <label for="edit_tags">标签</label>
-                    <select class="form-control" name="tagIds" id="edit_tags" multiple>
-                        <c:forEach items="${tags}" var="tag">
-                            <option value="${tag.id}">${tag.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="editBookForm" method="post" action="/admin/book/edit">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editBookModalLabel">编辑图书</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="bookId">图书ID</label>
+                            <input type="text" class="form-control" id="bookId" name="bookId" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">书名 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="author">作者 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="author" name="author" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="publish">出版社 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="publish" name="publish" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="isbn">ISBN <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="isbn" name="isbn" required
+                                   pattern="^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$">
+                            <small class="form-text text-muted">ISBN格式：10位或13位数字，可包含连字符</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="introduction">简介</label>
+                            <textarea class="form-control" rows="3" name="introduction" id="introduction"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="language">语言</label>
+                            <input type="text" class="form-control" name="language" id="language">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">价格 <span class="text-danger">*</span></label>
+                            <input type="number" step="0.01" class="form-control" name="price" id="price" required min="0">
+                            <small class="form-text text-muted">请输入大于等于0的价格</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pubdate">出版日期 <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" name="pubdate" id="pubdate" required>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="categoryId">分类 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="categoryId" id="categoryId" required>
+                                <option value="">请选择分类</option>
+                                <c:forEach items="${categories}" var="category">
+                                    <option value="${category.categoryId}">${category.categoryName}</option>
+                                </c:forEach>
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pressmark">书架号 <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="pressmark" id="pressmark" required min="1">
+                            <small class="form-text text-muted">请输入大于0的整数</small>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">状态 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="state" id="state" required>
+                                <option value="1">在馆</option>
+                                <option value="0">借出</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">标签</label>
+                            <div class="tag-select-container">
+                                <select class="form-control select2" name="tagIds" id="tags" multiple="multiple">
+                                    <c:forEach items="${tags}" var="tag">
+                                        <option value="${tag.id}">${tag.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <small class="form-text text-muted">可以搜索或直接点击选择多个标签</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-              <button type="submit" class="btn btn-primary">保存</button>
-            </div>
-          </form>
         </div>
-      </div>
     </div>
 
     <script>
@@ -345,33 +357,30 @@
         }
         });
 
-
         // 编辑图书功能
         function openEditModal(bookId, bookName, bookAuthor, bookPrice, bookPublish, bookIsbn, bookIntroduction, bookLanguage, bookPubdate, bookCategoryId, bookPressmark, bookState) {
-            // 清空之前的数据
-            $('#editBookForm')[0].reset();
+            resetForm('#editBookForm');
 
             // 处理日期格式
             let formattedDate = '';
             if (bookPubdate) {
-                // 将日期字符串转换为 YYYY-MM-DD 格式
                 const date = new Date(bookPubdate);
                 formattedDate = date.toISOString().split('T')[0];
             }
 
             // 填充数据
             $('#bookId').val(bookId);
-            $('#bookTitle').val(bookName);
-            $('#bookAuthor').val(bookAuthor);
-            $('#bookPrice').val(bookPrice);
-            $('#bookPublish').val(bookPublish || '');
-            $('#bookIsbn').val(bookIsbn || '');
-            $('#bookIntroduction').val(bookIntroduction || '');
-            $('#bookLanguage').val(bookLanguage || '');
-            $('#bookPubdate').val(formattedDate);
-            $('#bookCategoryId').val(bookCategoryId);
-            $('#bookPressmark').val(bookPressmark || '');
-            $('#bookState').val(bookState || '1');
+            $('#name').val(bookName);
+            $('#author').val(bookAuthor);
+            $('#price').val(bookPrice);
+            $('#publish').val(bookPublish || '');
+            $('#isbn').val(bookIsbn || '');
+            $('#introduction').val(bookIntroduction || '');
+            $('#language').val(bookLanguage || '');
+            $('#pubdate').val(formattedDate);
+            $('#categoryId').val(bookCategoryId);
+            $('#pressmark').val(bookPressmark || '');
+            $('#state').val(bookState || '1');
 
             // 显示模态框
             $('#editBookModal').modal('show');
@@ -555,60 +564,116 @@
             }
         });
 
-        $(document).ready(function() {
-            // 初始化 Select2
-            $('#tags').select2({
+        // 初始化标签选择器的公共函数
+        function initializeTagSelect(selectId, modalId) {
+            $(selectId).select2({
                 theme: 'bootstrap',
-                dropdownParent: $('#addBookModal .modal-content'),
+                dropdownParent: $(modalId + ' .modal-content'),
                 placeholder: '请选择标签',
                 allowClear: true,
                 language: 'zh-CN'
             });
 
             // 在模态框打开时重新计算 Select2 的宽度
-            $('#addBookModal').on('shown.bs.modal', function () {
-                $('#tags').select2('destroy').select2({
+            $(modalId).on('shown.bs.modal', function () {
+                $(selectId).select2('destroy').select2({
                     theme: 'bootstrap',
-                    dropdownParent: $('#addBookModal .modal-content'),
+                    dropdownParent: $(modalId + ' .modal-content'),
                     placeholder: '请选择标签',
                     allowClear: true,
                     language: 'zh-CN'
                 });
             });
-        });
+        }
+
+        // 表单验证的公共函数
+        function validateForm(formId) {
+            const form = $(formId)[0];
+            if (!form.checkValidity()) {
+                $(formId).addClass('was-validated');
+                return false;
+            }
+            return true;
+        }
+
+        // 重置表单的公共函数
+        function resetForm(formId) {
+            $(formId)[0].reset();
+            $(formId).removeClass('was-validated');
+        }
 
         $(document).ready(function() {
-            // 初始化标签选择
-            $('#edit_tags').select2({
-                theme: 'bootstrap',
-                language: 'zh-CN',
-                dropdownParent: $('#editBookModal .modal-content')
+            // 初始化标签选择器
+            initializeTagSelect('#tags', '#addBookModal');
+            initializeTagSelect('#tags', '#editBookModal');
+
+            // 编辑图书表单提交
+            $('#editBookForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                if (!validateForm('#editBookForm')) {
+                    return false;
+                }
+
+                showLoading();
+                const formData = $(this).serialize();
+                const submitButton = $(this).find('button[type="submit"]');
+                submitButton.prop('disabled', true);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/book/edit',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function(response) {
+                        hideLoading();
+                        submitButton.prop('disabled', false);
+
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: '成功',
+                                text: response.message || '图书编辑成功！',
+                                icon: 'success'
+                            }).then(() => {
+                                refreshBookList();
+                                $('#editBookModal').modal('hide');
+                                resetForm('#editBookForm');
+                            });
+                        } else {
+                            Swal.fire({
+                                title: '错误',
+                                text: response.message || '编辑失败，请重试！',
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        hideLoading();
+                        submitButton.prop('disabled', false);
+
+                        let errorMsg = '编辑失败，请重试！';
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            errorMsg = response.message || errorMsg;
+                        } catch (e) {
+                            errorMsg = xhr.responseText || errorMsg;
+                        }
+
+                        Swal.fire({
+                            title: '错误',
+                            text: errorMsg,
+                            icon: 'error'
+                        });
+                    }
+                });
+                return false;
             });
 
-            // 编辑图书
-            $('.editBook').click(function() {
-                var bookId = $(this).data('id');
-                $.get('/admin/book/' + bookId, function(book) {
-                    $('#edit_bookId').val(book.bookId);
-                    $('#edit_name').val(book.name);
-                    $('#edit_author').val(book.author);
-                    $('#edit_publish').val(book.publish);
-                    $('#edit_isbn').val(book.isbn);
-                    $('#edit_introduction').val(book.introduction);
-                    $('#edit_language').val(book.language);
-                    $('#edit_price').val(book.price);
-                    $('#edit_pubdate').val(book.pubdate);
-                    $('#edit_categoryId').val(book.categoryId);
-                    $('#edit_pressmark').val(book.pressmark);
-                    $('#edit_state').val(book.state);
-                    
-                    // 获取图书的标签
-                    $.get('/admin/book/tags/' + bookId, function(tagIds) {
-                        $('#edit_tags').val(tagIds).trigger('change');
-                    });
-                    
-                    $('#editBookModal').modal('show');
-                });
+            // 模态框关闭时重置表单
+            $('#addBookModal, #editBookModal').on('hidden.bs.modal', function () {
+                const formId = $(this).find('form').attr('id');
+                resetForm('#' + formId);
             });
         });
     </script>
