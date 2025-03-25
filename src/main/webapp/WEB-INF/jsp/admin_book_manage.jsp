@@ -250,8 +250,13 @@
                   <input type="date" class="form-control" id="bookPubdate" name="pubdate">
                 </div>
                 <div class="form-group">
-                  <label for="bookClassId">分类ID</label>
-                  <input type="text" class="form-control" id="bookClassId" name="classId">
+                  <label for="bookClassId">分类</label>
+                  <select class="form-control" id="bookClassId" name="classId" required>
+                    <option value="">请选择分类</option>
+                    <c:forEach items="${categories}" var="category">
+                        <option value="${category.categoryId}">${category.categoryName}</option>
+                    </c:forEach>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="bookPressmark">图书标记</label>
@@ -309,7 +314,7 @@
             $('#bookIntroduction').val(bookIntroduction || '');
             $('#bookLanguage').val(bookLanguage || '');
             $('#bookPubdate').val(formattedDate);
-            $('#bookClassId').val(bookClassId || '');
+            $('#bookClassId').val(bookClassId);
             $('#bookPressmark').val(bookPressmark || '');
             $('#bookState').val(bookState || '1');
 
