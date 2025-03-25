@@ -190,7 +190,7 @@ public class BookController {
             List<BookTag> bookTags = bookTagService.queryBookTagByIds(tagIds);
             model.addAttribute("tags", bookTags);
             
-            return "admin_book_detail";
+            return "admin/admin_book_detail";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "获取图书详情失败：" + e.getMessage());

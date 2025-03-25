@@ -30,7 +30,7 @@ public class BookInventoryController {
                              ", Lent: " + book.getLentCount());
         }
         
-        ModelAndView modelAndView = new ModelAndView("admin_book_inventory");
+        ModelAndView modelAndView = new ModelAndView("admin/admin_book_inventory");
         modelAndView.addObject("books", books);
         modelAndView.addObject("searchWord", searchWord);
         return modelAndView;
