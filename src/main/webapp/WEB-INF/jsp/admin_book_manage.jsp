@@ -131,7 +131,7 @@
                                 <td title="${book.language}"><c:out value="${book.language}"></c:out></td>
                                 <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
                                 <td>
-                                    <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
+                                    <a href="/admin/book/detail?id=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
                                     <button type="button" class="btn btn-info btn-xs"
                                             onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.categoryId}', '${book.pressmark}', '${book.state}')">
                                         编辑
