@@ -81,10 +81,13 @@
                                     </form>
                                 </c:when>
                                 <c:otherwise>
-                                    <!-- 无可借数量 => 显示灰色预约按钮 -->
-                                    <button type="button" class="btn btn-secondary btn-sm" disabled>
-                                        <i class="fas fa-clock"></i> 预约
-                                    </button>
+                                    <!-- 无可借数量 => 显示预约按钮 -->
+                                    <form action="reader/reserve_book" method="post" style="display:inline;">
+                                        <input type="hidden" name="bookId" value="${bk.bookId}" />
+                                        <button type="submit" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-clock"></i> 预约
+                                        </button>
+                                    </form>
                                 </c:otherwise>
                             </c:choose>
                         </td>

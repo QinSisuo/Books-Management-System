@@ -23,6 +23,9 @@ public class BorrowService {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private BookReservationService reservationService;
+
     @Transactional
     public boolean borrowBook(int bookId, int userId) {
         // 1. 查询该书是否可借
@@ -96,6 +99,11 @@ public class BorrowService {
             
             // 4. 创建归还成功通知
             notificationService.createReturnSuccessNotification(record.getReaderId(), book.getName());
+            
+            // 5. 检查是否有预约，如果有则通知预约的读者
+            if (reservationService.hasActiveReservation(book.getBookId())) {
+                reservationService.notifyReservations(book.getBookId());
+            }
         }
 
         return true;

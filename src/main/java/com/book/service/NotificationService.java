@@ -108,4 +108,17 @@ public class NotificationService {
     public int getUnreadCount(Integer userId) {
         return notificationMapper.countUnreadByUserId(userId);
     }
+
+    /**
+     * 创建预约通知
+     */
+    public void createReservationNotification(Integer userId, String bookName) {
+        Notification notification = new Notification();
+        notification.setUserId(userId);
+        notification.setType(4); // 预约通知
+        notification.setTitle("图书预约通知");
+        notification.setContent(String.format("您已成功预约图书《%s》，请在预约时间内到馆借阅。", bookName));
+        notification.setPriority(1); // 普通
+        createNotification(notification);
+    }
 } 
