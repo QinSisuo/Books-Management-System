@@ -43,7 +43,7 @@ public interface BookTagMapper {
      */
     @Select("<script>" +
             "SELECT * FROM book_tag WHERE id IN " +
-            "<foreach collection='ids' item='id' open='(' separator=',' close=')'>" +
+            "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
             "#{id}" +
             "</foreach>" +
             "</script>")
