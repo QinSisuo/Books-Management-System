@@ -150,7 +150,7 @@ public class UserController {
 
     //admin user delete
     @GetMapping("/admin/user/delete")
-    public String deleteUser(@RequestParam("userId") int userId, Model model) {
+    public String deleteUser(@RequestParam("userId") Long userId, Model model) {
         boolean success = userService.deleteUser(userId);
         if (success) {
             model.addAttribute("succ", "用户删除成功");
@@ -288,7 +288,7 @@ public class UserController {
 
     // 4. 编辑读者页面//应该可以删除
     @GetMapping("/admin/reader/edit/{id}")
-    public String showEditReaderPage(@PathVariable("id") int id, Model model) {
+    public String showEditReaderPage(@PathVariable("id") Long id, Model model) {
         logger.info("管理员正在进入编辑读者页面 - 读者ID: {}", id);
         User reader = userService.getReaderById(id);
         if (reader == null) {
@@ -317,7 +317,7 @@ public class UserController {
 
     // 6. 删除读者
     @PostMapping("/admin/reader/delete/{id}")
-    public String deleteReader(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
+    public String deleteReader(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         logger.info("管理员正在删除读者 - 读者ID: {}", id);
         boolean success = userService.deleteReader(id);
         if (success) {
