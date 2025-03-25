@@ -25,11 +25,11 @@ public interface BookMapper {
     @Select("SELECT book_id, name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state, total_count, lent_count " +
             "FROM books " +
             "WHERE book_id = #{bookId}")
-    Book getBook(@Param("bookId") long bookId);
+    Book getBook(@Param("bookId") Long bookId);
 
     // 删除图书
     @Delete("DELETE FROM books WHERE book_id = #{bookId}")
-    int deleteBook(@Param("bookId") long bookId);
+    int deleteBook(@Param("bookId") Long bookId);
 
     // 检查图书是否匹配
     @Select("SELECT count(*) " +
@@ -50,10 +50,6 @@ public interface BookMapper {
             "category_id = #{categoryId}, pressmark = #{pressmark}, state = #{state} WHERE book_id = #{bookId}")
     int editBook(Book book);
 
-
-    @Select("SELECT * FROM books WHERE book_id = #{bookId}")
-    Book findBookById(int bookId); // 根据 bookId 查询图书
-
     @Update("UPDATE books SET title = #{title}, author = #{author}, publisher = #{publisher} WHERE book_id = #{bookId}")
     int updateBook(Book book); // 更新图书信息，返回受影响的行数
 
@@ -66,7 +62,7 @@ public interface BookMapper {
             "WHERE book_id = #{bookId} " +
             "AND (#{isAdd} = true OR (total_count - lent_count) >= #{count})" +
             "</script>")
-    int updateBookStock(@Param("bookId") long bookId, 
+    int updateBookStock(@Param("bookId") Long bookId, 
                        @Param("count") int count, 
                        @Param("isAdd") boolean isAdd);
 
@@ -77,7 +73,7 @@ public interface BookMapper {
      * @return 更新的行数
      */
     @Update("UPDATE books SET lent_count = #{lentCount} WHERE book_id = #{bookId}")
-    int updateLentCount(@Param("bookId") long bookId, @Param("lentCount") int lentCount);
+    int updateLentCount(@Param("bookId") Long bookId, @Param("lentCount") int lentCount);
 
     @Insert("<script>" +
             "INSERT INTO book_tag_relation(book_id, tag_id) VALUES " +

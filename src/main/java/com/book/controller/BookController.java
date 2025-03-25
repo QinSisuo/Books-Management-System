@@ -68,7 +68,7 @@ public class BookController {
 
     // 2. 删除图书
     @RequestMapping("/admin/book/delete.html")
-    public String deleteBook(@RequestParam long bookId, RedirectAttributes redirectAttributes) {
+    public String deleteBook(@RequestParam Long bookId, RedirectAttributes redirectAttributes) {
         boolean result = bookService.deleteBook(bookId);
         redirectAttributes.addFlashAttribute("succ", result ? "图书删除成功！" : "图书删除失败！");
         return "redirect:/admin_book_manage.html";
@@ -148,142 +148,125 @@ public class BookController {
                 return "redirect:/admin_book_manage.html";
             }
             if (book.getIsbn() == null ) {
-                System.out.println("验证失败：ISBN格式不正确");
-                model.addAttribute("error", "ISBN格式不正确");
+                System.out.println("验证失败：ISBN为空");
+                model.addAttribute("error", "ISBN不能为空");
                 return "redirect:/admin_book_manage.html";
             }
             
-            // 检查分类是否存在
-            if (book.getCategoryId() <= 0) {
-                System.out.println("验证失败：未选择分类");
-                model.addAttribute("error", "请选择图书分类");
-                return "redirect:/admin_book_manage.html";
-            }
-            
-            if (categoryService.getCategoryById(book.getCategoryId()) == null) {
-                System.out.println("验证失败：分类不存在，分类ID=" + book.getCategoryId());
-                model.addAttribute("error", "所选分类不存在");
-                return "redirect:/admin_book_manage.html";
-            }
-
-            System.out.println("\n开始保存图书数据");
-            boolean success = bookService.addBook(book);
-            System.out.println("保存图书结果: " + success);
-
-            if (success) {
-                // 如果添加成功且有标签，则添加标签关联
+            // 添加图书
+            boolean result = bookService.addBook(book);
+            if (result) {
+                // 如果有标签，添加标签关联
                 if (tagIds != null && !tagIds.isEmpty()) {
                     bookService.addBookTags(book.getBookId(), tagIds);
                 }
-                System.out.println("图书添加成功，准备重定向");
-                model.addAttribute("succ", "图书添加成功");
-                return "redirect:/admin_book_manage.html";
+                model.addAttribute("succ", "图书添加成功！");
             } else {
-                System.out.println("图书添加失败，准备返回错误信息");
-                model.addAttribute("error", "图书添加失败");
-                return "redirect:/admin_book_manage.html";
+                model.addAttribute("error", "图书添加失败！");
             }
+            return "redirect:/admin_book_manage.html";
         } catch (Exception e) {
-            System.out.println("添加图书时发生异常: " + e.getMessage());
             e.printStackTrace();
-            model.addAttribute("error", "添加图书时发生错误：" + e.getMessage());
+            model.addAttribute("error", "添加过程中发生错误：" + e.getMessage());
             return "redirect:/admin_book_manage.html";
         }
     }
 
-    // 7. 管理员查看书籍详情
+    // 6. 图书详情页面（管理员）
     @RequestMapping("/admin/book/detail")
     public String adminBookDetail(@RequestParam("id") Long id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
-        // 获取图书的标签
-        List<Long> tagIds = bookService.getBookTagIds(id);
-        List<BookTag> tags = new ArrayList<>();
-        if (tagIds != null && !tagIds.isEmpty()) {
-            tags = bookTagService.queryBookTagByIds(tagIds);
+        try {
+            Book book = bookService.getBook(id);
+            if (book == null) {
+                model.addAttribute("error", "图书不存在");
+                return "redirect:/admin_book_manage.html";
+            }
+            model.addAttribute("book", book);
+            model.addAttribute("categories", categoryService.getAllCategories());
+            model.addAttribute("tags", bookTagService.queryBookTags(null));
+            return "admin_book_detail";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "获取图书详情失败：" + e.getMessage());
+            return "redirect:/admin_book_manage.html";
         }
-        model.addAttribute("tags", tags);
-        return "admin_book_detail";
     }
 
-    /**
-     * ========== 读者相关 ==========
-     * 当访问 /reader_book_catalog.html 时：
-     *  - 如果没有 searchWord 参数，则显示所有图书。
-     *  - 如果有 searchWord，则按关键词搜索并返回结果。
-     */
+    // 7. 读者图书目录页面
     @GetMapping("/reader_book_catalog.html")
     public ModelAndView readerQueryBookPage(
             @RequestParam(value = "searchWord", required = false) String searchWord) {
-        List<Book> books;
-        if (searchWord == null || searchWord.trim().isEmpty()) {
-            books = bookService.getAllBooks();
-        } else {
-            books = bookService.queryBook(searchWord);
+        ModelAndView mav = new ModelAndView("reader_book_catalog");
+        try {
+            List<Book> books;
+            if (searchWord != null && !searchWord.trim().isEmpty()) {
+                books = bookService.queryBook(searchWord);
+                if (books.isEmpty()) {
+                    mav.addObject("error", "没有匹配的图书");
+                }
+            } else {
+                books = bookService.getAllBooks();
+            }
+            mav.addObject("books", books);
+            mav.addObject("searchWord", searchWord);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mav.addObject("error", "获取数据失败：" + e.getMessage());
         }
-        return new ModelAndView("reader_book_catalog")
-                .addObject("books", books)
-                .addObject("searchWord", searchWord);
+        return mav;
     }
 
-    /**
-     * 读者查看书籍详情
-     */
+    // 8. 图书详情页面（读者）
     @RequestMapping("/reader/book/detail")
     public String readerBookDetail(@RequestParam("id") Long id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
-        // 获取图书的标签
-        List<Long> tagIds = bookService.getBookTagIds(id);
-        List<BookTag> tags = new ArrayList<>();
-        if (tagIds != null && !tagIds.isEmpty()) {
-            tags = bookTagService.queryBookTagByIds(tagIds);
+        try {
+            Book book = bookService.getBook(id);
+            if (book == null) {
+                model.addAttribute("error", "图书不存在");
+                return "redirect:/reader_book_catalog.html";
+            }
+            model.addAttribute("book", book);
+            return "reader_book_detail";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "获取图书详情失败：" + e.getMessage());
+            return "redirect:/reader_book_catalog.html";
         }
-        model.addAttribute("tags", tags);
-        return "reader_book_detail";
     }
 
-//    // 读者查看所有图书
-//    @GetMapping("/reader_book_catalog.html")
-//    public ModelAndView readerQueryBook(
-//            @RequestParam(value = "searchWord", required = false) String searchWord) {
-//        List<Book> books;
-//        // 如果没有搜索词，或搜索词为空，则查询所有
-//        if (searchWord == null || searchWord.trim().isEmpty()) {
-//            books = bookService.getAllBooks();
-//        } else {
-//            // 否则带关键字查询
-//            books = bookService.queryBook(searchWord);
-//        }
-//
-//        // 跳转到 reader_book_catalog.jsp，并传递 books 和当前搜索词
-//        return new ModelAndView("reader_book_catalog")
-//                .addObject("books", books)
-//                .addObject("searchWord", searchWord);
-//    }
-
-    // 读者借阅图书
+    // 9. 借阅图书
     @PostMapping("/reader_book_borrow")
-    public String borrowBook(@RequestParam("bookId") long bookId,
+    public String borrowBook(@RequestParam("bookId") Long bookId,
                              RedirectAttributes redirectAttributes) {
-        // 这里假定 Book 的 state=0 表示可借，1 表示已借
-        boolean success = bookService.borrowBook(bookId);
-        if (success) {
-            redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "图书借阅失败或已被借出！");
+        try {
+            boolean result = bookService.borrowBook(bookId);
+            redirectAttributes.addFlashAttribute("succ", result ? "借阅成功！" : "借阅失败！");
+            return "redirect:/reader_book_catalog.html";
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "借阅过程中发生错误：" + e.getMessage());
+            return "redirect:/reader_book_catalog.html";
         }
-        // 借完后重定向回读者图书列表
-        return "redirect:/reader_book_all.html";
     }
 
-    // 获取图书列表HTML片段
+    // 10. 获取图书列表HTML
     @GetMapping("/admin_book_list.html")
     @ResponseBody
     public String getBookListHtml() {
         try {
             List<Book> books = bookService.getAllBooks();
             StringBuilder html = new StringBuilder();
+            html.append("<table class='table table-striped'>");
+            html.append("<thead><tr>");
+            html.append("<th>ID</th>");
+            html.append("<th>书名</th>");
+            html.append("<th>作者</th>");
+            html.append("<th>出版社</th>");
+            html.append("<th>ISBN</th>");
+            html.append("<th>价格</th>");
+            html.append("<th>状态</th>");
+            html.append("<th>操作</th>");
+            html.append("</tr></thead><tbody>");
             
             for (Book book : books) {
                 html.append("<tr>");
@@ -293,35 +276,33 @@ public class BookController {
                 html.append("<td>").append(book.getPublish()).append("</td>");
                 html.append("<td>").append(book.getIsbn()).append("</td>");
                 html.append("<td>").append(book.getPrice()).append("</td>");
-                html.append("<td>").append(book.getPubdate()).append("</td>");
-                html.append("<td>").append(book.getCategoryId()).append("</td>");
-                html.append("<td>").append(book.getPressmark()).append("</td>");
                 html.append("<td>").append(book.getState() == 0 ? "可借" : "已借出").append("</td>");
                 html.append("<td>");
-                html.append("<a href='/bookdetail.html?bookId=").append(book.getBookId()).append("' class='btn btn-info btn-sm'>详情</a> ");
-                html.append("<a href='/admin_book_edit.html?bookId=").append(book.getBookId()).append("' class='btn btn-warning btn-sm'>编辑</a> ");
-                html.append("<a href='/admin_book_delete.html?bookId=").append(book.getBookId()).append("' class='btn btn-danger btn-sm' onclick='return confirm(\"确定要删除这本书吗？\")'>删除</a>");
+                html.append("<button class='btn btn-sm btn-primary' onclick='editBook(").append(book.getBookId()).append(")'>编辑</button> ");
+                html.append("<button class='btn btn-sm btn-danger' onclick='deleteBook(").append(book.getBookId()).append(")'>删除</button>");
                 html.append("</td>");
                 html.append("</tr>");
             }
             
+            html.append("</tbody></table>");
             return html.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            return "<tr><td colspan='11' class='text-center text-danger'>获取图书列表失败：" + e.getMessage() + "</td></tr>";
+            return "<div class='alert alert-danger'>获取图书列表失败：" + e.getMessage() + "</div>";
         }
     }
 
+    // 11. 获取图书标签
     @GetMapping("/admin/book/tags/{bookId}")
     @ResponseBody
     public List<Long> getBookTags(@PathVariable Long bookId) {
         return bookService.getBookTagIds(bookId);
     }
 
+    // 12. 获取图书详情
     @GetMapping("/admin/book/{bookId}")
     @ResponseBody
     public Book getBook(@PathVariable Long bookId) {
         return bookService.getBook(bookId);
     }
-
 }

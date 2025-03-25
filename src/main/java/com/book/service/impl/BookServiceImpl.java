@@ -35,7 +35,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public boolean deleteBook(long bookId) {
+    public boolean deleteBook(Long bookId) {
         return bookMapper.deleteBook(bookId) > 0;
     }
 
@@ -62,18 +62,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book getBookById(int bookId) {
-        return bookMapper.findBookById(bookId);
-    }
-
-    @Override
     public boolean updateBook(Book book) {
         return bookMapper.updateBook(book) > 0;
     }
 
     @Override
     @Transactional
-    public boolean borrowBook(long bookId) {
+    public boolean borrowBook(Long bookId) {
         Book book = bookMapper.getBook(bookId);
         if (book != null && book.getState() == 0) {
             book.setState(1);
@@ -84,7 +79,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public boolean addBookStock(long bookId, int count) {
+    public boolean addBookStock(Long bookId, int count) {
         if (count <= 0) {
             throw new IllegalArgumentException("入库数量必须大于0");
         }
@@ -106,7 +101,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public boolean reduceBookStock(long bookId, int count) {
+    public boolean reduceBookStock(Long bookId, int count) {
         if (count <= 0) {
             throw new IllegalArgumentException("出库数量必须大于0");
         }
