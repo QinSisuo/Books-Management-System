@@ -232,7 +232,7 @@ public class BookController {
                 return "redirect:/reader_book_catalog.html";
             }
             model.addAttribute("book", book);
-            return "reader_book_detail";
+            return "reader/reader_book_detail";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "获取图书详情失败：" + e.getMessage());
