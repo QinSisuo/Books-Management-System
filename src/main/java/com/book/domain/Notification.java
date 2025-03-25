@@ -6,7 +6,7 @@ import java.util.Date;
 @Data
 public class Notification {
     private Long notificationId;
-    private Integer userId;
+    private Long userId;
     private Integer type;
     private String title;
     private String content;

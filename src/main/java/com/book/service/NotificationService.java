@@ -28,14 +28,14 @@ public class NotificationService {
     /**
      * 获取用户未读通知
      */
-    public List<Notification> getUnreadNotifications(Integer userId) {
+    public List<Notification> getUnreadNotifications(Long userId) {
         return notificationMapper.findUnreadByUserId(userId);
     }
     
     /**
      * 获取用户所有通知
      */
-    public List<Notification> getAllNotifications(Integer userId) {
+    public List<Notification> getAllNotifications(Long userId) {
         return notificationMapper.findByUserId(userId);
     }
     
@@ -51,14 +51,14 @@ public class NotificationService {
      * 标记所有通知为已读
      */
     @Transactional
-    public void markAllAsRead(Integer userId) {
+    public void markAllAsRead(Long userId) {
         notificationMapper.markAllAsRead(userId);
     }
     
     /**
      * 创建逾期提醒通知
      */
-    public void createOverdueNotification(Integer userId, String bookName, Date dueTime) {
+    public void createOverdueNotification(Long userId, String bookName, Date dueTime) {
         Notification notification = new Notification();
         notification.setUserId(userId);
         notification.setType(1); // 逾期提醒
@@ -72,7 +72,7 @@ public class NotificationService {
     /**
      * 创建借阅成功通知
      */
-    public void createBorrowSuccessNotification(Integer userId, String bookName) {
+    public void createBorrowSuccessNotification(Long userId, String bookName) {
         Notification notification = new Notification();
         notification.setUserId(userId);
         notification.setType(3); // 借阅成功通知
@@ -85,7 +85,7 @@ public class NotificationService {
     /**
      * 创建归还成功通知
      */
-    public void createReturnSuccessNotification(Integer userId, String bookName) {
+    public void createReturnSuccessNotification(Long userId, String bookName) {
         Notification notification = new Notification();
         notification.setUserId(userId);
         notification.setType(3); // 归还成功通知
@@ -98,21 +98,21 @@ public class NotificationService {
     /**
      * 获取用户的所有通知
      */
-    public List<Notification> getUserNotifications(Integer userId) {
+    public List<Notification> getUserNotifications(Long userId) {
         return notificationMapper.findByUserId(userId);
     }
 
     /**
      * 获取用户的未读通知数量
      */
-    public int getUnreadCount(Integer userId) {
+    public int getUnreadCount(Long userId) {
         return notificationMapper.countUnreadByUserId(userId);
     }
 
     /**
      * 创建预约通知
      */
-    public void createReservationNotification(Integer userId, String bookName) {
+    public void createReservationNotification(Long userId, String bookName) {
         Notification notification = new Notification();
         notification.setUserId(userId);
         notification.setType(4); // 预约通知

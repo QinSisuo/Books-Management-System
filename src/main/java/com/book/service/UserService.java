@@ -76,7 +76,7 @@ public class UserService {
     }
 
     // 根据 ID 获取读者信息
-    public User getReaderById(int id) {
+    public User getReaderById(Long id) {
         logger.info("根据 ID 获取读者信息 - 读者ID: {}", id);
         return userMapper.findUserById(id);
     }
@@ -97,7 +97,7 @@ public class UserService {
     }
 
     // 删除读者
-    public boolean deleteReader(int id) {
+    public boolean deleteReader(Long id) {
         logger.info("删除读者 - 读者ID: {}", id);
         int rows = userMapper.deleteUser(id);
         
@@ -118,7 +118,7 @@ public class UserService {
         return userMapper.findAllUsers();
     }
 
-    public boolean deleteUser(int userId) {
+    public boolean deleteUser(Long userId) {
         logger.info("删除用户 - 用户ID: {}", userId);
         int rows = userMapper.deleteUser(userId);
         

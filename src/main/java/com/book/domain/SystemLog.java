@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class SystemLog {
     private int id;
     private Timestamp timestamp;
-    private int userId;
+    private Long userId;
     private String userName;
     private String operationType;
     private String description;
@@ -16,7 +16,7 @@ public class SystemLog {
     public SystemLog() {}
 
     // 带参数的构造函数
-    public SystemLog(int userId, String userName, String operationType, String description, String result, String ipAddress) {
+    public SystemLog(Long userId, String userName, String operationType, String description, String result, String ipAddress) {
         this.userId = userId;
         this.userName = userName;
         this.operationType = operationType;
@@ -42,11 +42,11 @@ public class SystemLog {
         this.timestamp = timestamp;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -5,9 +5,9 @@ import java.util.Date;
 
 @Data
 public class BorrowRecord {
-    private Integer id;         // borrow_record表主键
-    private Integer bookId;     // 关联 books
-    private Integer readerId;   // 关联用户/读者
+    private Long id;         // borrow_record表主键
+    private Long bookId;     // 关联 books
+    private Long readerId;   // 关联用户/读者
     private Date borrowTime; // 借书时间
     private Date dueTime;    // 到期时间
     private Date returnTime; // 归还时间(为空表示还没归还)
@@ -15,14 +15,14 @@ public class BorrowRecord {
     private String bookName; // 图书名称
 
     // 省略 getter/setter/toString
-    public Integer getId() {return id;}
-    public void setId(Integer id) {this.id = id;}
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
-    public Integer getBookId() {return bookId;}
-    public void setBookId(Integer bookId) {this.bookId = bookId;}
+    public Long getBookId() {return bookId;}
+    public void setBookId(Long bookId) {this.bookId = bookId;}
 
-    public Integer getReaderId() {return readerId;}
-    public void setReaderId(Integer readerId) {this.readerId = readerId;}
+    public Long getReaderId() {return readerId;}
+    public void setReaderId(Long readerId) {this.readerId = readerId;}
 
     public Date getBorrowTime() {return borrowTime;}
     public void setBorrowTime(Date borrowTime) {this.borrowTime = borrowTime;}

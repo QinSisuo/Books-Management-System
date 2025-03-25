@@ -23,7 +23,7 @@ public class BorrowController {
     private BookService bookService;
 
     @PostMapping("/reader_book_borrow.html")
-    public String borrowBook(@RequestParam("bookId") int bookId,
+    public String borrowBook(@RequestParam("bookId") Long bookId,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
         // 1. 检查用户是否登录
@@ -34,7 +34,7 @@ public class BorrowController {
         }
 
         // 2. 检查图书是否可借
-        if (bookService.getBookById(bookId) == null) {
+        if (bookService.getBook(bookId) == null) {
             redirectAttributes.addFlashAttribute("error", "图书不存在！");
             return "redirect:/reader_book_catalog.html";
         }
@@ -69,7 +69,7 @@ public class BorrowController {
      * 归还图书
      */
     @PostMapping("/borrow_return")
-    public String returnBook(@RequestParam("borrowId") Integer borrowId,
+    public String returnBook(@RequestParam("borrowId") Long borrowId,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {
         User currentUser = (User) session.getAttribute("user");
@@ -86,7 +86,7 @@ public class BorrowController {
      * 续借(延期)
      */
     @PostMapping("/borrow_extend")
-    public String extendBook(@RequestParam("borrowId") Integer borrowId,
+    public String extendBook(@RequestParam("borrowId") Long borrowId,
                            @RequestParam("extraDays") int extraDays,
                            HttpSession session,
                            RedirectAttributes redirectAttributes) {

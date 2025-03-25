@@ -27,7 +27,7 @@ public interface UserMapper {
 
     // 根据用户 ID 获取用户
     @Select("SELECT * FROM users WHERE user_id = #{userId}")
-    User getUserById(@Param("userId") int userId);
+    User getUserById(@Param("userId") Long userId);
 
     // 更新用户信息
     @Update("UPDATE users SET username = #{username}, role = #{role}, email = #{email}, " +
@@ -36,7 +36,7 @@ public interface UserMapper {
 
     // 删除用户
     @Delete("DELETE FROM users WHERE user_id = #{userId}")
-    int deleteUser(@Param("userId") int userId);
+    int deleteUser(@Param("userId") Long userId);
 
     // 根据用户名和密码查找用户（用于登录）
     @Select("SELECT * FROM users WHERE username = #{username} AND password = #{password}")
@@ -47,7 +47,7 @@ public interface UserMapper {
 
     // 根据 ID 查询用户
     @Select("SELECT * FROM users WHERE user_id = #{id}")
-    User findUserById(@Param("id") int id);
+    User findUserById(@Param("id") Long id);
 
     @Select("SELECT user_id, username, email, role, phone, address, created_at, updated_at FROM users")
     List<User> getAllUsers();

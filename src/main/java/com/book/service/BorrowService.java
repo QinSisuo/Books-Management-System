@@ -27,7 +27,7 @@ public class BorrowService {
     private BookReservationService reservationService;
 
     @Transactional
-    public boolean borrowBook(int bookId, int userId) {
+    public boolean borrowBook(Long bookId, Long userId) {
         // 1. 查询该书是否可借
         Book book = bookMapper.getBook(bookId);
         if (book == null) {
@@ -66,7 +66,7 @@ public class BorrowService {
     /**
      * 查询我的借阅记录
      */
-    public List<BorrowRecord> getMyBorrowRecords(Integer userId) {
+    public List<BorrowRecord> getMyBorrowRecords(Long userId) {
         return borrowRecordMapper.findRecordsByReader(userId);
     }
 
@@ -74,7 +74,7 @@ public class BorrowService {
      * 归还图书
      */
     @Transactional
-    public boolean returnBook(Integer borrowId) {
+    public boolean returnBook(Long borrowId) {
         // 1. 查询借阅记录
         BorrowRecord record = borrowRecordMapper.findById(borrowId);
         if (record == null || record.getStatus() != 0) {
@@ -113,7 +113,7 @@ public class BorrowService {
      * 延期(续借)
      */
     @Transactional
-    public boolean extendBook(Integer borrowId, int extraDays) {
+    public boolean extendBook(Long borrowId, int extraDays) {
         // 1. 查询借阅记录
         BorrowRecord record = borrowRecordMapper.findById(borrowId);
         if (record == null || record.getStatus() != 0) {

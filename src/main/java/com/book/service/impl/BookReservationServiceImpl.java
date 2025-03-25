@@ -22,7 +22,7 @@ public class BookReservationServiceImpl implements BookReservationService {
 
     @Override
     @Transactional
-    public boolean createReservation(Long bookId, Integer readerId) {
+    public boolean createReservation(Long bookId, Long readerId) {
         // 检查是否已有预约
         List<BookReservation> existingReservations = 
             reservationMapper.findActiveReservationsByBook(bookId);
@@ -40,7 +40,7 @@ public class BookReservationServiceImpl implements BookReservationService {
     }
 
     @Override
-    public List<BookReservation> getMyReservations(Integer readerId) {
+    public List<BookReservation> getMyReservations(Long readerId) {
         return reservationMapper.findReservationsByReader(readerId);
     }
 

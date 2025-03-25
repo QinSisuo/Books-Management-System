@@ -3,7 +3,7 @@ package com.book.domain;
 import java.util.Date;
 
 public class User {
-    private int userId;          // 用户ID
+    private Long userId;          // 用户ID
     private String username;     // 用户名
     private String password;     // 密码
     private String role;         // 角色（admin 或 reader）
@@ -14,11 +14,11 @@ public class User {
     private Date updatedAt;      // 更新时间
 
     // Getters 和 Setters
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -86,7 +86,7 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public int getId() {
+    public Long getId() {
         return userId;
     }
 }

@@ -7,12 +7,12 @@ public interface BookReservationService {
     /**
      * 创建预约
      */
-    boolean createReservation(Long bookId, Integer readerId);
+    boolean createReservation(Long bookId, Long readerId);
     
     /**
      * 获取读者的预约记录
      */
-    List<BookReservation> getMyReservations(Integer readerId);
+    List<BookReservation> getMyReservations(Long readerId);
     
     /**
      * 检查图书是否有有效预约

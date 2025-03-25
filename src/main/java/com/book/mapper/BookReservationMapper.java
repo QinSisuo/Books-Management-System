@@ -16,7 +16,7 @@ public interface BookReservationMapper {
             "LEFT JOIN books b ON br.book_id = b.book_id " +
             "WHERE br.reader_id = #{readerId} " +
             "ORDER BY br.reserve_time DESC")
-    List<BookReservation> findReservationsByReader(Integer readerId);
+    List<BookReservation> findReservationsByReader(Long readerId);
     
     @Select("SELECT br.*, b.name as book_name FROM book_reservation br " +
             "LEFT JOIN books b ON br.book_id = b.book_id " +

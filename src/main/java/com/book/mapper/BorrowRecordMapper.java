@@ -19,13 +19,13 @@ public interface BorrowRecordMapper {
             "LEFT JOIN books b ON br.book_id = b.book_id " +
             "WHERE br.reader_id = #{readerId} " +
             "ORDER BY br.borrow_time DESC")
-    List<BorrowRecord> findRecordsByReader(Integer readerId);
+    List<BorrowRecord> findRecordsByReader(Long readerId);
 
     // 根据id查询单条记录
     @Select("SELECT br.*, b.name as book_name FROM borrow_record br " +
             "LEFT JOIN books b ON br.book_id = b.book_id " +
             "WHERE br.id = #{id}")
-    BorrowRecord findById(Integer id);
+    BorrowRecord findById(Long id);
 
     // 更新借阅记录(用于归还、延期等)
     @Update("UPDATE borrow_record SET return_time = #{returnTime}, status = #{status}, due_time = #{dueTime} " +
