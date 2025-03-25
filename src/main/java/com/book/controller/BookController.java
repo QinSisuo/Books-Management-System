@@ -7,8 +7,6 @@ import com.book.service.BookCategoryService;
 import com.book.service.BookTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -44,7 +42,7 @@ public class BookController {
     // 1. 显示所有图书（管理员）
     @GetMapping("/admin_book_manage.html")
     public ModelAndView allBooks(@RequestParam(required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("admin_book_manage");
+        ModelAndView mav = new ModelAndView("admin/admin_book_manage");
         try {
             List<Book> books;
             if (searchWord != null && !searchWord.trim().isEmpty()) {
