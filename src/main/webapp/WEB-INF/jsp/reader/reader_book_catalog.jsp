@@ -71,8 +71,8 @@
                         <!-- 操作列: 根据可借数量显示借阅按钮 -->
                         <td>
                             <!-- 详情按钮 -->
-                            <form action="reader_book_detail.html" method="get" style="display:inline;">
-                                <input type="hidden" name="bookId" value="${bk.bookId}" />
+                            <form action="reader/book/detail" method="get" style="display:inline;">
+                                <input type="hidden" name="id" value="${bk.bookId}" />
                                 <button type="submit" class="btn btn-info btn-sm">
                                     <i class="fas fa-info-circle"></i> 详情
                                 </button>
