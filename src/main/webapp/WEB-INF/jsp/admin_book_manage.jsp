@@ -211,7 +211,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form id="editBookForm">
+          <form id="editBookForm" method="post" action="/admin/book/edit">
             <div class="modal-body">
                 <div class="form-group">
                   <label for="bookId">图书ID</label>
@@ -308,36 +308,6 @@
             // 显示模态框
             $('#editBookModal').modal('show');
         }
-        //
-        // // AJAX 表单提交优化
-        // $('#editBookForm').on('submit', function(e) {
-        //     e.preventDefault();
-        //     showLoading();
-        //
-        //     $.ajax({
-        //         type: 'POST',
-        //         url: '/admin/book/edit',
-        //         data: $(this).serialize(),
-        //         success: function(response) {
-        //             hideLoading();
-        //             Swal.fire({
-        //                 title: '成功',
-        //                 text: '图书信息更新成功！',
-        //                 icon: 'success'
-        //             }).then(() => {
-        //                 location.reload();
-        //             });
-        //         },
-        //         error: function(xhr) {
-        //             hideLoading();
-        //             Swal.fire({
-        //                 title: '错误',
-        //                 text: xhr.responseText || '更新失败，请重试！',
-        //                 icon: 'error'
-        //             });
-        //         }
-        //     });
-        // });
 
         // Loading 状态控制
         function showLoading() {
