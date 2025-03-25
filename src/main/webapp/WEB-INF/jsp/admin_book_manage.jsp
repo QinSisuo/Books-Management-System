@@ -262,8 +262,9 @@
                   <input type="text" class="form-control" id="bookId" name="bookId" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="bookTitle">书名</label>
+                  <label for="bookTitle">书名 <span class="text-danger">*</span></label>
                   <input type="text" class="form-control" id="bookTitle" name="name" required>
+                  <div class="error-message"></div>
                 </div>
                 <div class="form-group">
                   <label for="bookAuthor">作者</label>
@@ -303,8 +304,10 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="bookPressmark">图书标记</label>
-                  <input type="text" class="form-control" id="bookPressmark" name="pressmark">
+                  <label for="bookPressmark">书架号 <span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" id="bookPressmark" name="pressmark" required min="1">
+                  <small class="form-text text-muted">请输入大于0的整数</small>
+                  <div class="error-message"></div>
                 </div>
                 <div class="form-group">
                   <label for="bookState">状态</label>
