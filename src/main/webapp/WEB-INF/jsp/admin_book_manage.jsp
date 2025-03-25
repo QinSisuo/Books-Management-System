@@ -545,27 +545,43 @@
 
         $(document).ready(function() {
             // 初始化 Select2
-            $('.select2').select2({
+            $('#tags').select2({
+                dropdownParent: $('#addBookModal'),
                 placeholder: '请选择标签',
                 allowClear: true,
+                width: '100%',
                 language: {
                     noResults: function() {
                         return "没有找到匹配的标签";
                     },
                     searching: function() {
                         return "搜索中...";
-                    },
-                    inputTooLong: function() {
-                        return "输入内容过长";
                     }
                 }
             });
 
             // 在模态框打开时重新初始化 Select2
             $('#addBookModal').on('shown.bs.modal', function () {
-                $('.select2').select2({
-                    dropdownParent: $('#addBookModal')
+                $('#tags').select2('destroy'); // 先销毁之前的实例
+                $('#tags').select2({
+                    dropdownParent: $('#addBookModal'),
+                    placeholder: '请选择标签',
+                    allowClear: true,
+                    width: '100%',
+                    language: {
+                        noResults: function() {
+                            return "没有找到匹配的标签";
+                        },
+                        searching: function() {
+                            return "搜索中...";
+                        }
+                    }
                 });
+            });
+
+            // 在模态框关闭时销毁 Select2 实例
+            $('#addBookModal').on('hidden.bs.modal', function () {
+                $('#tags').select2('destroy');
             });
         });
     </script>
