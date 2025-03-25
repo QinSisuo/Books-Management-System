@@ -58,7 +58,7 @@
                 <span class="sr-only">加载中...</span>
             </div>
         </div>
-        
+
         <div id="messageContainer" style="position: fixed; top: 10%; right: 5%; z-index: 1000;">
             <c:if test="${!empty succ}">
                 <div class="alert alert-success alert-dismissable fade show">
@@ -86,7 +86,6 @@
                                 <th style="width: 15%">出版社</th>
                                 <th style="width: 15%">ISBN</th>
                                 <th style="width: 10%">价格</th>
-<%--                                <th style="width: 10%">借还</th>--%>
                                 <th style="width: 15%">操作</th>
                             </tr>
                             </thead>
@@ -98,14 +97,6 @@
                                 <td title="${book.publish}"><c:out value="${book.publish}"></c:out></td>
                                 <td title="${book.isbn}"><c:out value="${book.isbn}"></c:out></td>
                                 <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
-<%--                                <td>--%>
-<%--                                    <c:if test="${book.state==1}">--%>
-<%--                                        <a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-primary btn-xs">借阅</a>--%>
-<%--                                    </c:if>--%>
-<%--                                    <c:if test="${book.state==0}">--%>
-<%--                                        <a href="returnbook.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-warning btn-xs">归还</a>--%>
-<%--                                    </c:if>--%>
-<%--                                </td>--%>
                                 <td>
                                     <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
                                     <button type="button" class="btn btn-info btn-xs"
