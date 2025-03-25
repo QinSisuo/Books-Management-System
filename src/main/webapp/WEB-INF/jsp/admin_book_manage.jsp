@@ -313,6 +313,14 @@
                     <option value="0">不可借阅</option>
                   </select>
                 </div>
+                <div class="form-group">
+                    <label for="edit_tags">标签</label>
+                    <select class="form-control" name="tagIds" id="edit_tags" multiple>
+                        <c:forEach items="${tags}" var="tag">
+                            <option value="${tag.id}">${tag.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -562,6 +570,41 @@
                     placeholder: '请选择标签',
                     allowClear: true,
                     language: 'zh-CN'
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            // 初始化标签选择
+            $('#edit_tags').select2({
+                theme: 'bootstrap',
+                language: 'zh-CN',
+                dropdownParent: $('#editBookModal .modal-content')
+            });
+
+            // 编辑图书
+            $('.editBook').click(function() {
+                var bookId = $(this).data('id');
+                $.get('/admin/book/' + bookId, function(book) {
+                    $('#edit_bookId').val(book.bookId);
+                    $('#edit_name').val(book.name);
+                    $('#edit_author').val(book.author);
+                    $('#edit_publish').val(book.publish);
+                    $('#edit_isbn').val(book.isbn);
+                    $('#edit_introduction').val(book.introduction);
+                    $('#edit_language').val(book.language);
+                    $('#edit_price').val(book.price);
+                    $('#edit_pubdate').val(book.pubdate);
+                    $('#edit_categoryId').val(book.categoryId);
+                    $('#edit_pressmark').val(book.pressmark);
+                    $('#edit_state').val(book.state);
+                    
+                    // 获取图书的标签
+                    $.get('/admin/book/tags/' + bookId, function(tagIds) {
+                        $('#edit_tags').val(tagIds).trigger('change');
+                    });
+                    
+                    $('#editBookModal').modal('show');
                 });
             });
         });

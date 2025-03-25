@@ -75,10 +75,16 @@ public class BookController {
 
     // 3. 修改图书
     @PostMapping("/admin/book/edit")
-    public String editBook(Book book, RedirectAttributes redirectAttributes) {
+    public String editBook(Book book, @RequestParam(required = false) List<Long> tagIds, RedirectAttributes redirectAttributes) {
         try {
             boolean result = bookService.editBook(book);
-            redirectAttributes.addFlashAttribute("succ", result ? "图书编辑成功！" : "图书编辑失败！");
+            if (result) {
+                // 更新标签
+                bookService.updateBookTags(book.getBookId(), tagIds);
+                redirectAttributes.addFlashAttribute("succ", "图书编辑成功！");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "图书编辑失败！");
+            }
             return "redirect:/admin_book_manage.html";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "编辑过程中发生错误：" + e.getMessage());
@@ -285,6 +291,18 @@ public class BookController {
             e.printStackTrace();
             return "<tr><td colspan='11' class='text-center text-danger'>获取图书列表失败：" + e.getMessage() + "</td></tr>";
         }
+    }
+
+    @GetMapping("/admin/book/tags/{bookId}")
+    @ResponseBody
+    public List<Long> getBookTags(@PathVariable Long bookId) {
+        return bookService.getBookTagIds(bookId);
+    }
+
+    @GetMapping("/admin/book/{bookId}")
+    @ResponseBody
+    public Book getBook(@PathVariable Long bookId) {
+        return bookService.getBook(bookId);
     }
 
 }

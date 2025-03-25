@@ -18,4 +18,6 @@ public interface BookService {
     boolean addBookStock(long bookId, int count);
     boolean reduceBookStock(long bookId, int count);
     boolean addBookTags(Long bookId, List<Long> tagIds);
+    List<Long> getBookTagIds(Long bookId);
+    boolean updateBookTags(Long bookId, List<Long> tagIds);
 }

@@ -86,4 +86,10 @@ public interface BookMapper {
             "</foreach>" +
             "</script>")
     int addBookTags(@Param("bookId") Long bookId, @Param("tagIds") List<Long> tagIds);
+
+    @Select("SELECT tag_id FROM book_tag_relation WHERE book_id = #{bookId}")
+    List<Long> getBookTagIds(@Param("bookId") Long bookId);
+
+    @Delete("DELETE FROM book_tag_relation WHERE book_id = #{bookId}")
+    int deleteBookTags(@Param("bookId") Long bookId);
 }

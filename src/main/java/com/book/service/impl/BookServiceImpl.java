@@ -128,4 +128,21 @@ public class BookServiceImpl implements BookService {
         }
         return bookMapper.addBookTags(bookId, tagIds) > 0;
     }
+
+    @Override
+    public List<Long> getBookTagIds(Long bookId) {
+        return bookMapper.getBookTagIds(bookId);
+    }
+
+    @Override
+    @Transactional
+    public boolean updateBookTags(Long bookId, List<Long> tagIds) {
+        // 先删除原有的标签关联
+        bookMapper.deleteBookTags(bookId);
+        // 如果有新的标签，则添加新的关联
+        if (tagIds != null && !tagIds.isEmpty()) {
+            return bookMapper.addBookTags(bookId, tagIds) > 0;
+        }
+        return true;
+    }
 } 
