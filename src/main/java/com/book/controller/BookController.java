@@ -202,7 +202,7 @@ public class BookController {
     @GetMapping("/reader_book_catalog.html")
     public ModelAndView readerQueryBookPage(
             @RequestParam(value = "searchWord", required = false) String searchWord) {
-        ModelAndView mav = new ModelAndView("reader_book_catalog");
+        ModelAndView mav = new ModelAndView("reader/reader_book_catalog");
         try {
             List<Book> books;
             if (searchWord != null && !searchWord.trim().isEmpty()) {
