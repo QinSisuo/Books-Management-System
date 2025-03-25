@@ -41,6 +41,7 @@ public interface BookMapper {
     // 添加新图书
     @Insert("INSERT INTO books (name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state) " +
             "VALUES (#{name}, #{author}, #{publish}, #{isbn}, #{introduction}, #{language}, #{price}, #{pubdate}, #{categoryId}, #{pressmark}, #{state})")
+    @Options(useGeneratedKeys = true, keyProperty = "bookId")
     int addBook(Book book);
 
     // 更新图书信息
