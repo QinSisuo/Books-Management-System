@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-theme@0.1.0-beta.10/dist/select2-bootstrap.min.css" rel="stylesheet" />
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
@@ -546,42 +547,22 @@
         $(document).ready(function() {
             // 初始化 Select2
             $('#tags').select2({
-                dropdownParent: $('#addBookModal'),
+                theme: 'bootstrap',
+                dropdownParent: $('#addBookModal .modal-content'),
                 placeholder: '请选择标签',
                 allowClear: true,
-                width: '100%',
-                language: {
-                    noResults: function() {
-                        return "没有找到匹配的标签";
-                    },
-                    searching: function() {
-                        return "搜索中...";
-                    }
-                }
+                language: 'zh-CN'
             });
 
-            // 在模态框打开时重新初始化 Select2
+            // 在模态框打开时重新计算 Select2 的宽度
             $('#addBookModal').on('shown.bs.modal', function () {
-                $('#tags').select2('destroy'); // 先销毁之前的实例
-                $('#tags').select2({
-                    dropdownParent: $('#addBookModal'),
+                $('#tags').select2('destroy').select2({
+                    theme: 'bootstrap',
+                    dropdownParent: $('#addBookModal .modal-content'),
                     placeholder: '请选择标签',
                     allowClear: true,
-                    width: '100%',
-                    language: {
-                        noResults: function() {
-                            return "没有找到匹配的标签";
-                        },
-                        searching: function() {
-                            return "搜索中...";
-                        }
-                    }
+                    language: 'zh-CN'
                 });
-            });
-
-            // 在模态框关闭时销毁 Select2 实例
-            $('#addBookModal').on('hidden.bs.modal', function () {
-                $('#tags').select2('destroy');
             });
         });
     </script>

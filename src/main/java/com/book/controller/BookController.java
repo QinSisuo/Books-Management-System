@@ -57,6 +57,7 @@ public class BookController {
             mav.addObject("books", books);
             mav.addObject("searchWord", searchWord);
             mav.addObject("categories", categoryService.getAllCategories());
+            mav.addObject("tags", bookTagService.queryBookTags(null)); // 添加标签数据
         } catch (Exception e) {
             e.printStackTrace();
             mav.addObject("error", "获取数据失败：" + e.getMessage());
