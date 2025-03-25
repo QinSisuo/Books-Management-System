@@ -70,6 +70,14 @@
 
                         <!-- 操作列: 根据可借数量显示借阅按钮 -->
                         <td>
+                            <!-- 详情按钮 -->
+                            <form action="reader_book_detail.html" method="get" style="display:inline;">
+                                <input type="hidden" name="bookId" value="${bk.bookId}" />
+                                <button type="submit" class="btn btn-info btn-sm">
+                                    <i class="fas fa-info-circle"></i> 详情
+                                </button>
+                            </form>
+                            &nbsp;
                             <c:choose>
                                 <c:when test="${(bk.totalCount == null ? 0 : bk.totalCount) - (bk.lentCount == null ? 0 : bk.lentCount) > 0}">
                                     <!-- 有可借数量 => 显示绿色借阅按钮 -->
