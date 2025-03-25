@@ -19,4 +19,11 @@ public interface BookService {
     boolean addBookTags(Long bookId, List<Long> tagIds);
     List<Long> getBookTagIds(Long bookId);
     boolean updateBookTags(Long bookId, List<Long> tagIds);
+    
+    /**
+     * 根据标签ID查询图书列表
+     * @param tagId 标签ID
+     * @return 图书列表
+     */
+    List<Book> getBooksByTagId(Long tagId);
 }

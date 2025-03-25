@@ -140,4 +140,9 @@ public class BookServiceImpl implements BookService {
         }
         return true;
     }
+
+    @Override
+    public List<Book> getBooksByTagId(Long tagId) {
+        return bookMapper.getBooksByTagId(tagId);
+    }
 } 

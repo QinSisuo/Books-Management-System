@@ -35,6 +35,24 @@
             </form>
         </div>
 
+        <!-- 热门标签区域 -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">热门标签</h3>
+            </div>
+            <div class="panel-body">
+                <div class="tag-cloud" style="padding: 10px;">
+                    <c:forEach items="${hotTags}" var="tag">
+                        <a href="reader_book_catalog.html?tagId=${tag.id}" 
+                           class="btn btn-info btn-sm" 
+                           style="margin: 5px; font-size: ${12 + tag.hotScore/2}px;">
+                            ${tag.name} <span class="badge badge-light">${tag.hotScore}</span>
+                        </a>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+
         <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">

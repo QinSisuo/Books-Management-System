@@ -201,20 +201,31 @@ public class BookController {
     // 7. 读者图书目录页面
     @GetMapping("/reader_book_catalog.html")
     public ModelAndView readerQueryBookPage(
-            @RequestParam(value = "searchWord", required = false) String searchWord) {
+            @RequestParam(value = "searchWord", required = false) String searchWord,
+            @RequestParam(value = "tagId", required = false) Long tagId) {
         ModelAndView mav = new ModelAndView("reader/reader_book_catalog");
         try {
             List<Book> books;
-            if (searchWord != null && !searchWord.trim().isEmpty()) {
+            if (tagId != null) {
+                // 按标签查询图书
+                books = bookService.getBooksByTagId(tagId);
+            } else if (searchWord != null && !searchWord.trim().isEmpty()) {
                 books = bookService.queryBook(searchWord);
-                if (books.isEmpty()) {
-                    mav.addObject("error", "没有匹配的图书");
-                }
             } else {
                 books = bookService.getAllBooks();
             }
+            
+            if (books.isEmpty()) {
+                mav.addObject("info", "没有找到相关图书");
+            }
+            
+            // 获取热门标签（显示前10个）
+            List<BookTag> hotTags = bookTagService.getHotTags(10);
+            
             mav.addObject("books", books);
             mav.addObject("searchWord", searchWord);
+            mav.addObject("hotTags", hotTags);
+            mav.addObject("selectedTagId", tagId);
         } catch (Exception e) {
             e.printStackTrace();
             mav.addObject("error", "获取数据失败：" + e.getMessage());

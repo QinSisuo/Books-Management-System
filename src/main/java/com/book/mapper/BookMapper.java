@@ -86,6 +86,11 @@ public interface BookMapper {
     @Select("SELECT tag_id FROM book_tag_relation WHERE book_id = #{bookId}")
     List<Long> getBookTagIds(@Param("bookId") Long bookId);
 
+    @Select("SELECT b.* FROM books b " +
+            "INNER JOIN book_tag_relation r ON b.book_id = r.book_id " +
+            "WHERE r.tag_id = #{tagId}")
+    List<Book> getBooksByTagId(@Param("tagId") Long tagId);
+
     @Delete("DELETE FROM book_tag_relation WHERE book_id = #{bookId}")
     int deleteBookTags(@Param("bookId") Long bookId);
 }
