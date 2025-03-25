@@ -162,12 +162,16 @@
             success: function(response) {
                 if(response.success) {
                     Swal.fire({
-                        title: '成功',
-                        text: '入库成功！',
-                        icon: 'success'
-                    }).then(function() {
-                        window.location.href = 'admin_book_inventory.html';
+                        title: '入库成功！',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
                     });
+
+                    setTimeout(function () {
+                        window.location.href = 'admin_book_inventory.html';
+                    }, 2000);
+
                 } else {
                     Swal.fire({
                         title: '错误',
@@ -196,12 +200,16 @@
             success: function(response) {
                 if(response.success) {
                     Swal.fire({
-                        title: '成功',
-                        text: '出库成功！',
-                        icon: 'success'
-                    }).then(function() {
-                        window.location.href = 'admin_book_inventory.html';
+                        title: '出库成功！',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
                     });
+
+                    setTimeout(function () {
+                        window.location.href = 'admin_book_inventory.html';
+                    }, 2000);
+
                 } else {
                     Swal.fire({
                         title: '错误',
