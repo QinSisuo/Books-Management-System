@@ -3,6 +3,7 @@ package com.book.controller;
 import com.book.domain.Book;
 import com.book.service.BookService;
 import com.book.service.BookCategoryService;
+import com.book.service.BookTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,13 @@ public class BookController {
 
     private final BookService bookService;
     private final BookCategoryService categoryService;
+    private final BookTagService bookTagService;
 
     @Autowired
-    public BookController(BookService bookService, BookCategoryService categoryService) {
+    public BookController(BookService bookService, BookCategoryService categoryService, BookTagService bookTagService) {
         this.bookService = bookService;
         this.categoryService = categoryService;
+        this.bookTagService = bookTagService;
     }
 
 
@@ -85,7 +88,10 @@ public class BookController {
     // 4. 添加图书页面
     @RequestMapping("/admin_book_add.html")
     public ModelAndView addBookPage() {
-        return new ModelAndView("admin_book_add");
+        ModelAndView mav = new ModelAndView("admin_book_add");
+        mav.addObject("categories", categoryService.getAllCategories());
+        mav.addObject("tags", bookTagService.queryBookTags(null)); // 获取所有标签
+        return mav;
     }
 
     @InitBinder
@@ -98,8 +104,7 @@ public class BookController {
 
     // 5. 处理添加图书
     @PostMapping("/admin_book_add.html")
-    public String addBook(@ModelAttribute Book book, HttpServletRequest request, Model model) {
-
+    public String addBook(@ModelAttribute Book book, @RequestParam(required = false) List<Long> tagIds, HttpServletRequest request, Model model) {
         try {
             System.out.println("========== 开始处理新增图书请求 ==========");
             System.out.println("请求方法: " + request.getMethod());
@@ -121,6 +126,7 @@ public class BookController {
             System.out.println("分类ID: " + book.getCategoryId());
             System.out.println("索书号: " + book.getPressmark());
             System.out.println("状态: " + book.getState());
+            System.out.println("标签IDs: " + tagIds);
             
             // 参数验证
             if (book.getName() == null || book.getName().trim().isEmpty()) {
@@ -157,6 +163,10 @@ public class BookController {
             System.out.println("保存图书结果: " + success);
 
             if (success) {
+                // 如果添加成功且有标签，则添加标签关联
+                if (tagIds != null && !tagIds.isEmpty()) {
+                    bookService.addBookTags(book.getBookId(), tagIds);
+                }
                 System.out.println("图书添加成功，准备重定向");
                 model.addAttribute("succ", "图书添加成功");
                 return "redirect:/admin_book_manage.html";

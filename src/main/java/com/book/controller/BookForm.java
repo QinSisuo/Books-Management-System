@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 图书表单数据处理类
@@ -54,6 +55,8 @@ public class BookForm {
     @Min(value = 0, message = "状态值不正确")
     @Max(value = 1, message = "状态值不正确")
     private int state;
+
+    private List<Long> tagIds;
 
     @Override
     public String toString() {

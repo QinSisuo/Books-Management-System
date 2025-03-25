@@ -4,6 +4,7 @@ import com.book.domain.Book;
 import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface BookMapper {
 
@@ -76,4 +77,12 @@ public interface BookMapper {
      */
     @Update("UPDATE books SET lent_count = #{lentCount} WHERE book_id = #{bookId}")
     int updateLentCount(@Param("bookId") long bookId, @Param("lentCount") int lentCount);
+
+    @Insert("<script>" +
+            "INSERT INTO book_tag_relation(book_id, tag_id) VALUES " +
+            "<foreach collection='tagIds' item='tagId' separator=','>" +
+            "(#{bookId}, #{tagId})" +
+            "</foreach>" +
+            "</script>")
+    int addBookTags(@Param("bookId") Long bookId, @Param("tagIds") List<Long> tagIds);
 }

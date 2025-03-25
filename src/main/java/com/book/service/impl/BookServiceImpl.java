@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -117,5 +118,14 @@ public class BookServiceImpl implements BookService {
             throw new IllegalArgumentException("可用库存不足");
         }
         return bookMapper.updateBookStock(bookId, count, false) > 0;
+    }
+
+    @Override
+    @Transactional
+    public boolean addBookTags(Long bookId, List<Long> tagIds) {
+        if (bookId == null || tagIds == null || tagIds.isEmpty()) {
+            return false;
+        }
+        return bookMapper.addBookTags(bookId, tagIds) > 0;
     }
 } 

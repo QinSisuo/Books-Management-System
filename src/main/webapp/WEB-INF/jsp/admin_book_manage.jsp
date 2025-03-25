@@ -193,6 +193,15 @@
                                 <option value="0">借出</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="tags">标签</label>
+                            <select class="form-control" name="tagIds" id="tags" multiple>
+                                <c:forEach items="${tags}" var="tag">
+                                    <option value="${tag.id}">${tag.name}</option>
+                                </c:forEach>
+                            </select>
+                            <small class="form-text text-muted">按住 Ctrl 键可以选择多个标签</small>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>

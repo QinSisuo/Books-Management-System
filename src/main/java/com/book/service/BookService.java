@@ -2,6 +2,7 @@ package com.book.service;
 
 import com.book.domain.Book;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface BookService {
     ArrayList<Book> queryBook(String searchWord);
@@ -16,4 +17,5 @@ public interface BookService {
     boolean borrowBook(long bookId);
     boolean addBookStock(long bookId, int count);
     boolean reduceBookStock(long bookId, int count);
+    boolean addBookTags(Long bookId, List<Long> tagIds);
 }
