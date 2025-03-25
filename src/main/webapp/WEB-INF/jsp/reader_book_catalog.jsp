@@ -82,7 +82,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <!-- 无可借数量 => 显示预约按钮 -->
-                                    <form action="reader/reserve_book" method="post" style="display:inline;">
+                                    <form action="reader_book_reserve.html" method="post" style="display:inline;">
                                         <input type="hidden" name="bookId" value="${bk.bookId}" />
                                         <button type="submit" class="btn btn-warning btn-sm">
                                             <i class="fas fa-clock"></i> 预约

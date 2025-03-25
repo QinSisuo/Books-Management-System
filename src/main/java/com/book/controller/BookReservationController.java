@@ -13,13 +13,12 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/reader")
 public class BookReservationController {
 
     @Autowired
     private BookReservationService reservationService;
 
-    @PostMapping("/reserve_book")
+    @PostMapping("/reader_book_reserve.html")
     public String reserveBook(@RequestParam("bookId") Long bookId,
                             HttpSession session,
                             RedirectAttributes redirectAttributes) {
@@ -39,7 +38,7 @@ public class BookReservationController {
         return "redirect:/reader_book_catalog.html";
     }
 
-    @GetMapping("/my_reservations")
+    @GetMapping("/reader_my_reservations.html")
     public ModelAndView myReservations(HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
         if (currentUser == null) {
