@@ -154,7 +154,7 @@
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%; z-index: 999;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <!-- 创建一个新的父容器来包裹所有内容，设置为 flex 布局并在底端对齐 -->
         <div class="navbar-content">

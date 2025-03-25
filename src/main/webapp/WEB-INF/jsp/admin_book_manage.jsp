@@ -23,13 +23,6 @@
     <!-- 统一面板 -->
     <div class="container">
 
-        <!-- Loading 指示器 -->
-        <div class="loading">
-            <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">加载中...</span>
-            </div>
-        </div>
-
         <!-- 统一搜索框 -->
         <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
             <form action="/admin_book_manage.html" method="get" class="form-inline">
@@ -58,6 +51,14 @@
             </div>
         </div>
 
+
+        <!-- Loading 指示器 -->
+        <div class="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">加载中...</span>
+            </div>
+        </div>
+        
         <div id="messageContainer" style="position: fixed; top: 10%; right: 5%; z-index: 1000;">
             <c:if test="${!empty succ}">
                 <div class="alert alert-success alert-dismissable fade show">
