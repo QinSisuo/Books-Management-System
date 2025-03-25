@@ -118,7 +118,7 @@ public class BookController {
             System.out.println("ISBN: " + book.getIsbn());
             System.out.println("价格: " + book.getPrice());
             System.out.println("出版日期: " + book.getPubdate());
-            System.out.println("分类ID: " + book.getClassId());
+            System.out.println("分类ID: " + book.getCategoryId());
             System.out.println("索书号: " + book.getPressmark());
             System.out.println("状态: " + book.getState());
             
@@ -140,14 +140,14 @@ public class BookController {
             }
             
             // 检查分类是否存在
-            if (book.getClassId() <= 0) {
+            if (book.getCategoryId() <= 0) {
                 System.out.println("验证失败：未选择分类");
                 model.addAttribute("error", "请选择图书分类");
                 return "redirect:/admin_book_manage.html";
             }
             
-            if (categoryService.getCategoryById(book.getClassId()) == null) {
-                System.out.println("验证失败：分类不存在，分类ID=" + book.getClassId());
+            if (categoryService.getCategoryById(book.getCategoryId()) == null) {
+                System.out.println("验证失败：分类不存在，分类ID=" + book.getCategoryId());
                 model.addAttribute("error", "所选分类不存在");
                 return "redirect:/admin_book_manage.html";
             }
@@ -258,7 +258,7 @@ public class BookController {
                 html.append("<td>").append(book.getIsbn()).append("</td>");
                 html.append("<td>").append(book.getPrice()).append("</td>");
                 html.append("<td>").append(book.getPubdate()).append("</td>");
-                html.append("<td>").append(book.getClassId()).append("</td>");
+                html.append("<td>").append(book.getCategoryId()).append("</td>");
                 html.append("<td>").append(book.getPressmark()).append("</td>");
                 html.append("<td>").append(book.getState() == 0 ? "可借" : "已借出").append("</td>");
                 html.append("<td>");

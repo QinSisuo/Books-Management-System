@@ -90,7 +90,7 @@
                 </tr>
                 <tr>
                     <th>分类号</th>
-                    <td>${detail.classId}</td>
+                    <td>${detail.categoryId}</td>
                 </tr>
                 <tr>
                     <th>书架号</th>

@@ -39,13 +39,13 @@ public interface BookMapper {
 
     // 添加新图书
     @Insert("INSERT INTO books (name, author, publish, isbn, introduction, language, price, pubdate, category_id, pressmark, state) " +
-            "VALUES (#{name}, #{author}, #{publish}, #{isbn}, #{introduction}, #{language}, #{price}, #{pubdate}, #{classId}, #{pressmark}, #{state})")
+            "VALUES (#{name}, #{author}, #{publish}, #{isbn}, #{introduction}, #{language}, #{price}, #{pubdate}, #{categoryId}, #{pressmark}, #{state})")
     int addBook(Book book);
 
     // 更新图书信息
     @Update("UPDATE books SET name = #{name}, author = #{author}, publish = #{publish}, isbn = #{isbn}, " +
             "introduction = #{introduction}, language = #{language}, price = #{price}, pubdate = #{pubdate}, " +
-            "category_id = #{classId}, pressmark = #{pressmark}, state = #{state} WHERE book_id = #{bookId}")
+            "category_id = #{categoryId}, pressmark = #{pressmark}, state = #{state} WHERE book_id = #{bookId}")
     int editBook(Book book);
 
 

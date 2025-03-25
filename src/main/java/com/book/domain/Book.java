@@ -19,7 +19,7 @@ public class Book implements Serializable{
     private String language;
     private BigDecimal price;
     private Date pubdate;
-    private Integer classId;
+    private Integer categoryId;
     private Integer pressmark;
     private Integer state;
     private Integer totalCount = 0;

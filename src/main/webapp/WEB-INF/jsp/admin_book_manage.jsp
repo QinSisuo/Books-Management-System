@@ -85,6 +85,7 @@
                                 <th style="width: 15%">作者</th>
                                 <th style="width: 15%">出版社</th>
                                 <th style="width: 15%">ISBN</th>
+                                <th style="width: 10%">语言</th>
                                 <th style="width: 10%">价格</th>
                                 <th style="width: 15%">操作</th>
                             </tr>
@@ -96,11 +97,12 @@
                                 <td title="${book.author}"><c:out value="${book.author}"></c:out></td>
                                 <td title="${book.publish}"><c:out value="${book.publish}"></c:out></td>
                                 <td title="${book.isbn}"><c:out value="${book.isbn}"></c:out></td>
+                                <td title="${book.language}"><c:out value="${book.language}"></c:out></td>
                                 <td title="${book.price}">￥<c:out value="${book.price}"></c:out></td>
                                 <td>
                                     <a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>" class="btn btn-success btn-xs">详情</a>
                                     <button type="button" class="btn btn-info btn-xs"
-                                            onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.classId}', '${book.pressmark}', '${book.state}')">
+                                            onclick="openEditModal('${book.bookId}', '${book.name}', '${book.author}', '${book.price}', '${book.publish}', '${book.isbn}', '${book.introduction}', '${book.language}', '${book.pubdate}', '${book.categoryId}', '${book.pressmark}', '${book.state}')">
                                         编辑
                                     </button>
                                     <a href="/admin/book/delete.html?bookId=<c:out value="${book.bookId}"></c:out>"
@@ -169,8 +171,8 @@
                             <div class="error-message"></div>
                         </div>
                         <div class="form-group">
-                            <label for="classId">分类 <span class="text-danger">*</span></label>
-                            <select class="form-control" name="classId" id="classId" required>
+                            <label for="categoryId">分类 <span class="text-danger">*</span></label>
+                            <select class="form-control" name="categoryId" id="categoryId" required>
                                 <option value="">请选择分类</option>
                                 <c:forEach items="${categories}" var="category">
                                     <option value="${category.categoryId}">${category.categoryName}</option>
@@ -250,8 +252,8 @@
                   <input type="date" class="form-control" id="bookPubdate" name="pubdate">
                 </div>
                 <div class="form-group">
-                  <label for="bookClassId">分类</label>
-                  <select class="form-control" id="bookClassId" name="classId" required>
+                  <label for="bookCategoryId">分类</label>
+                  <select class="form-control" id="bookCategoryId" name="categoryId" required>
                     <option value="">请选择分类</option>
                     <c:forEach items="${categories}" var="category">
                         <option value="${category.categoryId}">${category.categoryName}</option>
@@ -292,7 +294,7 @@
 
 
         // 编辑图书功能
-        function openEditModal(bookId, bookName, bookAuthor, bookPrice, bookPublish, bookIsbn, bookIntroduction, bookLanguage, bookPubdate, bookClassId, bookPressmark, bookState) {
+        function openEditModal(bookId, bookName, bookAuthor, bookPrice, bookPublish, bookIsbn, bookIntroduction, bookLanguage, bookPubdate, bookCategoryId, bookPressmark, bookState) {
             // 清空之前的数据
             $('#editBookForm')[0].reset();
 
@@ -314,7 +316,7 @@
             $('#bookIntroduction').val(bookIntroduction || '');
             $('#bookLanguage').val(bookLanguage || '');
             $('#bookPubdate').val(formattedDate);
-            $('#bookClassId').val(bookClassId);
+            $('#bookCategoryId').val(bookCategoryId);
             $('#bookPressmark').val(bookPressmark || '');
             $('#bookState').val(bookState || '1');
 
@@ -376,7 +378,7 @@
                     isbn: $('#isbn').val(),
                     price: $('#price').val(),
                     pubdate: $('#pubdate').val(),
-                    classId: $('#classId').val(),
+                    categoryId: $('#categoryId').val(),
                     pressmark: $('#pressmark').val(),
                     state: $('#state').val()
                 });
@@ -477,7 +479,7 @@
 
         // 在页面加载完成后检查分类数据
         $(document).ready(function() {
-            var categorySelect = $('#classId');
+            var categorySelect = $('#categoryId');
             if (categorySelect.find('option').length <= 1) {
                 console.warn("分类数据未加载");
                 // 可以选择重新加载分类数据或显示提示
