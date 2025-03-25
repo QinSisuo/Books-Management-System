@@ -1,6 +1,7 @@
 package com.book.controller;
 
 import com.book.domain.Book;
+import com.book.domain.BookTag;
 import com.book.service.BookService;
 import com.book.service.BookCategoryService;
 import com.book.service.BookTagService;
@@ -191,9 +192,18 @@ public class BookController {
     }
 
     // 7. 管理员查看书籍详情
-    @RequestMapping("/bookdetail.html")
-    public ModelAndView adminBookDetail(@RequestParam long bookId) {
-        return new ModelAndView("admin/admin_book_detail").addObject("detail", bookService.getBook(bookId));
+    @RequestMapping("/admin/book/detail")
+    public String adminBookDetail(@RequestParam("id") Long id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        // 获取图书的标签
+        List<Long> tagIds = bookService.getBookTagIds(id);
+        List<BookTag> tags = new ArrayList<>();
+        if (tagIds != null && !tagIds.isEmpty()) {
+            tags = bookTagService.queryBookTagByIds(tagIds);
+        }
+        model.addAttribute("tags", tags);
+        return "admin_book_detail";
     }
 
     /**
@@ -219,9 +229,18 @@ public class BookController {
     /**
      * 读者查看书籍详情
      */
-    @RequestMapping("/reader_book_detail.html")
-    public ModelAndView readerBookDetail(@RequestParam long bookId) {
-        return new ModelAndView("reader_book_detail").addObject("detail", bookService.getBook(bookId));
+    @RequestMapping("/reader/book/detail")
+    public String readerBookDetail(@RequestParam("id") Long id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        // 获取图书的标签
+        List<Long> tagIds = bookService.getBookTagIds(id);
+        List<BookTag> tags = new ArrayList<>();
+        if (tagIds != null && !tagIds.isEmpty()) {
+            tags = bookTagService.queryBookTagByIds(tagIds);
+        }
+        model.addAttribute("tags", tags);
+        return "reader_book_detail";
     }
 
 //    // 读者查看所有图书

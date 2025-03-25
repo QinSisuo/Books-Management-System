@@ -35,4 +35,17 @@ public interface BookTagMapper {
 
     @Select("SELECT * FROM book_tag WHERE status = '0' ORDER BY hot_score DESC LIMIT #{limit}")
     List<BookTag> getHotTags(@Param("limit") int limit);
+
+    /**
+     * 根据ID列表查询标签
+     * @param ids 标签ID列表
+     * @return 标签列表
+     */
+    @Select("<script>" +
+            "SELECT * FROM book_tag WHERE id IN " +
+            "<foreach collection='ids' item='id' open='(' separator=',' close=')'>" +
+            "#{id}" +
+            "</foreach>" +
+            "</script>")
+    List<BookTag> queryBookTagByIds(List<Long> ids);
 } 

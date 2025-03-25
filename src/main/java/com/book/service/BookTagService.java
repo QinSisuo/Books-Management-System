@@ -10,4 +10,10 @@ public interface BookTagService {
     boolean deleteBookTag(Long id);
     BookTag getBookTagById(Long id);
     List<BookTag> getHotTags(int limit);
+    /**
+     * 根据ID列表查询标签
+     * @param ids 标签ID列表
+     * @return 标签列表
+     */
+    List<BookTag> queryBookTagByIds(List<Long> ids);
 } 

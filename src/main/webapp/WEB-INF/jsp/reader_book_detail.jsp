@@ -10,6 +10,21 @@
         body{
             background-color: rgb(240,242,245);
         }
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .tag {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +120,24 @@
                         <td>借出</td>
                     </c:if>
 
+                </tr>
+                <tr>
+                    <th>图书分类：</th>
+                    <td>${book.categoryName}</td>
+                </tr>
+                <tr>
+                    <th>图书标签：</th>
+                    <td>
+                        <div class="tag-group">
+                            <c:forEach items="${tags}" var="tag">
+                                <span class="tag">${tag.name}</span>
+                            </c:forEach>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>图书简介：</th>
+                    <td>${book.description}</td>
                 </tr>
                 </tbody>
             </table>
