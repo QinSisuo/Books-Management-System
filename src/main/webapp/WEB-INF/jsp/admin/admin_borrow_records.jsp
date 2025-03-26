@@ -65,13 +65,13 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- 搜索面板 -->
         <div class="search-panel">
             <form id="searchForm" class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
-                    <label for="readerId" class="mr-2">读者ID</label>
-                    <input type="number" class="form-control" id="readerId" name="readerId" placeholder="请输入读者ID">
+                    <label for="readerId" class="mr-2">用户ID</label>
+                    <input type="number" class="form-control" id="readerId" name="readerId" placeholder="请输入用户ID">
                 </div>
                 <button type="button" class="btn btn-primary mb-2" onclick="searchRecords()">
                     <i class="fas fa-search"></i> 搜索
@@ -84,8 +84,9 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>记录ID</th>
-                        <th>读者</th>
+                        <th>借阅ID</th>
+                        <th>用户ID</th>
+                        <th>用户名</th>
                         <th>图书名称</th>
                         <th>借阅时间</th>
                         <th>到期时间</th>
@@ -96,7 +97,8 @@
                 <tbody id="recordsTableBody">
                     <c:forEach var="record" items="${records}">
                         <tr>
-                            <td>${record.id}</td>
+                            <td>${record.borrowId}</td>
+                            <td>${record.readerId}</td>
                             <td>${record.readerName}</td>
                             <td>${record.bookName}</td>
                             <td><fmt:formatDate value="${record.borrowTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -110,17 +112,15 @@
                                 </c:choose>
                             </td>
                             <td>
-                                <c:choose>
-                                    <c:when test="${record.status == 0}">
-                                        <span class="status-badge status-borrowing">借出中</span>
-                                    </c:when>
-                                    <c:when test="${record.status == 1}">
-                                        <span class="status-badge status-returned">已归还</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="status-badge status-overdue">其他</span>
-                                    </c:otherwise>
-                                </c:choose>
+                                <span class="status-badge ${record.status == 0 ? 'status-borrowing' : record.status == 1 ? 'status-returned' : 'status-overdue'}">
+                                    <c:choose>
+                                        <c:when test="${record.status == 0}">借出中</c:when>
+                                        <c:when test="${record.status == 1}">已归还</c:when>
+                                        <c:when test="${record.status == 2}">已续借</c:when>
+                                        <c:when test="${record.status == 3}">已逾期</c:when>
+                                        <c:otherwise>未知</c:otherwise>
+                                    </c:choose>
+                                </span>
                             </td>
                         </tr>
                     </c:forEach>
@@ -136,7 +136,7 @@
                 Swal.fire({
                     icon: 'warning',
                     title: '提示',
-                    text: '请输入读者ID'
+                    text: '请输入用户ID'
                 });
                 return;
             }
@@ -145,18 +145,22 @@
                 readerId: parseInt(readerId)
             };
 
+            console.log('发送查询请求:', formData);
+
             $.ajax({
                 url: '/admin_borrow_records_search',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
+                    console.log('查询结果:', response);
                     updateTable(response);
                 },
-                error: function(xhr) {
+                error: function(xhr, status, error) {
+                    console.error('查询错误:', error);
                     Swal.fire({
                         icon: 'error',
-                        title: '搜索失败',
+                        title: '查询失败',
                         text: '请稍后重试'
                     });
                 }
@@ -168,16 +172,17 @@
             tbody.empty();
 
             if (!records || records.length === 0) {
-                tbody.append('<tr><td colspan="7" class="text-center">未找到相关记录</td></tr>');
+                tbody.append('<tr><td colspan="8" class="text-center">未找到相关记录</td></tr>');
                 return;
             }
 
             records.forEach(record => {
                 const row = `
                     <tr>
-                        <td>${record.id}</td>
-                        <td>${record.readerName}</td>
-                        <td>${record.bookName}</td>
+                        <td>${record.borrowId || ''}</td>
+                        <td>${record.readerId || ''}</td>
+                        <td>${record.readerName || ''}</td>
+                        <td>${record.bookName || ''}</td>
                         <td>${formatDate(record.borrowTime)}</td>
                         <td>${formatDate(record.dueTime)}</td>
                         <td>${record.returnTime ? formatDate(record.returnTime) : '未归还'}</td>
@@ -217,7 +222,9 @@
             switch (status) {
                 case 0: return '借出中';
                 case 1: return '已归还';
-                default: return '其他';
+                case 2: return '已续借';
+                case 3: return '已逾期';
+                default: return '未知';
             }
         }
     </script>

@@ -60,10 +60,6 @@ public interface BorrowRecordMapper {
             "LEFT JOIN users u ON br.reader_id = u.user_id " +
             "WHERE 1=1 " +
             "<if test='readerId != null'> AND br.reader_id = #{readerId}</if>" +
-            "<if test='bookId != null'> AND br.book_id = #{bookId}</if>" +
-            "<if test='status != null'> AND br.status = #{status}</if>" +
-            "<if test='startTime != null'> AND br.borrow_time >= #{startTime}</if>" +
-            "<if test='endTime != null'> AND br.borrow_time &lt;= #{endTime}</if>" +
             "ORDER BY br.borrow_time DESC" +
             "</script>")
     List<BorrowRecord> findRecordsByCondition(BorrowRecord record);
