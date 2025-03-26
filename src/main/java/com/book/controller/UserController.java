@@ -34,6 +34,52 @@ public class UserController {
         return "index"; // 登录页面对应的 JSP 文件
     }
 
+    // 显示注册页面
+    @RequestMapping("/register.html")
+    public String showRegisterPage() {
+        logger.info("访问注册页面");
+        return "register";
+    }
+
+    // 处理注册请求
+    @PostMapping("/api/register")
+    @ResponseBody
+    public Map<String, Object> register(@RequestParam("username") String username,
+                                      @RequestParam("password") String password,
+                                      @RequestParam(value = "email", required = false) String email,
+                                      @RequestParam(value = "phone", required = false) String phone) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // 检查用户名是否已存在
+            if (userService.getUserByUsername(username) != null) {
+                response.put("success", false);
+                response.put("message", "用户名已存在！");
+                return response;
+            }
+
+            // 创建新用户
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setPassword(password);
+            newUser.setEmail(email);
+            newUser.setPhone(phone);
+            newUser.setRole("reader"); // 默认注册为读者角色
+
+            boolean success = userService.addUser(newUser);
+            
+            response.put("success", success);
+            response.put("message", success ? "注册成功" : "注册失败");
+            
+            return response;
+        } catch (Exception e) {
+            logger.error("注册失败", e);
+            response.put("success", false);
+            response.put("message", "注册失败：" + e.getMessage());
+            return response;
+        }
+    }
+
     // 登录校验
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody Map<String, String> loginCheck(HttpServletRequest request) {

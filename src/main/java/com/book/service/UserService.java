@@ -21,6 +21,11 @@ public class UserService {
     @Autowired
     private LogService logService;
 
+    // 根据用户名获取用户
+    public User getUserByUsername(String username) {
+        return userMapper.getUserByUsername(username);
+    }
+
     // 登录验证
     public User login(String username, String password) {
         User user = userMapper.getUserByUsername(username);

@@ -42,6 +42,9 @@
     </div>
     <p id="info"></p>
     <button id="loginButton" class="btn btn-primary btn-block">登录</button>
+    <div class="text-center mt-3">
+        <p>还没有账号？ <a href="/register.html" class="btn btn-link">立即注册</a></p>
+    </div>
 </div>
 
 <script>
