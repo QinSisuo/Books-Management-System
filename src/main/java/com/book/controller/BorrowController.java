@@ -133,16 +133,9 @@ public class BorrowController {
                 return Collections.emptyList();
             }
 
-            // 处理日期字符串
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            if (record.getBorrowTime() != null) {
-                record.setBorrowTime(dateFormat.parse(dateFormat.format(record.getBorrowTime())));
-            }
-            if (record.getDueTime() != null) {
-                record.setDueTime(dateFormat.parse(dateFormat.format(record.getDueTime())));
-            }
-            if (record.getReturnTime() != null) {
-                record.setReturnTime(dateFormat.parse(dateFormat.format(record.getReturnTime())));
+            // 只根据读者ID查询
+            if (record.getReaderId() == null) {
+                return Collections.emptyList();
             }
 
             return borrowService.getBorrowRecordsByCondition(record);
