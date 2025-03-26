@@ -9,79 +9,117 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .main-container {
+            padding: 20px 0;
+        }
         .profile-container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
         }
         .profile-header {
             text-align: center;
             margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
         .profile-avatar {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             margin-bottom: 15px;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .form-group {
             margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: #495057;
+        }
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
         }
         .btn-save {
             width: 100%;
             padding: 10px;
             font-size: 16px;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-save:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+        .page-title {
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile-container">
-            <div class="profile-header">
-                <img src="https://via.placeholder.com/150" alt="用户头像" class="profile-avatar">
-                <h3>个人信息管理</h3>
+    <!-- 引入导航栏 -->
+    <jsp:include page="../common/reader_navbar.jsp"/>
+    
+    <div class="container main-container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <img src="https://via.placeholder.com/100" alt="用户头像" class="profile-avatar">
+                        <h4 class="page-title">个人信息管理</h4>
+                    </div>
+                    
+                    <form id="profileForm" action="/reader/profile/update" method="post">
+                        <input type="hidden" name="userId" value="${user.userId}">
+                        
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" id="username" name="username" value="${user.username}" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" class="form-control" id="email" name="email" value="${user.email}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">电话</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="${user.phone}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">地址</label>
+                            <input type="text" class="form-control" id="address" name="address" value="${user.address}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newPassword">新密码（留空则不修改）</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">确认新密码</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-save">
+                            <i class="fas fa-save"></i> 保存修改
+                        </button>
+                    </form>
+                </div>
             </div>
-            
-            <form id="profileForm" action="/reader/profile/update" method="post">
-                <input type="hidden" name="userId" value="${user.userId}">
-                
-                <div class="form-group">
-                    <label for="username">用户名</label>
-                    <input type="text" class="form-control" id="username" name="username" value="${user.username}" readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">邮箱</label>
-                    <input type="email" class="form-control" id="email" name="email" value="${user.email}">
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">电话</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" value="${user.phone}">
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">地址</label>
-                    <input type="text" class="form-control" id="address" name="address" value="${user.address}">
-                </div>
-                
-                <div class="form-group">
-                    <label for="newPassword">新密码（留空则不修改）</label>
-                    <input type="password" class="form-control" id="newPassword" name="newPassword">
-                </div>
-                
-                <div class="form-group">
-                    <label for="confirmPassword">确认新密码</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
-                </div>
-                
-                <button type="submit" class="btn btn-primary btn-save">
-                    <i class="fas fa-save"></i> 保存修改
-                </button>
-            </form>
         </div>
     </div>
 

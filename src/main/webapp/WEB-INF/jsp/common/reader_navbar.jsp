@@ -179,7 +179,7 @@
                             我的
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href=".html">个人信息</a></li>
+                            <li><a href="/reader/profile">个人信息</a></li>
                             <li><a href="reader_repasswd.html">修改密码</a></li>
                         </ul>
                     </li>
