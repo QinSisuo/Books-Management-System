@@ -315,8 +315,14 @@ $(document).ready(function() {
                     alert(response.message);
                 }
             },
-            error: function() {
-                alert('提交失败，请稍后重试');
+            error: function(xhr, status, error) {
+                console.error('提交评论失败:', status, error);
+                console.error('响应:', xhr.responseText);
+                Swal.fire({
+                    icon: 'error',
+                    title: '提交失败',
+                    text: '请稍后重试'
+                });
             }
         });
     });
