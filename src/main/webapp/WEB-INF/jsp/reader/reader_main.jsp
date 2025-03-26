@@ -1,16 +1,37 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>读者主页</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <!-- 引入外部 CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
     <style>
-        body {
-            background-color: rgb(240,242,245);
+        .hot-books {
+            margin-bottom: 30px;
+        }
+        .hot-book-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .hot-book-item:hover {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .book-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .book-borrow-count {
+            color: #666;
+            font-size: 0.9em;
         }
         .rank-list {
             margin-bottom: 30px;
@@ -95,7 +116,9 @@
 
         <!-- 热门图书推荐 -->
         <div class="hot-books">
-            <h3>热门推荐</h3>
+            <div>
+                <h3>热门推荐</h3>
+            </div>
             <div class="row" id="hotBooks">
                 <!-- 热门图书将通过Ajax加载 -->
             </div>
