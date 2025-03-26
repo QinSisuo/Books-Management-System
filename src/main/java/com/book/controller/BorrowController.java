@@ -135,15 +135,22 @@ public class BorrowController {
             }
 
             // 只根据用户ID查询
-            if (record.getReaderId() == null) {
-                System.out.println("用户ID为空");
+            if (record == null || record.getReaderId() == null) {
+                System.out.println("查询条件为空或用户ID为空");
                 return Collections.emptyList();
             }
 
+            System.out.println("接收到查询请求：" + record);
             System.out.println("开始查询用户ID: " + record.getReaderId());
+            
             List<BorrowRecord> results = borrowService.getBorrowRecordsByCondition(record);
+            
             System.out.println("查询结果数量: " + (results != null ? results.size() : 0));
-            return results;
+            if (results != null && !results.isEmpty()) {
+                System.out.println("第一条记录: " + results.get(0));
+            }
+            
+            return results != null ? results : Collections.emptyList();
         } catch (Exception e) {
             System.out.println("查询发生异常: " + e.getMessage());
             e.printStackTrace();

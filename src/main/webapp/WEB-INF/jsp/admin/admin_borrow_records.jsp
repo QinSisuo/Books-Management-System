@@ -142,7 +142,7 @@
             }
 
             const formData = {
-                readerId: parseInt(readerId)
+                    readerId: parseInt(readerId, 10)
             };
 
             console.log('发送查询请求:', formData);
@@ -154,7 +154,11 @@
                 data: JSON.stringify(formData),
                 success: function(response) {
                     console.log('查询结果:', response);
-                    updateTable(response);
+                    if (response && response.length > 0) {
+                        updateTable(response);
+                    } else {
+                        $('#recordsTableBody').html('<tr><td colspan="8" class="text-center">未找到相关记录</td></tr>');
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error('查询错误:', error);
@@ -172,11 +176,6 @@
         function updateTable(records) {
             const tbody = $('#recordsTableBody');
             tbody.empty();
-
-            if (!records || records.length === 0) {
-                tbody.append('<tr><td colspan="8" class="text-center">未找到相关记录</td></tr>');
-                return;
-            }
 
             records.forEach(record => {
                 const row = `
@@ -213,15 +212,17 @@
         }
 
         function getStatusClass(status) {
-            switch (status) {
+            switch(status) {
                 case 0: return 'status-borrowing';
                 case 1: return 'status-returned';
-                default: return 'status-overdue';
+                case 2: return 'status-borrowing';
+                case 3: return 'status-overdue';
+                default: return '';
             }
         }
 
         function getStatusText(status) {
-            switch (status) {
+            switch(status) {
                 case 0: return '借出中';
                 case 1: return '已归还';
                 case 2: return '已续借';
