@@ -108,7 +108,7 @@ public class UserController {
             return new ModelAndView("redirect:/login.html");
         }
         logger.info("读者页面访问成功 - 用户名: {}", user.getUsername()); // 日志记录
-        return new ModelAndView("reader_main").addObject("user", user);
+        return new ModelAndView("reader/reader_main").addObject("user", user);
     }
 
 

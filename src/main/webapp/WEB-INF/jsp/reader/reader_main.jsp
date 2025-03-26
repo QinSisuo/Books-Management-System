@@ -11,9 +11,9 @@
 </head>
 
 <body>
-    <%@ include file="common/header.jsp" %>
-    <%@ include file="common/reader_navbar.jsp" %>
-    <%@ include file="common/footer.jsp" %>
+    <%@ include file="../common/header.jsp" %>
+    <%@ include file="../common/reader_navbar.jsp" %>
+    <%@ include file="../common/footer.jsp" %>
 
     <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
