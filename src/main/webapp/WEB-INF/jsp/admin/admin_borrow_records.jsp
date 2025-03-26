@@ -97,7 +97,7 @@
                 <tbody id="recordsTableBody">
                     <c:forEach var="record" items="${records}">
                         <tr>
-                            <td>${record.borrowId}</td>
+                            <td>${record.id}</td>
                             <td>${record.readerId}</td>
                             <td>${record.readerName}</td>
                             <td>${record.bookName}</td>
@@ -148,7 +148,7 @@
             console.log('发送查询请求:', formData);
 
             $.ajax({
-                url: '/admin_borrow_records_search',
+                url: 'admin_borrow_records_search',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
@@ -158,6 +158,8 @@
                 },
                 error: function(xhr, status, error) {
                     console.error('查询错误:', error);
+                    console.error('状态码:', xhr.status);
+                    console.error('响应文本:', xhr.responseText);
                     Swal.fire({
                         icon: 'error',
                         title: '查询失败',
@@ -179,7 +181,7 @@
             records.forEach(record => {
                 const row = `
                     <tr>
-                        <td>${record.borrowId || ''}</td>
+                        <td>${record.id || ''}</td>
                         <td>${record.readerId || ''}</td>
                         <td>${record.readerName || ''}</td>
                         <td>${record.bookName || ''}</td>
