@@ -12,9 +12,6 @@
         body {
             background-color: rgb(240,242,245);
         }
-        .rank-container {
-            margin-top: 20px;
-        }
         .rank-list {
             margin-bottom: 30px;
             background: #fff;
@@ -104,25 +101,27 @@
             </div>
         </div>
 
-        <div class="container rank-container">
-            <!-- 借阅排行榜 -->
-            <div class="rank-list">
-                <div class="rank-list-header">
-                    <h3>借阅排行榜</h3>
-                </div>
-                <div id="borrowRankList"></div>
+        <!-- 借阅排行榜 -->
+        <div class="rank-list" style="margin-top: 20px;">
+            <div class="rank-list-header">
+                <h3>借阅排行榜</h3>
             </div>
-
-            <!-- 评分排行榜 -->
-            <div class="rank-list">
-                <div class="rank-list-header">
-                    <h3>评分排行榜</h3>
-                </div>
-                <div id="ratingRankList"></div>
+            <div id="borrowRankList">
+                <!-- 借阅排行榜将通过Ajax加载 -->
             </div>
         </div>
 
-    </div>>
+        <!-- 评分排行榜 -->
+        <div class="rank-list">
+            <div class="rank-list-header">
+                <h3>评分排行榜</h3>
+            </div>
+            <div id="ratingRankList">
+                <!-- 评分排行榜将通过Ajax加载 -->
+            </div>
+        </div>
+    </div>
+
 
     <script>
         $(document).ready(function() {
