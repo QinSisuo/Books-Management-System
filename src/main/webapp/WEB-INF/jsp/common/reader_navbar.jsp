@@ -189,7 +189,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href=".html">图书推荐</a></li>
-                            <li><a href=".html">排行榜</a></li>
+                            <li><a href="rank">排行榜</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
