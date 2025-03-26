@@ -130,16 +130,22 @@ public class BorrowController {
         try {
             User currentUser = (User) session.getAttribute("user");
             if (currentUser == null || !currentUser.isAdmin()) {
+                System.out.println("用户未登录或不是管理员");
                 return Collections.emptyList();
             }
 
             // 只根据用户ID查询
             if (record.getReaderId() == null) {
+                System.out.println("用户ID为空");
                 return Collections.emptyList();
             }
 
-            return borrowService.getBorrowRecordsByCondition(record);
+            System.out.println("开始查询用户ID: " + record.getReaderId());
+            List<BorrowRecord> results = borrowService.getBorrowRecordsByCondition(record);
+            System.out.println("查询结果数量: " + (results != null ? results.size() : 0));
+            return results;
         } catch (Exception e) {
+            System.out.println("查询发生异常: " + e.getMessage());
             e.printStackTrace();
             return Collections.emptyList();
         }
