@@ -178,22 +178,20 @@
             tbody.empty();
 
             records.forEach(record => {
-                const row = `
-                    <tr>
-                        <td>${record.id || ''}</td>
-                        <td>${record.readerId || ''}</td>
-                        <td>${record.readerName || ''}</td>
-                        <td>${record.bookName || ''}</td>
-                        <td>${formatDate(record.borrowTime)}</td>
-                        <td>${formatDate(record.dueTime)}</td>
-                        <td>${record.returnTime ? formatDate(record.returnTime) : '未归还'}</td>
-                        <td>
-                            <span class="status-badge ${getStatusClass(record.status)}">
-                                ${getStatusText(record.status)}
-                            </span>
-                        </td>
-                    </tr>
-                `;
+            const row = '<tr>' +
+                '<td>' + (record.id || '') + '</td>' +
+                '<td>' + (record.readerId || '') + '</td>' +
+                '<td>' + (record.readerName || '') + '</td>' +
+                '<td>' + (record.bookName || '') + '</td>' +
+                '<td>' + formatDate(record.borrowTime) + '</td>' +
+                '<td>' + formatDate(record.dueTime) + '</td>' +
+                '<td>' + (record.returnTime ? formatDate(record.returnTime) : '未归还') + '</td>' +
+                '<td>' +
+                    '<span class="status-badge ' + getStatusClass(record.status) + '">' +
+                        getStatusText(record.status) +
+                    '</span>' +
+                '</td>' +
+            '</tr>';
                 tbody.append(row);
             });
         }

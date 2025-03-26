@@ -219,7 +219,7 @@
             <div class="user-section">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <span class="nav-link welcome-text">reader：${user.username}</span>
+                        <span class="nav-link welcome-text">ID: ${user.id}&nbsp;&nbsp;&nbsp;&nbsp;reader用户名: ${user.username}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-danger btn-sm ml-2" href="logout">退出</a>

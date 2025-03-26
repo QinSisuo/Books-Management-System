@@ -191,7 +191,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="admin_borrow_records.html">借阅记录查询</a></li>
-                            <li><a href="lendlist.html">借还日志</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -222,7 +221,7 @@
             <div class="user-section">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <span class="nav-link welcome-text">admin：${user.username}</span>
+                        <span class="nav-link welcome-text">ID: ${user.id}&nbsp;&nbsp;&nbsp;&nbsp;admin用户名: ${user.username}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-outline-danger btn-sm ml-2" href="logout">退出</a>
