@@ -39,4 +39,32 @@ public interface BorrowRecordMapper {
             "LEFT JOIN books b ON br.book_id = b.book_id " +
             "WHERE br.status = 0 AND br.due_time < NOW()")
     List<BorrowRecord> findOverdueRecords();
+
+    /**
+     * 查询所有借阅记录(按借书时间倒序)
+     */
+    @Select("SELECT br.*, b.name as book_name, u.username as reader_name " +
+            "FROM borrow_record br " +
+            "LEFT JOIN books b ON br.book_id = b.book_id " +
+            "LEFT JOIN users u ON br.reader_id = u.user_id " +
+            "ORDER BY br.borrow_time DESC")
+    List<BorrowRecord> findAllRecords();
+
+    /**
+     * 根据条件查询借阅记录
+     */
+    @Select("<script>" +
+            "SELECT br.*, b.name as book_name, u.username as reader_name " +
+            "FROM borrow_record br " +
+            "LEFT JOIN books b ON br.book_id = b.book_id " +
+            "LEFT JOIN users u ON br.reader_id = u.user_id " +
+            "WHERE 1=1 " +
+            "<if test='readerId != null'> AND br.reader_id = #{readerId}</if>" +
+            "<if test='bookId != null'> AND br.book_id = #{bookId}</if>" +
+            "<if test='status != null'> AND br.status = #{status}</if>" +
+            "<if test='startTime != null'> AND br.borrow_time >= #{startTime}</if>" +
+            "<if test='endTime != null'> AND br.borrow_time &lt;= #{endTime}</if>" +
+            "ORDER BY br.borrow_time DESC" +
+            "</script>")
+    List<BorrowRecord> findRecordsByCondition(BorrowRecord record);
 }

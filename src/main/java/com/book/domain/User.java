@@ -89,4 +89,11 @@ public class User {
     public Long getId() {
         return userId;
     }
+
+    /**
+     * 判断用户是否为管理员
+     */
+    public boolean isAdmin() {
+        return "admin".equalsIgnoreCase(role);
+    }
 }

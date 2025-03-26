@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -98,5 +99,35 @@ public class BorrowController {
         boolean success = borrowService.extendBook(borrowId, extraDays);
         redirectAttributes.addFlashAttribute("message", success ? "续借成功！" : "续借失败！");
         return "redirect:/reader_my_borrow.html";
+    }
+
+    /**
+     * 管理员查看所有借阅记录
+     */
+    @GetMapping("/admin_borrow_records.html")
+    public ModelAndView adminBorrowRecords(HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        if (currentUser == null || !currentUser.isAdmin()) {
+            return new ModelAndView("redirect:/login.html");
+        }
+
+        List<BorrowRecord> records = borrowService.getAllBorrowRecords();
+        return new ModelAndView("admin/admin_borrow_records")
+                .addObject("records", records);
+    }
+
+    /**
+     * 管理员按条件查询借阅记录
+     */
+    @PostMapping("/admin_borrow_records_search")
+    @ResponseBody
+    public List<BorrowRecord> adminBorrowRecordsSearch(@RequestBody BorrowRecord record,
+                                                     HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        if (currentUser == null || !currentUser.isAdmin()) {
+            return Collections.emptyList();
+        }
+
+        return borrowService.getBorrowRecordsByCondition(record);
     }
 }

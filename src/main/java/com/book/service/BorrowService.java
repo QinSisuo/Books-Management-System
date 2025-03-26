@@ -131,4 +131,18 @@ public class BorrowService {
         // 3. 更新记录
         return borrowRecordMapper.updateBorrowRecord(record) > 0;
     }
+
+    /**
+     * 获取所有借阅记录
+     */
+    public List<BorrowRecord> getAllBorrowRecords() {
+        return borrowRecordMapper.findAllRecords();
+    }
+
+    /**
+     * 根据条件查询借阅记录
+     */
+    public List<BorrowRecord> getBorrowRecordsByCondition(BorrowRecord record) {
+        return borrowRecordMapper.findRecordsByCondition(record);
+    }
 }

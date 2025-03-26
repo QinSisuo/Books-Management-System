@@ -190,6 +190,7 @@
                             借阅管理
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a href="admin_borrow_records.html">借阅记录查询</a></li>
                             <li><a href="lendlist.html">借还日志</a></li>
                         </ul>
                     </li>
