@@ -194,7 +194,7 @@
         <div class="card mb-4" id="reviewForm">
             <div class="card-body">
                 <h5 class="card-title">发表评价</h5>
-                <form id="addReviewForm">
+                <form id="addReviewForm" method="post" onsubmit="return false;">
                     <div class="form-group">
                         <label>评分</label>
                         <div class="rating">
@@ -251,7 +251,7 @@
 <!-- 添加JavaScript代码 -->
 <script>
 $(document).ready(function() {
-    const bookId = ${book.bookId};
+    const bookId = '${book.bookId}';
     
     // 加载评分统计
     function loadRatingStats() {
@@ -266,6 +266,11 @@ $(document).ready(function() {
         $.get('${pageContext.request.contextPath}/review/list/' + bookId, function(reviews) {
             const reviewList = $('#reviewList');
             reviewList.empty();
+            
+            if (!reviews || reviews.length === 0) {
+                reviewList.append('<div class="text-center text-muted">暂无评论</div>');
+                return;
+            }
             
             reviews.forEach(function(review) {
                 const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
@@ -285,14 +290,17 @@ $(document).ready(function() {
     }
     
     // 提交评论
-    $('#addReviewForm').submit(function(e) {
+    $('#addReviewForm').on('submit', function(e) {
         e.preventDefault();
         
         const rating = $('input[name="rating"]:checked').val();
         const content = $('textarea[name="content"]').val();
         
         if (!rating) {
-            alert('请选择评分');
+            Swal.fire({
+                icon: 'warning',
+                title: '请选择评分'
+            });
             return;
         }
         
@@ -301,18 +309,27 @@ $(document).ready(function() {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                bookId: bookId,
+                bookId: parseInt(bookId),
                 rating: parseInt(rating),
                 content: content
             }),
             success: function(response) {
                 if (response.success) {
-                    alert(response.message);
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     $('textarea[name="content"]').val('');
+                    $('input[name="rating"]').prop('checked', false);
                     loadRatingStats();
                     loadReviews();
                 } else {
-                    alert(response.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: response.message
+                    });
                 }
             },
             error: function(xhr, status, error) {
