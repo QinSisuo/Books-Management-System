@@ -35,7 +35,7 @@ public class BookController {
 
 
     /**
-     * ========== 管理员相关 ==========
+     * ========== admin相关 ==========
      * 以下是示例方法，你可以根据需要自行增删。
      */
 
@@ -100,6 +100,7 @@ public class BookController {
         return mav;
     }
 
+    //这个问题是和李茂林一起改的
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -170,7 +171,7 @@ public class BookController {
         }
     }
 
-    // 6. 图书详情页面（管理员）
+    // 6. admin图书详情页面
     @RequestMapping("/admin/book/detail")
     public String adminBookDetail(@RequestParam("id") Long id, Model model) {
         try {
@@ -198,7 +199,12 @@ public class BookController {
         }
     }
 
-    // 7. 读者图书目录页面
+    /**
+     * ========== reader相关 ==========
+     * 以下是示例方法，你可以根据需要自行增删。
+     */
+
+    // 7. reader图书目录页面
     @GetMapping("/reader_book_catalog.html")
     public ModelAndView readerQueryBookPage(
             @RequestParam(value = "searchWord", required = false) String searchWord,
@@ -233,7 +239,7 @@ public class BookController {
         return mav;
     }
 
-    // 8. 图书详情页面（读者）
+    // 8. reader图书详情页面
     @RequestMapping("/reader/book/detail")
     public String readerBookDetail(@RequestParam("id") Long id, Model model) {
         try {
@@ -261,7 +267,7 @@ public class BookController {
         }
     }
 
-    // 9. 借阅图书
+    // 9. reader借阅图书
     @PostMapping("/reader_book_borrow")
     public String borrowBook(@RequestParam("bookId") Long bookId,
                              RedirectAttributes redirectAttributes) {
