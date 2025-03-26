@@ -72,7 +72,6 @@
 <!-- 公共头部区域 -->
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/reader_navbar.jsp" %>
-<%@ include file="../common/footer.jsp" %>
 <!-- 统一面板 -->
 <div class="container">
 <!-- 主体内容 -->
