@@ -133,7 +133,7 @@ public class BorrowController {
                 return Collections.emptyList();
             }
 
-            // 只根据读者ID查询
+            // 只根据用户ID查询
             if (record.getReaderId() == null) {
                 return Collections.emptyList();
             }
