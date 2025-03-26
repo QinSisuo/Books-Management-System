@@ -12,6 +12,28 @@
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+    <style>
+        .hot-books {
+            margin-bottom: 30px;
+        }
+        .hot-book-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .hot-book-item:hover {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .book-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .book-borrow-count {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,6 +72,14 @@
                         </a>
                     </c:forEach>
                 </div>
+            </div>
+        </div>
+
+        <!-- 热门图书推荐 -->
+        <div class="hot-books">
+            <h3>热门推荐</h3>
+            <div class="row" id="hotBooks">
+                <!-- 热门图书将通过Ajax加载 -->
             </div>
         </div>
 
@@ -144,6 +174,32 @@
             });
         </script>
     </c:if>
+
+    <script>
+    $(document).ready(function() {
+        // 加载热门图书
+        $.get('${pageContext.request.contextPath}/recommend/hot', function(books) {
+            const hotBooksContainer = $('#hotBooks');
+            books.forEach(function(book) {
+                const stars = '★'.repeat(Math.round(book.avgRating || 0)) + 
+                             '☆'.repeat(5 - Math.round(book.avgRating || 0));
+                const bookHtml = `
+                    <div class="col-md-3">
+                        <div class="hot-book-item">
+                            <h4><a href="${pageContext.request.contextPath}/reader/book/detail?id=${'${book.bookId}'}">${'${book.name}'}</a></h4>
+                            <div class="book-rating">${'${stars}'}</div>
+                            <div class="book-info">
+                                <div>作者: ${'${book.author}'}</div>
+                                <div class="book-borrow-count">借阅次数: ${'${book.borrowCount || 0}'}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                hotBooksContainer.append(bookHtml);
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>
