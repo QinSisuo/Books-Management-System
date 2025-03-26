@@ -153,15 +153,15 @@
     <script>
         function searchRecords() {
             const formData = {
-                readerId: $('#readerId').val(),
-                bookId: $('#bookId').val(),
-                status: $('#status').val(),
-                startTime: $('#startTime').val(),
-                endTime: $('#endTime').val()
+                readerId: $('#readerId').val() || null,
+                bookId: $('#bookId').val() || null,
+                status: $('#status').val() || null,
+                startTime: $('#startTime').val() || null,
+                endTime: $('#endTime').val() || null
             };
 
             $.ajax({
-                url: '/admin_borrow_records_search',
+                url: '${pageContext.request.contextPath}/admin_borrow_records_search',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
