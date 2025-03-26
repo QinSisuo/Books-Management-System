@@ -5,6 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <title>《${book.name}》</title>
+
+    <base href="${pageContext.request.contextPath}/">
+
+    <!-- Bootstrap 样式 -->
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+
+    <!-- jQuery 和 Bootstrap JS -->
+    <script src="static/js/jquery-3.2.1.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+    <!-- 其他全局用到的 JS（可选） -->
+    <script src="static/js/js.cookie.js"></script>
+
     <!-- 引入外部 CSS 和 JS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
@@ -102,77 +115,75 @@
                 <i class="fas fa-book-open"></i> 图书详情：《${book.name}》
             </h3>
         </div>
-        <div class="panel-body">
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th><i class="fas fa-book"></i> 书名</th>
-                    <td>${book.name}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-user-edit"></i> 作者</th>
-                    <td>${book.author}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-building"></i> 出版社</th>
-                    <td>${book.publish}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-barcode"></i> ISBN</th>
-                    <td>${book.isbn}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-align-left"></i> 简介</th>
-                    <td style="line-height: 1.6;">${book.introduction}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-language"></i> 语言</th>
-                    <td>${book.language}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-yen-sign"></i> 价格</th>
-                    <td>${book.price}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-calendar-alt"></i> 出版日期</th>
-                    <td>${book.pubdate}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-th-large"></i> 分类号</th>
-                    <td>${book.categoryId}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-layer-group"></i> 书架号</th>
-                    <td>${book.pressmark}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-info-circle"></i> 状态</th>
-                    <td>
-                        <c:if test="${book.state == 1}">
-                            <span class="label label-success">在馆</span>
-                        </c:if>
-                        <c:if test="${book.state == 0}">
-                            <span class="label label-warning">借出</span>
-                        </c:if>
-                    </td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-tags"></i> 图书分类</th>
-                    <td>${categoryName}</td>
-                </tr>
-                <tr>
-                    <th><i class="fas fa-bookmark"></i> 图书标签</th>
-                    <td>
-                        <div class="tag-group">
-                            <c:forEach items="${tags}" var="tag">
-                                <span class="tag">${tag.name}</span>
-                            </c:forEach>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th><i class="fas fa-book"></i> 书名</th>
+                <td>${book.name}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-user-edit"></i> 作者</th>
+                <td>${book.author}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-building"></i> 出版社</th>
+                <td>${book.publish}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-barcode"></i> ISBN</th>
+                <td>${book.isbn}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-align-left"></i> 简介</th>
+                <td style="line-height: 1.6;">${book.introduction}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-language"></i> 语言</th>
+                <td>${book.language}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-yen-sign"></i> 价格</th>
+                <td>${book.price}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-calendar-alt"></i> 出版日期</th>
+                <td>${book.pubdate}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-th-large"></i> 分类号</th>
+                <td>${book.categoryId}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-layer-group"></i> 书架号</th>
+                <td>${book.pressmark}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-info-circle"></i> 状态</th>
+                <td>
+                    <c:if test="${book.state == 1}">
+                        <span class="label label-success">在馆</span>
+                    </c:if>
+                    <c:if test="${book.state == 0}">
+                        <span class="label label-warning">借出</span>
+                    </c:if>
+                </td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-tags"></i> 图书分类</th>
+                <td>${categoryName}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-bookmark"></i> 图书标签</th>
+                <td>
+                    <div class="tag-group">
+                        <c:forEach items="${tags}" var="tag">
+                            <span class="tag">${tag.name}</span>
+                        </c:forEach>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- 在图书详情下方添加书评和评分部分 -->
