@@ -2,8 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 <html>
-<head>
 
+<head>
 <style>
     /* 基础样式 */
     .navbar-nav .dropdown > a:before {
@@ -153,6 +153,9 @@
         }
     }
 </style>
+</head>
+
+<body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
@@ -255,5 +258,5 @@
     });
 </script>
 
-</head>
+</body>
 </html>
