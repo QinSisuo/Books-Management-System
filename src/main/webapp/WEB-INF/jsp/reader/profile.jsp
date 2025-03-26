@@ -6,6 +6,15 @@
 <head>
     <meta charset="UTF-8">
     <title>个人信息管理</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-theme@0.1.0-beta.10/dist/select2-bootstrap.min.css" rel="stylesheet" />
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -26,14 +35,6 @@
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid #eee;
-        }
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 3px solid #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .form-group {
             margin-bottom: 20px;
@@ -69,15 +70,15 @@
     </style>
 </head>
 <body>
-    <!-- 引入导航栏 -->
-    <jsp:include page="../common/reader_navbar.jsp"/>
+    <!-- 引入公共头部: 包含CSS/JS等 -->
+    <%@ include file="../common/header.jsp" %>
+    <%@ include file="../common/reader_navbar.jsp" %>
     
     <div class="container main-container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="profile-container">
                     <div class="profile-header">
-                        <img src="https://via.placeholder.com/100" alt="用户头像" class="profile-avatar">
                         <h4 class="page-title">个人信息管理</h4>
                     </div>
                     
