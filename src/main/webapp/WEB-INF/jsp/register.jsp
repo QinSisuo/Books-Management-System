@@ -45,11 +45,11 @@
         </div>
         <div class="form-group">
             <label for="email">邮箱</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱">
+            <input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱(可选)">
         </div>
         <div class="form-group">
             <label for="phone">手机号</label>
-            <input type="tel" class="form-control" id="phone" name="phone" placeholder="请输入手机号">
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="请输入手机号(可选)">
         </div>
         <p id="info"></p>
         <button type="submit" class="btn btn-primary btn-block">注册</button>
