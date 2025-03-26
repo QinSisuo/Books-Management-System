@@ -71,28 +71,7 @@
             <form id="searchForm" class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="readerId" class="mr-2">读者ID</label>
-                    <input type="number" class="form-control" id="readerId" name="readerId">
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="bookId" class="mr-2">图书ID</label>
-                    <input type="number" class="form-control" id="bookId" name="bookId">
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="status" class="mr-2">状态</label>
-                    <select class="form-control" id="status" name="status">
-                        <option value="">全部</option>
-                        <option value="0">借出中</option>
-                        <option value="1">已归还</option>
-                        <option value="2">其他</option>
-                    </select>
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="startTime" class="mr-2">开始时间</label>
-                    <input type="date" class="form-control" id="startTime" name="startTime">
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="endTime" class="mr-2">结束时间</label>
-                    <input type="date" class="form-control" id="endTime" name="endTime">
+                    <input type="number" class="form-control" id="readerId" name="readerId" placeholder="请输入读者ID">
                 </div>
                 <button type="button" class="btn btn-primary mb-2" onclick="searchRecords()">
                     <i class="fas fa-search"></i> 搜索
@@ -152,12 +131,18 @@
 
     <script>
         function searchRecords() {
+            const readerId = $('#readerId').val();
+            if (!readerId) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '提示',
+                    text: '请输入读者ID'
+                });
+                return;
+            }
+
             const formData = {
-                readerId: $('#readerId').val(),
-                bookId: $('#bookId').val(),
-                status: $('#status').val(),
-                startTime: $('#startTime').val(),
-                endTime: $('#endTime').val()
+                readerId: parseInt(readerId)
             };
 
             $.ajax({
@@ -181,6 +166,11 @@
         function updateTable(records) {
             const tbody = $('#recordsTableBody');
             tbody.empty();
+
+            if (!records || records.length === 0) {
+                tbody.append('<tr><td colspan="7" class="text-center">未找到相关记录</td></tr>');
+                return;
+            }
 
             records.forEach(record => {
                 const row = `
