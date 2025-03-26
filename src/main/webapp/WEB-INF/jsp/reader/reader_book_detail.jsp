@@ -27,6 +27,62 @@
         .table td {
             background-color: #fff;
         }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffd700;
+        }
+
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .review-user {
+            font-weight: bold;
+        }
+
+        .review-time {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .review-content {
+            color: #666;
+        }
     </style>
 
 </head>
@@ -118,8 +174,57 @@
             </table>
         </div>
     </div>
-</div>
 
+    <!-- 在图书详情下方添加书评和评分部分 -->
+    <div class="container mt-4">
+        <h3>书评与评分</h3>
+        
+        <!-- 评分统计 -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">评分统计</h5>
+                <div class="d-flex align-items-center">
+                    <div class="display-4 mr-3" id="avgRating">0.0</div>
+                    <div class="text-muted">共 <span id="totalReviews">0</span> 条评价</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 评分和评论表单 -->
+        <div class="card mb-4" id="reviewForm">
+            <div class="card-body">
+                <h5 class="card-title">发表评价</h5>
+                <form id="addReviewForm">
+                    <div class="form-group">
+                        <label>评分</label>
+                        <div class="rating">
+                            <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
+                            <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                            <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                            <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                            <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>评论内容</label>
+                        <textarea class="form-control" name="content" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">提交评价</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 评论列表 -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">全部评价</h5>
+                <div id="reviewList">
+                    <!-- 评论列表将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- SweetAlert 提示信息 -->
 <c:if test="${not empty succ}">
@@ -142,6 +247,85 @@
         });
     </script>
 </c:if>
+
+<!-- 添加JavaScript代码 -->
+<script>
+$(document).ready(function() {
+    const bookId = ${book.bookId};
+    
+    // 加载评分统计
+    function loadRatingStats() {
+        $.get('${pageContext.request.contextPath}/review/stats/' + bookId, function(data) {
+            $('#avgRating').text(data.avgRating ? data.avgRating.toFixed(1) : '0.0');
+            $('#totalReviews').text(data.totalReviews || 0);
+        });
+    }
+    
+    // 加载评论列表
+    function loadReviews() {
+        $.get('${pageContext.request.contextPath}/review/list/' + bookId, function(reviews) {
+            const reviewList = $('#reviewList');
+            reviewList.empty();
+            
+            reviews.forEach(function(review) {
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                const reviewHtml = `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="review-user">${'${review.userName}'}</span>
+                            <span class="review-time">${'${new Date(review.createTime).toLocaleString()}'}</span>
+                        </div>
+                        <div class="review-rating">${'${stars}'}</div>
+                        <div class="review-content">${'${review.content}'}</div>
+                    </div>
+                `;
+                reviewList.append(reviewHtml);
+            });
+        });
+    }
+    
+    // 提交评论
+    $('#addReviewForm').submit(function(e) {
+        e.preventDefault();
+        
+        const rating = $('input[name="rating"]:checked').val();
+        const content = $('textarea[name="content"]').val();
+        
+        if (!rating) {
+            alert('请选择评分');
+            return;
+        }
+        
+        $.ajax({
+            url: '${pageContext.request.contextPath}/review/add',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                bookId: bookId,
+                rating: parseInt(rating),
+                content: content
+            }),
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    $('textarea[name="content"]').val('');
+                    loadRatingStats();
+                    loadReviews();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() {
+                alert('提交失败，请稍后重试');
+            }
+        });
+    });
+    
+    // 初始加载
+    loadRatingStats();
+    loadReviews();
+});
+</script>
 
 </body>
 </html>
