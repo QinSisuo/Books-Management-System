@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>管理员后台</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}css/bootstrap.min.css">
+    <script src="${pageContext.request.contextPath}js/jquery-3.2.1.js"></script>
+    <script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
 
 </head>
 
