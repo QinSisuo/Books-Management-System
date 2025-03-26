@@ -13,6 +13,7 @@ public class BorrowRecord {
     private Date returnTime; // 归还时间(为空表示还没归还)
     private Integer status;  // 0=借出,1=已归还,2=其它
     private String bookName; // 图书名称
+    private String readerName; // 读者姓名
 
     // 省略 getter/setter/toString
     public Long getId() {return id;}
@@ -38,4 +39,7 @@ public class BorrowRecord {
 
     public String getBookName() {return bookName;}
     public void setBookName(String bookName) {this.bookName = bookName;}
+
+    public String getReaderName() {return readerName;}
+    public void setReaderName(String readerName) {this.readerName = readerName;}
 }
