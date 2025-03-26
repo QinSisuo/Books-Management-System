@@ -64,38 +64,6 @@
             color: #ffd700;
         }
 
-        .review-item {
-            border-bottom: 1px solid #eee;
-            padding: 15px 0;
-        }
-
-        .review-item:last-child {
-            border-bottom: none;
-        }
-
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .review-user {
-            font-weight: bold;
-        }
-
-        .review-time {
-            color: #999;
-            font-size: 0.9em;
-        }
-
-        .review-rating {
-            color: #ffd700;
-            margin-bottom: 10px;
-        }
-
-        .review-content {
-            color: #666;
-        }
     </style>
 
 </head>
