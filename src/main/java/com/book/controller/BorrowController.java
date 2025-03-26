@@ -5,13 +5,17 @@ import com.book.domain.User;
 import com.book.service.BorrowService;
 import com.book.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -123,11 +127,28 @@ public class BorrowController {
     @ResponseBody
     public List<BorrowRecord> adminBorrowRecordsSearch(@RequestBody BorrowRecord record,
                                                      HttpSession session) {
-        User currentUser = (User) session.getAttribute("user");
-        if (currentUser == null || !currentUser.isAdmin()) {
+        try {
+            User currentUser = (User) session.getAttribute("user");
+            if (currentUser == null || !currentUser.isAdmin()) {
+                return Collections.emptyList();
+            }
+
+            // 处理日期字符串
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if (record.getBorrowTime() != null) {
+                record.setBorrowTime(dateFormat.parse(dateFormat.format(record.getBorrowTime())));
+            }
+            if (record.getDueTime() != null) {
+                record.setDueTime(dateFormat.parse(dateFormat.format(record.getDueTime())));
+            }
+            if (record.getReturnTime() != null) {
+                record.setReturnTime(dateFormat.parse(dateFormat.format(record.getReturnTime())));
+            }
+
+            return borrowService.getBorrowRecordsByCondition(record);
+        } catch (Exception e) {
+            e.printStackTrace();
             return Collections.emptyList();
         }
-
-        return borrowService.getBorrowRecordsByCondition(record);
     }
 }
