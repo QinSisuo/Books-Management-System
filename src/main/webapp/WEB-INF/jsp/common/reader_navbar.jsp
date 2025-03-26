@@ -176,11 +176,10 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            我的
+                            个人信息管理
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/reader/profile">个人信息</a></li>
-                            <li><a href="reader_repasswd.html">修改密码</a></li>
+                            <li><a href="/reader/profile">个人信息管理</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
