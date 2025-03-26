@@ -182,4 +182,36 @@ public class UserService {
             throw e;
         }
     }
+
+    public boolean updateUserProfile(User user, String newPassword) {
+        try {
+            logger.info("正在更新用户个人信息 - 用户ID: {}", user.getUserId());
+            
+            // 验证用户是否存在
+            User existingUser = userMapper.getUserById(user.getUserId());
+            if (existingUser == null) {
+                logger.error("更新失败 - 用户不存在，ID: {}", user.getUserId());
+                return false;
+            }
+            
+            // 更新基本信息
+            int rows = userMapper.updateUser(user);
+            
+            // 如果提供了新密码，则更新密码
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                userMapper.updatePassword(user.getUserId(), newPassword);
+            }
+            
+            if (rows > 0) {
+                logger.info("用户个人信息更新成功 - 用户ID: {}", user.getUserId());
+                return true;
+            } else {
+                logger.error("用户个人信息更新失败 - 用户ID: {}", user.getUserId());
+                return false;
+            }
+        } catch (Exception e) {
+            logger.error("更新用户个人信息时发生错误 - 用户ID: {}, 错误: {}", user.getUserId(), e.getMessage());
+            throw e;
+        }
+    }
 }

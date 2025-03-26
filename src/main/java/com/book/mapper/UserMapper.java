@@ -57,5 +57,7 @@ public interface UserMapper {
             "OR email LIKE CONCAT('%', #{searchWord}, '%')")
     List<User> searchUsers(@Param("searchWord") String searchWord);
 
+    @Update("UPDATE users SET password = #{password}, updated_at = NOW() WHERE user_id = #{userId}")
+    int updatePassword(@Param("userId") Long userId, @Param("password") String password);
 
 }

@@ -375,4 +375,54 @@ public class UserController {
         }
         return "redirect:/admin/readers";
     }
+
+    // 显示个人信息管理页面
+    @GetMapping("/reader/profile")
+    public String showProfilePage(HttpServletRequest request, Model model) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            return "redirect:/login.html";
+        }
+        model.addAttribute("user", user);
+        return "reader/profile";
+    }
+
+    // 处理个人信息更新
+    @PostMapping("/reader/profile/update")
+    @ResponseBody
+    public Map<String, Object> updateProfile(@ModelAttribute User user,
+                                           @RequestParam(required = false) String newPassword,
+                                           HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            // 验证当前用户身份
+            User currentUser = (User) request.getSession().getAttribute("user");
+            if (currentUser == null || !currentUser.getUserId().equals(user.getUserId())) {
+                response.put("success", false);
+                response.put("message", "无权修改其他用户的信息");
+                return response;
+            }
+            
+            // 保持原有角色不变
+            user.setRole(currentUser.getRole());
+            
+            boolean success = userService.updateUserProfile(user, newPassword);
+            
+            if (success) {
+                // 更新session中的用户信息
+                request.getSession().setAttribute("user", user);
+            }
+            
+            response.put("success", success);
+            response.put("message", success ? "个人信息更新成功" : "个人信息更新失败");
+            
+        } catch (Exception e) {
+            logger.error("更新个人信息时发生错误", e);
+            response.put("success", false);
+            response.put("message", "更新失败：" + e.getMessage());
+        }
+        
+        return response;
+    }
 }
