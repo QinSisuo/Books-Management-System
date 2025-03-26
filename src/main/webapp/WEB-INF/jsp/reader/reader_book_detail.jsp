@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -114,15 +115,29 @@
             </tr>
             <tr>
                 <th><i class="fas fa-calendar-alt"></i> 出版日期</th>
-                <td>${book.pubdate}</td>
+                <td><fmt:formatDate value="${book.pubdate}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
             </tr>
             <tr>
                 <th><i class="fas fa-th-large"></i> 分类号</th>
                 <td>${book.categoryId}</td>
             </tr>
             <tr>
+                <th><i class="fas fa-tags"></i> 图书分类</th>
+                <td>${categoryName}</td>
+            </tr>
+            <tr>
                 <th><i class="fas fa-layer-group"></i> 书架号</th>
                 <td>${book.pressmark}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-bookmark"></i> 图书标签</th>
+                <td>
+                    <div class="tag-group">
+                        <c:forEach items="${tags}" var="tag">
+                            <span class="tag">${tag.name}</span>
+                        </c:forEach>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <th><i class="fas fa-info-circle"></i> 状态</th>
@@ -135,20 +150,6 @@
                     </c:if>
                 </td>
             </tr>
-            <tr>
-                <th><i class="fas fa-tags"></i> 图书分类</th>
-                <td>${categoryName}</td>
-            </tr>
-            <tr>
-                <th><i class="fas fa-bookmark"></i> 图书标签</th>
-                <td>
-                    <div class="tag-group">
-                        <c:forEach items="${tags}" var="tag">
-                            <span class="tag">${tag.name}</span>
-                        </c:forEach>
-                    </div>
-                </td>
-            </tr>
             </tbody>
         </table>
     </div>
@@ -156,7 +157,7 @@
     <!-- 在图书详情下方添加书评和评分部分 -->
     <div class="container mt-4">
         <h3>书评与评分</h3>
-        
+
         <!-- 评分统计 -->
         <div class="card mb-4">
             <div class="card-body">
@@ -167,7 +168,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- 评分和评论表单 -->
         <div class="card mb-4" id="reviewForm">
             <div class="card-body">
@@ -191,7 +192,7 @@
                 </form>
             </div>
         </div>
-        
+
         <!-- 评论列表 -->
         <div class="card">
             <div class="card-body">
@@ -230,7 +231,7 @@
 <script>
 $(document).ready(function() {
     const bookId = '${book.bookId}';
-    
+
     // 加载评分统计
     function loadRatingStats() {
         $.get('${pageContext.request.contextPath}/review/stats/' + bookId, function(data) {
@@ -238,18 +239,18 @@ $(document).ready(function() {
             $('#totalReviews').text(data.totalReviews || 0);
         });
     }
-    
+
     // 加载评论列表
     function loadReviews() {
         $.get('${pageContext.request.contextPath}/review/list/' + bookId, function(reviews) {
             const reviewList = $('#reviewList');
             reviewList.empty();
-            
+
             if (!reviews || reviews.length === 0) {
                 reviewList.append('<div class="text-center text-muted">暂无评论</div>');
                 return;
             }
-            
+
             reviews.forEach(function(review) {
                 const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
                 const reviewHtml = `
@@ -266,14 +267,14 @@ $(document).ready(function() {
             });
         });
     }
-    
+
     // 提交评论
     $('#addReviewForm').on('submit', function(e) {
         e.preventDefault();
-        
+
         const rating = $('input[name="rating"]:checked').val();
         const content = $('textarea[name="content"]').val();
-        
+
         if (!rating) {
             Swal.fire({
                 icon: 'warning',
@@ -281,7 +282,7 @@ $(document).ready(function() {
             });
             return;
         }
-        
+
         $.ajax({
             url: '${pageContext.request.contextPath}/review/add',
             type: 'POST',
@@ -321,7 +322,7 @@ $(document).ready(function() {
             }
         });
     });
-    
+
     // 初始加载
     loadRatingStats();
     loadReviews();

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -114,15 +115,29 @@
             </tr>
             <tr>
                 <th><i class="fas fa-calendar-alt"></i> 出版日期</th>
-                <td>${book.pubdate}</td>
+                <td><fmt:formatDate value="${book.pubdate}" pattern="yyyy年MM月dd日 HH:mm:ss"/></td>
             </tr>
             <tr>
                 <th><i class="fas fa-th-large"></i> 分类号</th>
                 <td>${book.categoryId}</td>
             </tr>
             <tr>
+                <th><i class="fas fa-tags"></i> 图书分类</th>
+                <td>${categoryName}</td>
+            </tr>
+            <tr>
                 <th><i class="fas fa-layer-group"></i> 书架号</th>
                 <td>${book.pressmark}</td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-bookmark"></i> 图书标签</th>
+                <td>
+                    <div class="tag-group">
+                        <c:forEach items="${tags}" var="tag">
+                            <span class="tag">${tag.name}</span>
+                        </c:forEach>
+                    </div>
+                </td>
             </tr>
             <tr>
                 <th><i class="fas fa-info-circle"></i> 状态</th>
@@ -133,20 +148,6 @@
                     <c:if test="${book.state == 0}">
                         <span class="label label-warning">借出</span>
                     </c:if>
-                </td>
-            </tr>
-            <tr>
-                <th><i class="fas fa-tags"></i> 图书分类</th>
-                <td>${categoryName}</td>
-            </tr>
-            <tr>
-                <th><i class="fas fa-bookmark"></i> 图书标签</th>
-                <td>
-                    <div class="tag-group">
-                        <c:forEach items="${tags}" var="tag">
-                            <span class="tag">${tag.name}</span>
-                        </c:forEach>
-                    </div>
                 </td>
             </tr>
             </tbody>
