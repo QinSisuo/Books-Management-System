@@ -77,7 +77,7 @@ public class UserController {
         // 将 user 对象添加到模型中
         model.addAttribute("user", user);
 
-        return "admin_main";  // 返回 JSP 页面
+        return "admin/admin_main";  // 返回 JSP 页面
     }
 
     // 注销功能
@@ -97,7 +97,7 @@ public class UserController {
             return new ModelAndView("redirect:/login.html");
         }
         logger.info("管理员页面访问成功 - 用户名: {}", user.getUsername()); // 添加日志
-        return new ModelAndView("admin_main").addObject("user", user);
+        return new ModelAndView("admin/admin_main").addObject("user", user);
     }
     //reader页面
     @RequestMapping("/reader_main.html")
