@@ -93,8 +93,10 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response.success) {
-                    alert("注册成功！");
-                    window.location.href = "/login.html";
+                    $("#info").text("注册成功！正在跳转到登录页面...");
+                    setTimeout(function() {
+                        window.location.href = "/login.html";
+                    }, 1500);
                 } else {
                     $("#info").text(response.message || "注册失败，请重试");
                 }
