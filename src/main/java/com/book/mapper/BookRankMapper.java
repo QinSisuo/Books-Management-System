@@ -9,9 +9,9 @@ public interface BookRankMapper {
     /**
      * 获取借阅排行榜
      */
-    @Select("SELECT b.*, COUNT(l.sernum) as borrow_count " +
+    @Select("SELECT b.*, COUNT(br.id) as borrow_count " +
             "FROM books b " +
-            "LEFT JOIN lend_list l ON b.book_id = l.book_id " +
+            "LEFT JOIN borrow_record br ON b.book_id = br.book_id " +
             "GROUP BY b.book_id " +
             "ORDER BY borrow_count DESC " +
             "LIMIT #{limit}")
