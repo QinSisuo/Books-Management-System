@@ -3,11 +3,13 @@ package com.book.service;
 import com.book.domain.SystemLog;
 import com.book.domain.User;
 import com.book.mapper.UserMapper;
+import com.book.util.IpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -27,7 +29,7 @@ public class UserService {
     }
 
     // 登录验证
-    public User login(String username, String password) {
+    public User login(String username, String password, HttpServletRequest request) {
         User user = userMapper.getUserByUsername(username);
         SystemLog log = new SystemLog();
 
@@ -37,6 +39,7 @@ public class UserService {
             log.setOperationType("登录");
             log.setDescription("用户登录成功");
             log.setResult("成功");
+            log.setIpAddress(IpUtil.getIpAddress(request));
             logService.recordLog(log);
             return user;
         } else {
@@ -44,6 +47,7 @@ public class UserService {
             log.setOperationType("登录");
             log.setDescription("用户登录失败");
             log.setResult("失败");
+            log.setIpAddress(IpUtil.getIpAddress(request));
             logService.recordLog(log);
             return null;
         }
@@ -65,7 +69,7 @@ public class UserService {
     }
 
     // 添加读者
-    public boolean addReader(User user) {
+    public boolean addReader(User user, HttpServletRequest request) {
         logger.info("添加新读者 - 用户名: {}", user.getUsername());
         user.setRole("reader"); // 确保角色为 reader
         int rows = userMapper.insertUser(user);
@@ -75,6 +79,7 @@ public class UserService {
         log.setOperationType("添加读者");
         log.setDescription("添加新读者: " + user.getUsername());
         log.setResult(rows > 0 ? "成功" : "失败");
+        log.setIpAddress(IpUtil.getIpAddress(request));
         logService.recordLog(log);
         
         return rows > 0;
@@ -87,7 +92,7 @@ public class UserService {
     }
 
     // 更新读者信息
-    public boolean updateReader(User user) {
+    public boolean updateReader(User user, HttpServletRequest request) {
         logger.info("更新读者信息 - 读者ID: {}", user.getUserId());
         int rows = userMapper.updateUser(user);
         
@@ -96,13 +101,14 @@ public class UserService {
         log.setOperationType("更新读者");
         log.setDescription("更新读者信息: " + user.getUsername());
         log.setResult(rows > 0 ? "成功" : "失败");
+        log.setIpAddress(IpUtil.getIpAddress(request));
         logService.recordLog(log);
         
         return rows > 0;
     }
 
     // 删除读者
-    public boolean deleteReader(Long id) {
+    public boolean deleteReader(Long id, HttpServletRequest request) {
         logger.info("删除读者 - 读者ID: {}", id);
         int rows = userMapper.deleteUser(id);
         
@@ -111,6 +117,7 @@ public class UserService {
         log.setOperationType("删除读者");
         log.setDescription("删除读者ID: " + id);
         log.setResult(rows > 0 ? "成功" : "失败");
+        log.setIpAddress(IpUtil.getIpAddress(request));
         logService.recordLog(log);
         
         return rows > 0;
@@ -123,7 +130,8 @@ public class UserService {
         return userMapper.findAllUsers();
     }
 
-    public boolean deleteUser(Long userId) {
+    // 删除用户
+    public boolean deleteUser(Long userId, HttpServletRequest request) {
         logger.info("删除用户 - 用户ID: {}", userId);
         int rows = userMapper.deleteUser(userId);
         
@@ -132,12 +140,13 @@ public class UserService {
         log.setOperationType("删除用户");
         log.setDescription("删除用户ID: " + userId);
         log.setResult(rows > 0 ? "成功" : "失败");
+        log.setIpAddress(IpUtil.getIpAddress(request));
         logService.recordLog(log);
         
         return rows > 0;
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(User user, HttpServletRequest request) {
         logger.info("添加新用户 - 用户名: {}", user.getUsername());
         int rows = userMapper.insertUser(user);
         
@@ -146,12 +155,13 @@ public class UserService {
         log.setOperationType("添加用户");
         log.setDescription("添加新用户: " + user.getUsername());
         log.setResult(rows > 0 ? "成功" : "失败");
+        log.setIpAddress(IpUtil.getIpAddress(request));
         logService.recordLog(log);
         
         return rows > 0;
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(User user, HttpServletRequest request) {
         try {
             logger.info("正在更新用户信息 - 用户ID: {}, 角色: {}", user.getUserId(), user.getRole());
             
@@ -172,9 +182,23 @@ public class UserService {
             
             if (rows > 0) {
                 logger.info("用户信息更新成功 - 用户ID: {}", user.getUserId());
+                // 记录操作日志
+                SystemLog log = new SystemLog();
+                log.setOperationType("更新用户");
+                log.setDescription("更新用户信息: " + user.getUsername());
+                log.setResult("成功");
+                log.setIpAddress(IpUtil.getIpAddress(request));
+                logService.recordLog(log);
                 return true;
             } else {
                 logger.error("用户信息更新失败 - 用户ID: {}", user.getUserId());
+                // 记录操作日志
+                SystemLog log = new SystemLog();
+                log.setOperationType("更新用户");
+                log.setDescription("更新用户信息: " + user.getUsername());
+                log.setResult("失败");
+                log.setIpAddress(IpUtil.getIpAddress(request));
+                logService.recordLog(log);
                 return false;
             }
         } catch (Exception e) {
@@ -183,7 +207,7 @@ public class UserService {
         }
     }
 
-    public boolean updateUserProfile(User user, String newPassword) {
+    public boolean updateUserProfile(User user, String newPassword, HttpServletRequest request) {
         try {
             logger.info("正在更新用户个人信息 - 用户ID: {}", user.getUserId());
             
@@ -204,9 +228,23 @@ public class UserService {
             
             if (rows > 0) {
                 logger.info("用户个人信息更新成功 - 用户ID: {}", user.getUserId());
+                // 记录操作日志
+                SystemLog log = new SystemLog();
+                log.setOperationType("更新个人信息");
+                log.setDescription("更新用户个人信息: " + user.getUsername());
+                log.setResult("成功");
+                log.setIpAddress(IpUtil.getIpAddress(request));
+                logService.recordLog(log);
                 return true;
             } else {
                 logger.error("用户个人信息更新失败 - 用户ID: {}", user.getUserId());
+                // 记录操作日志
+                SystemLog log = new SystemLog();
+                log.setOperationType("更新个人信息");
+                log.setDescription("更新用户个人信息: " + user.getUsername());
+                log.setResult("失败");
+                log.setIpAddress(IpUtil.getIpAddress(request));
+                logService.recordLog(log);
                 return false;
             }
         } catch (Exception e) {

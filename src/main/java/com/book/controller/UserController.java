@@ -88,7 +88,7 @@ public class UserController {
 
         logger.info("尝试登录 - 用户名: {}", username); // 添加日志
 
-        User user = userService.login(username, password); // 调用 Service 层获取用户
+        User user = userService.login(username, password, request); // 调用 Service 层获取用户
 
         Map<String, String> res = new HashMap<>();
         if (user == null) {
@@ -223,14 +223,13 @@ public class UserController {
 
     //admin add logic
     @PostMapping("/admin/user/add")
-    @ResponseBody  // 确保返回JSON
+    @ResponseBody
     public Map<String, Object> addUser(@RequestParam("username") String username,
                                      @RequestParam("password") String password,
                                      @RequestParam("role") String role,
                                      @RequestParam(value = "email", required = false) String email,
                                      @RequestParam(value = "phone", required = false) String phone,
-                                     HttpServletRequest request,
-                                     RedirectAttributes redirectAttributes) {
+                                     HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         
         try {
@@ -270,13 +269,14 @@ public class UserController {
             logger.info("管理员[{}]正在添加新用户 - 用户名: {}, 角色: {}", 
                        currentUser.getUsername(), username, role);
 
-            boolean success = userService.addUser(newUser);
+            boolean success = userService.addUser(newUser, request);
             
             response.put("success", success);
             response.put("message", success ? "用户添加成功" : "用户添加失败");
             
             return response;
         } catch (Exception e) {
+            logger.error("添加用户时发生错误", e);
             response.put("success", false);
             response.put("message", "添加失败：" + e.getMessage());
             return response;
@@ -407,7 +407,7 @@ public class UserController {
             // 保持原有角色不变
             user.setRole(currentUser.getRole());
             
-            boolean success = userService.updateUserProfile(user, newPassword);
+            boolean success = userService.updateUserProfile(user, newPassword, request);
             
             if (success) {
                 // 更新session中的用户信息
