@@ -35,8 +35,13 @@
                     <input type="hidden" name="userId" value="${user.userId}">
 
                     <div class="form-group">
+                        <label for="username">用户ID</label>
+                        <input type="text" class="form-control" id="userid" name="userid" value="${user.id}" readonly>
+                    </div>
+
+                    <div class="form-group">
                         <label for="username">用户名</label>
-                        <input type="text" class="form-control" id="username" name="username" value="${user.username}" readonly>
+                        <input type="text" class="form-control" id="username" name="username" value="${user.username}">
                     </div>
 
                     <div class="form-group">
