@@ -140,14 +140,30 @@
                 </td>
             </tr>
             <tr>
-                <th><i class="fas fa-info-circle"></i> 状态</th>
+                <th><i class="fas fa-info-circle"></i> 可借数量</th>
                 <td>
-                    <c:if test="${book.state == 1}">
-                        <span class="label label-success">在馆</span>
-                    </c:if>
-                    <c:if test="${book.state == 0}">
-                        <span class="label label-warning">借出</span>
-                    </c:if>
+                    <c:set var="availableCount" value="${(book.totalCount == null ? 0 : book.totalCount) - (book.lentCount == null ? 0 : book.lentCount)}" />
+                    <span class="label ${availableCount > 0 ? 'label-success' : 'label-warning'}">
+                        ${availableCount}
+                    </span>
+                    <c:choose>
+                        <c:when test="${availableCount > 0}">
+                            <form action="reader_book_borrow.html" method="post" style="display:inline; margin-left: 10px;">
+                                <input type="hidden" name="bookId" value="${book.bookId}" />
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-book"></i> 借阅
+                                </button>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <form action="reader_book_reserve.html" method="post" style="display:inline; margin-left: 10px;">
+                                <input type="hidden" name="bookId" value="${book.bookId}" />
+                                <button type="submit" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-clock"></i> 预约
+                                </button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
             </tbody>
