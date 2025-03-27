@@ -6,6 +6,7 @@ import com.book.service.BookTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,6 +47,9 @@ public class BookTagServiceImpl implements BookTagService {
 
     @Override
     public List<BookTag> queryBookTagByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return new ArrayList<>();
+        }
         return bookTagMapper.queryBookTagByIds(ids);
     }
 
