@@ -20,42 +20,51 @@
     <!-- 引入公共头部: 包含CSS/JS等 -->
     <%@ include file="common/header.jsp" %>
     <%@ include file="common/reader_navbar.jsp" %>
-    
-    <!-- 通知列表面板 -->
-    <div class="panel panel-default" style="width: 90%; margin-left: 5%; margin-top: 5%">
-        <div class="panel-heading">
-            <h3 class="panel-title">我的通知</h3>
-            <button class="btn btn-primary pull-right" id="markAllRead">
-                <i class="fas fa-check-double"></i> 一键已读所有
-            </button>
+
+    <!-- 统一面板 -->
+    <div class="container">
+
+        <!-- 标题和已读按钮 -->
+        <div class="panel panel-default">
+            <div class="panel-heading bg-white">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h3 class="panel-title mb-0">我的通知</h3>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-primary" id="markAllRead">
+                            <i class="fas fa-plus"></i> 一键已读所有
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="panel-body">
-            <c:if test="${not empty notifications}">
-                <div class="list-group">
-                    <c:forEach var="notification" items="${notifications}">
-                        <div class="list-group-item ${notification.status == 0 ? 'list-group-item-warning' : ''}" 
-                             data-notification-id="${notification.notificationId}">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h4 class="list-group-item-heading">${notification.title}</h4>
-                                <small><fmt:formatDate value="${notification.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
-                            </div>
-                            <p class="list-group-item-text">${notification.content}</p>
-                            <c:if test="${notification.status == 0}">
-                                <button class="btn btn-sm btn-primary mark-read" 
-                                        data-notification-id="${notification.notificationId}">
-                                    标记为已读
-                                </button>
-                            </c:if>
+
+        <c:if test="${not empty notifications}">
+            <div class="list-group">
+                <c:forEach var="notification" items="${notifications}">
+                    <div class="list-group-item ${notification.status == 0 ? 'list-group-item-warning' : ''}"
+                         data-notification-id="${notification.notificationId}">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="list-group-item-heading">${notification.title}</h4>
+                            <small><fmt:formatDate value="${notification.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
                         </div>
-                    </c:forEach>
-                </div>
-            </c:if>
-            <c:if test="${empty notifications}">
-                <div class="alert alert-info">
-                    暂无通知
-                </div>
-            </c:if>
-        </div>
+                        <p class="list-group-item-text">${notification.content}</p>
+                        <c:if test="${notification.status == 0}">
+                            <button class="btn btn-sm btn-primary mark-read"
+                                    data-notification-id="${notification.notificationId}">
+                                标记为已读
+                            </button>
+                        </c:if>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
+        <c:if test="${empty notifications}">
+            <div class="alert alert-info">
+                暂无通知
+            </div>
+        </c:if>
     </div>
 
     <%@ include file="common/footer.jsp" %>
