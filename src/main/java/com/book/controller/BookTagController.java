@@ -10,8 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 @Controller
 public class BookTagController {
@@ -32,7 +30,7 @@ public class BookTagController {
         
         System.out.println("查询到的标签数量: " + (tags != null ? tags.size() : 0));
         
-        ModelAndView modelAndView = new ModelAndView("admin_tag_manage");
+        ModelAndView modelAndView = new ModelAndView("admin/admin_tag_manage");
         modelAndView.addObject("tags", tags);
         return modelAndView;
     }
