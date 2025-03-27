@@ -56,9 +56,6 @@
             <thead>
             <tr>
                 <th>标签名称</th>
-                <th>状态</th>
-                <th>使用次数</th>
-                <th>搜索次数</th>
                 <th>借阅次数</th>
                 <th>热度得分</th>
                 <th>操作</th>
@@ -69,9 +66,6 @@
             <c:forEach items="${tags}" var="tag">
                 <tr>
                     <td>${tag.name}</td>
-                    <td>${tag.status == '0' ? '正常' : '停用'}</td>
-                    <td>${tag.useCount}</td>
-                    <td>${tag.searchCount}</td>
                     <td>${tag.borrowCount}</td>
                     <td>${tag.hotScore}</td>
                     <td>
