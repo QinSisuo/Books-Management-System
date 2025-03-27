@@ -179,18 +179,9 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            个人信息管理
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/reader/profile">个人信息管理</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                             图书管理
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href=".html">图书推荐</a></li>
                             <li><a href="rank">排行榜</a></li>
                         </ul>
                     </li>
@@ -201,6 +192,14 @@
                         <ul class="dropdown-menu">
                             <li><a href="reader_my_borrow.html">我的借还</a></li>
                             <li><a href="reader_my_reservations.html">我的预约</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            个人信息管理
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/reader/profile">个人信息管理</a></li>
                         </ul>
                     </li>
                 </ul>
