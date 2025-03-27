@@ -50,6 +50,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>图书ID</th>
                     <th>图书名称</th>
                     <th>ISBN</th>
                     <th>总库存</th>
@@ -61,6 +62,7 @@
             <tbody>
                 <c:forEach items="${books}" var="book">
                     <tr>
+                        <td>${book.bookId}</td>
                         <td>${book.name}</td>
                         <td>${book.isbn}</td>
                         <td>${book.totalCount == null ? 0 : book.totalCount}</td>
