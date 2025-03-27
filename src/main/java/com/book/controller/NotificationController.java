@@ -54,4 +54,18 @@ public class NotificationController {
         }
         return notificationService.getUnreadCount(currentUser.getUserId());
     }
+
+    /**
+     * 标记所有通知为已读
+     */
+    @PostMapping("/notification/read/all")
+    @ResponseBody
+    public String markAllAsRead(HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        if (currentUser == null) {
+            return "error";
+        }
+        notificationService.markAllAsRead(currentUser.getUserId());
+        return "success";
+    }
 } 
