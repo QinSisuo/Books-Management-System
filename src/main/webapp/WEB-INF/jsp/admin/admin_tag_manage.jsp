@@ -66,8 +66,14 @@
                     <td>${tag.id}</td>
                     <td>${tag.name}</td>
                     <td>
-                        <button type="button" class="btn btn-info btn-xs" onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">编辑</button>
-                        <button type="button" class="btn btn-danger btn-xs" onclick="deleteTag(${tag.id})">删除</button>
+                        <button type="button" class="btn btn-info btn-xs"
+                                onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">
+                            编辑
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs"
+                                onclick="deleteTag(${tag.id})">
+                            删除
+                        </button>
                     </td>
                 </tr>
             </c:forEach>

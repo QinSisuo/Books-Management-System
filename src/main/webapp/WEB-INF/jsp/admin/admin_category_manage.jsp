@@ -88,12 +88,12 @@
                     <td>${category.categoryId}</td>
                     <td>${category.categoryName}</td>
                     <td>
-                        <button type="button" class="btn btn-warning btn-sm"
+                        <button type="button" class="btn btn-info btn-xs"
                                 onclick="openEditModal('${category.categoryId}', '${category.categoryName}')">
                             编辑
                         </button>
                         <a href="<c:url value='/admin_category_delete.html?categoryId=${category.categoryId}'/>"
-                           class="btn btn-danger btn-sm"
+                           class="btn btn-danger btn-xs"
                            onclick="return confirm('确定删除分类【${category.categoryName}】吗？')">
                             删除
                         </a>
