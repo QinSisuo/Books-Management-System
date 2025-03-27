@@ -143,7 +143,7 @@
                 <th><i class="fas fa-info-circle"></i> 可借数量</th>
                 <td>
                     <c:set var="availableCount" value="${(book.totalCount == null ? 0 : book.totalCount) - (book.lentCount == null ? 0 : book.lentCount)}" />
-                    <span class="label ${availableCount > 0 ? 'label-success' : 'label-warning'}">
+                    <span class="label ${availableCount > 0 ? 'label-success' : 'label-warning'}" style="font-size: 14px; padding: 6px 10px; vertical-align: middle;">
                         ${availableCount}
                     </span>
                     <c:choose>
