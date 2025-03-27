@@ -55,19 +55,16 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>标签名称</th>
-                <th>借阅次数</th>
-                <th>热度得分</th>
-                <th>操作</th>
+                <th style="width: 30%">标签ID</th>
+                <th style="width: 60%">标签名称</th>
+                <th style="width: 10%">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr><td colspan="7">标签总数：${tags.size()}</td></tr>
             <c:forEach items="${tags}" var="tag">
                 <tr>
+                    <td>${tag.id}</td>
                     <td>${tag.name}</td>
-                    <td>${tag.borrowCount}</td>
-                    <td>${tag.hotScore}</td>
                     <td>
                         <button type="button" class="btn btn-info btn-xs" onclick="editTag(${tag.id}, '${tag.name}', '${tag.status}')">编辑</button>
                         <button type="button" class="btn btn-danger btn-xs" onclick="deleteTag(${tag.id})">删除</button>
