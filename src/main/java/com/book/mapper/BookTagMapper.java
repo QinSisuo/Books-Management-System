@@ -6,22 +6,16 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface BookTagMapper {
-    
+
     @Select("<script>" +
-        "SELECT t.*, " +
-        "       COALESCE(COUNT(DISTINCT br.id), 0) as borrow_count, " +
-        "       COALESCE(COUNT(DISTINCT br.id), 0) as hot_score " +
-        "FROM book_tag t " +
-        "LEFT JOIN book_tag_relation r ON t.id = r.tag_id " +
-        "LEFT JOIN borrow_record br ON r.book_id = br.book_id " +
-        "<where>" +
+            "SELECT * FROM book_tag" +
+            "<where>" +
             "<if test='name != null and name != \"\"'>" +
-                "t.name LIKE CONCAT('%',#{name},'%')" +
+            "name LIKE CONCAT('%',#{name},'%')" +
             "</if>" +
-        "</where>" +
-        "GROUP BY t.id " +
-        "ORDER BY hot_score DESC" +
-        "</script>")
+            "</where>" +
+            " ORDER BY hot_score DESC" +
+            "</script>")
     List<BookTag> queryBookTags(@Param("name") String name);
 
     @Insert("INSERT INTO book_tag(name, status, create_time, create_by) " +
@@ -36,14 +30,7 @@ public interface BookTagMapper {
     @Delete("DELETE FROM book_tag WHERE id=#{id}")
     int deleteBookTag(@Param("id") Long id);
 
-    @Select("SELECT t.*, " +
-            "       COALESCE(COUNT(DISTINCT br.id), 0) as borrow_count, " +
-            "       COALESCE(COUNT(DISTINCT br.id), 0) as hot_score " +
-            "FROM book_tag t " +
-            "LEFT JOIN book_tag_relation r ON t.id = r.tag_id " +
-            "LEFT JOIN borrow_record br ON r.book_id = br.book_id " +
-            "WHERE t.id=#{id} " +
-            "GROUP BY t.id")
+    @Select("SELECT * FROM book_tag WHERE id=#{id}")
     BookTag getBookTagById(@Param("id") Long id);
 
     /**
@@ -52,14 +39,21 @@ public interface BookTagMapper {
      * @param limit 返回的标签数量
      * @return 热门标签列表
      */
-    @Select("SELECT t.*, " +
-            "       COALESCE(COUNT(DISTINCT br.id), 0) as borrow_count, " +
-            "       COALESCE(COUNT(DISTINCT br.id), 0) as hot_score " +
-            "FROM book_tag t " +
-            "LEFT JOIN book_tag_relation r ON t.id = r.tag_id " +
-            "LEFT JOIN borrow_record br ON r.book_id = br.book_id " +
-            "WHERE t.status = '0' " +
-            "GROUP BY t.id " +
+    @Select("WITH BookBorrowCount AS (" +
+            "  SELECT book_id, COUNT(*) as borrow_count " +
+            "  FROM borrow_record " +
+            "  GROUP BY book_id" +
+            "), " +
+            "TagBorrowScore AS (" +
+            "  SELECT t.id, t.name, t.status, " +
+            "         COALESCE(SUM(bc.borrow_count), 0) as hot_score " +
+            "  FROM book_tag t " +
+            "  LEFT JOIN book_tag_relation r ON t.id = r.tag_id " +
+            "  LEFT JOIN BookBorrowCount bc ON r.book_id = bc.book_id " +
+            "  GROUP BY t.id, t.name, t.status" +
+            ") " +
+            "SELECT * FROM TagBorrowScore " +
+            "WHERE status = '0' " +
             "ORDER BY hot_score DESC " +
             "LIMIT #{limit}")
     List<BookTag> getHotTags(@Param("limit") int limit);
@@ -70,17 +64,10 @@ public interface BookTagMapper {
      * @return 标签列表
      */
     @Select("<script>" +
-            "SELECT t.*, " +
-            "       COALESCE(COUNT(DISTINCT br.id), 0) as borrow_count, " +
-            "       COALESCE(COUNT(DISTINCT br.id), 0) as hot_score " +
-            "FROM book_tag t " +
-            "LEFT JOIN book_tag_relation r ON t.id = r.tag_id " +
-            "LEFT JOIN borrow_record br ON r.book_id = br.book_id " +
-            "WHERE t.id IN " +
+            "SELECT * FROM book_tag WHERE id IN " +
             "<foreach collection='list' item='id' open='(' separator=',' close=')'>" +
             "#{id}" +
             "</foreach>" +
-            "GROUP BY t.id" +
             "</script>")
     List<BookTag> queryBookTagByIds(List<Long> ids);
 

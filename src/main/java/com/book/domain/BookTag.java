@@ -6,6 +6,8 @@ public class BookTag {
     private Long id;
     private String name;
     private String status;
+    private Integer useCount;
+    private Integer searchCount;
     private Integer borrowCount;
     private Double hotScore;
     private String createBy;
@@ -36,6 +38,22 @@ public class BookTag {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getUseCount() {
+        return useCount;
+    }
+
+    public void setUseCount(Integer useCount) {
+        this.useCount = useCount;
+    }
+
+    public Integer getSearchCount() {
+        return searchCount;
+    }
+
+    public void setSearchCount(Integer searchCount) {
+        this.searchCount = searchCount;
     }
 
     public Integer getBorrowCount() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 public class BookTagServiceImpl implements BookTagService {
-    
+
     @Autowired
     private BookTagMapper bookTagMapper;
 
@@ -52,4 +52,23 @@ public class BookTagServiceImpl implements BookTagService {
         }
         return bookTagMapper.queryBookTagByIds(ids);
     }
-} 
+
+    /**
+     * 更新标签热度分数
+     * @param tagId 标签ID
+     */
+    public void updateTagHotScore(Long tagId) {
+        // 获取标签的使用次数
+        int usageCount = bookTagMapper.getTagUsageCount(tagId);
+        // 更新热度分数
+        bookTagMapper.updateHotScore(tagId, usageCount);
+    }
+
+    /**
+     * 增加标签热度
+     * @param tagId 标签ID
+     */
+    public void incrementTagHotScore(Long tagId) {
+        bookTagMapper.incrementHotScore(tagId);
+    }
+}
