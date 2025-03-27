@@ -47,7 +47,8 @@ public class UserController {
     public Map<String, Object> register(@RequestParam("username") String username,
                                       @RequestParam("password") String password,
                                       @RequestParam(value = "email", required = false) String email,
-                                      @RequestParam(value = "phone", required = false) String phone) {
+                                      @RequestParam(value = "phone", required = false) String phone,
+                                      HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         
         try {
@@ -66,7 +67,7 @@ public class UserController {
             newUser.setPhone(phone);
             newUser.setRole("reader"); // 默认注册为读者角色
 
-            boolean success = userService.addUser(newUser);
+            boolean success = userService.addUser(newUser, request);
             
             response.put("success", success);
             response.put("message", success ? "注册成功" : "注册失败");
@@ -196,8 +197,8 @@ public class UserController {
 
     //admin user delete
     @GetMapping("/admin/user/delete")
-    public String deleteUser(@RequestParam("userId") Long userId, Model model) {
-        boolean success = userService.deleteUser(userId);
+    public String deleteUser(@RequestParam("userId") Long userId, HttpServletRequest request, Model model) {
+        boolean success = userService.deleteUser(userId, request);
         if (success) {
             model.addAttribute("succ", "用户删除成功");
             logger.info("User with ID {} deleted successfully", userId);
@@ -286,10 +287,10 @@ public class UserController {
     //admin edit
     @PostMapping("/admin/user/update")
     @ResponseBody  // 添加此注解返回JSON
-    public Map<String, Object> updateUser(@ModelAttribute User user) {
+    public Map<String, Object> updateUser(@ModelAttribute User user, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         try {
-            boolean success = userService.updateUser(user);
+            boolean success = userService.updateUser(user, request);
             response.put("success", success);
             response.put("message", success ? "用户更新成功" : "用户更新失败");
         } catch (Exception e) {
@@ -319,9 +320,9 @@ public class UserController {
 
     // 3. 添加读者逻辑
     @PostMapping("/admin/reader/add")
-    public String addReader(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+    public String addReader(@ModelAttribute User user, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         logger.info("管理员正在添加新读者 - 用户名: {}", user.getUsername());
-        boolean success = userService.addReader(user);
+        boolean success = userService.addReader(user, request);
         if (success) {
             logger.info("读者添加成功 - 用户名: {}", user.getUsername());
             redirectAttributes.addFlashAttribute("success", "读者添加成功！");
@@ -348,9 +349,9 @@ public class UserController {
 
     // 5. 更新读者信息
     @PostMapping("/admin/reader/edit")
-    public String editReader(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
+    public String editReader(@ModelAttribute User user, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         logger.info("管理员正在更新读者信息 - 读者ID: {}", user.getUserId());
-        boolean success = userService.updateReader(user);
+        boolean success = userService.updateReader(user, request);
         if (success) {
             logger.info("读者信息更新成功 - 读者ID: {}", user.getUserId());
             redirectAttributes.addFlashAttribute("success", "读者信息更新成功！");
@@ -363,9 +364,9 @@ public class UserController {
 
     // 6. 删除读者
     @PostMapping("/admin/reader/delete/{id}")
-    public String deleteReader(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public String deleteReader(@PathVariable("id") Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         logger.info("管理员正在删除读者 - 读者ID: {}", id);
-        boolean success = userService.deleteReader(id);
+        boolean success = userService.deleteReader(id, request);
         if (success) {
             logger.info("读者删除成功 - 读者ID: {}", id);
             redirectAttributes.addFlashAttribute("success", "读者删除成功！");
