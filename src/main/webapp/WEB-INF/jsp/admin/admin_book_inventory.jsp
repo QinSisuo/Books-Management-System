@@ -40,7 +40,7 @@
             <div class="panel-heading bg-white">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h3 class="panel-title mb-0">图书库存管理</h3>
+                        <h3 class="panel-title mb-0">📚 图书库存管理</h3>
                     </div>
                 </div>
             </div>
