@@ -23,7 +23,7 @@ public class BookCategoryController {
     @GetMapping("/admin_category_manage.html")
     public ModelAndView categoryList() {
         List<BookCategory> categories = categoryService.getAllCategories();
-        return new ModelAndView("admin_category_manage").addObject("categories", categories);
+        return new ModelAndView("admin/admin_category_manage").addObject("categories", categories);
     }
 
     // 新增分类
