@@ -33,6 +33,30 @@
             color: #666;
             font-size: 0.9em;
         }
+        .tag-cloud {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .tag-item {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .tag-item:hover {
+            background: #e9ecef;
+            transform: scale(1.05);
+        }
+        .tag-size-1 { font-size: 14px; }
+        .tag-size-2 { font-size: 16px; }
+        .tag-size-3 { font-size: 18px; }
+        .tag-size-4 { font-size: 20px; }
+        .tag-size-5 { font-size: 24px; }
     </style>
 </head>
 
@@ -63,10 +87,10 @@
                 <h3 class="panel-title">热门标签</h3>
             </div>
             <div class="panel-body">
-                <div class="tag-cloud" style="padding: 10px;">
-                    <c:forEach items="${hotTags}" var="tag">
-                        <a href="reader_book_catalog.html?tagId=${tag.id}" 
-                           class="btn btn-info btn-sm" 
+                <div class="tag-cloud">
+                    <c:forEach items="${hotTags}" var="tag" varStatus="status">
+                        <a href="reader_book_catalog.html?tagId=${tag.id}"
+                           class="tag-item tag-size-${status.index % 5 + 1}"
                            style="margin: 5px; font-size: ${12 + tag.hotScore/2}px;">
                             ${tag.name} <span class="badge badge-light">${tag.hotScore}</span>
                         </a>
@@ -176,29 +200,29 @@
     </c:if>
 
     <script>
-    $(document).ready(function() {
-        // 加载热门图书
-        $.get('${pageContext.request.contextPath}/recommend/hot', function(books) {
-            const hotBooksContainer = $('#hotBooks');
-            books.forEach(function(book) {
-                const stars = '★'.repeat(Math.round(book.avgRating || 0)) + 
-                             '☆'.repeat(5 - Math.round(book.avgRating || 0));
-                const bookHtml = `
-                    <div class="col-md-3">
-                        <div class="hot-book-item">
-                            <h4><a href="${pageContext.request.contextPath}/reader/book/detail?id=${'${book.bookId}'}">${'${book.name}'}</a></h4>
-                            <div class="book-rating">${'${stars}'}</div>
-                            <div class="book-info">
-                                <div>作者: ${'${book.author}'}</div>
-                                <div class="book-borrow-count">借阅次数: ${'${book.borrowCount || 0}'}</div>
+        $(document).ready(function() {
+            // 加载热门图书
+            $.get('${pageContext.request.contextPath}/recommend/hot', function(books) {
+                const hotBooksContainer = $('#hotBooks');
+                books.forEach(function(book) {
+                    const stars = '★'.repeat(Math.round(book.avgRating || 0)) +
+                                 '☆'.repeat(5 - Math.round(book.avgRating || 0));
+                    const bookHtml = `
+                        <div class="col-md-3">
+                            <div class="hot-book-item">
+                                <h4><a href="${pageContext.request.contextPath}/reader/book/detail?id=${'${book.bookId}'}">${'${book.name}'}</a></h4>
+                                <div class="book-rating">${'${stars}'}</div>
+                                <div class="book-info">
+                                    <div>作者: ${'${book.author}'}</div>
+                                    <div class="book-borrow-count">借阅次数: ${'${book.borrowCount || 0}'}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                hotBooksContainer.append(bookHtml);
+                    `;
+                    hotBooksContainer.append(bookHtml);
+                });
             });
         });
-    });
     </script>
 
 </body>
