@@ -77,9 +77,9 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>分类ID</th>
-                <th>分类名称</th>
-                <th>操作</th>
+                <th style="width: 40%">分类ID</th>
+                <th style="width: 50%">分类名称</th>
+                <th style="width: 10%">操作</th>
             </tr>
             </thead>
             <tbody>
