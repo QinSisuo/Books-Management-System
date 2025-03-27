@@ -13,26 +13,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
     <style>
-        .hot-books {
-            margin-bottom: 30px;
-        }
-        .hot-book-item {
-            padding: 15px;
-            border: 1px solid #eee;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-        .hot-book-item:hover {
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-        }
-        .book-rating {
-            color: #ffd700;
-            margin-bottom: 10px;
-        }
-        .book-borrow-count {
-            color: #666;
-            font-size: 0.9em;
-        }
         .tag-cloud {
             padding: 20px;
             display: flex;
@@ -57,6 +37,33 @@
         .tag-size-3 { font-size: 18px; }
         .tag-size-4 { font-size: 20px; }
         .tag-size-5 { font-size: 24px; }
+        .tag-cloud a {
+            text-decoration: none; /* 默认无下划线 */
+        }
+
+        .tag-cloud a:hover {
+            text-decoration: none; /* 悬停时也无下划线 */
+        }
+        .hot-books {
+            margin-bottom: 30px;
+        }
+        .hot-book-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .hot-book-item:hover {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .book-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .book-borrow-count {
+            color: #666;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 
