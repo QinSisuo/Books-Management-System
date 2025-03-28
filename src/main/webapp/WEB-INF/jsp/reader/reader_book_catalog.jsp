@@ -208,10 +208,14 @@
 
     <script>
         $(document).ready(function() {
+            const baseUrl = '${pageContext.request.contextPath}';
+            console.log('Base URL:', baseUrl);
+            
             // 加载热门图书
             $.ajax({
-                url: '${pageContext.request.contextPath}/recommend/hot',
+                url: baseUrl + '/recommend/hot',
                 method: 'GET',
+                dataType: 'json',
                 success: function(books) {
                     console.log('获取到的热门图书数据:', books);
                     const hotBooksContainer = $('#hotBooks');
@@ -220,16 +224,18 @@
                         return;
                     }
                     books.forEach(function(book) {
-                        const stars = '★'.repeat(Math.round(book.avgRating || 0)) +
-                                     '☆'.repeat(5 - Math.round(book.avgRating || 0));
+                        console.log('处理图书:', book);
+                        const rating = parseFloat(book.avgRating) || 0;
+                        const stars = '★'.repeat(Math.round(rating)) +
+                                     '☆'.repeat(5 - Math.round(rating));
                         const bookHtml = `
                             <div class="col-md-3">
                                 <div class="hot-book-item">
-                                    <h4><a href="${pageContext.request.contextPath}/reader/book/detail?id=${book.bookId}">${book.name}</a></h4>
-                                    <div class="book-rating">${stars}</div>
+                                    <h4><a href="${'${baseUrl}'}/reader/book/detail?id=${'${book.bookId}'}">${'${book.name}'}</a></h4>
+                                    <div class="book-rating">${'${stars}'}</div>
                                     <div class="book-info">
-                                        <div>作者: ${book.author}</div>
-                                        <div class="book-borrow-count">借阅次数: ${book.borrowCount || 0}</div>
+                                        <div>作者: ${'${book.author}'}</div>
+                                        <div class="book-borrow-count">借阅次数: ${'${book.borrowCount || 0}'}</div>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +244,11 @@
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.error('获取热门图书数据失败:', error);
+                    console.error('获取热门图书数据失败:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText
+                    });
                     $('#hotBooks').html('<div class="col-12 text-center text-danger">获取热门图书数据失败</div>');
                 }
             });

@@ -11,8 +11,6 @@ public interface BookRecommendMapper {
      * 根据借阅量和评分综合排序
      */
     @Select("SELECT b.*, " +
-            "COALESCE(COUNT(DISTINCT br.id), 0) as borrow_count, " +
-            "COALESCE(AVG(r.rating), 0) as avg_rating, " +
             "COUNT(DISTINCT br.id) as borrowCount, " +
             "COALESCE(AVG(r.rating), 0) as avgRating " +
             "FROM books b " +
