@@ -20,12 +20,14 @@ public interface BookRankMapper {
     /**
      * 获取评分排行榜
      */
-    @Select("SELECT b.*, AVG(r.rating) as avgRating, COUNT(r.review_id) as ratingCount " +
+    @Select("SELECT b.*, " +
+            "COALESCE(AVG(r.rating), 0) as avgRating, " +
+            "COUNT(r.review_id) as ratingCount " +
             "FROM books b " +
             "LEFT JOIN book_review r ON b.book_id = r.book_id AND r.status = 0 " +
             "GROUP BY b.book_id " +
-            "HAVING ratingCount >= 3 " + // 至少有3个评分才计入排行
-            "ORDER BY avgRating DESC " +
+            "HAVING ratingCount > 0 " + // 修改为只要有评分就显示
+            "ORDER BY avgRating DESC, ratingCount DESC " + // 添加评分数量作为第二排序条件
             "LIMIT #{limit}")
     List<Book> getRatingRank(@Param("limit") int limit);
 } 
