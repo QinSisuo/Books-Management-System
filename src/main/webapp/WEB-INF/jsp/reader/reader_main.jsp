@@ -178,12 +178,12 @@
                 data.borrowRank.forEach((book, index) => {
                     borrowHtml += `
                 <div class="rank-item">
-                    <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${index + 1}</div>
+                    <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
                     <div class="book-info">
-                        <div class="book-title">${book.name}</div>
-                        <div class="book-author">作者：${book.author} | 出版社：${book.publisher}</div>
+                        <div class="book-title">${'${book.name}'}</div>
+                        <div class="book-author">作者：${'${book.author}'} | 出版社：${'${book.publisher}'}</div>
                     </div>
-                    <div class="rank-value">借阅次数：${book.borrow_count}</div>
+                    <div class="rank-value">借阅次数：${'${book.borrowCount}'}</div>
                 </div>
             `;
                 });
@@ -192,14 +192,20 @@
                 // 渲染评分排行榜
                 let ratingHtml = '';
                 data.ratingRank.forEach((book, index) => {
+                    const rating = parseFloat(book.avgRating) || 0;
+                    const stars = '★'.repeat(Math.round(rating)) +
+                                '☆'.repeat(5 - Math.round(rating));
                     ratingHtml += `
                 <div class="rank-item">
-                    <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${index + 1}</div>
+                    <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
                     <div class="book-info">
-                        <div class="book-title">${book.name}</div>
-                        <div class="book-author">作者：${book.author} | 出版社：${book.publisher}</div>
+                        <div class="book-title">${'${book.name}'}</div>
+                        <div class="book-author">作者：${'${book.author}'} | 出版社：${'${book.publisher}'}</div>
                     </div>
-                    <div class="rank-value">平均评分：${book.avg_rating.toFixed(1)}</div>
+                    <div class="rank-value">
+                        <div class="book-rating">${'${stars}'}</div>
+                        <div>评分：${'${rating.toFixed(1)}'}</div>
+                    </div>
                 </div>
             `;
                 });

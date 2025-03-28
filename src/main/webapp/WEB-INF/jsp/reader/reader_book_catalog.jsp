@@ -114,6 +114,26 @@
             </div>
         </div>
 
+        <!-- 借阅排行榜 -->
+        <div class="rank-list" style="margin-top: 20px;">
+            <div class="rank-list-header">
+                <h3>借阅排行榜</h3>
+            </div>
+            <div id="borrowRankList">
+                <!-- 借阅排行榜将通过Ajax加载 -->
+            </div>
+        </div>
+
+        <!-- 评分排行榜 -->
+        <div class="rank-list">
+            <div class="rank-list-header">
+                <h3>评分排行榜</h3>
+            </div>
+            <div id="ratingRankList">
+                <!-- 评分排行榜将通过Ajax加载 -->
+            </div>
+        </div>
+
         <!-- 标题和新增按钮 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">
@@ -250,6 +270,71 @@
                         response: xhr.responseText
                     });
                     $('#hotBooks').html('<div class="col-12 text-center text-danger">获取热门图书数据失败</div>');
+                }
+            });
+
+            // 加载排行榜数据
+            $.ajax({
+                url: baseUrl + '/rank/list',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log('获取到的排行榜数据:', data);
+                    
+                    // 渲染借阅排行榜
+                    let borrowHtml = '';
+                    if (data.borrowRank && data.borrowRank.length > 0) {
+                        data.borrowRank.forEach((book, index) => {
+                            borrowHtml += `
+                                <div class="rank-item">
+                                    <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
+                                    <div class="book-info">
+                                        <div class="book-title">${'${book.name}'}</div>
+                                        <div class="book-author">作者：${'${book.author}'}</div>
+                                    </div>
+                                    <div class="rank-value">借阅次数：${'${book.borrowCount || 0}'}</div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        borrowHtml = '<div class="text-center">暂无借阅排行数据</div>';
+                    }
+                    $('#borrowRankList').html(borrowHtml);
+
+                    // 渲染评分排行榜
+                    let ratingHtml = '';
+                    if (data.ratingRank && data.ratingRank.length > 0) {
+                        data.ratingRank.forEach((book, index) => {
+                            const rating = parseFloat(book.avgRating) || 0;
+                            const stars = '★'.repeat(Math.round(rating)) +
+                                        '☆'.repeat(5 - Math.round(rating));
+                            ratingHtml += `
+                                <div class="rank-item">
+                                    <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
+                                    <div class="book-info">
+                                        <div class="book-title">${'${book.name}'}</div>
+                                        <div class="book-author">作者：${'${book.author}'}</div>
+                                    </div>
+                                    <div class="rank-value">
+                                        <div class="book-rating">${'${stars}'}</div>
+                                        <div>评分：${'${rating.toFixed(1)}'}</div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        ratingHtml = '<div class="text-center">暂无评分排行数据</div>';
+                    }
+                    $('#ratingRankList').html(ratingHtml);
+                },
+                error: function(xhr, status, error) {
+                    console.error('获取排行榜数据失败:', {
+                        status: status,
+                        error: error,
+                        response: xhr.responseText
+                    });
+                    $('#borrowRankList').html('<div class="text-center text-danger">获取借阅排行榜数据失败</div>');
+                    $('#ratingRankList').html('<div class="text-center text-danger">获取评分排行榜数据失败</div>');
                 }
             });
         });
