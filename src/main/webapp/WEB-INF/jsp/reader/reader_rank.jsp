@@ -122,7 +122,11 @@ $(document).ready(function() {
                 <div class="rank-item">
                     <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
                     <div class="book-info">
-                        <div class="book-title">${'${book.name}'}</div>
+                        <div class="book-title">
+                            <a href="${pageContext.request.contextPath}/reader/book/detail?id=${'${book.bookId}'}" class="text-dark">
+                                ${'${book.name}'}
+                            </a>
+                        </div>
                         <div class="book-author">作者：${'${book.author}'} | 出版社：${'${book.publish}'}</div>
                     </div>
                     <div class="rank-value">借阅次数：${'${book.borrowCount}'}</div>
@@ -141,7 +145,11 @@ $(document).ready(function() {
                 <div class="rank-item">
                     <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
                     <div class="book-info">
-                        <div class="book-title">${'${book.name}'}</div>
+                        <div class="book-title">
+                            <a href="${pageContext.request.contextPath}/reader/book/detail?id=${'${book.bookId}'}" class="text-dark">
+                                ${'${book.name}'}
+                            </a>
+                        </div>
                         <div class="book-author">作者：${'${book.author}'} | 出版社：${'${book.publish}'}</div>
                     </div>
                     <div class="rank-value">
