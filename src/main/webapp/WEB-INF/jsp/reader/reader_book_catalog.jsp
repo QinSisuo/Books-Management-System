@@ -290,7 +290,7 @@
                                     <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
                                     <div class="book-info">
                                         <div class="book-title">${'${book.name}'}</div>
-                                        <div class="book-author">作者：${'${book.author}'}</div>
+                                        <div class="book-author">作者：${'${book.author}'} | 出版社：${'${book.publish}'}</div>
                                     </div>
                                     <div class="rank-value">借阅次数：${'${book.borrowCount || 0}'}</div>
                                 </div>
@@ -313,7 +313,7 @@
                                     <div class="rank-number \${index < 3 ? 'top3 rank-' + (index + 1) : ''}">${'${index + 1}'}</div>
                                     <div class="book-info">
                                         <div class="book-title">${'${book.name}'}</div>
-                                        <div class="book-author">作者：${'${book.author}'}</div>
+                                        <div class="book-author">作者：${'${book.author}'} | 出版社：${'${book.publish}'}</div>
                                     </div>
                                     <div class="rank-value">
                                         <div class="book-rating">${'${stars}'}</div>
