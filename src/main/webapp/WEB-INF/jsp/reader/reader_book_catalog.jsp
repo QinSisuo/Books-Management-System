@@ -209,25 +209,38 @@
     <script>
         $(document).ready(function() {
             // 加载热门图书
-            $.get('${pageContext.request.contextPath}/recommend/hot', function(books) {
-                const hotBooksContainer = $('#hotBooks');
-                books.forEach(function(book) {
-                    const stars = '★'.repeat(Math.round(book.avgRating || 0)) +
-                                 '☆'.repeat(5 - Math.round(book.avgRating || 0));
-                    const bookHtml = `
-                        <div class="col-md-3">
-                            <div class="hot-book-item">
-                                <h4><a href="${pageContext.request.contextPath}/reader/book/detail?id=${'${book.bookId}'}">${'${book.name}'}</a></h4>
-                                <div class="book-rating">${'${stars}'}</div>
-                                <div class="book-info">
-                                    <div>作者: ${'${book.author}'}</div>
-                                    <div class="book-borrow-count">借阅次数: ${'${book.borrowCount || 0}'}</div>
+            $.ajax({
+                url: '${pageContext.request.contextPath}/recommend/hot',
+                method: 'GET',
+                success: function(books) {
+                    console.log('获取到的热门图书数据:', books);
+                    const hotBooksContainer = $('#hotBooks');
+                    if (!books || books.length === 0) {
+                        hotBooksContainer.html('<div class="col-12 text-center">暂无热门图书数据</div>');
+                        return;
+                    }
+                    books.forEach(function(book) {
+                        const stars = '★'.repeat(Math.round(book.avgRating || 0)) +
+                                     '☆'.repeat(5 - Math.round(book.avgRating || 0));
+                        const bookHtml = `
+                            <div class="col-md-3">
+                                <div class="hot-book-item">
+                                    <h4><a href="${pageContext.request.contextPath}/reader/book/detail?id=${book.bookId}">${book.name}</a></h4>
+                                    <div class="book-rating">${stars}</div>
+                                    <div class="book-info">
+                                        <div>作者: ${book.author}</div>
+                                        <div class="book-borrow-count">借阅次数: ${book.borrowCount || 0}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                    hotBooksContainer.append(bookHtml);
-                });
+                        `;
+                        hotBooksContainer.append(bookHtml);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('获取热门图书数据失败:', error);
+                    $('#hotBooks').html('<div class="col-12 text-center text-danger">获取热门图书数据失败</div>');
+                }
             });
         });
     </script>
