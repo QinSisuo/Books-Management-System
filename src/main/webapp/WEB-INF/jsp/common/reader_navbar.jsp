@@ -169,39 +169,43 @@
             <!-- 菜单项 -->
             <div class="nav-menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            图书目录
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="reader_book_catalog.html">图书目录</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            图书管理
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="rank">排行榜</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            借阅管理
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="reader_my_borrow.html">我的借还</a></li>
-                            <li><a href="reader_my_reservations.html">我的预约</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                            个人信息管理
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/reader/profile">个人信息管理</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="reader_book_catalog.html">图书目录</a></li>
+                    <li style="margin-left: 10px"><a href="reader_my_borrow.html">我的借还</a></li>
+                    <li style="margin-left: 10px"><a href="reader_my_reservations.html">我的预约</a></li>
+                    <li style="margin-left: 10px"><a href="/reader/profile">个人信息管理</a></li>
+<%--                    <li class="nav-item dropdown">--%>
+<%--                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">--%>
+<%--                            图书目录--%>
+<%--                        </a>--%>
+<%--                        <ul class="dropdown-menu">--%>
+<%--                            <li><a href="reader_book_catalog.html">图书目录</a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="nav-item dropdown">--%>
+<%--                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">--%>
+<%--                            图书管理--%>
+<%--                        </a>--%>
+<%--                        <ul class="dropdown-menu">--%>
+<%--                            <li><a href="rank">排行榜</a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="nav-item dropdown">--%>
+<%--                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">--%>
+<%--                            借阅管理--%>
+<%--                        </a>--%>
+<%--                        <ul class="dropdown-menu">--%>
+<%--                            <li><a href="reader_my_borrow.html">我的借还</a></li>--%>
+<%--                            <li><a href="reader_my_reservations.html">我的预约</a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
+<%--                    <li class="nav-item dropdown">--%>
+<%--                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">--%>
+<%--                            个人信息管理--%>
+<%--                        </a>--%>
+<%--                        <ul class="dropdown-menu">--%>
+<%--                            <li><a href="/reader/profile">个人信息管理</a></li>--%>
+<%--                        </ul>--%>
+<%--                    </li>--%>
                 </ul>
             </div>
 

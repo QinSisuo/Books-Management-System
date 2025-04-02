@@ -29,7 +29,7 @@
             <form action="queryuser.html" method="get" class="form-inline">
                 <div class="form-group">
                     <input type="text" class="form-control" name="searchWord"
-                           placeholder="输入用户名" value="${searchWord}" style="width: 300px;" />
+                           placeholder="请输入用户名" value="${searchWord}" style="width: 300px;" />
                 </div>
                 &nbsp;
                 <button type="submit" class="btn btn-primary">搜索</button>
