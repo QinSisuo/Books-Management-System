@@ -96,15 +96,29 @@
                     data: $(this).serialize(),
                     success: function(response) {
                         if (response.success) {
-                            alert('个人信息更新成功！');
+                            Swal.fire({
+                                icon: 'success',
+                                title: '更新成功',
+                                text: '个人信息已更新',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                             $('#newPassword').val('');
                             $('#confirmPassword').val('');
                         } else {
-                            alert('更新失败：' + response.message);
+                            Swal.fire({
+                                icon: 'error',
+                                title: '更新失败',
+                                text: response.message
+                            });
                         }
                     },
                     error: function() {
-                        alert('更新失败，请稍后重试！');
+                        Swal.fire({
+                            icon: 'error',
+                            title: '更新失败',
+                            text: '请稍后重试'
+                        });
                     }
                 });
             });
