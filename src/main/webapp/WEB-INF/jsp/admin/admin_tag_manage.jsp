@@ -28,7 +28,7 @@
             <form action="admin_tag_manage.html" method="post" class="form-inline">
                 <div class="form-group">
                     <input type="text" class="form-control" name="searchWord"
-                           placeholder="输入标签名" value="${searchWord}" style="width: 300px;" />
+                           placeholder="请输入标签名称" value="${searchWord}" style="width: 300px;" />
                 </div>
                 &nbsp;
                 <button type="submit" class="btn btn-primary">搜索</button>
