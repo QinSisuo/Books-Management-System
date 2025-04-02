@@ -55,6 +55,19 @@
     <%@ include file="../common/footer.jsp" %>
 
     <div class="container">
+
+        <!-- 统一搜索框 -->
+        <div class="container" style="margin-top: 20px; margin-bottom: 20px; max-width: 600px; margin-left: -15px;">
+            <form id="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="number" class="form-control" id="readerId" name="readerId"
+                           placeholder="请输入用户ID" style="width: 300px;" />
+                </div>
+                &nbsp;
+                <button type="button" class="btn btn-primary" onclick="searchRecords()">搜索</button>
+            </form>
+        </div>
+
         <!-- 页面标题 -->
         <div class="panel panel-default">
             <div class="panel-heading bg-white">
@@ -64,19 +77,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 搜索面板 -->
-        <div class="search-panel">
-            <form id="searchForm" class="form-inline">
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="readerId" class="mr-2">用户ID</label>
-                    <input type="number" class="form-control" id="readerId" name="readerId" placeholder="请输入用户ID">
-                </div>
-                <button type="button" class="btn btn-primary mb-2" onclick="searchRecords()">
-                    <i class="fas fa-search"></i> 搜索
-                </button>
-            </form>
         </div>
 
         <!-- 数据表格 -->
