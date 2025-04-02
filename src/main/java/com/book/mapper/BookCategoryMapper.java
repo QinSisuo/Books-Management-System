@@ -36,4 +36,8 @@ public interface BookCategoryMapper {
     // 获取分类下的图书数量
     @Select("SELECT COUNT(*) FROM books WHERE category_id = #{categoryId}")
     int getBookCountInCategory(int categoryId);
+
+    // 根据关键词搜索分类
+    @Select("SELECT * FROM book_category WHERE category_name LIKE CONCAT('%', #{searchWord}, '%') ORDER BY category_id ASC")
+    List<BookCategory> searchCategories(String searchWord);
 }

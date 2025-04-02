@@ -99,6 +99,14 @@ public class BookCategoryService {
         return categoryMapper.getCategoryById(categoryId);
     }
 
+    // 根据关键词搜索分类
+    public List<BookCategory> searchCategories(String searchWord) {
+        if (searchWord == null || searchWord.trim().isEmpty()) {
+            return getAllCategories();
+        }
+        return categoryMapper.searchCategories(searchWord.trim());
+    }
+
     // 验证分类信息
     private void validateCategory(BookCategory category) {
         if (category == null) {

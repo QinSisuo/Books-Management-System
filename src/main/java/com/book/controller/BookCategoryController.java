@@ -21,9 +21,16 @@ public class BookCategoryController {
 
     // 显示分类列表
     @GetMapping("/admin_category_manage.html")
-    public ModelAndView categoryList() {
-        List<BookCategory> categories = categoryService.getAllCategories();
-        return new ModelAndView("admin/admin_category_manage").addObject("categories", categories);
+    public ModelAndView categoryList(@RequestParam(required = false) String searchWord) {
+        List<BookCategory> categories;
+        if (searchWord != null && !searchWord.trim().isEmpty()) {
+            categories = categoryService.searchCategories(searchWord);
+        } else {
+            categories = categoryService.getAllCategories();
+        }
+        return new ModelAndView("admin/admin_category_manage")
+                .addObject("categories", categories)
+                .addObject("searchWord", searchWord);
     }
 
     // 新增分类
