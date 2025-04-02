@@ -41,6 +41,7 @@
                     <th>预约时间</th>
                     <th>状态</th>
                     <th>通知时间</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,10 +63,64 @@
                             </c:choose>
                         </td>
                         <td>${reservation.notifyTime != null ? reservation.notifyTime : '-'}</td>
+                        <td>
+                            <c:if test="${reservation.status == 0}">
+                                <button class="btn btn-danger btn-sm" onclick="cancelReservation(${reservation.id})">
+                                    <i class="fas fa-times"></i> 取消预约
+                                </button>
+                            </c:if>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
     </div>
+
+    <script>
+        function cancelReservation(reservationId) {
+            Swal.fire({
+                title: '确认取消预约？',
+                text: "取消后将无法恢复！",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '是的，取消预约',
+                cancelButtonText: '返回'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/reader/cancelReservation',
+                        type: 'POST',
+                        data: { reservationId: reservationId },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    '已取消！',
+                                    '预约已成功取消。',
+                                    'success'
+                                ).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    '错误！',
+                                    response.message || '取消预约失败，请稍后重试。',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function() {
+                            Swal.fire(
+                                '错误！',
+                                '服务器错误，请稍后重试。',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 </body>
 </html> 

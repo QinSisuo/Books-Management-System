@@ -23,4 +23,18 @@ public interface BookReservationService {
      * 通知预约的读者
      */
     void notifyReservations(Long bookId);
+    
+    /**
+     * 根据ID获取预约信息
+     * @param reservationId 预约ID
+     * @return 预约信息
+     */
+    BookReservation getReservationById(Long reservationId);
+    
+    /**
+     * 取消预约
+     * @param reservationId 预约ID
+     * @return 是否取消成功
+     */
+    boolean cancelReservation(Long reservationId);
 } 

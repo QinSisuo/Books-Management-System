@@ -10,7 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BookReservationController {
@@ -49,5 +51,36 @@ public class BookReservationController {
             reservationService.getMyReservations(currentUser.getUserId());
         return new ModelAndView("reader/reader_my_reservations")
                 .addObject("reservations", reservations);
+    }
+
+    // 取消预约
+    @PostMapping("/reader/cancelReservation")
+    @ResponseBody
+    public Map<String, Object> cancelReservation(@RequestParam("reservationId") Long reservationId,
+                                               HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        
+        // 检查用户是否登录
+        User currentUser = (User) session.getAttribute("user");
+        if (currentUser == null) {
+            response.put("success", false);
+            response.put("message", "请先登录！");
+            return response;
+        }
+
+        // 检查预约是否存在且属于当前用户
+        BookReservation reservation = reservationService.getReservationById(reservationId);
+        if (reservation == null || !reservation.getReaderId().equals(currentUser.getUserId())) {
+            response.put("success", false);
+            response.put("message", "预约不存在或无权限取消！");
+            return response;
+        }
+
+        // 取消预约
+        boolean success = reservationService.cancelReservation(reservationId);
+        response.put("success", success);
+        response.put("message", success ? "取消预约成功" : "取消预约失败，请稍后重试");
+        
+        return response;
     }
 } 

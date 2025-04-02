@@ -70,4 +70,21 @@ public class BookReservationServiceImpl implements BookReservationService {
             );
         }
     }
+
+    @Override
+    public BookReservation getReservationById(Long reservationId) {
+        return reservationMapper.findById(reservationId);
+    }
+
+    @Override
+    @Transactional
+    public boolean cancelReservation(Long reservationId) {
+        BookReservation reservation = reservationMapper.findById(reservationId);
+        if (reservation == null || reservation.getStatus() != 0) {
+            return false;
+        }
+        
+        reservation.setStatus(2); // 设置为已取消状态
+        return reservationMapper.updateReservationStatus(reservation) > 0;
+    }
 } 

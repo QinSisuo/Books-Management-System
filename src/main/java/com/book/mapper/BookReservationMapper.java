@@ -24,6 +24,11 @@ public interface BookReservationMapper {
             "ORDER BY br.reserve_time ASC")
     List<BookReservation> findActiveReservationsByBook(Long bookId);
     
+    @Select("SELECT br.*, b.name as book_name FROM book_reservation br " +
+            "LEFT JOIN books b ON br.book_id = b.book_id " +
+            "WHERE br.id = #{id}")
+    BookReservation findById(Long id);
+    
     @Update("UPDATE book_reservation SET status = #{status}, notify_time = #{notifyTime} " +
             "WHERE id = #{id}")
     int updateReservationStatus(BookReservation reservation);
