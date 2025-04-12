@@ -36,8 +36,8 @@
     </style>
 </head>
 <body>
-    <%@ include file="common/header.jsp" %>
-    <%@ include file="common/admin_navbar.jsp" %>
+    <%@ include file="../common/header.jsp" %>
+    <%@ include file="../common/admin_navbar.jsp" %>
 
     <div class="container">
         <div class="panel panel-default">
@@ -49,7 +49,7 @@
                     <c:forEach items="${hotTags}" var="tag" varStatus="status">
                         <div class="tag-item tag-size-${status.index % 5 + 1}" 
                              onclick="searchByTag('${tag.name}')" 
-                             title="使用次数：${tag.useCount}&#13;搜索次数：${tag.searchCount}&#13;借阅次数：${tag.borrowCount}">
+                             title="借阅次数：${tag.borrowCount}">
                             ${tag.name}
                             <span class="badge">${tag.hotScore}</span>
                         </div>

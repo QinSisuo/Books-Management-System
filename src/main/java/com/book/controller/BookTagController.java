@@ -89,7 +89,7 @@ public class BookTagController {
     public ModelAndView hotTags() {
         // 获取热门标签，按hot_score降序排序，限制前10个
         List<BookTag> hotTags = bookTagService.getHotTags(10);
-        ModelAndView modelAndView = new ModelAndView("hot_tags");
+        ModelAndView modelAndView = new ModelAndView("Trash/hot_tags");
         modelAndView.addObject("hotTags", hotTags);
         return modelAndView;
     }
