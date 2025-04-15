@@ -351,21 +351,6 @@ public class UserController {
         return "redirect:/admin/readers";
     }
 
-    // 6. 删除读者
-    @PostMapping("/admin/reader/delete/{id}")
-    public String deleteReader(@PathVariable("id") Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        logger.info("管理员正在删除读者 - 读者ID: {}", id);
-        boolean success = userService.deleteReader(id, request);
-        if (success) {
-            logger.info("读者删除成功 - 读者ID: {}", id);
-            redirectAttributes.addFlashAttribute("success", "读者删除成功！");
-        } else {
-            logger.error("读者删除失败 - 读者ID: {}", id);
-            redirectAttributes.addFlashAttribute("error", "读者删除失败！");
-        }
-        return "redirect:/admin/readers";
-    }
-
     // 显示个人信息管理页面
     @GetMapping("/reader/profile")
     public String showProfilePage(HttpServletRequest request, Model model) {

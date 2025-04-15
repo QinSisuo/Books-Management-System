@@ -107,22 +107,6 @@ public class UserService {
         return rows > 0;
     }
 
-    // 删除读者
-    public boolean deleteReader(Long id, HttpServletRequest request) {
-        logger.info("删除读者 - 读者ID: {}", id);
-        int rows = userMapper.deleteUser(id);
-        
-        // 记录操作日志
-        SystemLog log = new SystemLog();
-        log.setOperationType("删除读者");
-        log.setDescription("删除读者ID: " + id);
-        log.setResult(rows > 0 ? "成功" : "失败");
-        log.setIpAddress(IpUtil.getIpAddress(request));
-        logService.recordLog(log);
-        
-        return rows > 0;
-    }
-
     // =============== 原有的通用用户管理功能 ===============
 
     public List<User> getAllUsers() {
