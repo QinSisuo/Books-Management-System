@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -18,7 +17,10 @@ import java.util.Map;
 
 /**
  * 用户控制器
- * 处理所有与用户相关的HTTP请求
+ * 处理所有与用户相关的HTTP请求，包括：
+ * 1. 用户认证（登录、注册、注销）
+ * 2. 用户管理（增删改查）
+ * 3. 个人信息管理
  */
 @Controller
 public class UserController {
@@ -32,7 +34,7 @@ public class UserController {
     
     /**
      * 显示登录页面
-     * @RequestMapping("/admin"): 该控制器的所有路径都会以 /admin 开头。
+     * 访问根路径("/")或"/login.html"时跳转到登录页面
      */
     @RequestMapping(value = {"/", "/login.html"})
     public String showLoginPage(HttpServletRequest request) {
@@ -52,6 +54,8 @@ public class UserController {
 
     /**
      * 显示管理员主页面
+     * @param request HTTP请求对象
+     * @return 管理员主页面视图或登录页面重定向
      */
     @RequestMapping("/admin_main.html")
     public ModelAndView toAdminMain(HttpServletRequest request) {
@@ -66,6 +70,8 @@ public class UserController {
 
     /**
      * 显示读者主页面
+     * @param request HTTP请求对象
+     * @return 读者主页面视图或登录页面重定向
      */
     @RequestMapping("/reader_main.html")
     public ModelAndView toReaderMain(HttpServletRequest request) {
@@ -82,6 +88,12 @@ public class UserController {
     
     /**
      * 处理用户注册请求
+     * @param username 用户名
+     * @param password 密码
+     * @param email 邮箱（可选）
+     * @param phone 电话（可选）
+     * @param request HTTP请求对象
+     * @return 注册结果，包含success和message字段
      */
     @PostMapping("/api/register")
     @ResponseBody
@@ -104,7 +116,7 @@ public class UserController {
             newUser.setPassword(password);
             newUser.setEmail(email);
             newUser.setPhone(phone);
-            newUser.setRole("reader"); // 默认注册为读者角色
+            newUser.setRole("reader"); // 新注册用户默认为读者角色
 
             boolean success = userService.addUser(newUser, request);
             
@@ -122,6 +134,8 @@ public class UserController {
 
     /**
      * 处理用户登录请求
+     * @param request HTTP请求对象，包含username和password参数
+     * @return 登录结果，包含stateCode和msg字段
      */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody Map<String, String> loginCheck(HttpServletRequest request) {
@@ -159,6 +173,8 @@ public class UserController {
 
     /**
      * 处理用户注销请求
+     * @param request HTTP请求对象
+     * @return 重定向到登录页面
      */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
@@ -171,6 +187,8 @@ public class UserController {
     
     /**
      * 查询用户列表
+     * @param searchWord 搜索关键词（可选）
+     * @return 用户列表页面视图
      */
     @RequestMapping(value = "/queryuser.html", method = RequestMethod.GET)
     public ModelAndView adminQueryUser(@RequestParam(required = false) String searchWord) {
@@ -195,6 +213,8 @@ public class UserController {
 
     /**
      * 显示所有用户列表
+     * @param model Spring MVC模型对象
+     * @return 用户管理页面视图
      */
     @GetMapping("admin_user_manage.html")
     public String showAllUsers(Model model) {
@@ -205,6 +225,10 @@ public class UserController {
 
     /**
      * 删除用户
+     * @param userId 用户ID
+     * @param request HTTP请求对象
+     * @param model Spring MVC模型对象
+     * @return 重定向到用户管理页面
      */
     @GetMapping("/admin/user/delete")
     public String deleteUser(@RequestParam("userId") Long userId, HttpServletRequest request, Model model) {
@@ -220,6 +244,13 @@ public class UserController {
 
     /**
      * 添加用户
+     * @param username 用户名
+     * @param password 密码
+     * @param role 用户角色
+     * @param email 邮箱（可选）
+     * @param phone 电话（可选）
+     * @param request HTTP请求对象
+     * @return 添加结果，包含success和message字段
      */
     @PostMapping("/admin/user/add")
     @ResponseBody
@@ -282,6 +313,9 @@ public class UserController {
 
     /**
      * 更新用户信息
+     * @param user 用户对象
+     * @param request HTTP请求对象
+     * @return 更新结果，包含success和message字段
      */
     @PostMapping("/admin/user/update")
     @ResponseBody
@@ -302,6 +336,9 @@ public class UserController {
     
     /**
      * 显示个人信息页面
+     * @param request HTTP请求对象
+     * @param model Spring MVC模型对象
+     * @return 个人信息页面视图或登录页面重定向
      */
     @GetMapping("/reader/profile")
     public String showProfilePage(HttpServletRequest request, Model model) {
@@ -315,6 +352,10 @@ public class UserController {
 
     /**
      * 更新个人信息
+     * @param user 用户对象
+     * @param newPassword 新密码（可选）
+     * @param request HTTP请求对象
+     * @return 更新结果，包含success和message字段
      */
     @PostMapping("/reader/profile/update")
     @ResponseBody
