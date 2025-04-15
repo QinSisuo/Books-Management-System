@@ -116,17 +116,6 @@ public class UserController {
         return res;
     }
 
-
-    @GetMapping("/admin_main")
-    public String showDashboard(HttpServletRequest request, Model model) {
-        User user = (User) request.getSession().getAttribute("user");
-
-        // 将 user 对象添加到模型中
-        model.addAttribute("user", user);
-
-        return "admin/admin_main";  // 返回 JSP 页面
-    }
-
     // 注销功能
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
