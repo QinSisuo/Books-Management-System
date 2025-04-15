@@ -61,52 +61,6 @@ public class UserService {
         return userMapper.searchUsers(searchWord);
     }
 
-
-    // 获取所有读者信息
-    public List<User> getAllReaders() {
-        logger.info("获取所有读者信息");
-        return userMapper.findUsersByRole("reader");
-    }
-
-    // 添加读者
-    public boolean addReader(User user, HttpServletRequest request) {
-        logger.info("添加新读者 - 用户名: {}", user.getUsername());
-        user.setRole("reader"); // 确保角色为 reader
-        int rows = userMapper.insertUser(user);
-        
-        // 记录操作日志
-        SystemLog log = new SystemLog();
-        log.setOperationType("添加读者");
-        log.setDescription("添加新读者: " + user.getUsername());
-        log.setResult(rows > 0 ? "成功" : "失败");
-        log.setIpAddress(IpUtil.getIpAddress(request));
-        logService.recordLog(log);
-        
-        return rows > 0;
-    }
-
-//    // 根据 ID 获取读者信息
-//    public User getReaderById(Long id) {
-//        logger.info("根据 ID 获取读者信息 - 读者ID: {}", id);
-//        return userMapper.findUserById(id);
-//    }
-
-    // 更新读者信息
-    public boolean updateReader(User user, HttpServletRequest request) {
-        logger.info("更新读者信息 - 读者ID: {}", user.getUserId());
-        int rows = userMapper.updateUser(user);
-        
-        // 记录操作日志
-        SystemLog log = new SystemLog();
-        log.setOperationType("更新读者");
-        log.setDescription("更新读者信息: " + user.getUsername());
-        log.setResult(rows > 0 ? "成功" : "失败");
-        log.setIpAddress(IpUtil.getIpAddress(request));
-        logService.recordLog(log);
-        
-        return rows > 0;
-    }
-
     // =============== 原有的通用用户管理功能 ===============
 
     public List<User> getAllUsers() {

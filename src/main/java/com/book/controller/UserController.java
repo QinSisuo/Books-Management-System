@@ -277,46 +277,6 @@ public class UserController {
 
     // =============== 整合UserAdminController的功能 ===============
     
-//    // 1. 查看所有读者
-//    @GetMapping("/admin/readers")
-//    public String getAllReaders(Model model) {
-//        logger.info("管理员正在查看所有读者信息");
-//        List<User> readers = userService.getAllReaders();
-//        model.addAttribute("readers", readers);
-//        return "admin_readers";
-//    }
-
-    // 3. 添加读者逻辑
-    @PostMapping("/admin/reader/add")
-    public String addReader(@ModelAttribute User user, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        logger.info("管理员正在添加新读者 - 用户名: {}", user.getUsername());
-        boolean success = userService.addReader(user, request);
-        if (success) {
-            logger.info("读者添加成功 - 用户名: {}", user.getUsername());
-            redirectAttributes.addFlashAttribute("success", "读者添加成功！");
-        } else {
-            logger.error("读者添加失败 - 用户名: {}", user.getUsername());
-            redirectAttributes.addFlashAttribute("error", "读者添加失败！");
-        }
-        return "redirect:/admin/readers";
-    }
-
-
-    // 5. 更新读者信息
-    @PostMapping("/admin/reader/edit")
-    public String editReader(@ModelAttribute User user, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        logger.info("管理员正在更新读者信息 - 读者ID: {}", user.getUserId());
-        boolean success = userService.updateReader(user, request);
-        if (success) {
-            logger.info("读者信息更新成功 - 读者ID: {}", user.getUserId());
-            redirectAttributes.addFlashAttribute("success", "读者信息更新成功！");
-        } else {
-            logger.error("读者信息更新失败 - 读者ID: {}", user.getUserId());
-            redirectAttributes.addFlashAttribute("error", "读者信息更新失败！");
-        }
-        return "redirect:/admin/readers";
-    }
-
     // 显示个人信息管理页面
     @GetMapping("/reader/profile")
     public String showProfilePage(HttpServletRequest request, Model model) {
