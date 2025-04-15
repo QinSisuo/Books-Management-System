@@ -197,20 +197,6 @@ public class UserController {
         return "redirect:/admin_user_manage.html";
     }
 
-    //admin add page
-    @GetMapping("/admin_user_add.html")
-    public String showAddUserPage(HttpServletRequest request, Model model) {
-        // 添加权限检查
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null || !"admin".equals(user.getRole())) {
-            logger.warn("非管理员尝试访问添加用户页面");
-            return "redirect:/login.html";
-        }
-        
-        logger.info("管理员正在进入添加用户页面 - 管理员: {}", user.getUsername());
-        return "admin_user_add";
-    }
-
     //admin add logic
     @PostMapping("/admin/user/add")
     @ResponseBody
@@ -298,13 +284,6 @@ public class UserController {
         List<User> readers = userService.getAllReaders();
         model.addAttribute("readers", readers);
         return "admin_readers";
-    }
-
-    // 2. 添加读者页面
-    @GetMapping("/admin/reader/add")
-    public String showAddReaderPage() {
-        logger.info("管理员正在进入添加读者页面");
-        return "admin_reader_add";
     }
 
     // 3. 添加读者逻辑
