@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 用户服务类
+ * 处理所有与用户相关的业务逻辑
+ */
 @Service
 public class UserService {
 
@@ -23,12 +27,45 @@ public class UserService {
     @Autowired
     private LogService logService;
 
-    // 根据用户名获取用户
+    // =============== 用户查询相关方法 ===============
+    
+    /**
+     * 根据用户名获取用户
+     * @param username 用户名
+     * @return 用户对象，如果不存在返回null
+     */
     public User getUserByUsername(String username) {
         return userMapper.getUserByUsername(username);
     }
 
-    // 登录验证
+    /**
+     * 获取所有用户信息
+     * @return 用户列表
+     */
+    public List<User> getAllUsers() {
+        logger.info("获取所有用户信息");
+        return userMapper.findAllUsers();
+    }
+
+    /**
+     * 搜索用户
+     * @param searchWord 搜索关键词
+     * @return 匹配的用户列表
+     */
+    public List<User> searchUsers(String searchWord) {
+        logger.info("搜索用户，关键词: {}", searchWord);
+        return userMapper.searchUsers(searchWord);
+    }
+
+    // =============== 用户认证相关方法 ===============
+    
+    /**
+     * 用户登录验证
+     * @param username 用户名
+     * @param password 密码
+     * @param request HTTP请求对象
+     * @return 登录成功的用户对象，失败返回null
+     */
     public User login(String username, String password, HttpServletRequest request) {
         User user = userMapper.getUserByUsername(username);
         SystemLog log = new SystemLog();
@@ -53,31 +90,114 @@ public class UserService {
         }
     }
 
-
-    // =============== 整合UserAdminService的功能 ===============
-
-    public List<User> searchUsers(String searchWord) {
-        logger.info("搜索用户，关键词: {}", searchWord);
-        return userMapper.searchUsers(searchWord);
+    // =============== 用户管理相关方法 ===============
+    
+    /**
+     * 添加新用户
+     * @param user 用户对象
+     * @param request HTTP请求对象
+     * @return 是否添加成功
+     */
+    public boolean addUser(User user, HttpServletRequest request) {
+        logger.info("添加新用户 - 用户名: {}", user.getUsername());
+        int rows = userMapper.insertUser(user);
+        
+        SystemLog log = new SystemLog();
+        log.setOperationType("添加用户");
+        log.setDescription("添加新用户: " + user.getUsername());
+        log.setResult(rows > 0 ? "成功" : "失败");
+        log.setIpAddress(IpUtil.getIpAddress(request));
+        logService.recordLog(log);
+        
+        return rows > 0;
     }
 
-    // =============== 原有的通用用户管理功能 ===============
-
-    public List<User> getAllUsers() {
-        logger.info("获取所有用户信息");
-        return userMapper.findAllUsers();
+    /**
+     * 更新用户信息
+     * @param user 用户对象
+     * @param request HTTP请求对象
+     * @return 是否更新成功
+     */
+    public boolean updateUser(User user, HttpServletRequest request) {
+        try {
+            logger.info("正在更新用户信息 - 用户ID: {}, 角色: {}", user.getUserId(), user.getRole());
+            
+            User existingUser = userMapper.getUserById(user.getUserId());
+            if (existingUser == null) {
+                logger.error("更新失败 - 用户不存在，ID: {}", user.getUserId());
+                return false;
+            }
+            
+            if (user.getRole() == null || (!user.getRole().equals("admin") && !user.getRole().equals("reader"))) {
+                logger.error("更新失败 - 无效的角色值: {}", user.getRole());
+                return false;
+            }
+            
+            int rows = userMapper.updateUser(user);
+            
+            SystemLog log = new SystemLog();
+            log.setOperationType("更新用户");
+            log.setDescription("更新用户信息: " + user.getUsername());
+            log.setResult(rows > 0 ? "成功" : "失败");
+            log.setIpAddress(IpUtil.getIpAddress(request));
+            logService.recordLog(log);
+            
+            return rows > 0;
+        } catch (Exception e) {
+            logger.error("更新用户信息时发生错误 - 用户ID: {}, 错误: {}", user.getUserId(), e.getMessage());
+            throw e;
+        }
     }
 
-    // 删除用户
+    /**
+     * 更新用户个人信息
+     * @param user 用户对象
+     * @param newPassword 新密码（可选）
+     * @param request HTTP请求对象
+     * @return 是否更新成功
+     */
+    public boolean updateUserProfile(User user, String newPassword, HttpServletRequest request) {
+        try {
+            logger.info("正在更新用户个人信息 - 用户ID: {}", user.getUserId());
+            
+            User existingUser = userMapper.getUserById(user.getUserId());
+            if (existingUser == null) {
+                logger.error("更新失败 - 用户不存在，ID: {}", user.getUserId());
+                return false;
+            }
+            
+            int rows = userMapper.updateUser(user);
+            
+            if (newPassword != null && !newPassword.trim().isEmpty()) {
+                userMapper.updatePassword(user.getUserId(), newPassword);
+            }
+            
+            SystemLog log = new SystemLog();
+            log.setOperationType("更新个人信息");
+            log.setDescription("更新用户个人信息: " + user.getUsername());
+            log.setResult(rows > 0 ? "成功" : "失败");
+            log.setIpAddress(IpUtil.getIpAddress(request));
+            logService.recordLog(log);
+            
+            return rows > 0;
+        } catch (Exception e) {
+            logger.error("更新用户个人信息时发生错误 - 用户ID: {}, 错误: {}", user.getUserId(), e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * 删除用户
+     * @param userId 用户ID
+     * @param request HTTP请求对象
+     * @return 是否删除成功
+     */
     public boolean deleteUser(Long userId, HttpServletRequest request) {
         logger.info("删除用户 - 用户ID: {}", userId);
         
-        // 获取当前登录用户（操作者）
         User currentUser = (User) request.getSession().getAttribute("user");
-        
         int rows = userMapper.deleteUser(userId);
         
-        // 记录操作日志
         SystemLog log = new SystemLog();
         if (currentUser != null) {
             log.setUserId(currentUser.getUserId());
@@ -90,112 +210,5 @@ public class UserService {
         logService.recordLog(log);
         
         return rows > 0;
-    }
-
-    public boolean addUser(User user, HttpServletRequest request) {
-        logger.info("添加新用户 - 用户名: {}", user.getUsername());
-        int rows = userMapper.insertUser(user);
-        
-        // 记录操作日志
-        SystemLog log = new SystemLog();
-        log.setOperationType("添加用户");
-        log.setDescription("添加新用户: " + user.getUsername());
-        log.setResult(rows > 0 ? "成功" : "失败");
-        log.setIpAddress(IpUtil.getIpAddress(request));
-        logService.recordLog(log);
-        
-        return rows > 0;
-    }
-
-    public boolean updateUser(User user, HttpServletRequest request) {
-        try {
-            logger.info("正在更新用户信息 - 用户ID: {}, 角色: {}", user.getUserId(), user.getRole());
-            
-            // 验证用户是否存在
-            User existingUser = userMapper.getUserById(user.getUserId());
-            if (existingUser == null) {
-                logger.error("更新失败 - 用户不存在，ID: {}", user.getUserId());
-                return false;
-            }
-            
-            // 验证角色值
-            if (user.getRole() == null || (!user.getRole().equals("admin") && !user.getRole().equals("reader"))) {
-                logger.error("更新失败 - 无效的角色值: {}", user.getRole());
-                return false;
-            }
-            
-            int rows = userMapper.updateUser(user);
-            
-            if (rows > 0) {
-                logger.info("用户信息更新成功 - 用户ID: {}", user.getUserId());
-                // 记录操作日志
-                SystemLog log = new SystemLog();
-                log.setOperationType("更新用户");
-                log.setDescription("更新用户信息: " + user.getUsername());
-                log.setResult("成功");
-                log.setIpAddress(IpUtil.getIpAddress(request));
-                logService.recordLog(log);
-                return true;
-            } else {
-                logger.error("用户信息更新失败 - 用户ID: {}", user.getUserId());
-                // 记录操作日志
-                SystemLog log = new SystemLog();
-                log.setOperationType("更新用户");
-                log.setDescription("更新用户信息: " + user.getUsername());
-                log.setResult("失败");
-                log.setIpAddress(IpUtil.getIpAddress(request));
-                logService.recordLog(log);
-                return false;
-            }
-        } catch (Exception e) {
-            logger.error("更新用户信息时发生错误 - 用户ID: {}, 错误: {}", user.getUserId(), e.getMessage());
-            throw e;
-        }
-    }
-
-    public boolean updateUserProfile(User user, String newPassword, HttpServletRequest request) {
-        try {
-            logger.info("正在更新用户个人信息 - 用户ID: {}", user.getUserId());
-            
-            // 验证用户是否存在
-            User existingUser = userMapper.getUserById(user.getUserId());
-            if (existingUser == null) {
-                logger.error("更新失败 - 用户不存在，ID: {}", user.getUserId());
-                return false;
-            }
-            
-            // 更新基本信息
-            int rows = userMapper.updateUser(user);
-            
-            // 如果提供了新密码，则更新密码
-            if (newPassword != null && !newPassword.trim().isEmpty()) {
-                userMapper.updatePassword(user.getUserId(), newPassword);
-            }
-            
-            if (rows > 0) {
-                logger.info("用户个人信息更新成功 - 用户ID: {}", user.getUserId());
-                // 记录操作日志
-                SystemLog log = new SystemLog();
-                log.setOperationType("更新个人信息");
-                log.setDescription("更新用户个人信息: " + user.getUsername());
-                log.setResult("成功");
-                log.setIpAddress(IpUtil.getIpAddress(request));
-                logService.recordLog(log);
-                return true;
-            } else {
-                logger.error("用户个人信息更新失败 - 用户ID: {}", user.getUserId());
-                // 记录操作日志
-                SystemLog log = new SystemLog();
-                log.setOperationType("更新个人信息");
-                log.setDescription("更新用户个人信息: " + user.getUsername());
-                log.setResult("失败");
-                log.setIpAddress(IpUtil.getIpAddress(request));
-                logService.recordLog(log);
-                return false;
-            }
-        } catch (Exception e) {
-            logger.error("更新用户个人信息时发生错误 - 用户ID: {}, 错误: {}", user.getUserId(), e.getMessage());
-            throw e;
-        }
     }
 }

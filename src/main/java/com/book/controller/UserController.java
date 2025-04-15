@@ -16,32 +16,73 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//@Controller: 这是一个 Spring MVC 控制器，处理 HTTP 请求。
+/**
+ * 用户控制器
+ * 处理所有与用户相关的HTTP请求
+ */
 @Controller
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class); // 日志对象
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
 
-    // 显示登录页面
-    //@RequestMapping("/admin"): 该控制器的所有路径都会以 /admin 开头。
+    // =============== 页面跳转相关方法 ===============
+    
+    /**
+     * 显示登录页面
+     * @RequestMapping("/admin"): 该控制器的所有路径都会以 /admin 开头。
+     */
     @RequestMapping(value = {"/", "/login.html"})
     public String showLoginPage(HttpServletRequest request) {
-        request.getSession().invalidate(); // 清除会话
-        logger.info("访问登录页面"); // 添加日志
-        return "index"; // 登录页面对应的 JSP 文件
+        request.getSession().invalidate();
+        logger.info("访问登录页面");
+        return "index";
     }
 
-    // 显示注册页面
+    /**
+     * 显示注册页面
+     */
     @RequestMapping("/register.html")
     public String showRegisterPage() {
         logger.info("访问注册页面");
         return "register";
     }
 
-    // 处理注册请求
+    /**
+     * 显示管理员主页面
+     */
+    @RequestMapping("/admin_main.html")
+    public ModelAndView toAdminMain(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || !"admin".equals(user.getRole())) {
+            logger.warn("非管理员访问管理员页面 - 跳转登录页面");
+            return new ModelAndView("redirect:/login.html");
+        }
+        logger.info("管理员页面访问成功 - 用户名: {}", user.getUsername());
+        return new ModelAndView("admin/admin_main").addObject("user", user);
+    }
+
+    /**
+     * 显示读者主页面
+     */
+    @RequestMapping("/reader_main.html")
+    public ModelAndView toReaderMain(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || !"reader".equals(user.getRole())) {
+            logger.warn("非读者访问读者页面 - 跳转登录页面");
+            return new ModelAndView("redirect:/login.html");
+        }
+        logger.info("读者页面访问成功 - 用户名: {}", user.getUsername());
+        return new ModelAndView("reader/reader_main").addObject("user", user);
+    }
+
+    // =============== 用户认证相关方法 ===============
+    
+    /**
+     * 处理用户注册请求
+     */
     @PostMapping("/api/register")
     @ResponseBody
     public Map<String, Object> register(@RequestParam("username") String username,
@@ -52,14 +93,12 @@ public class UserController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            // 检查用户名是否已存在
             if (userService.getUserByUsername(username) != null) {
                 response.put("success", false);
                 response.put("message", "用户名已存在！");
                 return response;
             }
 
-            // 创建新用户
             User newUser = new User();
             newUser.setUsername(username);
             newUser.setPassword(password);
@@ -81,110 +120,92 @@ public class UserController {
         }
     }
 
-    // 登录校验
+    /**
+     * 处理用户登录请求
+     */
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     public @ResponseBody Map<String, String> loginCheck(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        logger.info("尝试登录 - 用户名: {}", username); // 添加日志
+        logger.info("尝试登录 - 用户名: {}", username);
 
-        User user = userService.login(username, password, request); // 调用 Service 层获取用户
+        User user = userService.login(username, password, request);
 
         Map<String, String> res = new HashMap<>();
         if (user == null) {
-            logger.warn("登录失败 - 用户名: {}", username); // 添加日志
+            logger.warn("登录失败 - 用户名: {}", username);
             res.put("stateCode", "0");
             res.put("msg", "账号或密码错误！");
         } else {
-            request.getSession().setAttribute("user", user); // 保存用户到 session
-            logger.info("登录成功 - 用户名: {}, 角色: {}", user.getUsername(), user.getRole()); // 添加日志
+            request.getSession().setAttribute("user", user);
+            logger.info("登录成功 - 用户名: {}, 角色: {}", user.getUsername(), user.getRole());
 
             String role = user.getRole().toLowerCase();
             if ("admin".equals(role)) {
-                res.put("stateCode", "1"); // 管理员角色
+                res.put("stateCode", "1");
                 res.put("msg", "管理员登录成功！");
             } else if ("reader".equals(role)) {
-                res.put("stateCode", "2"); // 读者角色
+                res.put("stateCode", "2");
                 res.put("msg", "读者登录成功！");
             } else {
-                logger.error("未知角色 - 用户名: {}, 角色: {}", user.getUsername(), user.getRole()); // 添加日志
-                res.put("stateCode", "3"); // 未知角色
+                logger.error("未知角色 - 用户名: {}, 角色: {}", user.getUsername(), user.getRole());
+                res.put("stateCode", "3");
                 res.put("msg", "未知用户角色！");
             }
         }
         return res;
     }
 
-    // 注销功能
+    /**
+     * 处理用户注销请求
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
-        logger.info("用户注销: {}", request.getSession().getAttribute("user")); // 添加日志
-        request.getSession().invalidate(); // 清除会话
+        logger.info("用户注销: {}", request.getSession().getAttribute("user"));
+        request.getSession().invalidate();
         return "redirect:/login.html";
     }
 
-    // admin页面
-    @RequestMapping("/admin_main.html")
-    public ModelAndView toAdminMain(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null || !"admin".equals(user.getRole())) {
-            logger.warn("非管理员访问管理员页面 - 跳转登录页面"); // 添加日志
-            return new ModelAndView("redirect:/login.html");
-        }
-        logger.info("管理员页面访问成功 - 用户名: {}", user.getUsername()); // 添加日志
-        return new ModelAndView("admin/admin_main").addObject("user", user);
-    }
-    //reader页面
-    @RequestMapping("/reader_main.html")
-    public ModelAndView toReaderMain(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null || !"reader".equals(user.getRole())) {
-            logger.warn("非读者访问读者页面 - 跳转登录页面"); // 日志记录
-            return new ModelAndView("redirect:/login.html");
-        }
-        logger.info("读者页面访问成功 - 用户名: {}", user.getUsername()); // 日志记录
-        return new ModelAndView("reader/reader_main").addObject("user", user);
-    }
-
-
+    // =============== 用户管理相关方法 ===============
+    
     /**
-     * 处理用户查询（管理员端）
+     * 查询用户列表
      */
     @RequestMapping(value = "/queryuser.html", method = RequestMethod.GET)
     public ModelAndView adminQueryUser(@RequestParam(required = false) String searchWord) {
         ModelAndView mav = new ModelAndView("admin/admin_user_manage");
 
-        // 查询用户
         List<User> users;
         if (searchWord == null || searchWord.trim().isEmpty()) {
-            users = userService.getAllUsers(); // 关键词为空时，返回所有用户
+            users = userService.getAllUsers();
         } else {
-            users = userService.searchUsers(searchWord); // 按关键词搜索用户
+            users = userService.searchUsers(searchWord);
         }
 
-        // 传递数据到页面
         if (!users.isEmpty()) {
             mav.addObject("users", users);
         } else {
             mav.addObject("error", "没有匹配的用户");
         }
-        mav.addObject("searchWord", searchWord); // 让搜索框回填
+        mav.addObject("searchWord", searchWord);
 
         return mav;
     }
 
-
-
-    //admin page show all users
+    /**
+     * 显示所有用户列表
+     */
     @GetMapping("admin_user_manage.html")
     public String showAllUsers(Model model) {
         List<User> userList = userService.getAllUsers();
         model.addAttribute("users", userList);
-        return "admin/admin_user_manage";  // 显示用户列表的 JSP 页面
+        return "admin/admin_user_manage";
     }
 
-    //admin user delete
+    /**
+     * 删除用户
+     */
     @GetMapping("/admin/user/delete")
     public String deleteUser(@RequestParam("userId") Long userId, HttpServletRequest request, Model model) {
         boolean success = userService.deleteUser(userId, request);
@@ -197,7 +218,9 @@ public class UserController {
         return "redirect:/admin_user_manage.html";
     }
 
-    //admin add logic
+    /**
+     * 添加用户
+     */
     @PostMapping("/admin/user/add")
     @ResponseBody
     public Map<String, Object> addUser(@RequestParam("username") String username,
@@ -209,7 +232,6 @@ public class UserController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            // 权限检查
             User currentUser = (User) request.getSession().getAttribute("user");
             if (currentUser == null || !"admin".equals(currentUser.getRole())) {
                 logger.warn("非管理员尝试添加用户");
@@ -218,7 +240,6 @@ public class UserController {
                 return response;
             }
 
-            // 数据验证
             if (username == null || username.trim().isEmpty()) {
                 response.put("success", false);
                 response.put("message", "用户名不能为空！");
@@ -259,9 +280,11 @@ public class UserController {
         }
     }
 
-    //admin edit
+    /**
+     * 更新用户信息
+     */
     @PostMapping("/admin/user/update")
-    @ResponseBody  // 添加此注解返回JSON
+    @ResponseBody
     public Map<String, Object> updateUser(@ModelAttribute User user, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -275,9 +298,11 @@ public class UserController {
         return response;
     }
 
-    // =============== 整合UserAdminController的功能 ===============
+    // =============== 个人信息管理相关方法 ===============
     
-    // 显示个人信息管理页面
+    /**
+     * 显示个人信息页面
+     */
     @GetMapping("/reader/profile")
     public String showProfilePage(HttpServletRequest request, Model model) {
         User user = (User) request.getSession().getAttribute("user");
@@ -288,7 +313,9 @@ public class UserController {
         return "reader/profile";
     }
 
-    // 处理个人信息更新
+    /**
+     * 更新个人信息
+     */
     @PostMapping("/reader/profile/update")
     @ResponseBody
     public Map<String, Object> updateProfile(@ModelAttribute User user,
@@ -297,7 +324,6 @@ public class UserController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            // 验证当前用户身份
             User currentUser = (User) request.getSession().getAttribute("user");
             if (currentUser == null || !currentUser.getUserId().equals(user.getUserId())) {
                 response.put("success", false);
@@ -305,13 +331,11 @@ public class UserController {
                 return response;
             }
             
-            // 保持原有角色不变
             user.setRole(currentUser.getRole());
             
             boolean success = userService.updateUserProfile(user, newPassword, request);
             
             if (success) {
-                // 更新session中的用户信息
                 request.getSession().setAttribute("user", user);
             }
             
