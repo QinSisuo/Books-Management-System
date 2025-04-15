@@ -85,11 +85,11 @@ public class UserService {
         return rows > 0;
     }
 
-    // 根据 ID 获取读者信息
-    public User getReaderById(Long id) {
-        logger.info("根据 ID 获取读者信息 - 读者ID: {}", id);
-        return userMapper.findUserById(id);
-    }
+//    // 根据 ID 获取读者信息
+//    public User getReaderById(Long id) {
+//        logger.info("根据 ID 获取读者信息 - 读者ID: {}", id);
+//        return userMapper.findUserById(id);
+//    }
 
     // 更新读者信息
     public boolean updateReader(User user, HttpServletRequest request) {

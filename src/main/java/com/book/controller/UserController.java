@@ -277,14 +277,14 @@ public class UserController {
 
     // =============== 整合UserAdminController的功能 ===============
     
-    // 1. 查看所有读者
-    @GetMapping("/admin/readers")
-    public String getAllReaders(Model model) {
-        logger.info("管理员正在查看所有读者信息");
-        List<User> readers = userService.getAllReaders();
-        model.addAttribute("readers", readers);
-        return "admin_readers";
-    }
+//    // 1. 查看所有读者
+//    @GetMapping("/admin/readers")
+//    public String getAllReaders(Model model) {
+//        logger.info("管理员正在查看所有读者信息");
+//        List<User> readers = userService.getAllReaders();
+//        model.addAttribute("readers", readers);
+//        return "admin_readers";
+//    }
 
     // 3. 添加读者逻辑
     @PostMapping("/admin/reader/add")
@@ -301,19 +301,6 @@ public class UserController {
         return "redirect:/admin/readers";
     }
 
-    // 4. 编辑读者页面//应该可以删除
-    @GetMapping("/admin/reader/edit/{id}")
-    public String showEditReaderPage(@PathVariable("id") Long id, Model model) {
-        logger.info("管理员正在进入编辑读者页面 - 读者ID: {}", id);
-        User reader = userService.getReaderById(id);
-        if (reader == null) {
-            logger.warn("无法找到指定读者 - 读者ID: {}", id);
-            model.addAttribute("error", "无法找到指定的读者！");
-            return "admin_readers";
-        }
-        model.addAttribute("reader", reader);
-        return "admin_reader_edit";
-    }
 
     // 5. 更新读者信息
     @PostMapping("/admin/reader/edit")
