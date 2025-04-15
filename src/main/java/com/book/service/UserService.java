@@ -133,10 +133,18 @@ public class UserService {
     // 删除用户
     public boolean deleteUser(Long userId, HttpServletRequest request) {
         logger.info("删除用户 - 用户ID: {}", userId);
+        
+        // 获取当前登录用户（操作者）
+        User currentUser = (User) request.getSession().getAttribute("user");
+        
         int rows = userMapper.deleteUser(userId);
         
         // 记录操作日志
         SystemLog log = new SystemLog();
+        if (currentUser != null) {
+            log.setUserId(currentUser.getUserId());
+            log.setUserName(currentUser.getUsername());
+        }
         log.setOperationType("删除用户");
         log.setDescription("删除用户ID: " + userId);
         log.setResult(rows > 0 ? "成功" : "失败");
