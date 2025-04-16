@@ -4,7 +4,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>reader图书查询</title>
+    <title>图书目录</title>
     <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">

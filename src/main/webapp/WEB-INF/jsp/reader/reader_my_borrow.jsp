@@ -5,7 +5,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>我的借还</title>
+    <title>我的借还记录</title>
     <!-- 引入外部 CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
@@ -34,7 +34,7 @@
             <div class="panel-heading bg-white">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h3 class="panel-title mb-0">我的借还日志</h3>
+                        <h3 class="panel-title mb-0">我的借还记录</h3>
                     </div>
                 </div>
             </div>
